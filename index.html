@@ -869,9 +869,13 @@
       display:flex; align-items:center; justify-content:center; gap:8px;
     }
     /* Outer spin-border wrapper para o vídeo */
+    .consul-video-center {
+      text-align:center;
+      margin-bottom:72px;
+    }
     .consul-video-outer {
-      display:table; /* shrink-wrap confiável cross-browser */
-      margin:0 auto 72px;
+      display:inline-block;
+      vertical-align:top;
       position:relative;
       border-radius:calc(var(--radius) + 4px);
       padding:3px;
@@ -1637,12 +1641,14 @@
     <p class="consul-video-label reveal">
       <span>▶</span> Tour pelo consultório
     </p>
-    <div class="consul-video-outer reveal d1">
-      <div class="consul-video-wrap">
-        <video controls preload="metadata" poster="./consultorio/sala-completa.jpg">
-          <source src="./consultorio/video-consultorio.mp4" type="video/mp4">
-          Seu navegador não suporta vídeo HTML5.
-        </video>
+    <div class="consul-video-center reveal d1">
+      <div class="consul-video-outer">
+        <div class="consul-video-wrap">
+          <video controls preload="metadata" poster="./consultorio/sala-completa.jpg">
+            <source src="./consultorio/video-consultorio.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+          </video>
+        </div>
       </div>
     </div>
 
