@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade & Termos de Uso | Nutri Bruna Boreggio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream-dark: #F2EAE0;
+      --gold: #C5965A;
+      --gold-light: #E8D4B5;
+      --gold-dark: #A07840;
+      --brown: #2C1A0E;
+      --brown-mid: #5A3E28;
+      --brown-light: #8B6845;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--brown);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .header-brand {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+
+    .header-back {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .header-back:hover { color: var(--gold-light); }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(160deg, var(--brown) 0%, #4A2C18 100%);
+      padding: 64px 40px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(197,150,90,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .page-hero-tag {
+      display: inline-block;
+      background: rgba(197,150,90,0.18);
+      border: 1px solid rgba(197,150,90,0.35);
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .page-hero h1 span {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1em;
+      color: var(--gold-light);
+    }
+
+    .page-hero p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ── ÍNDICE ── */
+    .index-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 0 40px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .index-bar nav {
+      display: inline-flex;
+      gap: 0;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .index-bar a {
+      display: inline-block;
+      padding: 16px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brown-light);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .index-bar a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── CONTEÚDO ── */
+    .content-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 40px 80px;
+    }
+
+    /* SEÇÃO */
+    .policy-section {
+      margin-bottom: 64px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-marker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .policy-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      color: var(--brown-mid);
+      margin-bottom: 14px;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul, .policy-section ol {
+      margin: 12px 0 16px 20px;
+    }
+
+    .policy-section li {
+      font-size: 15px;
+      color: var(--brown-mid);
+      margin-bottom: 8px;
+      padding-left: 6px;
+    }
+
+    .policy-section strong {
+      color: var(--brown);
+      font-weight: 600;
+    }
+
+    /* DESTAQUE */
+    .highlight-box {
+      background: var(--cream-dark);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    /* DIVISOR */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--cream-dark);
+      margin: 64px 0;
+    }
+
+    /* CONTATO BOX */
+    .contact-box {
+      background: var(--brown);
+      border-radius: 20px;
+      padding: 40px 36px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .contact-box h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .contact-box p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 6px;
+    }
+
+    .contact-box a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* UPDATE DATE */
+    .update-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 48px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+    }
+
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── SHIMMER DOURADO ── */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+
+    .shimmer-gold {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 35%, #f5e4b3 50%, var(--gold) 65%, var(--gold-dark) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3.5s linear infinite;
+      display: inline-block;
+    }
+
+    .header-brand {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 35%, #f5e4b3 50%, var(--gold) 65%, var(--gold-dark) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3.5s linear infinite;
+    }
+
+    .page-hero h1 span {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-light) 35%, #fff8ec 50%, var(--gold-light) 65%, var(--gold-dark) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .contact-box h3 {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-light) 35%, #fff8ec 50%, var(--gold-light) 65%, var(--gold-dark) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3.5s linear infinite;
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 16px 20px; }
+      .page-hero { padding: 48px 20px 56px; }
+      .content-wrap { padding: 48px 20px 64px; }
+      .contact-box { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="comunidade-vip.html" class="header-brand">Bruna Boreggio</a>
+  <a href="comunidade-vip.html" class="header-back">← Voltar à página da Comunidade VIP</a>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <span class="page-hero-tag">Transparência & Segurança</span>
+  <h1>Política de Privacidade<br /><span>& Termos de Uso</span></h1>
+  <p>Bruna Boreggio Nutricionista · CNPJ 60.532.7070/0001-70</p>
+</div>
+
+<!-- ÍNDICE DE NAVEGAÇÃO -->
+<div class="index-bar">
+  <nav>
+    <a href="#quem-somos">Quem somos</a>
+    <a href="#dados">Dados coletados</a>
+    <a href="#uso">Uso dos dados</a>
+    <a href="#direitos">Seus direitos</a>
+    <a href="#cookies">Cookies</a>
+    <a href="#propriedade">Propriedade intelectual</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</div>
+
+<!-- CONTEÚDO -->
+<div class="content-wrap">
+
+  <div class="update-badge">
+    📅 &nbsp;Última atualização: maio de 2026
+  </div>
+
+  <!-- 1. QUEM SOMOS -->
+  <section class="policy-section" id="quem-somos">
+    <div class="section-marker">
+      <div class="section-number">1</div>
+      <h2>Quem somos</h2>
+    </div>
+    <p>
+      Este site e todos os produtos digitais aqui comercializados são de responsabilidade de
+      <strong>Bruna Boreggio</strong>, nutricionista registrada no CRN 68497,
+      com endereço profissional na Rua Francisco Antonio Miranda, 58 — sala 13, Centro,
+      Guarulhos — SP, CEP 07090-140.
+    </p>
+    <p>
+      Ao acessar esta página ou adquirir qualquer produto, você concorda com os termos
+      descritos neste documento, nos termos da <strong>Lei Geral de Proteção de Dados
+      (LGPD — Lei nº 13.709/2018)</strong> e do <strong>Código de Defesa do Consumidor
+      (Lei nº 8.078/1990)</strong>.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 2. DADOS COLETADOS -->
+  <section class="policy-section" id="dados">
+    <div class="section-marker">
+      <div class="section-number">2</div>
+      <h2>Dados coletados</h2>
+    </div>
+    <p>
+      Para processar sua compra e garantir o acesso aos produtos, podemos coletar os
+      seguintes dados pessoais:
+    </p>
+    <ul>
+      <li><strong>Nome completo</strong> — para identificação e emissão de recibo</li>
+      <li><strong>Endereço de e-mail</strong> — para envio de confirmação e acesso ao produto</li>
+      <li><strong>Número de WhatsApp</strong> — para inclusão na Comunidade VIP</li>
+      <li><strong>Dados de pagamento</strong> — processados exclusivamente pela plataforma de pagamento; não armazenamos dados de cartão</li>
+      <li><strong>Dados de navegação</strong> — como endereço IP e comportamento na página, coletados de forma anônima para análise de desempenho</li>
+    </ul>
+    <div class="highlight-box">
+      <p>
+        <strong>Nunca vendemos, alugamos ou compartilhamos seus dados pessoais com terceiros
+        para fins comerciais.</strong> Seus dados são usados exclusivamente para a prestação
+        do serviço contratado.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 3. USO DOS DADOS -->
+  <section class="policy-section" id="uso">
+    <div class="section-marker">
+      <div class="section-number">3</div>
+      <h2>Como usamos seus dados</h2>
+    </div>
+    <p>Os dados coletados têm as seguintes finalidades:</p>
+    <ul>
+      <li>Processar e confirmar sua compra</li>
+      <li>Liberar o acesso ao produto adquirido (grupo do WhatsApp)</li>
+      <li>Enviar comunicações relacionadas ao produto (avisos de lives, novos conteúdos, atualizações)</li>
+      <li>Responder dúvidas ou solicitações de suporte</li>
+      <li>Cumprir obrigações legais e fiscais</li>
+    </ul>
+    <p>
+      Você pode, a qualquer momento, solicitar a exclusão dos seus dados ou cancelar
+      o recebimento de comunicações entrando em contato pelo e-mail ou WhatsApp indicados
+      no final desta página.
+    </p>
+    <p>
+      <strong>Retenção:</strong> os dados são armazenados pelo período necessário ao cumprimento
+      das finalidades acima ou conforme exigido por lei (em geral, 5 anos para registros fiscais).
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 4. SEUS DIREITOS -->
+  <section class="policy-section" id="direitos">
+    <div class="section-marker">
+      <div class="section-number">4</div>
+      <h2>Seus direitos (LGPD)</h2>
+    </div>
+    <p>
+      Conforme a Lei Geral de Proteção de Dados, você tem os seguintes direitos em relação
+      aos seus dados pessoais:
+    </p>
+    <ul>
+      <li><strong>Acesso</strong> — saber quais dados seus estão armazenados</li>
+      <li><strong>Correção</strong> — solicitar atualização de dados incorretos ou desatualizados</li>
+      <li><strong>Exclusão</strong> — pedir a remoção dos seus dados, observadas as obrigações legais de retenção</li>
+      <li><strong>Portabilidade</strong> — receber seus dados em formato estruturado</li>
+      <li><strong>Oposição</strong> — opor-se ao tratamento realizado com base em legítimo interesse</li>
+      <li><strong>Revogação do consentimento</strong> — retirar a autorização concedida a qualquer momento</li>
+    </ul>
+    <p>
+      Para exercer qualquer um desses direitos, entre em contato pelo e-mail ou WhatsApp
+      listados na seção de contato abaixo. Respondemos em até 15 dias úteis.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 5. COOKIES -->
+  <section class="policy-section" id="cookies">
+    <div class="section-marker">
+      <div class="section-number">5</div>
+      <h2>Cookies e rastreamento</h2>
+    </div>
+    <p>
+      Esta página pode utilizar cookies e tecnologias similares para melhorar a experiência
+      de navegação e analisar o desempenho do site. Os dados coletados são anônimos e não
+      permitem sua identificação individual.
+    </p>
+    <p>Tipos de cookies utilizados:</p>
+    <ul>
+      <li><strong>Essenciais</strong> — necessários para o funcionamento básico da página</li>
+      <li><strong>Analíticos</strong> — coletam informações sobre como os visitantes usam o site
+      (ex.: Google Analytics), sempre de forma anônima</li>
+      <li><strong>De marketing</strong> — utilizados para exibir anúncios relevantes em redes
+      sociais (ex.: pixel do Facebook/Meta), quando aplicável</li>
+    </ul>
+    <p>
+      Você pode desativar os cookies nas configurações do seu navegador a qualquer momento,
+      sem que isso afete o acesso ao produto adquirido.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 6. PROPRIEDADE INTELECTUAL -->
+  <section class="policy-section" id="propriedade">
+    <div class="section-marker">
+      <div class="section-number">6</div>
+      <h2>Propriedade intelectual & direitos autorais</h2>
+    </div>
+    <p>
+      Todo o conteúdo produzido por <strong>Bruna Boreggio</strong> — incluindo, mas não se
+      limitando a: textos, vídeos, lives, materiais em PDF, planilhas, artes, marca,
+      logotipo e demais elementos visuais — é de propriedade exclusiva da autora e está
+      protegido pela <strong>Lei de Direitos Autorais (Lei nº 9.610/1998)</strong>.
+    </p>
+    <div class="highlight-box">
+      <p>
+        <strong>É expressamente proibido</strong> copiar, reproduzir, distribuir, revender,
+        adaptar ou utilizar qualquer conteúdo sem autorização prévia e por escrito de
+        Bruna Boreggio, sob pena de responsabilização civil e criminal.
+      </p>
+    </div>
+    <p>
+      Ao adquirir qualquer produto, você recebe uma <strong>licença de uso pessoal,
+      intransferível e não exclusiva</strong>. Isso significa que o conteúdo é para
+      uso individual — não pode ser repassado, vendido ou compartilhado com terceiros.
+    </p>
+    <p>
+      Depoimentos, avaliações e resultados divulgados são de clientes reais que consentiram
+      com a publicação. Resultados individuais podem variar.
+    </p>
+
+    <p style="margin-top: 24px; font-size: 14px; color: var(--brown-light);">
+      © 2026 Bruna Boreggio Nutricionista. Todos os direitos reservados.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 7. TERMOS DE COMPRA -->
+  <section class="policy-section" id="termos-compra">
+    <div class="section-marker">
+      <div class="section-number">7</div>
+      <h2>Termos de compra & cancelamento</h2>
+    </div>
+    <p>
+      A <strong>Comunidade VIP</strong> é um produto de assinatura mensal. Ao efetuar o pagamento,
+      você concorda com os seguintes termos:
+    </p>
+    <ul>
+      <li>O acesso é liberado imediatamente após a confirmação do pagamento</li>
+      <li>A cobrança é mensal e automática, de acordo com a data de adesão</li>
+      <li>O cancelamento pode ser feito a qualquer momento, sem multa; o acesso se mantém até o fim do período pago</li>
+      <li>Não há reembolso proporcional por dias não utilizados dentro do mês corrente</li>
+      <li>Em caso de problemas técnicos com o acesso, entre em contato pelo WhatsApp para suporte imediato</li>
+    </ul>
+    <div class="highlight-box">
+      <p>
+        Conforme o <strong>Código de Defesa do Consumidor (Art. 49)</strong>, compras realizadas
+        pela internet têm direito de arrependimento em até <strong>7 dias corridos</strong>
+        a partir da data da compra, com reembolso integral.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- 8. ALTERAÇÕES -->
+  <section class="policy-section" id="alteracoes">
+    <div class="section-marker">
+      <div class="section-number">8</div>
+      <h2>Alterações nesta política</h2>
+    </div>
+    <p>
+      Esta política pode ser atualizada a qualquer momento para refletir mudanças legais
+      ou operacionais. A data da última atualização estará sempre indicada no topo do documento.
+    </p>
+    <p>
+      Em caso de alterações relevantes, os membros ativos serão comunicados pelo grupo da
+      Comunidade VIP no WhatsApp.
+    </p>
+  </section>
+
+  <!-- CONTATO -->
+  <div class="contact-box" id="contato">
+    <h3>Fale com a gente</h3>
+    <p>Dúvidas sobre esta política? Entre em contato:</p>
+    <p style="margin-top: 16px;">
+      📧 &nbsp;<a href="mailto:Nutri.brunaboreggio@gmail.com">Nutri.brunaboreggio@gmail.com</a>
+    </p>
+    <p>
+      📱 &nbsp;<a href="https://wa.me/55XXXXXXXXXXX" target="_blank">WhatsApp (clique para conversar)</a>
+    </p>
+    <p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.35);">
+      Respondemos em até 2 dias úteis.
+    </p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom: 6px;">
+    <span style="font-family: 'Dancing Script', cursive; font-size: 18px; background: linear-gradient(90deg,#A07840 0%,#C5965A 35%,#f5e4b3 50%,#C5965A 65%,#A07840 100%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 3.5s linear infinite; display:inline-block;">Bruna Boreggio</span>
+    &nbsp;·&nbsp; Nutricionista &nbsp;·&nbsp; CRN 68497
+  </p>
+  <p>Rua Francisco Antonio Miranda, 58 — sala 13, Centro, Guarulhos - SP</p>
+  <p style="margin-top: 12px;">
+    <a href="https://www.instagram.com/nutri_brunaboreggio/" target="_blank">@nutri_brunaboreggio</a>
+  </p>
+  <p style="margin-top: 16px; font-size: 12px;">
+    © 2026 Bruna Boreggio Nutricionista · <a href="politica-privacidade.html">Política de Privacidade</a>
+  </p>
+</footer>
+
+</body>
+</html>

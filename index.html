@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bruna Boreggio | Nutricionista em Guarulhos</title>
+  <meta name="description" content="Nutricionista especializada em emagrecimento e hipertrofia em Guarulhos, SP. Consultas presenciais e online. Resultados reais com ciência e cuidado individualizado.">
+  <meta property="og:title" content="Bruna Boreggio | Nutricionista em Guarulhos">
+  <meta property="og:description" content="Emagrecimento e hipertrofia com acompanhamento nutricional especializado. Presencial em Guarulhos ou online.">
+  <meta property="og:type" content="website">
+
+  <!-- ================================================
+       FACEBOOK PIXEL — adicione seu Pixel ID abaixo
+       ================================================ -->
+  <!--
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_ID_AQUI');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/></noscript>
+  -->
+
+  <!-- ================================================
+       GOOGLE ANALYTICS — adicione seu GA4 ID abaixo
+       ================================================ -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       VARIÁVEIS & RESET
+    ============================================= */
+    :root {
+      --cream:       #FAF7F2;
+      --gold:        #C5965A;
+      --gold-light:  #E8D4B5;
+      --gold-dark:   #A07840;
+      --brown:       #2C1A0E;
+      --brown-mid:   #5A3E28;
+      --brown-light: #8B6A4A;
+      --white:       #FFFFFF;
+      --off-white:   #F4EFE6;
+      --shadow:      0 4px 28px rgba(44,26,14,.10);
+      --shadow-lg:   0 12px 56px rgba(44,26,14,.18);
+      --radius:      18px;
+      --radius-sm:   10px;
+      --ease:        cubic-bezier(.4,0,.2,1);
+      --t:           all .35s var(--ease);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      font-family:'Poppins', sans-serif;
+      background:var(--cream);
+      color:var(--brown);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    img { display:block; max-width:100%; }
+    a { color:inherit; }
+    .script { font-family:'Dancing Script', cursive; }
+
+    /* =============================================
+       NAVEGAÇÃO
+    ============================================= */
+    #nav {
+      position:fixed; top:0; left:0; right:0; z-index:900;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:22px 56px;
+      transition:var(--t);
+    }
+    #nav.scrolled {
+      background:rgba(28,16,8,.96);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      padding:14px 56px;
+      box-shadow:0 2px 32px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      font-family:'Dancing Script', cursive;
+      font-size:2.1rem;
+      text-decoration:none; line-height:1;
+      letter-spacing:-.5px; transition:var(--t);
+    }
+    .nav-logo-name {
+      display:block;
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 35%, #f5e4b3 50%, var(--gold) 65%, var(--gold-dark) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:shimmer 3.5s linear infinite;
+    }
+    .nav-logo span {
+      font-size:.75rem; display:block; font-family:'Poppins',sans-serif; font-weight:400; letter-spacing:2px; text-transform:uppercase; transition:var(--t);
+      background: linear-gradient(90deg, var(--brown-light) 0%, var(--gold-light) 40%, var(--gold) 55%, var(--gold-light) 70%, var(--brown-light) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:shimmer 4.5s linear infinite;
+    }
+    #nav.scrolled .nav-logo span {
+      background: linear-gradient(90deg, rgba(255,255,255,.35) 0%, var(--gold-light) 40%, var(--gold) 55%, var(--gold-light) 70%, rgba(255,255,255,.35) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .nav-links {
+      display:flex; align-items:center; gap:36px; list-style:none;
+    }
+    .nav-links a {
+      color:var(--brown-mid); text-decoration:none;
+      font-size:.8rem; font-weight:500; letter-spacing:.6px; text-transform:uppercase;
+      transition:var(--t); position:relative;
+    }
+    #nav.scrolled .nav-links a { color:rgba(255,255,255,.8); }
+    #nav.scrolled .nav-links a:hover { color:var(--gold); }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-4px; left:0; right:0; height:1.5px;
+      background:var(--gold); transform:scaleX(0); transition:var(--t); transform-origin:left;
+    }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-links a:hover::after { transform:scaleX(1); }
+    .nav-cta {
+      background:var(--gold) !important; color:var(--brown) !important;
+      padding:10px 26px !important; border-radius:50px !important;
+      font-weight:700 !important; letter-spacing:.3px !important;
+    }
+    .nav-cta::after { display:none !important; }
+    .nav-cta:hover { background:var(--gold-dark) !important; transform:translateY(-1px); box-shadow:0 4px 16px rgba(197,150,90,.4); }
+    .hamburger {
+      display:none; background:none; border:none;
+      color:var(--brown); cursor:pointer; padding:4px;
+      flex-direction:column; gap:5px;
+    }
+    .hamburger span {
+      display:block; width:26px; height:2px;
+      background:var(--brown); border-radius:2px; transition:var(--t);
+    }
+    #nav.scrolled .hamburger span { background:white; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display:none; position:fixed; inset:0; z-index:850;
+      background:var(--brown); flex-direction:column;
+      align-items:center; justify-content:center; gap:36px;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      color:rgba(255,255,255,.9); text-decoration:none;
+      font-size:1.6rem; font-weight:600; transition:var(--t);
+    }
+    .mobile-menu a:hover { color:var(--gold); }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #hero {
+      min-height:100vh;
+      background:linear-gradient(140deg, #FAF7F2 0%, #F4EEE2 55%, #EDE3CF 100%);
+      position:relative; display:flex; align-items:center;
+      overflow:hidden;
+    }
+    /* Decorative circles */
+    #hero::before {
+      content:''; position:absolute; top:-120px; right:-120px;
+      width:600px; height:600px; border-radius:50%;
+      background:radial-gradient(circle, rgba(197,150,90,.12) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    #hero::after {
+      content:''; position:absolute; bottom:-80px; left:-80px;
+      width:400px; height:400px; border-radius:50%;
+      background:radial-gradient(circle, rgba(197,150,90,.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-bg-img { display:none; }
+    .hero-gradient { display:none; }
+    .hero-grain { display:none; }
+    .hero-content {
+      position:relative; z-index:2;
+      max-width:1260px; margin:0 auto; padding:130px 56px 90px;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+    }
+    .hero-text { animation:slideInLeft .9s var(--ease) both; }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(197,150,90,.18); border:1px solid rgba(197,150,90,.5);
+      color:var(--gold-dark); padding:8px 22px; border-radius:50px;
+      font-size:.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .hero-badge::before { content:'✦'; font-size:.6rem; }
+    .hero-h1 {
+      font-size:clamp(2.2rem, 3.8vw, 3.6rem);
+      font-weight:700; color:var(--brown); line-height:1.12; margin-bottom:18px;
+    }
+    .hero-h1 .script {
+      font-size:1.15em; display:block;
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 35%, #f0d49a 50%, var(--gold) 65%, var(--gold-dark) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:shimmer 3.5s linear infinite;
+    }
+    .hero-sub {
+      font-size:1rem; color:var(--brown-mid);
+      line-height:1.75; margin-bottom:44px; max-width:480px;
+    }
+    .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+    .btn-gold {
+      background:var(--gold); color:var(--brown);
+      padding:16px 38px; border-radius:50px;
+      font-weight:700; font-size:.93rem; text-decoration:none;
+      transition:var(--t); display:inline-block;
+      box-shadow:0 4px 24px rgba(197,150,90,.45);
+      border:none; cursor:pointer; font-family:'Poppins',sans-serif;
+    }
+    .btn-gold:hover { background:var(--gold-dark); transform:translateY(-2px); box-shadow:0 8px 36px rgba(197,150,90,.55); }
+    .btn-outline {
+      background:transparent; color:var(--brown);
+      padding:16px 38px; border-radius:50px;
+      font-weight:600; font-size:.93rem; text-decoration:none;
+      border:1.5px solid rgba(44,26,14,.25);
+      transition:var(--t); display:inline-block;
+    }
+    .btn-outline:hover { border-color:var(--gold); color:var(--gold-dark); transform:translateY(-1px); }
+    /* btn-outline on dark sections */
+    #cta-final .btn-outline {
+      color:rgba(255,255,255,.88);
+      border-color:rgba(255,255,255,.35);
+    }
+    #cta-final .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+    .hero-image {
+      display:flex; align-items:flex-end; justify-content:center;
+      animation:slideInRight .9s var(--ease) .2s both;
+    }
+    .hero-photo-frame {
+      position:relative; width:100%; max-width:430px;
+    }
+    .hero-photo-deco {
+      position:absolute; inset:28px 0 0 28px;
+      border:1px solid rgba(197,150,90,.3);
+      border-radius:var(--radius); background:rgba(197,150,90,.08);
+    }
+    /* =============================================
+       SPINNING GOLD BORDER — applies to all photos
+    ============================================= */
+    .photo-spin-border {
+      position:relative;
+      border-radius:calc(var(--radius) + 4px);
+      padding:3px;
+      overflow:hidden;
+    }
+    .photo-spin-border::before {
+      content:'';
+      position:absolute;
+      width:200%; height:200%;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) rotate(0deg);
+      background:conic-gradient(
+        transparent 0deg,
+        transparent 250deg,
+        var(--gold-dark) 270deg,
+        var(--gold) 295deg,
+        #f5e4b3 310deg,
+        var(--gold) 325deg,
+        var(--gold-dark) 345deg,
+        transparent 360deg
+      );
+      animation:borderSpin 3.2s linear infinite;
+      z-index:0;
+    }
+    @keyframes borderSpin {
+      from { transform:translate(-50%,-50%) rotate(0deg); }
+      to   { transform:translate(-50%,-50%) rotate(360deg); }
+    }
+    /* Hero photo uses the spin border with its own margins */
+    .hero-photo-border-wrap {
+      margin-right:28px; margin-bottom:28px;
+    }
+    .hero-photo-main {
+      position:relative; border-radius:calc(var(--radius) - 1px); overflow:hidden;
+      aspect-ratio:3/4; background:var(--brown-mid);
+      box-shadow:var(--shadow-lg);
+      z-index:1;
+      margin:0;
+    }
+    .hero-photo-main img { width:100%; height:100%; object-fit:cover; object-position:top; }
+    /* About photo spin border */
+    .sobre-spin-border { display:block; }
+    .sobre-spin-border .sobre-main { box-shadow:none; margin:0; z-index:1; position:relative; }
+    /* FAQ photo spin border wrapper */
+    .faq-spin-border {
+      position:sticky !important; top:100px;
+      aspect-ratio:3/4;
+    }
+    .faq-spin-border .faq-aside-img {
+      position:relative; top:auto;
+      aspect-ratio:3/4; border-radius:calc(var(--radius) - 1px);
+      z-index:1;
+    }
+    .hero-chip {
+      position:absolute; bottom:-10px; left:-32px;
+      background:white; border-radius:var(--radius-sm);
+      padding:14px 20px; box-shadow:var(--shadow-lg);
+      display:flex; align-items:center; gap:14px; min-width:200px;
+      z-index:20;
+    }
+    .chip-icon { font-size:2rem; }
+    .chip-num { font-size:1.5rem; font-weight:700; color:var(--gold); line-height:1; }
+    .chip-label { font-size:.72rem; color:var(--brown-light); font-weight:500; }
+    .hero-tag {
+      position:absolute; top:24px; right:-16px;
+      background:var(--gold); color:white;
+      font-size:.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+      padding:8px 18px; border-radius:50px;
+      box-shadow:0 4px 16px rgba(197,150,90,.4);
+    }
+
+    /* =============================================
+       STATS STRIP
+    ============================================= */
+    #stats {
+      background: linear-gradient(180deg,
+        rgba(44,26,14,.82) 0%,
+        rgba(70,42,20,.75) 50%,
+        rgba(44,26,14,.82) 100%
+      );
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(197,150,90,.38);
+      border-bottom: 1px solid rgba(197,150,90,.38);
+      padding:30px 56px;
+      position:relative;
+      overflow:hidden;
+    }
+    /* Glass highlight streak at the top */
+    #stats::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0; height:45%;
+      background: linear-gradient(180deg, rgba(255,255,255,.07) 0%, transparent 100%);
+      pointer-events:none; z-index:0;
+    }
+    /* Ambient gold glow spots */
+    #stats::after {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 55% 90% at 20% 50%, rgba(197,150,90,.12) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 90% at 80% 50%, rgba(197,150,90,.10) 0%, transparent 65%);
+      pointer-events:none; z-index:0;
+    }
+    #stats .stats-inner { position:relative; z-index:1; }
+    #stats .stat-num { color:var(--gold); }
+    #stats .stat-lbl { color:var(--gold-light); }
+    #stats .stat-sep { background:rgba(197,150,90,.30); }
+    .stats-inner {
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:24px;
+    }
+    .stat-item { text-align:center; }
+    .stat-num { font-size:2.2rem; font-weight:700; color:var(--brown); line-height:1; }
+    .stat-lbl { font-size:.72rem; color:var(--brown-mid); font-weight:500; letter-spacing:.5px; margin-top:4px; }
+    .stat-sep { width:1px; height:44px; background:rgba(44,26,14,.18); }
+
+    /* =============================================
+       SEÇÕES — BASE
+    ============================================= */
+    section { padding:108px 56px; }
+    .section-inner { max-width:1200px; margin:0 auto; }
+    .section-eyebrow {
+      display:inline-block;
+      color:var(--gold); font-size:.72rem; font-weight:700;
+      letter-spacing:2.5px; text-transform:uppercase; margin-bottom:14px;
+    }
+    .section-title {
+      font-size:clamp(1.9rem, 3vw, 2.9rem);
+      font-weight:700; color:var(--brown); line-height:1.18; margin-bottom:18px;
+    }
+    .section-title .script { color:var(--gold); }
+    .section-lead {
+      font-size:1rem; color:var(--brown-light); line-height:1.78;
+      max-width:580px; margin-bottom:60px;
+    }
+
+    /* =============================================
+       SOBRE
+    ============================================= */
+    #sobre { background:var(--cream); }
+    .sobre-grid {
+      display:grid; grid-template-columns:1fr 1.1fr; gap:88px; align-items:center;
+    }
+    .sobre-img-wrap { position:relative; }
+    .sobre-main {
+      border-radius:var(--radius); overflow:hidden;
+      aspect-ratio:3/4; background:var(--off-white);
+      box-shadow:var(--shadow-lg);
+    }
+    .sobre-main img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+    .sobre-accent {
+      position:absolute; bottom:-28px; right:-28px;
+      width:180px; aspect-ratio:1;
+      border-radius:var(--radius-sm); overflow:hidden;
+      border:4px solid white; box-shadow:var(--shadow);
+      background:var(--off-white);
+      z-index:5;
+    }
+    .sobre-accent img { width:100%; height:100%; object-fit:cover; }
+    .crn-pill {
+      position:absolute; top:28px; left:-18px;
+      background:var(--gold); color:var(--brown);
+      font-size:.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+      padding:8px 20px; border-radius:50px; box-shadow:var(--shadow);
+      z-index:10;
+    }
+    .sobre-text { font-size:.97rem; color:var(--brown-mid); line-height:1.82; margin-bottom:22px; }
+    .sobre-highlights { margin:32px 0 36px; display:flex; flex-direction:column; gap:20px; }
+    .hi-item { display:flex; align-items:flex-start; gap:18px; }
+    .hi-icon {
+      min-width:46px; height:46px;
+      background:var(--gold-light); border-radius:50%;
+      display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+    }
+    .hi-body strong { display:block; font-size:.93rem; font-weight:600; color:var(--brown); }
+    .hi-body span { font-size:.85rem; color:var(--brown-light); line-height:1.5; }
+
+    /* =============================================
+       MÉTODO
+    ============================================= */
+    #metodo { background:var(--brown); }
+    #metodo .section-eyebrow { color:var(--gold-light); }
+    #metodo .section-title { color:white; }
+    #metodo .section-lead { color:rgba(255,255,255,.55); }
+    .metodo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+    .metodo-card {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(197,150,90,.2);
+      border-radius:var(--radius); padding:40px 32px;
+      transition:var(--t); cursor:default;
+    }
+    .metodo-card:hover {
+      background:rgba(197,150,90,.1);
+      border-color:rgba(197,150,90,.45);
+      transform:translateY(-6px);
+    }
+    .metodo-num {
+      font-family:'Dancing Script', cursive;
+      font-size:3.5rem; color:var(--gold); opacity:.35; margin-bottom:8px; line-height:1;
+    }
+    .metodo-icon { font-size:2rem; margin-bottom:14px; }
+    .metodo-title { font-size:1.1rem; font-weight:700; color:white; margin-bottom:12px; }
+    .metodo-text { font-size:.88rem; color:rgba(255,255,255,.55); line-height:1.75; }
+
+    /* =============================================
+       SERVIÇOS
+    ============================================= */
+    #servicos { background:var(--off-white); }
+    .servicos-intro {
+      display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; flex-wrap:wrap; gap:24px;
+    }
+    .servicos-intro .section-lead { margin-bottom:0; }
+    .servicos-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    }
+    .serv-card {
+      background:white; border-radius:var(--radius);
+      padding:36px 28px; border:1px solid rgba(197,150,90,.12);
+      box-shadow:var(--shadow); transition:var(--t); position:relative; overflow:hidden;
+    }
+    .serv-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--gold-light); transition:var(--t);
+    }
+    .serv-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+    .serv-card:hover::after { background:var(--gold); }
+    .serv-card.featured { background:var(--brown); border-color:var(--gold); }
+    .serv-card.featured::after { background:var(--gold); height:4px; }
+    .serv-badge {
+      display:inline-block;
+      background:var(--gold-light); color:var(--brown);
+      font-size:.64rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      padding:4px 14px; border-radius:50px; margin-bottom:20px;
+    }
+    .serv-card.featured .serv-badge { background:var(--gold); }
+    .serv-icon { font-size:2.4rem; margin-bottom:16px; display:block; }
+    .serv-name { font-size:1.15rem; font-weight:700; color:var(--brown); margin-bottom:10px; }
+    .serv-card.featured .serv-name { color:white; }
+    .serv-desc { font-size:.86rem; color:var(--brown-light); line-height:1.72; margin-bottom:22px; }
+    .serv-card.featured .serv-desc { color:rgba(255,255,255,.62); }
+    .serv-list { list-style:none; margin-bottom:28px; }
+    .serv-list li {
+      font-size:.83rem; color:var(--brown-mid);
+      padding:6px 0 6px 22px; position:relative; border-bottom:1px solid var(--gold-light);
+    }
+    .serv-list li:last-child { border-bottom:none; }
+    .serv-list li::before { content:'✦'; position:absolute; left:0; color:var(--gold); font-size:.55rem; top:10px; }
+    .serv-card.featured .serv-list li { color:rgba(255,255,255,.72); border-bottom-color:rgba(197,150,90,.2); }
+    .serv-price { margin-bottom:24px; }
+    .price-from { font-size:.7rem; color:var(--brown-light); display:block; margin-bottom:2px; }
+    .price-val { font-size:1.9rem; font-weight:700; color:var(--gold); }
+    .price-per { font-size:.78rem; color:var(--brown-light); font-weight:400; }
+    .btn-serv {
+      display:block; text-align:center; text-decoration:none;
+      padding:13px 20px; border-radius:50px;
+      font-weight:600; font-size:.85rem;
+      background:var(--gold-light); color:var(--brown);
+      transition:var(--t);
+    }
+    .btn-serv:hover { background:var(--gold); transform:translateY(-1px); }
+    .serv-card.featured .btn-serv { background:var(--gold); }
+    .serv-card.featured .btn-serv:hover { background:var(--gold-dark); }
+
+    /* grid override for 5 items: 3+2 */
+    .servicos-grid > .serv-card:nth-child(4) { grid-column:1; }
+    .servicos-grid > .serv-card:nth-child(5) { grid-column:2; }
+
+    /* =============================================
+       CALCULADORAS
+    ============================================= */
+    #calculadoras { background:var(--cream); }
+    .calc-tabs-wrap {
+      display:inline-flex; margin-bottom:44px;
+      border:1.5px solid var(--gold-light); border-radius:50px; overflow:hidden;
+    }
+    .calc-tab-btn {
+      padding:12px 32px; cursor:pointer; border:none; background:transparent;
+      font-family:'Poppins',sans-serif; font-size:.85rem; font-weight:600;
+      color:var(--brown-light); transition:var(--t);
+    }
+    .calc-tab-btn.active { background:var(--gold); color:var(--brown); border-radius:50px; }
+    .calc-panel { display:none; }
+    .calc-panel.active {
+      display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;
+    }
+    .calc-box {
+      background:white; border-radius:var(--radius);
+      padding:44px; box-shadow:var(--shadow);
+    }
+    .calc-box h3 { font-size:1.25rem; font-weight:700; color:var(--brown); margin-bottom:8px; }
+    .calc-box > p { font-size:.84rem; color:var(--brown-light); line-height:1.65; margin-bottom:28px; }
+    .field { margin-bottom:18px; }
+    .field label { display:block; font-size:.8rem; font-weight:600; color:var(--brown); margin-bottom:6px; }
+    .field input, .field select {
+      width:100%; padding:12px 16px;
+      border:1.5px solid var(--gold-light); border-radius:var(--radius-sm);
+      font-family:'Poppins',sans-serif; font-size:.9rem; color:var(--brown);
+      background:var(--cream); outline:none; transition:var(--t);
+    }
+    .field input:focus, .field select:focus { border-color:var(--gold); background:white; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .btn-calcular {
+      width:100%; padding:14px; border:none; cursor:pointer;
+      background:var(--gold); color:var(--brown); border-radius:50px;
+      font-family:'Poppins',sans-serif; font-weight:700; font-size:.95rem;
+      transition:var(--t); margin-top:6px;
+    }
+    .btn-calcular:hover { background:var(--gold-dark); transform:translateY(-1px); }
+    .calc-result { display:none; margin-top:22px; border-radius:var(--radius-sm); background:var(--brown); padding:24px; }
+    .calc-result.show { display:block; }
+    .res-val { font-size:2.8rem; font-weight:700; color:var(--gold); line-height:1; }
+    .res-unit { font-size:.8rem; color:rgba(255,255,255,.5); margin-bottom:6px; }
+    .res-class { font-size:1.1rem; font-weight:700; color:white; margin:8px 0; }
+    .res-note { font-size:.76rem; color:rgba(255,255,255,.45); line-height:1.55; margin-bottom:14px; }
+    .res-cta {
+      display:block; text-align:center;
+      padding:10px 24px; background:var(--gold); color:var(--brown);
+      border-radius:50px; text-decoration:none; font-weight:700; font-size:.82rem;
+      transition:var(--t);
+    }
+    .res-cta:hover { background:var(--gold-dark); }
+    .calc-side h4 { font-size:1.1rem; font-weight:700; color:var(--brown); margin-bottom:14px; }
+    .calc-side p { font-size:.86rem; color:var(--brown-mid); line-height:1.75; margin-bottom:18px; }
+    .imc-table { width:100%; border-collapse:collapse; font-size:.8rem; }
+    .imc-table th { text-align:left; padding:8px 12px; background:var(--gold-light); color:var(--brown); font-weight:600; }
+    .imc-table td { padding:9px 12px; border-bottom:1px solid var(--off-white); color:var(--brown-mid); }
+    .imc-table tr:last-child td { border-bottom:none; }
+    .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:7px; vertical-align:middle; }
+    .navy-steps { list-style:none; counter-reset:navy; }
+    .navy-steps li {
+      counter-increment:navy; padding:10px 0 10px 38px;
+      position:relative; font-size:.84rem; color:var(--brown-mid);
+      border-bottom:1px dashed var(--gold-light); line-height:1.6;
+    }
+    .navy-steps li::before {
+      content:counter(navy); position:absolute; left:0; top:10px;
+      width:24px; height:24px; border-radius:50%;
+      background:var(--gold-light); color:var(--brown);
+      font-weight:700; font-size:.7rem; display:flex; align-items:center; justify-content:center;
+    }
+
+    /* =============================================
+       DEPOIMENTOS
+    ============================================= */
+    #depoimentos { background:var(--off-white); }
+    #depoimentos .section-lead { margin-bottom:44px; }
+    /* Carousel wrapper */
+    .depo-carousel { position:relative; padding:0 20px; }
+    .depo-viewport { overflow:hidden; }
+    .depo-grid {
+      display:flex; flex-direction:row; gap:18px;
+      transition:transform .6s cubic-bezier(.4,0,.2,1);
+      will-change:transform;
+    }
+    .depo-nav-btn {
+      position:absolute; top:50%; transform:translateY(-60%);
+      width:44px; height:44px; border-radius:50%;
+      background:var(--gold); color:var(--brown); border:none;
+      cursor:pointer; font-size:1.8rem; font-weight:300; line-height:1;
+      z-index:5; box-shadow:0 4px 16px rgba(197,150,90,.4);
+      transition:var(--t); display:flex; align-items:center; justify-content:center;
+    }
+    .depo-nav-btn:hover { background:var(--gold-dark); transform:translateY(-60%) scale(1.1); }
+    .depo-prev { left:-8px; }
+    .depo-next { right:-8px; }
+    .depo-dots { display:flex; justify-content:center; gap:8px; margin-top:28px; }
+    .depo-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--gold-light); border:none; cursor:pointer;
+      transition:var(--t); padding:0;
+    }
+    .depo-dot.active { background:var(--gold); transform:scale(1.5); }
+    .depo-card {
+      border-radius:var(--radius-sm); overflow:hidden;
+      aspect-ratio:9/16; width:260px; min-width:260px; cursor:pointer;
+      flex-shrink:0;
+      position:relative; background:var(--brown-mid);
+      transition:var(--t);
+    }
+    .depo-card:hover { transform:scale(1.03); box-shadow:var(--shadow-lg); z-index:2; }
+    .depo-card img { width:100%; height:100%; object-fit:cover; object-position:top; }
+    .depo-hover {
+      position:absolute; inset:0; background:rgba(44,26,14,0);
+      transition:var(--t); display:flex; align-items:center; justify-content:center;
+    }
+    .depo-card:hover .depo-hover { background:rgba(44,26,14,.25); }
+    .depo-zoom {
+      width:48px; height:48px; border-radius:50%;
+      background:var(--gold); display:flex; align-items:center; justify-content:center;
+      opacity:0; transform:scale(.7); transition:var(--t); font-size:1.2rem; color:var(--brown);
+    }
+    .depo-card:hover .depo-zoom { opacity:1; transform:scale(1); }
+
+    /* Lightbox */
+    .lightbox {
+      display:none; position:fixed; inset:0; z-index:2000;
+      background:rgba(0,0,0,.93); align-items:center; justify-content:center;
+      padding:32px;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img { max-width:90vw; max-height:90vh; border-radius:var(--radius-sm); }
+    .lb-close {
+      position:absolute; top:20px; right:28px;
+      background:none; border:none; color:white; font-size:2.8rem;
+      cursor:pointer; line-height:1; opacity:.7; transition:var(--t);
+    }
+    .lb-close:hover { opacity:1; color:var(--gold); }
+
+    /* =============================================
+       CTA FINAL
+    ============================================= */
+    #cta-final {
+      background:var(--brown); padding:108px 56px; text-align:center;
+      position:relative; overflow:hidden;
+    }
+    .cta-glow {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:600px; height:600px; border-radius:50%;
+      background:radial-gradient(circle, rgba(197,150,90,.12) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .cta-inner { position:relative; z-index:1; max-width:680px; margin:0 auto; }
+    .cta-eyebrow { color:var(--gold); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:20px; display:block; }
+    .cta-h2 { font-size:clamp(2rem, 3.5vw, 3.2rem); font-weight:700; color:white; line-height:1.15; margin-bottom:22px; }
+    .cta-h2 .script { color:var(--gold); }
+    .cta-lead { font-size:1rem; color:rgba(255,255,255,.65); line-height:1.75; margin-bottom:44px; }
+    .cta-price-card {
+      display:inline-block;
+      background:rgba(197,150,90,.12); border:1px solid rgba(197,150,90,.3);
+      border-radius:var(--radius); padding:28px 48px; margin-bottom:36px;
+    }
+    .cta-from { font-size:.74rem; color:rgba(255,255,255,.45); display:block; }
+    .cta-price { font-size:3.2rem; font-weight:700; color:var(--gold); line-height:1; }
+    .cta-per { font-size:.85rem; color:rgba(255,255,255,.4); }
+    .cta-btns { display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; margin:0 auto; width:100%; }
+
+    /* =============================================
+       FAQ
+    ============================================= */
+    #faq { background:var(--cream); }
+    .faq-layout { display:grid; grid-template-columns:1fr 1.2fr; gap:88px; align-items:start; }
+    .faq-aside-img {
+      border-radius:var(--radius); overflow:hidden;
+      aspect-ratio:3/4; background:var(--off-white);
+      box-shadow:var(--shadow-lg); position:sticky; top:100px;
+    }
+    .faq-aside-img img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+    .faq-item { border-bottom:1px solid var(--gold-light); }
+    .faq-q {
+      width:100%; background:none; border:none; cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:22px 0; font-family:'Poppins',sans-serif;
+      font-size:.95rem; font-weight:600; color:var(--brown); text-align:left; gap:16px;
+    }
+    .faq-ico { font-size:1.6rem; color:var(--gold); transition:var(--t); flex-shrink:0; }
+    .faq-item.open .faq-ico { transform:rotate(45deg); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .45s var(--ease); }
+    .faq-a p { padding:0 0 22px; font-size:.9rem; color:var(--brown-light); line-height:1.75; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background:var(--brown); color:rgba(255,255,255,.55);
+      padding:72px 56px 36px;
+    }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-grid {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px;
+    }
+    .f-logo {
+      font-family:'Dancing Script',cursive; font-size:2.6rem;
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 35%, #f5e4b3 50%, var(--gold) 65%, var(--gold-dark) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:shimmer 3.5s linear infinite; display:inline-block;
+    }
+    .f-logo-sub {
+      font-size:.7rem; letter-spacing:2px; text-transform:uppercase; margin-top:2px; margin-bottom:14px;
+      background: linear-gradient(90deg, rgba(255,255,255,.25) 0%, rgba(197,150,90,.8) 40%, #f5e4b3 55%, rgba(197,150,90,.8) 70%, rgba(255,255,255,.25) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:shimmer 4.5s linear infinite; display:inline-block;
+    }
+    .f-tagline { font-size:.85rem; line-height:1.65; max-width:240px; margin-bottom:24px; }
+    .f-social { display:flex; gap:10px; }
+    .f-soc {
+      width:36px; height:36px; border-radius:50%;
+      background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center;
+      color:rgba(255,255,255,.6); text-decoration:none; font-size:1rem;
+      transition:var(--t);
+    }
+    .f-soc:hover { background:var(--gold); color:var(--brown); }
+    .f-col h5 {
+      font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:var(--gold-light); margin-bottom:22px;
+    }
+    .f-col a { display:block; font-size:.84rem; color:rgba(255,255,255,.5); text-decoration:none; margin-bottom:12px; transition:var(--t); }
+    .f-col a:hover { color:var(--gold); }
+    .footer-bar {
+      border-top:1px solid rgba(255,255,255,.08); padding-top:28px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    }
+    .footer-bar p { font-size:.76rem; }
+    .footer-bar a { color:rgba(255,255,255,.4); text-decoration:none; transition:var(--t); margin-left:20px; }
+    .footer-bar a:hover { color:var(--gold); }
+
+    /* =============================================
+       WHATSAPP FLOAT
+    ============================================= */
+    .wa-float {
+      position:fixed; bottom:32px; right:32px; z-index:800;
+      width:60px; height:60px; border-radius:50%;
+      background:#25D366; display:flex; align-items:center; justify-content:center;
+      text-decoration:none; box-shadow:0 4px 24px rgba(37,211,102,.5);
+      transition:var(--t); animation:waPulse 2.5s infinite;
+    }
+    .wa-float:hover { transform:scale(1.12); box-shadow:0 8px 36px rgba(37,211,102,.65); }
+    .wa-float svg { width:30px; height:30px; fill:white; }
+    @keyframes waPulse {
+      0%,100% { box-shadow:0 4px 24px rgba(37,211,102,.5); }
+      50% { box-shadow:0 4px 48px rgba(37,211,102,.75); }
+    }
+
+    /* =============================================
+       REVEAL ANIMATIONS
+    ============================================= */
+    .reveal        { opacity:0; transform:translateY(48px) scale(.97); filter:blur(4px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+    .reveal-l      { opacity:0; transform:translateX(-52px) scale(.97); filter:blur(4px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+    .reveal-r      { opacity:0; transform:translateX(52px) scale(.97); filter:blur(4px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+    .reveal-scale  { opacity:0; transform:scale(.88); filter:blur(6px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+    .revealed      { opacity:1; transform:none; filter:blur(0); }
+    .d1 { transition-delay:.12s; }
+    .d2 { transition-delay:.24s; }
+    .d3 { transition-delay:.38s; }
+    .d4 { transition-delay:.52s; }
+    .d5 { transition-delay:.66s; }
+    .d6 { transition-delay:.80s; }
+
+    /* ---- FLOATING animation ---- */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-14px) rotate(2deg)} }
+    @keyframes pulse-glow {
+      0%,100%{box-shadow:0 0 0 0 rgba(197,150,90,.4)}
+      50%{box-shadow:0 0 32px 8px rgba(197,150,90,.25)}
+    }
+    @keyframes shimmer {
+      0%{background-position:-200% center}
+      100%{background-position:200% center}
+    }
+    @keyframes gradBorder {
+      0%,100%{border-color:var(--gold)}
+      50%{border-color:var(--gold-dark)}
+    }
+    @keyframes countUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+    /* Hero pill float */
+    .hero-tag { animation:float 4s ease-in-out infinite; }
+    .crn-pill { animation:floatSlow 5s ease-in-out infinite; }
+
+    /* CTA btn pulse */
+    .btn-gold { animation:pulse-glow 3s ease-in-out infinite; }
+    .btn-gold:hover { animation:none; }
+
+    /* Featured card animated border */
+    .serv-card.featured {
+      border:2px solid var(--gold);
+      animation:gradBorder 2.5s ease-in-out infinite;
+      box-shadow:0 0 0 0 rgba(197,150,90,0);
+    }
+    .serv-card.featured:hover { animation:none; border-color:var(--gold-dark); }
+
+    /* =============================================
+       CONSULTÓRIO PRESENCIAL
+    ============================================= */
+    #consultorio { background:var(--cream); }
+    .consul-intro { text-align:center; }
+    /* Gallery masonry */
+    .consul-gallery { columns:3; column-gap:14px; margin-bottom:56px; }
+    .consul-photo {
+      break-inside:avoid; margin-bottom:14px;
+      border-radius:var(--radius-sm); overflow:hidden;
+      cursor:pointer; position:relative;
+      box-shadow:0 4px 18px rgba(44,26,14,.10);
+    }
+    .consul-photo img { width:100%; display:block; transition:transform .45s var(--ease); }
+    .consul-photo:hover img { transform:scale(1.05); }
+    .consul-photo-overlay {
+      position:absolute; inset:0;
+      background:rgba(44,26,14,0); transition:background .35s;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .consul-photo:hover .consul-photo-overlay { background:rgba(44,26,14,.20); }
+    .consul-photo-overlay::after {
+      content:'🔍'; font-size:1.5rem; opacity:0; transform:scale(.7);
+      transition:all .3s var(--ease);
+    }
+    .consul-photo:hover .consul-photo-overlay::after { opacity:1; transform:scale(1); }
+    /* Video */
+    .consul-video-label {
+      text-align:center; margin-bottom:20px;
+      font-size:.78rem; font-weight:600; letter-spacing:2px;
+      text-transform:uppercase; color:var(--brown-light);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    /* Outer spin-border wrapper para o vídeo */
+    .consul-video-outer {
+      display:table; /* shrink-wrap confiável cross-browser */
+      margin:0 auto 72px;
+      position:relative;
+      border-radius:calc(var(--radius) + 4px);
+      padding:3px;
+      overflow:hidden;
+    }
+    .consul-video-outer::before {
+      content:'';
+      position:absolute;
+      width:200%; height:200%;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) rotate(0deg);
+      background:conic-gradient(
+        transparent 0deg, transparent 250deg,
+        var(--gold-dark) 270deg, var(--gold) 295deg,
+        #f5e4b3 310deg, var(--gold) 325deg,
+        var(--gold-dark) 345deg, transparent 360deg
+      );
+      animation:borderSpin 3.2s linear infinite;
+      z-index:0;
+    }
+    .consul-video-wrap {
+      position:relative; z-index:1;
+      border-radius:calc(var(--radius) - 1px);
+      overflow:hidden;
+      box-shadow:var(--shadow-lg);
+      display:block;
+    }
+    .consul-video-wrap video {
+      display:block;
+      width:auto; height:auto;
+      max-width:min(440px, 88vw);
+      max-height:65vh;
+    }
+    /* Location */
+    .consul-location { display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start; }
+    .consul-addr-title { font-size:1.4rem; font-weight:700; color:var(--brown); margin-bottom:24px; }
+    .consul-addr-block { display:flex; flex-direction:column; gap:18px; margin-bottom:36px; }
+    .consul-addr-row { display:flex; align-items:flex-start; gap:14px; }
+    .consul-addr-icon {
+      width:40px; height:40px; border-radius:50%;
+      background:var(--gold-light); color:var(--brown);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; flex-shrink:0;
+    }
+    .consul-addr-text strong { display:block; font-size:.88rem; font-weight:600; color:var(--brown); margin-bottom:3px; }
+    .consul-addr-text span { font-size:.83rem; color:var(--brown-light); line-height:1.55; }
+    .consul-map-wrap {
+      border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow-lg); height:380px;
+      border:3px solid var(--gold-light);
+    }
+    .consul-map-wrap iframe { width:100%; height:100%; border:0; }
+    .consul-map-cta {
+      position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+      background:var(--brown); color:var(--gold);
+      border:2px solid var(--gold);
+      border-radius:50px; padding:10px 24px;
+      font-size:.82rem; font-weight:700; letter-spacing:.5px;
+      text-decoration:none; white-space:nowrap;
+      display:flex; align-items:center; gap:8px;
+      box-shadow:0 4px 18px rgba(44,26,14,.45);
+      transition:var(--t); z-index:10;
+    }
+    .consul-map-cta:hover { background:var(--gold); color:var(--brown); transform:translateX(-50%) translateY(-2px); }
+
+    /* Consultório — responsive */
+    @media(max-width:900px) {
+      .consul-gallery { columns:2; }
+      .consul-location { grid-template-columns:1fr; gap:36px; }
+    }
+    @media(max-width:560px) {
+      .consul-gallery { columns:1; }
+      .consul-addr-title { font-size:1.2rem; }
+      .consul-map-wrap { height:280px; }
+    }
+
+    /* Section title shimmer */
+    .section-title .script {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 40%, #f0d49a 55%, var(--gold) 70%, var(--gold-dark) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:shimmer 4s linear infinite;
+    }
+
+    /* Stat number pop */
+    .stat-num { display:inline-block; }
+    .stat-num.counting { animation:countUp .4s var(--ease); }
+    .d5 { transition-delay:.5s; }
+
+    @keyframes slideInLeft {
+      from { opacity:0; transform:translateX(-50px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity:0; transform:translateX(50px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width:1024px) {
+      section { padding:88px 32px; }
+      #nav { padding:18px 32px; }
+      #nav.scrolled { padding:12px 32px; }
+      #stats { padding:28px 32px; }
+      .hero-content { padding:120px 32px 80px; gap:48px; }
+      .servicos-grid { grid-template-columns:1fr 1fr; }
+      .servicos-grid > .serv-card:nth-child(4),
+      .servicos-grid > .serv-card:nth-child(5) { grid-column:auto; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:36px; }
+    }
+    @media (max-width:768px) {
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      section { padding:72px 24px; }
+      #stats { padding:24px; }
+      .hero-content { grid-template-columns:1fr; padding:100px 24px 64px; }
+      .hero-image { order:-1; }
+      .hero-photo-frame { max-width:100%; }
+      .sobre-grid { grid-template-columns:1fr; gap:48px; }
+      .sobre-accent { display:none; }
+      .metodo-grid { grid-template-columns:1fr; }
+      .servicos-grid { grid-template-columns:1fr; }
+      .calc-panel.active { grid-template-columns:1fr; }
+      .depo-nav-btn { width:36px; height:36px; font-size:1.4rem; }
+      .faq-layout { grid-template-columns:1fr; }
+      .faq-aside-img { display:none; }
+      .faq-spin-border { display:none; }
+      .footer-grid { grid-template-columns:1fr; gap:32px; }
+      .footer-bar { flex-direction:column; text-align:center; }
+      .hero-h1 { font-size:2.1rem; }
+      .hero-btns { flex-direction:column; }
+      .cta-btns { flex-direction:column; align-items:center; }
+    }
+    @media (max-width:480px) {
+      .depo-card { width:200px; min-width:200px; }
+      .depo-carousel { padding:0 12px; }
+      .depo-prev { left:-4px; }
+      .depo-next { right:-4px; }
+      .stat-sep { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================
+     WHATSAPP FLOATING BUTTON
+================================================ -->
+<a class="wa-float" href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" aria-label="Fale no WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ================================================
+     MOBILE MENU
+================================================ -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="lb-close" id="mobileClose" style="position:absolute;top:24px;right:24px;font-size:2.5rem;">×</button>
+  <a href="#sobre" onclick="closeMobileMenu()">Sobre</a>
+  <a href="#servicos" onclick="closeMobileMenu()">Serviços</a>
+  <a href="#calculadoras" onclick="closeMobileMenu()">Calculadoras</a>
+  <a href="#depoimentos" onclick="closeMobileMenu()">Depoimentos</a>
+  <a href="#consultorio" onclick="closeMobileMenu()">Consultório</a>
+  <a href="#faq" onclick="closeMobileMenu()">Dúvidas</a>
+  <a href="#cta-final" onclick="closeMobileMenu()" class="btn-gold" style="margin-top:16px;padding:14px 40px;">Quero começar →</a>
+</div>
+
+<!-- ================================================
+     NAVEGAÇÃO
+================================================ -->
+<nav id="nav">
+  <a class="nav-logo" href="#hero">
+    <span class="nav-logo-name">Bruna Boreggio</span>
+    <span>Nutricionista · CRN 68497</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#calculadoras">Calculadoras</a></li>
+    <li><a href="#depoimentos">Resultados</a></li>
+    <li><a href="#consultorio">Consultório</a></li>
+    <li><a href="#faq">Dúvidas</a></li>
+    <li><a href="#cta-final" class="nav-cta">Quero começar →</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ================================================
+     HERO
+================================================ -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">Nutricionista · Guarulhos, SP</div>
+      <h1 class="hero-h1">
+        Transforme seu corpo<br>
+        <span class="script">com ciência e cuidado</span>
+      </h1>
+      <p class="hero-sub">
+        Emagrecimento real. Hipertrofia que funciona. Acompanhamento nutricional
+        individualizado — presencial em Guarulhos ou online — para quem quer resultado
+        de verdade, sem dietas genéricas.
+      </p>
+      <div class="hero-btns">
+        <a class="btn-gold" href="#cta-final">Quero meu plano alimentar →</a>
+        <a class="btn-outline" href="#sobre">Conhecer a Bruna</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-photo-frame">
+        <div class="hero-photo-deco"></div>
+        <div class="photo-spin-border hero-photo-border-wrap">
+          <div class="hero-photo-main">
+            <img src="https://drive.google.com/thumbnail?id=17FnNUE7pUyn3xSHyggwMJaHzlPtoZxjt"
+                 alt="Bruna Boreggio — Nutricionista em Guarulhos"
+                 loading="eager">
+            <div class="hero-tag">✦ CRN 68497</div>
+          </div>
+        </div>
+        <div class="hero-chip">
+          <span class="chip-icon">🏆</span>
+          <div>
+            <div class="chip-num">+500</div>
+            <div class="chip-label">pacientes transformadas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     STATS
+================================================ -->
+<div id="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">+500</div>
+      <div class="stat-lbl">Pacientes atendidas</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item reveal d1">
+      <div class="stat-num">5+</div>
+      <div class="stat-lbl">Anos de experiência</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num">98%</div>
+      <div class="stat-lbl">Pacientes satisfeitas</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num">450kg</div>
+      <div class="stat-lbl">Eliminados juntos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================
+     SOBRE
+================================================ -->
+<section id="sobre">
+  <div class="section-inner">
+    <div class="sobre-grid">
+      <div class="sobre-img-wrap reveal-l">
+        <div class="photo-spin-border sobre-spin-border">
+          <div class="sobre-main">
+            <img src="https://drive.google.com/thumbnail?id=14GTGpVUCF4gTsXWsEwwvc4fRFrQ2J40q"
+                 alt="Bruna Boreggio Nutricionista"
+                 loading="lazy">
+          </div>
+        </div>
+        <div class="sobre-accent">
+          <img src="https://drive.google.com/thumbnail?id=1Q07Tv4h-_jGvkhS2tucwGVp8CQE1Dhg1"
+               alt="Bruna Boreggio Nutricionista"
+               loading="lazy">
+        </div>
+        <div class="crn-pill">CRN 68497</div>
+      </div>
+      <div class="reveal-r" style="padding-top:12px;">
+        <span class="section-eyebrow">Sobre mim</span>
+        <h2 class="section-title">Nutrição que <span class="script">respeita quem você é</span></h2>
+        <p class="sobre-text">
+          Sou a Bruna Boreggio, nutricionista formada e registrada no CRN 68497,
+          especializada em emagrecimento e hipertrofia. Atendo presencialmente
+          em Guarulhos e online para todo o Brasil.
+        </p>
+        <p class="sobre-text">
+          Acredito que resultado de verdade vem de um plano alimentar feito para
+          <em>você</em> — com seus gostos, sua rotina, sua história.
+          Sem dietas prontas. Sem regras impossíveis de seguir.
+        </p>
+        <div class="sobre-highlights">
+          <div class="hi-item">
+            <div class="hi-icon">🎓</div>
+            <div class="hi-body">
+              <strong>Formação acadêmica sólida</strong>
+              <span>Graduada em Nutrição pela UNG – Universidade de Guarulhos · Especialização em Nutrição Funcional pela FSA – Faculdade de Saúde Avançada</span>
+            </div>
+          </div>
+          <div class="hi-item">
+            <div class="hi-icon">📍</div>
+            <div class="hi-body">
+              <strong>Atendimento presencial em Guarulhos</strong>
+              <span>Consultório particular com estrutura completa para avaliação e acompanhamento</span>
+            </div>
+          </div>
+          <div class="hi-item">
+            <div class="hi-icon">💻</div>
+            <div class="hi-body">
+              <strong>Online para todo o Brasil</strong>
+              <span>Consultas por videoconferência com o mesmo cuidado e atenção da consulta presencial</span>
+            </div>
+          </div>
+        </div>
+        <a class="btn-gold" href="#servicos">Ver meus serviços →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     MÉTODO
+================================================ -->
+<section id="metodo">
+  <div class="section-inner">
+    <div style="max-width:560px; margin-bottom:60px;">
+      <span class="section-eyebrow reveal">Meu método</span>
+      <h2 class="section-title reveal d1">Como funciona o <span class="script">acompanhamento</span></h2>
+      <p class="section-lead reveal d2">
+        Cada paciente é única. Por isso, cada protocolo começa com escuta ativa e
+        termina com um plano feito sob medida para a sua realidade.
+      </p>
+    </div>
+    <div class="metodo-grid">
+      <div class="metodo-card reveal d1">
+        <div class="metodo-num">01</div>
+        <div class="metodo-icon">🔍</div>
+        <div class="metodo-title">Anamnese completa</div>
+        <p class="metodo-text">
+          Antes de qualquer prescrição, entendo sua história. Hábitos, preferências,
+          rotina, exames e objetivos — tudo importa para construir o plano certo.
+        </p>
+      </div>
+      <div class="metodo-card reveal d2">
+        <div class="metodo-num">02</div>
+        <div class="metodo-icon">🧬</div>
+        <div class="metodo-title">Avaliação da composição corporal</div>
+        <p class="metodo-text">
+          Analisamos sua composição corporal para entender onde você está
+          e traçar a rota mais eficiente para onde quer chegar — sem achismos.
+        </p>
+      </div>
+      <div class="metodo-card reveal d3">
+        <div class="metodo-num">03</div>
+        <div class="metodo-icon">📋</div>
+        <div class="metodo-title">Plano alimentar individualizado</div>
+        <p class="metodo-text">
+          Nada de dieta genérica. Crio um protocolo alimentar baseado em evidências,
+          pensado para encaixar na sua vida real com praticidade e prazer.
+        </p>
+      </div>
+      <div class="metodo-card reveal d4">
+        <div class="metodo-num">04</div>
+        <div class="metodo-icon">📊</div>
+        <div class="metodo-title">Monitoramento e ajustes</div>
+        <p class="metodo-text">
+          O acompanhamento não termina na primeira consulta. Monitoro evolução,
+          ajusto o protocolo e estou presente em cada fase da sua jornada.
+        </p>
+      </div>
+      <div class="metodo-card reveal d5">
+        <div class="metodo-num">05</div>
+        <div class="metodo-icon">🌱</div>
+        <div class="metodo-title">Educação alimentar duradoura</div>
+        <p class="metodo-text">
+          O maior resultado é você aprender a fazer escolhas inteligentes sozinha.
+          Meu objetivo é te dar autonomia — não dependência eterna de dieta.
+        </p>
+      </div>
+      <div class="metodo-card reveal d1" style="display:flex;align-items:center;justify-content:center;background:rgba(197,150,90,.1);border-color:rgba(197,150,90,.35);">
+        <div style="text-align:center;">
+          <div style="font-size:3rem;margin-bottom:12px;">✨</div>
+          <div class="metodo-title" style="margin-bottom:10px;">Resultado que dura</div>
+          <p class="metodo-text" style="color:rgba(255,255,255,.7);">
+            Porque mudança real vem de dentro — não de restrição, mas de transformação de hábitos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SERVIÇOS
+================================================ -->
+<section id="servicos">
+  <div class="section-inner">
+    <div class="servicos-intro">
+      <div>
+        <span class="section-eyebrow reveal">Serviços</span>
+        <h2 class="section-title reveal d1">Encontre o <span class="script">nível certo</span> para você</h2>
+        <p class="section-lead reveal d2">
+          De uma comunidade acessível a protocolos premium individualizados —
+          há uma forma de começar sua transformação hoje.
+        </p>
+      </div>
+    </div>
+    <div class="servicos-grid">
+
+      <!-- 1. Comece Leve -->
+      <div class="serv-card reveal d1">
+        <span class="serv-badge">🎁 Gratuito · Comece agora</span>
+        <span class="serv-icon">💚</span>
+        <div class="serv-name">Comece Leve</div>
+        <p class="serv-desc">
+          O primeiro passo da sua jornada. Grupo gratuito no WhatsApp com conteúdo
+          de nutrição para quem quer começar a transformar a relação com a alimentação.
+        </p>
+        <ul class="serv-list">
+          <li>Dicas iniciais de nutrição e emagrecimento</li>
+          <li>Receitas práticas e gratuitas</li>
+          <li>Conteúdo sobre hábitos saudáveis</li>
+          <li>Comunidade de apoio e motivação</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">totalmente</span>
+          <span class="price-val" style="color:var(--gold-dark);">Grátis</span>
+        </div>
+        <a class="btn-serv" href="https://wa.me/55XXXXXXXXXXX" target="_blank">Entrar no grupo grátis →</a>
+      </div>
+
+      <!-- 2. Clube VIP Você Mais Leve -->
+      <div class="serv-card reveal d2">
+        <span class="serv-badge">✦ Assinatura · Mais popular</span>
+        <span class="serv-icon">💬</span>
+        <div class="serv-name">Clube VIP Você Mais Leve</div>
+        <p class="serv-desc">
+          Grupo exclusivo por assinatura com dicas diárias, lives, receitas e suporte
+          direto da Bruna — o melhor custo-benefício da esteira.
+        </p>
+        <ul class="serv-list">
+          <li>Dicas diárias de nutrição e emagrecimento</li>
+          <li>Lives e Q&amp;A exclusivos com a Bruna</li>
+          <li>Receitas práticas e funcionais</li>
+          <li>Suporte e motivação em grupo</li>
+          <li>Análise prévia do histórico antes da consulta</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">apenas</span>
+          <span class="price-val">R$37</span>
+          <span class="price-per">/mês</span>
+        </div>
+        <a class="btn-serv" href="https://www.asaas.com/c/p2usfkuskueo4tv8" target="_blank">Entrar no Clube VIP →</a>
+      </div>
+
+      <!-- 3. Desafio Destrave seu Emagrecimento — Em breve -->
+      <div class="serv-card reveal d3" style="opacity:.72; position:relative; overflow:hidden;">
+        <div style="position:absolute;top:18px;right:18px;background:var(--brown);color:var(--gold);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;z-index:2;">🚀 Em breve</div>
+        <span class="serv-badge">Temporário · Com duração definida</span>
+        <span class="serv-icon">🏆</span>
+        <div class="serv-name">Desafio Destrave seu Emagrecimento</div>
+        <p class="serv-desc">
+          Um programa de transformação com prazo definido, metas claras e
+          acompanhamento em grupo — para quem precisa de um empurrão focado.
+        </p>
+        <ul class="serv-list" style="opacity:.55;">
+          <li>Duração definida com começo e fim</li>
+          <li>Metas semanais e check-ins de progresso</li>
+          <li>Acompanhamento em grupo com a Bruna</li>
+          <li>Protocolos exclusivos do desafio</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">lançamento</span>
+          <span class="price-val" style="font-size:1.2rem;color:var(--brown-light);">Em breve</span>
+        </div>
+        <button class="btn-serv" style="opacity:.5;cursor:not-allowed;" disabled>Disponível em breve</button>
+      </div>
+
+      <!-- 4. Ciclo de Transformação — FEATURED -->
+      <div class="serv-card featured reveal d1">
+        <span class="serv-badge">✦ Mais completo</span>
+        <span class="serv-icon">🔄</span>
+        <div class="serv-name">Ciclo de Transformação</div>
+        <p class="serv-desc">
+          Programa de 3 meses de consultas individuais com protocolo personalizado
+          — paga por consulta avulsa, com retorno após 30 dias.
+        </p>
+        <ul class="serv-list">
+          <li>Consulta nutricional completa (online ou presencial)</li>
+          <li>Plano alimentar 100% personalizado</li>
+          <li>Avaliação de composição corporal</li>
+          <li>Retorno agendado com 30 dias</li>
+          <li>🎁 Bônus: Clube de vantagens</li>
+          <li>🎁 Bônus: Check-in a cada 15 dias</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">3x de</span>
+          <span class="price-val">R$250</span>
+        </div>
+        <a class="btn-serv" href="https://wa.me/55XXXXXXXXXXX" target="_blank">Quero iniciar meu ciclo →</a>
+      </div>
+
+      <!-- 5. Emagrecimento Definitivo -->
+      <div class="serv-card reveal d2">
+        <span class="serv-badge">✦ Premium</span>
+        <span class="serv-icon">👑</span>
+        <div class="serv-name">Emagrecimento Definitivo</div>
+        <p class="serv-desc">
+          5 meses de acompanhamento nutricional profundo com rastreamento metabólico e suporte semanal.
+        </p>
+        <ul class="serv-list">
+          <li>Avaliação de exames laboratoriais</li>
+          <li>Rastreamento metabólico individualizado</li>
+          <li>Indicação de suplementação</li>
+          <li>Plano alimentar 100% personalizado</li>
+          <li>🎁 Bônus: Kit de boas-vindas</li>
+          <li>🎁 Bônus: Check-in semanal</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">5x de</span>
+          <span class="price-val">R$220</span>
+        </div>
+        <a class="btn-serv" href="https://wa.me/55XXXXXXXXXXX" target="_blank">Quero meu programa →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     CALCULADORAS
+================================================ -->
+<section id="calculadoras">
+  <div class="section-inner">
+    <span class="section-eyebrow reveal">Ferramentas gratuitas</span>
+    <h2 class="section-title reveal d1">Descubra seu ponto de <span class="script">partida</span></h2>
+    <p class="section-lead reveal d2">
+      Use as calculadoras abaixo para entender melhor sua composição corporal atual
+      e dar o primeiro passo consciente na sua jornada.
+    </p>
+
+    <div class="calc-tabs-wrap reveal d3">
+      <button class="calc-tab-btn active" onclick="switchCalc('imc')">📊 Índice de Massa Corporal</button>
+      <button class="calc-tab-btn" onclick="switchCalc('gordura')">🔬 % de Gordura Corporal</button>
+    </div>
+
+    <!-- PAINEL IMC -->
+    <div class="calc-panel active" id="panel-imc">
+      <div class="calc-box reveal-l">
+        <h3>Calcule seu IMC</h3>
+        <p>O Índice de Massa Corporal é uma referência inicial. Para praticantes de musculação,
+        os valores podem ser interpretados de forma diferente — a Bruna explica tudo na consulta.</p>
+        <div class="field">
+          <label for="imc-peso">Peso (kg)</label>
+          <input type="number" id="imc-peso" placeholder="Ex: 68" min="30" max="250" step="0.1">
+        </div>
+        <div class="field">
+          <label for="imc-alt">Altura (cm)</label>
+          <input type="number" id="imc-alt" placeholder="Ex: 165" min="100" max="230" step="1">
+        </div>
+        <button class="btn-calcular" onclick="calcIMC()">Calcular meu IMC →</button>
+        <div class="calc-result" id="imc-result">
+          <div class="res-unit">Seu IMC</div>
+          <div class="res-val" id="imc-val">—</div>
+          <div class="res-class" id="imc-class">—</div>
+          <p class="res-note" id="imc-note"></p>
+          <a class="res-cta" href="https://www.asaas.com/c/p2usfkuskueo4tv8" target="_blank">Quero acompanhamento nutricional →</a>
+        </div>
+      </div>
+      <div class="calc-side reveal-r">
+        <h4>Classificação do IMC</h4>
+        <p>O IMC é um indicador prático, mas não reflete a composição corporal completa.
+        Pessoas com alta massa muscular podem ter IMC elevado sem excesso de gordura.</p>
+        <table class="imc-table">
+          <thead><tr><th>IMC</th><th>Classificação</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot" style="background:#64b5f6"></span>Abaixo de 18,5</td><td>Abaixo do peso</td></tr>
+            <tr><td><span class="dot" style="background:#81c784"></span>18,5 – 24,9</td><td>Peso normal</td></tr>
+            <tr><td><span class="dot" style="background:#ffb74d"></span>25,0 – 29,9</td><td>Sobrepeso</td></tr>
+            <tr><td><span class="dot" style="background:#ff8a65"></span>30,0 – 34,9</td><td>Obesidade grau I</td></tr>
+            <tr><td><span class="dot" style="background:#e57373"></span>35,0 – 39,9</td><td>Obesidade grau II</td></tr>
+            <tr><td><span class="dot" style="background:#c62828"></span>Acima de 40</td><td>Obesidade grau III</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:20px; font-size:.78rem; color:var(--brown-light); font-style:italic;">
+          ⚠️ O IMC é apenas um ponto de partida. Para uma avaliação precisa da sua composição
+          corporal, agende uma consulta com a Bruna.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAINEL GORDURA -->
+    <div class="calc-panel" id="panel-gordura">
+      <div class="calc-box reveal-l">
+        <h3>% de Gordura Corporal</h3>
+        <p>Usamos a Fórmula da Marinha dos EUA (U.S. Navy), que estima o percentual de gordura
+        a partir de medidas de circunferência. Resultado aproximado — a bioimpedância é mais precisa.</p>
+        <div class="field">
+          <label for="g-sexo">Sexo biológico</label>
+          <select id="g-sexo" onchange="toggleHip()">
+            <option value="F">Feminino</option>
+            <option value="M">Masculino</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="g-alt">Altura (cm)</label>
+            <input type="number" id="g-alt" placeholder="Ex: 165" min="100" max="230" step="1">
+          </div>
+          <div class="field">
+            <label for="g-pescoco">Pescoço (cm)</label>
+            <input type="number" id="g-pescoco" placeholder="Ex: 34" min="20" max="70" step="0.5">
+          </div>
+        </div>
+        <div class="field">
+          <label for="g-cintura">Cintura (cm) <span style="font-weight:400;color:var(--brown-light);">— menor circunferência</span></label>
+          <input type="number" id="g-cintura" placeholder="Ex: 72" min="40" max="200" step="0.5">
+        </div>
+        <div class="field" id="hip-field">
+          <label for="g-quadril">Quadril (cm) <span style="font-weight:400;color:var(--brown-light);">— maior circunferência</span></label>
+          <input type="number" id="g-quadril" placeholder="Ex: 98" min="50" max="200" step="0.5">
+        </div>
+        <button class="btn-calcular" onclick="calcGordura()">Calcular meu % de gordura →</button>
+        <div class="calc-result" id="gord-result">
+          <div class="res-unit">Gordura corporal estimada</div>
+          <div class="res-val" id="gord-val">—</div>
+          <div class="res-class" id="gord-class">—</div>
+          <p class="res-note" id="gord-note"></p>
+          <a class="res-cta" href="https://www.asaas.com/c/p2usfkuskueo4tv8" target="_blank">Quero reduzir minha % de gordura →</a>
+        </div>
+      </div>
+      <div class="calc-side reveal-r">
+        <h4>Como medir corretamente</h4>
+        <p>Use uma fita métrica flexível. Meça pela manhã, em jejum, com a fita paralela ao chão e sem apertar.</p>
+        <ol class="navy-steps">
+          <li><strong>Pescoço:</strong> Logo abaixo da laringe (pomo de adão), fita levemente inclinada para frente</li>
+          <li><strong>Cintura:</strong> No ponto mais estreito do abdômen, geralmente na altura do umbigo</li>
+          <li><strong>Quadril (fem.):</strong> No ponto mais largo dos quadris e glúteos</li>
+          <li>Respire normalmente — não prenda a respiração durante a medição</li>
+          <li>Faça 2 medições e use a média</li>
+        </ol>
+        <p style="margin-top:20px; font-size:.78rem; color:var(--brown-light); font-style:italic;">
+          ⚠️ Esta é uma estimativa. Para avaliação precisa, a Bruna realiza bioimpedância no consultório.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     DEPOIMENTOS
+================================================ -->
+<section id="depoimentos">
+  <div class="section-inner">
+    <span class="section-eyebrow reveal">Resultados reais</span>
+    <h2 class="section-title reveal d1">Pacientes que <span class="script">transformaram</span> suas vidas</h2>
+    <p class="section-lead reveal d2">
+      Resultados de quem deu o primeiro passo e seguiu o protocolo. Cada história é real, cada corpo é único.
+    </p>
+    <div class="depo-carousel">
+      <button class="depo-nav-btn depo-prev" id="depoPrev" aria-label="Anterior">&#8249;</button>
+      <div class="depo-viewport">
+    <div class="depo-grid" id="depoGrid">
+      <div class="depo-card reveal d1" onclick="openLightbox('https://drive.google.com/thumbnail?id=15VTLSxIhqEf3MYMwHriy6-lAb08VTit6')">
+        <img src="https://drive.google.com/thumbnail?id=15VTLSxIhqEf3MYMwHriy6-lAb08VTit6" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d2" onclick="openLightbox('https://drive.google.com/thumbnail?id=1cZEqgrcGtNvn3sJbe7NzuhvbwveCPHcn')">
+        <img src="https://drive.google.com/thumbnail?id=1cZEqgrcGtNvn3sJbe7NzuhvbwveCPHcn" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d3" onclick="openLightbox('https://drive.google.com/thumbnail?id=142pPmJERjXad7wWjBRz7bwZ9WR5WJN6f')">
+        <img src="https://drive.google.com/thumbnail?id=142pPmJERjXad7wWjBRz7bwZ9WR5WJN6f" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d2" onclick="openLightbox('https://drive.google.com/thumbnail?id=1xHlVsamm1bn63pdEbfrCzTcKcrvL7d8i')">
+        <img src="https://drive.google.com/thumbnail?id=1xHlVsamm1bn63pdEbfrCzTcKcrvL7d8i" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d3" onclick="openLightbox('https://drive.google.com/thumbnail?id=1dxPpiTK5cx5cTJVswr_5L_O8pGasMj8m')">
+        <img src="https://drive.google.com/thumbnail?id=1dxPpiTK5cx5cTJVswr_5L_O8pGasMj8m" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d1" onclick="openLightbox('https://drive.google.com/thumbnail?id=1KGJDTLCyhuishcry76vw1_ivSStLTSUK')">
+        <img src="https://drive.google.com/thumbnail?id=1KGJDTLCyhuishcry76vw1_ivSStLTSUK" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d1" onclick="openLightbox('https://drive.google.com/thumbnail?id=1agfonX0q3SN8wZ3cMN-meB4NnINh-zxp')">
+        <img src="https://drive.google.com/thumbnail?id=1agfonX0q3SN8wZ3cMN-meB4NnINh-zxp" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d2" onclick="openLightbox('https://drive.google.com/thumbnail?id=1gMwVPHtqDeQCfkzV5jgNCFQ7QnH9ncO7')">
+        <img src="https://drive.google.com/thumbnail?id=1gMwVPHtqDeQCfkzV5jgNCFQ7QnH9ncO7" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+      <div class="depo-card reveal d3" onclick="openLightbox('https://drive.google.com/thumbnail?id=1c5l1KwSYM9W4cKkFv554LK0oKFH20Gif')">
+        <img src="https://drive.google.com/thumbnail?id=1c5l1KwSYM9W4cKkFv554LK0oKFH20Gif" alt="Depoimento de paciente" loading="lazy">
+        <div class="depo-hover"><div class="depo-zoom">🔍</div></div>
+      </div>
+    </div>
+      </div>
+      <button class="depo-nav-btn depo-next" id="depoNext" aria-label="Próximo">&#8250;</button>
+      <div class="depo-dots" id="depoDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     CONSULTÓRIO PRESENCIAL
+================================================ -->
+<section id="consultorio">
+  <div class="section-inner">
+    <span class="section-eyebrow reveal">Onde tudo acontece</span>
+    <h2 class="section-title reveal d1">Consultório <span class="script">presencial</span></h2>
+    <p class="section-lead reveal d2">
+      Um espaço pensado para o seu bem-estar — acolhedor, equipado e pronto para a sua transformação.
+      Atendimento presencial em Guarulhos, com toda a atenção que você merece.
+    </p>
+
+    <!-- Galeria de fotos -->
+    <div class="consul-gallery reveal d3">
+      <div class="consul-photo" onclick="openLightbox('./consultorio/fachada.jpg')">
+        <img src="./consultorio/fachada.jpg" alt="Fachada do consultório" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/entrada.jpg')">
+        <img src="./consultorio/entrada.jpg" alt="Entrada do consultório" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/sala-completa.jpg')">
+        <img src="./consultorio/sala-completa.jpg" alt="Sala de atendimento completa" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/consulta.jpg')">
+        <img src="./consultorio/consulta.jpg" alt="Atendimento em consulta" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/diplomas.jpg')">
+        <img src="./consultorio/diplomas.jpg" alt="Diplomas e certificados" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/sala-espera.jpg')">
+        <img src="./consultorio/sala-espera.jpg" alt="Sala de espera" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+      <div class="consul-photo" onclick="openLightbox('./consultorio/recepcao.jpg')">
+        <img src="./consultorio/recepcao.jpg" alt="Área de recepção" loading="lazy">
+        <div class="consul-photo-overlay"></div>
+      </div>
+    </div>
+
+    <!-- Vídeo tour -->
+    <p class="consul-video-label reveal">
+      <span>▶</span> Tour pelo consultório
+    </p>
+    <div class="consul-video-outer reveal d1">
+      <div class="consul-video-wrap">
+        <video controls preload="metadata" poster="./consultorio/sala-completa.jpg">
+          <source src="./consultorio/video-consultorio.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+      </div>
+    </div>
+
+    <!-- Endereço + Mapa -->
+    <div class="consul-location reveal d2">
+      <div class="consul-addr">
+        <h3 class="consul-addr-title">Como nos encontrar</h3>
+        <div class="consul-addr-block">
+          <div class="consul-addr-row">
+            <div class="consul-addr-icon">📍</div>
+            <div class="consul-addr-text">
+              <strong>Endereço</strong>
+              <span>Rua Francisco Antônio de Miranda, 58<br>Sala 13 · Centro · Guarulhos – SP</span>
+            </div>
+          </div>
+          <div class="consul-addr-row">
+            <div class="consul-addr-icon">🕐</div>
+            <div class="consul-addr-text">
+              <strong>Horário de atendimento</strong>
+              <span>Segunda a Sexta · 8h às 18h<br>Sábados mediante agendamento</span>
+            </div>
+          </div>
+          <div class="consul-addr-row">
+            <div class="consul-addr-icon">🚗</div>
+            <div class="consul-addr-text">
+              <strong>Estacionamento</strong>
+              <span>Estacionamento disponível nas proximidades</span>
+            </div>
+          </div>
+        </div>
+        <a class="btn-gold" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Francisco+Antonio+de+Miranda,+58,+Centro,+Guarulhos,+SP" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+          Como chegar →
+        </a>
+      </div>
+
+      <div class="consul-map-wrap" style="position:relative;">
+        <iframe
+          src="https://maps.google.com/maps?q=Rua+Francisco+Antonio+de+Miranda,+58,+Centro,+Guarulhos,+SP&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          title="Localização do consultório de Bruna Boreggio"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+        <a class="consul-map-cta"
+           href="https://www.google.com/maps/dir/?api=1&destination=Rua+Francisco+Antonio+de+Miranda,+58,+Centro,+Guarulhos,+SP"
+           target="_blank" rel="noopener noreferrer"
+           title="Abrir rota no Google Maps">
+          <span>🗺️ Como chegar</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">×</button>
+  <img id="lb-img" src="" alt="Depoimento ampliado">
+</div>
+
+<!-- ================================================
+     CTA FINAL
+================================================ -->
+<section id="cta-final">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <span class="cta-eyebrow reveal">Dê o primeiro passo hoje</span>
+    <h2 class="cta-h2 reveal d1">
+      Sua transformação começa com<br>
+      <span class="script">a decisão certa</span>
+    </h2>
+    <p class="cta-lead reveal d2">
+      Entre no Clube VIP Você Mais Leve e tenha acesso à Bruna, a dicas diárias e ao suporte
+      que vai fazer a diferença — por um valor que cabe no seu bolso.
+    </p>
+    <div class="cta-price-card reveal d3">
+      <span class="cta-from">apenas</span>
+      <div class="cta-price">R$37</div>
+      <span class="cta-per">/mês · cancele quando quiser</span>
+    </div>
+    <div class="cta-btns reveal d4">
+      <a class="btn-gold" href="https://www.asaas.com/c/p2usfkuskueo4tv8" target="_blank">Entrar no Clube VIP →</a>
+      <a class="btn-outline" href="https://wa.me/55XXXXXXXXXXX" target="_blank">
+        Falar com a Bruna
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     FAQ
+================================================ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="faq-layout">
+      <div class="photo-spin-border faq-spin-border reveal-l">
+        <div class="faq-aside-img">
+          <img src="https://drive.google.com/thumbnail?id=1HP29hmiPyPH-4bWsT3Xs2D4xpeKGU_Qt"
+               alt="Bruna Boreggio Nutricionista" loading="lazy">
+        </div>
+      </div>
+      <div>
+        <span class="section-eyebrow reveal">Dúvidas frequentes</span>
+        <h2 class="section-title reveal d1">Tudo que você <span class="script">precisa saber</span></h2>
+        <div style="margin-top:36px;">
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual é a diferença entre o Clube VIP e a consulta individual?
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>O Clube VIP Você Mais Leve é um grupo coletivo no WhatsApp, ideal para quem quer começar a aprender sobre nutrição com suporte da Bruna por um valor acessível. A consulta individual é um atendimento exclusivo, com plano alimentar 100% personalizado para você, sua rotina e seus objetivos específicos. Para quem precisa de protocolo individual, a consulta é o caminho certo.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Posso fazer consulta online mesmo morando fora de Guarulhos?
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>Sim! As consultas online atendem pacientes de todo o Brasil. O atendimento é feito por videoconferência e tem a mesma qualidade da consulta presencial. O plano alimentar é enviado digitalmente com todas as orientações necessárias.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual resultado esperar? <em style="font-style:italic;font-weight:400;opacity:.8;">(Eu vejo esses resultados no consultório)</em>
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>👉 95% das minhas pacientes relatam menos inchaço já no primeiro mês. Têm mais disposição e energia no dia.<br><br>👉 No segundo mês começa a queima de gordura, as roupas vão ficando mais largas e elas conseguem seguir o plano encaixado na rotina.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              O plano alimentar considera minhas preferências e restrições?
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>Absolutamente. Na anamnese inicial, mapeamos todos os seus gostos, aversões, restrições alimentares, intolerâncias e alergias. O plano é construído em cima do que você gosta e consegue manter — porque dieta que você odeia não funciona a longo prazo.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              O Clube VIP Você Mais Leve tem contrato de fidelidade?
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>Não. A assinatura do Clube VIP é mensal e você pode cancelar a qualquer momento, sem multa ou burocracia. A Bruna acredita que a qualidade do conteúdo é o que faz você querer ficar — não um contrato.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Posso conciliar o acompanhamento com musculação ou outro esporte?
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <p>Sim! A Bruna tem experiência prática com pacientes que praticam Musculação e Crossfit e adapta o protocolo nutricional para apoiar seu desempenho e composição corporal. Vale destacar que a especialidade principal da Bruna é nutrição funcional voltada ao emagrecimento — para nutrição esportiva de alto rendimento, ela pode indicar o profissional mais adequado.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     FOOTER
+================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="f-logo">Bruna Boreggio</div>
+        <div class="f-logo-sub">Nutricionista · CRN 68497</div>
+        <p class="f-tagline">
+          Nutrição individualizada para emagrecimento e hipertrofia real.
+          Presencial em Guarulhos · Online para todo o Brasil.
+        </p>
+        <div class="f-social">
+          <a class="f-soc" href="https://www.instagram.com/nutri_brunaboreggio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="f-soc" href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Navegação</h5>
+        <a href="#sobre">Sobre</a>
+        <a href="#metodo">Método</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#calculadoras">Calculadoras</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#faq">Dúvidas</a>
+      </div>
+      <div class="f-col">
+        <h5>Serviços</h5>
+        <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">Comece Leve</a>
+        <a href="https://www.asaas.com/c/p2usfkuskueo4tv8" target="_blank">Clube VIP Você Mais Leve</a>
+        <a href="#servicos">Desafio Destrave seu Emagrecimento</a>
+        <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">Ciclo de Transformação</a>
+        <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">Emagrecimento Definitivo</a>
+      </div>
+      <div class="f-col">
+        <h5>Contato</h5>
+        <a href="https://www.instagram.com/nutri_brunaboreggio/" target="_blank">@nutri_brunaboreggio</a>
+        <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">WhatsApp</a>
+        <a href="mailto:Nutri.brunaboreggio@gmail.com">Nutri.brunaboreggio@gmail.com</a>
+        <a href="#">Guarulhos, SP</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>© 2026 Bruna Boreggio Nutricionista · CNPJ 60.532.7070/0001-70 · Todos os direitos reservados</p>
+      <div>
+        <a href="politica-privacidade.html">Política de Privacidade</a>
+        <a href="politica-privacidade.html">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================
+     JAVASCRIPT
+================================================ -->
+<script>
+  /* ---- NAV scroll ---- */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ---- Hamburger / Mobile Menu ---- */
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const ham  = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    ham.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('mobileClose').addEventListener('click', closeMobileMenu);
+
+  /* ---- Scroll Reveal ---- */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-scale');
+  const observer  = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* ---- Calculator: Switch tabs ---- */
+  function switchCalc(tab) {
+    document.querySelectorAll('.calc-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  /* ---- IMC Calculator ---- */
+  function calcIMC() {
+    const peso = parseFloat(document.getElementById('imc-peso').value);
+    const altCm = parseFloat(document.getElementById('imc-alt').value);
+    if (!peso || !altCm || peso < 30 || altCm < 100) {
+      alert('Por favor, informe peso e altura válidos.');
+      return;
+    }
+    const alt = altCm / 100;
+    const imc = peso / (alt * alt);
+    const result = document.getElementById('imc-result');
+    document.getElementById('imc-val').textContent = imc.toFixed(1);
+
+    let cls, note, color;
+    if (imc < 18.5) {
+      cls = 'Abaixo do peso'; color = '#64b5f6';
+      note = 'O IMC abaixo de 18,5 pode indicar baixo peso. Consulte a Bruna para uma avaliação completa.';
+    } else if (imc < 25) {
+      cls = '✓ Peso normal'; color = '#81c784';
+      note = 'Parabéns! Seu IMC está na faixa saudável. A nutrição pode ajudar a otimizar sua composição corporal.';
+    } else if (imc < 30) {
+      cls = 'Sobrepeso'; color = '#ffb74d';
+      note = 'O IMC indica sobrepeso. Um plano alimentar individualizado pode te ajudar a alcançar o peso ideal com saúde.';
+    } else if (imc < 35) {
+      cls = 'Obesidade grau I'; color = '#ff8a65';
+      note = 'É hora de buscar acompanhamento profissional. A Bruna pode criar um protocolo seguro e eficaz para você.';
+    } else if (imc < 40) {
+      cls = 'Obesidade grau II'; color = '#e57373';
+      note = 'Acompanhamento nutricional especializado é fundamental. Converse com a Bruna o quanto antes.';
+    } else {
+      cls = 'Obesidade grau III'; color = '#c62828';
+      note = 'Situação que requer atenção e acompanhamento especializado imediato. Entre em contato com a Bruna.';
+    }
+
+    const clsEl = document.getElementById('imc-class');
+    clsEl.textContent = cls;
+    clsEl.style.color = color;
+    document.getElementById('imc-note').textContent =
+      note + '\n\n⚠️ Lembrete: o IMC pode ser elevado em pessoas com alta massa muscular (hipertrofia). Para uma análise precisa, agende uma avaliação de composição corporal.';
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ---- Gordura: Toggle quadril field ---- */
+  function toggleHip() {
+    const sexo = document.getElementById('g-sexo').value;
+    document.getElementById('hip-field').style.display = sexo === 'F' ? 'block' : 'none';
+  }
+
+  /* ---- Body Fat Calculator (U.S. Navy) ---- */
+  function calcGordura() {
+    const sexo    = document.getElementById('g-sexo').value;
+    const altCm   = parseFloat(document.getElementById('g-alt').value);
+    const pescoco = parseFloat(document.getElementById('g-pescoco').value);
+    const cintura = parseFloat(document.getElementById('g-cintura').value);
+    const quadril = parseFloat(document.getElementById('g-quadril').value);
+
+    if (!altCm || !pescoco || !cintura || (sexo === 'F' && !quadril)) {
+      alert('Por favor, preencha todas as medidas.');
+      return;
+    }
+    if (cintura <= pescoco) {
+      alert('A medida da cintura deve ser maior que a do pescoço.');
+      return;
+    }
+
+    let gordura;
+    if (sexo === 'F') {
+      if (!quadril || quadril <= 0) { alert('Informe a medida do quadril.'); return; }
+      gordura = 163.205 * Math.log10(cintura + quadril - pescoco) - 97.684 * Math.log10(altCm) - 78.387;
+    } else {
+      gordura = 86.010 * Math.log10(cintura - pescoco) - 70.041 * Math.log10(altCm) + 36.76;
+    }
+
+    gordura = Math.max(3, Math.min(gordura, 60));
+
+    const result = document.getElementById('gord-result');
+    document.getElementById('gord-val').textContent = gordura.toFixed(1) + '%';
+
+    let cls, note, color;
+    if (sexo === 'F') {
+      if (gordura < 14)      { cls = 'Gordura essencial'; color = '#64b5f6'; note = 'Nível muito baixo, abaixo do essencial para mulheres. Avaliação profissional recomendada.'; }
+      else if (gordura < 21) { cls = 'Atleta'; color = '#81c784'; note = 'Excelente composição corporal. Continue com acompanhamento para manter e otimizar.'; }
+      else if (gordura < 25) { cls = 'Boa forma física'; color = '#a5d6a7'; note = 'Ótima composição corporal para uma mulher saudável e ativa.'; }
+      else if (gordura < 32) { cls = 'Aceitável'; color = '#ffb74d'; note = 'Dentro da faixa aceitável. Um plano nutricional pode ajudar a otimizar sua composição.'; }
+      else                    { cls = 'Acima do ideal'; color = '#e57373'; note = 'Acima da faixa recomendada. Acompanhamento nutricional pode fazer grande diferença.'; }
+    } else {
+      if (gordura < 6)       { cls = 'Gordura essencial'; color = '#64b5f6'; note = 'Nível muito baixo, abaixo do essencial para homens.'; }
+      else if (gordura < 14) { cls = 'Atleta'; color = '#81c784'; note = 'Composição corporal excelente. Continue com acompanhamento especializado.'; }
+      else if (gordura < 18) { cls = 'Boa forma física'; color = '#a5d6a7'; note = 'Boa composição corporal para um homem saudável.'; }
+      else if (gordura < 25) { cls = 'Aceitável'; color = '#ffb74d'; note = 'Dentro da faixa aceitável. A nutrição pode ajudar a otimizar sua composição.'; }
+      else                    { cls = 'Acima do ideal'; color = '#e57373'; note = 'Acima da faixa recomendada. Busque acompanhamento nutricional.'; }
+    }
+
+    const clsEl = document.getElementById('gord-class');
+    clsEl.textContent = cls;
+    clsEl.style.color = color;
+    document.getElementById('gord-note').textContent =
+      note + '\n\n⚠️ Esta é uma estimativa pela Fórmula da Marinha Americana. Para medição precisa, a Bruna realiza bioimpedância no consultório.';
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ---- FAQ Accordion ---- */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+
+    // close all
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  /* ---- Lightbox ---- */
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    lbImg.referrerPolicy = 'no-referrer';
+    lbImg.src = driveToLh3(src, '=w1600');
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  /* ---- Convert Drive URLs to lh3 CDN (works cross-domain) ---- */
+  function driveToLh3(src, size) {
+    const m = src.match(/[?&]id=([^&"'\s]+)/);
+    return m ? 'https://lh3.googleusercontent.com/d/' + m[1] + (size || '=w1200') : src;
+  }
+  document.querySelectorAll('img[src*="drive.google.com"]').forEach(img => {
+    img.referrerPolicy = 'no-referrer';
+    img.src = driveToLh3(img.src, '=w1200');
+  });
+
+  /* ---- Testimonials Auto-Carousel ---- */
+  (function(){
+    const grid    = document.getElementById('depoGrid');
+    const dotsEl  = document.getElementById('depoDots');
+    const prevBtn = document.getElementById('depoPrev');
+    const nextBtn = document.getElementById('depoNext');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.depo-card'));
+    let current = 0, autoTimer;
+
+    function visibleCount() {
+      return window.innerWidth >= 900 ? 3 : window.innerWidth >= 600 ? 2 : 1;
+    }
+    function maxIdx() { return Math.max(0, cards.length - visibleCount()); }
+
+    function goTo(idx) {
+      current = Math.max(0, Math.min(idx, maxIdx()));
+      const gap = 18;
+      const cardW = cards[0].offsetWidth + gap;
+      grid.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+      document.querySelectorAll('.depo-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      const total = maxIdx() + 1;
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'depo-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Ir para ' + (i+1));
+        dot.onclick = () => { goTo(i); resetAuto(); };
+        dotsEl.appendChild(dot);
+      }
+    }
+
+    function advance() { goTo(current >= maxIdx() ? 0 : current + 1); }
+    function startAuto() { autoTimer = setInterval(advance, 3500); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+    prevBtn.onclick = () => { goTo(current - 1); resetAuto(); };
+    nextBtn.onclick = () => { goTo(current + 1); resetAuto(); };
+
+    grid.parentElement.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    grid.parentElement.addEventListener('mouseleave', startAuto);
+
+    buildDots();
+    startAuto();
+    window.addEventListener('resize', () => { buildDots(); goTo(Math.min(current, maxIdx())); });
+  })();
+
+  /* ---- Stats Count-Up Animation ---- */
+  (function(){
+    const statsEl = document.getElementById('stats');
+    if (!statsEl) return;
+    let done = false;
+
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animCount(el, target, prefix, suffix, dur) {
+      el.classList.add('counting');
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const val = Math.floor(easeOut(p) * target);
+        el.textContent = (prefix||'') + val + (suffix||'');
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = (prefix||'') + target + (suffix||'');
+      }
+      requestAnimationFrame(step);
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !done) {
+        done = true;
+        const nums = statsEl.querySelectorAll('.stat-num');
+        if (nums[0]) animCount(nums[0], 500, '+', '', 2000);
+        if (nums[1]) animCount(nums[1], 5, '', '+', 1200);
+        if (nums[2]) animCount(nums[2], 98, '', '%', 1800);
+        if (nums[3]) animCount(nums[3], 450, '', 'kg', 2400);
+        obs.disconnect();
+      }
+    }, { threshold: 0.5 });
+    obs.observe(statsEl);
+  })();
+
+  /* ---- Initialize hip toggle ---- */
+  toggleHip();
+
+  /* ---- Smooth active nav link ---- */
+  const sections = document.querySelectorAll('section[id], div[id="stats"]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
