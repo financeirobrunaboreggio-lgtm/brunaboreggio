@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área da Comunidade Gratuita — Bruna Boreggio</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== VARIÁVEIS ========== */
+    :root {
+      --cream:       #FAF7F2;
+      --gold:        #C5965A;
+      --gold-light:  #E8D4B5;
+      --gold-dark:   #A07840;
+      --brown:       #2C1A0E;
+      --brown-mid:   #5A3E28;
+      --brown-light: #8B6A4A;
+      --white:       #FFFFFF;
+
+      /* Área */
+      --hdr:         48px;
+      --sidebar-w:   310px;
+      --sidebar-bg:  #241409;
+      --sidebar-hover: rgba(197,150,90,.1);
+      --sidebar-active: rgba(197,150,90,.18);
+      --main-bg:     #FAF7F2;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { font-size:16px; }
+    body {
+      font-family:'Poppins', sans-serif;
+      background:var(--main-bg);
+      color:var(--brown);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* ========== HEADER ========== */
+    .area-header {
+      position:fixed; top:0; left:0; right:0; height:var(--hdr);
+      background:var(--brown);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 20px 0 0;
+      z-index:200;
+      box-shadow:0 2px 16px rgba(0,0,0,.3);
+    }
+    .hdr-left {
+      display:flex; align-items:center; gap:0; height:100%;
+    }
+    .hdr-logo {
+      display:flex; align-items:center; gap:12px;
+      padding:0 20px; height:100%;
+      border-right:1px solid rgba(197,150,90,.2);
+      text-decoration:none;
+    }
+    .hdr-logo-text {
+      font-weight:700; font-size:.85rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--gold-light); line-height:1.2;
+    }
+    .hdr-logo-sub {
+      font-size:.6rem; color:rgba(229,212,181,.45);
+      letter-spacing:.12em; text-transform:uppercase;
+    }
+    .hdr-course-name {
+      padding:0 20px;
+      font-size:.78rem; font-weight:600;
+      color:rgba(229,212,181,.6);
+      letter-spacing:.04em;
+    }
+    .hdr-right {
+      display:flex; align-items:center; gap:16px;
+    }
+    .hdr-user {
+      font-size:.8rem; color:rgba(229,212,181,.7);
+      display:flex; align-items:center; gap:8px;
+    }
+    .hdr-avatar {
+      width:30px; height:30px; border-radius:50%;
+      background:var(--gold); color:var(--brown);
+      font-weight:700; font-size:.8rem;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .hdr-btn {
+      font-size:.72rem; font-weight:600;
+      color:rgba(229,212,181,.5); background:none; border:none;
+      cursor:pointer; padding:6px 10px; border-radius:6px;
+      font-family:'Poppins',sans-serif;
+      transition:color .2s, background .2s;
+      letter-spacing:.04em;
+    }
+    .hdr-btn:hover { color:var(--gold-light); background:rgba(197,150,90,.1); }
+
+    .hamburger-btn {
+      display:none;
+      background:none; border:none; cursor:pointer;
+      padding:8px; color:var(--gold-light);
+      flex-direction:column; gap:5px;
+    }
+    .hamburger-btn span {
+      display:block; width:22px; height:2px;
+      background:currentColor; border-radius:2px;
+    }
+    @media(max-width:768px){
+      .hamburger-btn { display:flex; }
+      .hdr-course-name { display:none; }
+      .hdr-user .user-name { display:none; }
+    }
+
+    /* ========== LAYOUT PRINCIPAL ========== */
+    .area-wrap {
+      display:flex;
+      padding-top:var(--hdr);
+      min-height:100vh;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .area-sidebar {
+      width:var(--sidebar-w);
+      min-width:var(--sidebar-w);
+      background:var(--sidebar-bg);
+      height:calc(100vh - var(--hdr));
+      position:sticky;
+      top:var(--hdr);
+      overflow-y:auto;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(197,150,90,.2) transparent;
+      transition:transform .3s ease;
+      z-index:100;
+    }
+    .area-sidebar::-webkit-scrollbar { width:4px; }
+    .area-sidebar::-webkit-scrollbar-thumb { background:rgba(197,150,90,.25); border-radius:4px; }
+
+    .sidebar-header {
+      padding:20px 20px 16px;
+      border-bottom:1px solid rgba(197,150,90,.12);
+    }
+    .sidebar-course-title {
+      font-size:.72rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:rgba(229,212,181,.4); margin-bottom:4px;
+    }
+    .sidebar-course-name {
+      font-size:.95rem; font-weight:700;
+      color:var(--gold-light); line-height:1.3;
+    }
+    .sidebar-progress-wrap {
+      margin-top:12px;
+    }
+    .sidebar-progress-label {
+      display:flex; justify-content:space-between;
+      font-size:.68rem; color:rgba(229,212,181,.4);
+      margin-bottom:5px;
+    }
+    .sidebar-progress-bar {
+      height:4px; background:rgba(197,150,90,.15);
+      border-radius:4px; overflow:hidden;
+    }
+    .sidebar-progress-fill {
+      height:100%; background:var(--gold);
+      border-radius:4px;
+      transition:width .5s ease;
+    }
+
+    /* Módulos */
+    .module-block {
+      border-bottom:1px solid rgba(197,150,90,.08);
+    }
+    .module-header {
+      display:flex; align-items:center;
+      padding:14px 20px;
+      cursor:pointer;
+      gap:10px;
+      transition:background .2s;
+      user-select:none;
+    }
+    .module-header:hover { background:var(--sidebar-hover); }
+    .module-num {
+      width:26px; height:26px; border-radius:50%;
+      background:rgba(197,150,90,.15);
+      border:1.5px solid rgba(197,150,90,.3);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.65rem; font-weight:700;
+      color:var(--gold); flex-shrink:0;
+    }
+    .module-num.done {
+      background:rgba(197,150,90,.25);
+      border-color:var(--gold);
+    }
+    .module-title-wrap { flex:1; }
+    .module-label {
+      font-size:.6rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:rgba(229,212,181,.35); margin-bottom:1px;
+    }
+    .module-name {
+      font-size:.82rem; font-weight:600;
+      color:rgba(229,212,181,.85); line-height:1.3;
+    }
+    .module-chevron {
+      font-size:.7rem; color:rgba(197,150,90,.4);
+      transition:transform .2s;
+      flex-shrink:0;
+    }
+    .module-block.open .module-chevron { transform:rotate(180deg); }
+    .module-block.locked .module-name { color:rgba(229,212,181,.35); }
+    .module-block.locked .module-num {
+      background:transparent;
+      border-color:rgba(197,150,90,.15);
+      color:rgba(197,150,90,.3);
+    }
+
+    /* Aulas */
+    .lesson-list {
+      display:none;
+      flex-direction:column;
+    }
+    .module-block.open .lesson-list { display:flex; }
+
+    .lesson-item {
+      display:flex; align-items:center; gap:10px;
+      padding:10px 20px 10px 32px;
+      cursor:pointer;
+      transition:background .2s;
+      border:none; background:none; text-align:left;
+      width:100%; font-family:'Poppins',sans-serif;
+    }
+    .lesson-item:hover { background:var(--sidebar-hover); }
+    .lesson-item.active { background:var(--sidebar-active); }
+    .lesson-icon {
+      width:22px; height:22px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+      font-size:.65rem;
+    }
+    .lesson-icon.play {
+      background:rgba(197,150,90,.2);
+      border:1.5px solid rgba(197,150,90,.4);
+      color:var(--gold);
+    }
+    .lesson-icon.done {
+      background:rgba(197,150,90,.25);
+      border:1.5px solid var(--gold);
+      color:var(--gold);
+    }
+    .lesson-icon.lock {
+      background:rgba(255,255,255,.04);
+      border:1.5px solid rgba(255,255,255,.1);
+      color:rgba(255,255,255,.2);
+    }
+    .lesson-info { flex:1; }
+    .lesson-name {
+      font-size:.78rem; font-weight:500;
+      color:rgba(229,212,181,.75); line-height:1.3;
+    }
+    .lesson-item.active .lesson-name { color:var(--gold-light); font-weight:600; }
+    .lesson-item.locked .lesson-name { color:rgba(229,212,181,.3); }
+    .lesson-dur {
+      font-size:.65rem; color:rgba(229,212,181,.3);
+      margin-top:1px;
+    }
+
+    /* Coming soon badge */
+    .badge-soon {
+      font-size:.6rem; font-weight:700;
+      letter-spacing:.08em; text-transform:uppercase;
+      background:rgba(197,150,90,.15);
+      border:1px solid rgba(197,150,90,.25);
+      color:var(--gold);
+      padding:2px 7px; border-radius:100px;
+      white-space:nowrap;
+    }
+
+    /* Overlay mobile sidebar */
+    .sidebar-overlay {
+      display:none;
+      position:fixed; inset:0; z-index:99;
+      background:rgba(0,0,0,.5);
+    }
+    .sidebar-overlay.show { display:block; }
+
+    @media(max-width:768px){
+      .area-sidebar {
+        position:fixed;
+        top:var(--hdr); left:0;
+        height:calc(100vh - var(--hdr));
+        transform:translateX(-100%);
+        z-index:150;
+      }
+      .area-sidebar.open { transform:translateX(0); }
+    }
+
+    /* ========== CONTEÚDO PRINCIPAL ========== */
+    .area-main {
+      flex:1;
+      padding:0;
+      min-width:0;
+    }
+
+    /* Vídeo player */
+    .video-container {
+      background:#000;
+      width:100%;
+      position:relative;
+    }
+    .video-container video {
+      display:block;
+      width:100%;
+      max-height:65vh;
+      background:#000;
+    }
+
+    /* Info da aula */
+    .lesson-content {
+      padding:36px 44px 60px;
+      max-width:860px;
+    }
+    @media(max-width:768px){
+      .lesson-content { padding:24px 20px 48px; }
+    }
+
+    .lesson-breadcrumb {
+      font-size:.72rem; font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase;
+      color:var(--brown-light); margin-bottom:10px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .lesson-breadcrumb span { color:var(--gold); }
+
+    .lesson-main-title {
+      font-size:1.7rem; font-weight:700;
+      color:var(--brown); line-height:1.2;
+      margin-bottom:10px;
+    }
+    .lesson-main-title em {
+      font-family:'Dancing Script', cursive;
+      font-style:normal; color:var(--gold);
+      font-size:2rem;
+    }
+
+    .lesson-meta {
+      display:flex; align-items:center; gap:16px;
+      margin-bottom:20px; flex-wrap:wrap;
+    }
+    .lesson-meta-item {
+      display:flex; align-items:center; gap:5px;
+      font-size:.78rem; color:var(--brown-light);
+    }
+
+    .lesson-divider {
+      height:1px; background:var(--gold-light);
+      opacity:.35; margin:24px 0;
+    }
+
+    .lesson-description {
+      font-size:.95rem; color:var(--brown-mid);
+      line-height:1.75;
+    }
+    .lesson-description p { margin-bottom:12px; }
+    .lesson-description strong { color:var(--brown); }
+
+    /* Próxima aula */
+    .next-lesson-bar {
+      margin-top:32px;
+      padding:20px 24px;
+      background:var(--white);
+      border-radius:16px;
+      border:1px solid var(--gold-light);
+      display:flex; align-items:center; gap:20px;
+      flex-wrap:wrap;
+      box-shadow:0 2px 16px rgba(44,26,14,.06);
+    }
+    .next-lesson-bar .nlb-info { flex:1; min-width:180px; }
+    .nlb-label {
+      font-size:.68rem; font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase;
+      color:var(--brown-light); margin-bottom:3px;
+    }
+    .nlb-name {
+      font-size:.9rem; font-weight:600;
+      color:var(--brown);
+    }
+    .btn-next {
+      padding:10px 22px; border-radius:10px;
+      background:var(--gold); color:var(--brown);
+      font-family:'Poppins',sans-serif;
+      font-size:.82rem; font-weight:700;
+      border:none; cursor:pointer;
+      transition:background .2s, transform .15s;
+    }
+    .btn-next:hover { background:var(--gold-dark); transform:translateY(-1px); }
+
+    /* Estado vazio / Em breve */
+    .coming-soon-content {
+      padding:60px 44px;
+      text-align:center;
+      max-width:520px;
+      margin:0 auto;
+    }
+    @media(max-width:768px){ .coming-soon-content { padding:48px 20px; } }
+    .cs-icon { font-size:3.5rem; margin-bottom:20px; }
+    .cs-title {
+      font-size:1.5rem; font-weight:700; color:var(--brown);
+      margin-bottom:8px;
+    }
+    .cs-title em { font-family:'Dancing Script',cursive; font-style:normal; color:var(--gold); font-size:1.9rem; }
+    .cs-text { font-size:.9rem; color:var(--brown-light); line-height:1.7; }
+
+    /* ========== BOAS-VINDAS WELCOME CARD ========== */
+    .welcome-card {
+      background:linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%);
+      border-radius:16px; padding:28px 32px;
+      margin-bottom:28px;
+      display:flex; align-items:center; gap:20px;
+      flex-wrap:wrap;
+    }
+    .wc-emoji { font-size:2.5rem; flex-shrink:0; }
+    .wc-text {}
+    .wc-greeting {
+      font-size:1.1rem; font-weight:700;
+      color:var(--gold-light); margin-bottom:4px;
+    }
+    .wc-greeting span { color:var(--gold); }
+    .wc-msg { font-size:.85rem; color:rgba(229,212,181,.65); line-height:1.5; }
+
+    /* Marca concluída */
+    .btn-mark {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 20px; border-radius:10px;
+      border:1.5px solid var(--gold-light);
+      background:transparent; color:var(--brown-mid);
+      font-family:'Poppins',sans-serif;
+      font-size:.8rem; font-weight:600;
+      cursor:pointer; transition:all .2s;
+      margin-top:24px;
+    }
+    .btn-mark:hover { background:var(--gold-light); border-color:var(--gold); }
+    .btn-mark.done { background:rgba(197,150,90,.15); border-color:var(--gold); color:var(--brown); }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="area-header">
+  <div class="hdr-left">
+    <a class="hdr-logo" href="index.html">
+      <div>
+        <div class="hdr-logo-text">Bruna Boreggio</div>
+        <div class="hdr-logo-sub">Nutricionista</div>
+      </div>
+    </a>
+    <div class="hdr-course-name">🌿 Comunidade Gratuita</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-user">
+      <div class="hdr-avatar" id="userAvatar">?</div>
+      <span class="user-name" id="userName" style="font-size:.8rem;color:rgba(229,212,181,.65);">Carregando…</span>
+    </div>
+    <button class="hdr-btn" onclick="sairDaComunidade()">Sair</button>
+    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Overlay mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ===== LAYOUT ===== -->
+<div class="area-wrap">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="area-sidebar" id="areaSidebar">
+
+    <div class="sidebar-header">
+      <div class="sidebar-course-title">Seu caminho</div>
+      <div class="sidebar-course-name">Comunidade Gratuita<br>Bruna Boreggio</div>
+      <div class="sidebar-progress-wrap">
+        <div class="sidebar-progress-label">
+          <span>Progresso</span>
+          <span id="progressLabel">0%</span>
+        </div>
+        <div class="sidebar-progress-bar">
+          <div class="sidebar-progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 1: Boas-Vindas -->
+    <div class="module-block open" id="mod-1">
+      <div class="module-header" onclick="toggleModule(1)">
+        <div class="module-num" id="modnum-1">1</div>
+        <div class="module-title-wrap">
+          <div class="module-label">Módulo 1</div>
+          <div class="module-name">Boas-Vindas 🎉</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="lesson-list">
+        <button class="lesson-item active" id="lesson-1-1" onclick="loadLesson('1-1')">
+          <div class="lesson-icon play" id="icon-1-1">▶</div>
+          <div class="lesson-info">
+            <div class="lesson-name">Boas-vindas, Comece Leve</div>
+            <div class="lesson-dur">Vídeo de boas-vindas</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2 -->
+    <div class="module-block locked" id="mod-2">
+      <div class="module-header" onclick="toggleModule(2)">
+        <div class="module-num" id="modnum-2">2</div>
+        <div class="module-title-wrap">
+          <div class="module-label">Módulo 2</div>
+          <div class="module-name">Nutrição que Transforma</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="lesson-list">
+        <div class="lesson-item locked">
+          <div class="lesson-icon lock">🔒</div>
+          <div class="lesson-info">
+            <div class="lesson-name">Em breve…</div>
+          </div>
+          <span class="badge-soon">Em breve</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 3 -->
+    <div class="module-block locked" id="mod-3">
+      <div class="module-header" onclick="toggleModule(3)">
+        <div class="module-num" id="modnum-3">3</div>
+        <div class="module-title-wrap">
+          <div class="module-label">Módulo 3</div>
+          <div class="module-name">Receitas & Praticidade</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="lesson-list">
+        <div class="lesson-item locked">
+          <div class="lesson-icon lock">🔒</div>
+          <div class="lesson-info">
+            <div class="lesson-name">Em breve…</div>
+          </div>
+          <span class="badge-soon">Em breve</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4 -->
+    <div class="module-block locked" id="mod-4">
+      <div class="module-header" onclick="toggleModule(4)">
+        <div class="module-num" id="modnum-4">4</div>
+        <div class="module-title-wrap">
+          <div class="module-label">Módulo 4</div>
+          <div class="module-name">Mindset & Saúde</div>
+        </div>
+        <div class="module-chevron">▼</div>
+      </div>
+      <div class="lesson-list">
+        <div class="lesson-item locked">
+          <div class="lesson-icon lock">🔒</div>
+          <div class="lesson-info">
+            <div class="lesson-name">Em breve…</div>
+          </div>
+          <span class="badge-soon">Em breve</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="area-main" id="areaMain">
+
+    <!-- Aula 1-1: Boas-vindas -->
+    <div id="content-1-1">
+      <div class="video-container">
+        <video id="videoPlayer" controls preload="metadata"
+               src="./comunidade/boasvindas.mp4"
+               type="video/mp4">
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+      </div>
+      <div class="lesson-content">
+
+        <!-- Card de boas-vindas personalizado -->
+        <div class="welcome-card" id="welcomeCard">
+          <div class="wc-emoji">🌿</div>
+          <div class="wc-text">
+            <div class="wc-greeting">Bem-vinda, <span id="welcomeName">!</span></div>
+            <div class="wc-msg">Que alegria ter você aqui! Assista ao vídeo de boas-vindas da Bruna e prepare-se para uma jornada incrível de saúde e transformação.</div>
+          </div>
+        </div>
+
+        <div class="lesson-breadcrumb">
+          Módulo 1 — Boas-Vindas <span>›</span> Aula 1
+        </div>
+        <h1 class="lesson-main-title">Boas-vindas, <em>Comece Leve</em></h1>
+
+        <div class="lesson-meta">
+          <div class="lesson-meta-item">🎥 Vídeo</div>
+          <div class="lesson-meta-item">🌿 Módulo 1</div>
+          <div class="lesson-meta-item">✨ Gratuito</div>
+        </div>
+
+        <div class="lesson-divider"></div>
+
+        <div class="lesson-description">
+          <p>Olá! Seja muito bem-vinda à nossa comunidade gratuita. Neste vídeo a Bruna te dá as boas-vindas e apresenta tudo o que você vai encontrar por aqui.</p>
+          <p><strong>O que você vai ver neste vídeo:</strong></p>
+          <p>✅ Uma mensagem especial da Bruna para você<br>
+             ✅ O que esperar dos próximos módulos<br>
+             ✅ Como aproveitar ao máximo este espaço</p>
+        </div>
+
+        <button class="btn-mark" id="markDone" onclick="marcarConcluida('1-1')">
+          <span id="markIcon">○</span>
+          <span id="markText">Marcar como concluída</span>
+        </button>
+
+        <!-- Próxima aula (em breve) -->
+        <div class="next-lesson-bar" style="margin-top:32px;">
+          <div class="nlb-info">
+            <div class="nlb-label">Próximo conteúdo</div>
+            <div class="nlb-name">Módulo 2 — Nutrição que Transforma 🔒</div>
+          </div>
+          <span class="badge-soon" style="font-size:.72rem;padding:6px 12px;">Em breve</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Coming Soon: Módulo 2 -->
+    <div id="content-2-1" style="display:none;">
+      <div class="coming-soon-content">
+        <div class="cs-icon">🥦</div>
+        <h2 class="cs-title">Módulo 2 —<br><em>Nutrição que Transforma</em></h2>
+        <p class="cs-text">Este módulo está sendo preparado com muito carinho pela Bruna. Em breve você terá acesso a conteúdos incríveis sobre alimentação inteligente e transformação real.</p>
+      </div>
+    </div>
+
+    <!-- Coming Soon: Módulo 3 -->
+    <div id="content-3-1" style="display:none;">
+      <div class="coming-soon-content">
+        <div class="cs-icon">🍽️</div>
+        <h2 class="cs-title">Módulo 3 —<br><em>Receitas & Praticidade</em></h2>
+        <p class="cs-text">Receitas práticas, saborosas e que cabem na sua rotina. Este módulo está a caminho — fique de olho!</p>
+      </div>
+    </div>
+
+    <!-- Coming Soon: Módulo 4 -->
+    <div id="content-4-1" style="display:none;">
+      <div class="coming-soon-content">
+        <div class="cs-icon">🧠</div>
+        <h2 class="cs-title">Módulo 4 —<br><em>Mindset & Saúde</em></h2>
+        <p class="cs-text">A relação com a comida vai além do prato. Aprenda a cuidar da mente e do corpo juntos. Em breve!</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  /* ===== PROTEGE A PÁGINA ===== */
+  var userData = null;
+  try { userData = JSON.parse(localStorage.getItem('comunidade_user')); } catch(e){}
+  if (!userData || !userData.nome) {
+    window.location.replace('comunidade.html');
+  }
+
+  /* ===== CARREGA DADOS DO USUÁRIO ===== */
+  if (userData) {
+    var firstName = userData.nome.split(' ')[0];
+    document.getElementById('userName').textContent = firstName;
+    document.getElementById('welcomeName').textContent = firstName + '!';
+    document.getElementById('userAvatar').textContent = firstName.charAt(0).toUpperCase();
+  }
+
+  /* ===== PROGRESSO ===== */
+  var progress = {};
+  try { progress = JSON.parse(localStorage.getItem('comunidade_progress') || '{}'); } catch(e){}
+
+  function updateProgress() {
+    var total = 1; // total de aulas disponíveis
+    var done = progress['1-1'] ? 1 : 0;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = pct + '%';
+
+    // Ícone concluída
+    if (progress['1-1']) {
+      var icon = document.getElementById('icon-1-1');
+      if(icon){ icon.className = 'lesson-icon done'; icon.textContent = '✓'; }
+      var markBtn = document.getElementById('markDone');
+      if(markBtn){
+        markBtn.classList.add('done');
+        document.getElementById('markIcon').textContent = '✓';
+        document.getElementById('markText').textContent = 'Concluída!';
+      }
+    }
+  }
+
+  function marcarConcluida(lessonId) {
+    progress[lessonId] = !progress[lessonId];
+    localStorage.setItem('comunidade_progress', JSON.stringify(progress));
+    updateProgress();
+  }
+
+  updateProgress();
+
+  /* ===== TOGGLE MÓDULOS ===== */
+  function toggleModule(n) {
+    var block = document.getElementById('mod-' + n);
+    if (block) block.classList.toggle('open');
+  }
+
+  /* ===== CARREGAR AULA ===== */
+  var currentLesson = '1-1';
+
+  function loadLesson(id) {
+    // Esconde conteúdo atual
+    var allContents = document.querySelectorAll('[id^="content-"]');
+    allContents.forEach(function(el){ el.style.display = 'none'; });
+
+    // Mostra o novo
+    var target = document.getElementById('content-' + id);
+    if (target) target.style.display = 'block';
+
+    // Atualiza active na sidebar
+    var allLessons = document.querySelectorAll('.lesson-item');
+    allLessons.forEach(function(el){ el.classList.remove('active'); });
+    var activeLesson = document.getElementById('lesson-' + id);
+    if (activeLesson) activeLesson.classList.add('active');
+
+    currentLesson = id;
+
+    // Fecha sidebar mobile
+    if (window.innerWidth <= 768) closeSidebar();
+
+    // Scroll topo
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  /* ===== SIDEBAR MOBILE ===== */
+  function toggleSidebar() {
+    var sb = document.getElementById('areaSidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    sb.classList.toggle('open');
+    ov.classList.toggle('show');
+  }
+  function closeSidebar() {
+    document.getElementById('areaSidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+  }
+
+  /* ===== SAIR ===== */
+  function sairDaComunidade() {
+    if (confirm('Deseja sair da comunidade?')) {
+      localStorage.removeItem('comunidade_user');
+      window.location.href = 'comunidade.html';
+    }
+  }
+</script>
+</body>
+</html>

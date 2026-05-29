@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidade Gratuita — Bruna Boreggio | Nutricionista</title>
+  <meta name="description" content="Acesse gratuitamente a comunidade da Nutricionista Bruna Boreggio. Conteúdos exclusivos sobre nutrição, receitas e saúde.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:       #FAF7F2;
+      --gold:        #C5965A;
+      --gold-light:  #E8D4B5;
+      --gold-dark:   #A07840;
+      --brown:       #2C1A0E;
+      --brown-mid:   #5A3E28;
+      --brown-light: #8B6A4A;
+      --white:       #FFFFFF;
+      --off-white:   #F4EFE6;
+      --shadow:      0 4px 28px rgba(44,26,14,.10);
+      --shadow-lg:   0 12px 56px rgba(44,26,14,.18);
+      --radius:      18px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      font-family:'Poppins', sans-serif;
+      background:var(--brown);
+      color:var(--brown);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 16px;
+      position:relative;
+      overflow-x:hidden;
+    }
+
+    /* Background decorativo */
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(197,150,90,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 80%, rgba(197,150,90,.12) 0%, transparent 60%);
+      pointer-events:none; z-index:0;
+    }
+
+    .page-wrap {
+      position:relative; z-index:1;
+      width:100%; max-width:480px;
+    }
+
+    /* Logo / topo */
+    .gate-header {
+      text-align:center;
+      margin-bottom:36px;
+    }
+    .gate-logo-link {
+      display:inline-block;
+      text-decoration:none;
+      color:var(--gold-light);
+      font-family:'Poppins', sans-serif;
+    }
+    .gate-logo-name {
+      font-weight:700; font-size:1.25rem;
+      letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--gold-light);
+    }
+    .gate-logo-sub {
+      font-size:.7rem; letter-spacing:.18em;
+      text-transform:uppercase; color:rgba(229,212,181,.55);
+      margin-top:2px;
+    }
+    .gate-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(197,150,90,.18); border:1px solid rgba(197,150,90,.35);
+      border-radius:100px; padding:5px 14px;
+      font-size:.72rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--gold-light);
+      margin-top:14px;
+    }
+
+    /* Card principal */
+    .gate-card {
+      background:var(--white);
+      border-radius:24px;
+      padding:44px 44px 40px;
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
+    }
+    @media(max-width:480px){
+      .gate-card { padding:32px 24px 28px; }
+    }
+
+    .gate-title {
+      font-size:1.6rem; font-weight:700;
+      color:var(--brown); line-height:1.25;
+      margin-bottom:8px;
+    }
+    .gate-title span {
+      font-family:'Dancing Script', cursive;
+      color:var(--gold); font-size:2rem;
+    }
+    .gate-sub {
+      font-size:.9rem; color:var(--brown-light);
+      line-height:1.6; margin-bottom:28px;
+    }
+
+    /* Benefícios */
+    .gate-benefits {
+      list-style:none;
+      display:flex; flex-direction:column; gap:8px;
+      margin-bottom:32px;
+      padding:20px;
+      background:var(--cream);
+      border-radius:14px;
+      border:1px solid var(--gold-light);
+    }
+    .gate-benefits li {
+      display:flex; align-items:flex-start; gap:10px;
+      font-size:.86rem; color:var(--brown-mid); line-height:1.4;
+    }
+    .gate-benefits li span.icon {
+      font-size:1rem; flex-shrink:0; margin-top:1px;
+    }
+
+    /* Formulário */
+    .gate-form { display:flex; flex-direction:column; gap:16px; }
+
+    .field-wrap { display:flex; flex-direction:column; gap:5px; }
+    .field-wrap label {
+      font-size:.78rem; font-weight:600;
+      color:var(--brown-mid); letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .field-wrap input {
+      height:50px; border-radius:12px;
+      border:1.5px solid var(--gold-light);
+      padding:0 16px;
+      font-family:'Poppins', sans-serif;
+      font-size:.95rem; color:var(--brown);
+      background:var(--cream);
+      transition:border-color .2s, box-shadow .2s;
+      outline:none;
+    }
+    .field-wrap input::placeholder { color:rgba(90,62,40,.35); }
+    .field-wrap input:focus {
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(197,150,90,.15);
+      background:var(--white);
+    }
+    .field-wrap input.error { border-color:#e05555; }
+
+    .btn-submit {
+      height:54px; border-radius:14px;
+      background:var(--gold); border:none; cursor:pointer;
+      font-family:'Poppins', sans-serif;
+      font-size:1rem; font-weight:700;
+      color:var(--brown); letter-spacing:.04em;
+      transition:background .2s, transform .15s, box-shadow .2s;
+      box-shadow:0 4px 20px rgba(197,150,90,.4);
+      margin-top:4px;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn-submit:hover {
+      background:var(--gold-dark);
+      transform:translateY(-2px);
+      box-shadow:0 8px 28px rgba(197,150,90,.5);
+    }
+    .btn-submit:active { transform:translateY(0); }
+    .btn-submit.loading { opacity:.7; pointer-events:none; }
+
+    .gate-disclaimer {
+      font-size:.73rem; color:var(--brown-light);
+      text-align:center; margin-top:14px; line-height:1.5;
+    }
+    .gate-disclaimer a { color:var(--gold-dark); }
+
+    /* Back link */
+    .back-link {
+      display:block; text-align:center;
+      margin-top:20px;
+      font-size:.8rem; color:rgba(229,212,181,.5);
+      text-decoration:none;
+      transition:color .2s;
+    }
+    .back-link:hover { color:var(--gold-light); }
+
+    /* Mensagem de erro */
+    .form-error-msg {
+      background:#fff0f0; border:1px solid #ffcccc;
+      border-radius:10px; padding:12px 16px;
+      font-size:.82rem; color:#c0392b;
+      display:none;
+    }
+    .form-error-msg.show { display:block; }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Header / Logo -->
+  <header class="gate-header">
+    <a class="gate-logo-link" href="index.html">
+      <div class="gate-logo-name">Bruna Boreggio</div>
+      <div class="gate-logo-sub">Nutricionista · CRN 68497</div>
+    </a>
+    <div style="margin-top:10px;">
+      <span class="gate-badge">🌿 Comunidade Gratuita</span>
+    </div>
+  </header>
+
+  <!-- Card de cadastro -->
+  <div class="gate-card">
+
+    <h1 class="gate-title">Acesse os conteúdos<br><span>exclusivos</span></h1>
+    <p class="gate-sub">Preencha seus dados para entrar na comunidade gratuita e ter acesso aos módulos da Bruna.</p>
+
+    <!-- Benefícios -->
+    <ul class="gate-benefits">
+      <li><span class="icon">🎥</span><span>Vídeo-aulas exclusivas sobre nutrição e saúde</span></li>
+      <li><span class="icon">📚</span><span>Conteúdo organizado por módulos — no seu ritmo</span></li>
+      <li><span class="icon">✅</span><span>Acesso 100% gratuito, sem compromisso</span></li>
+    </ul>
+
+    <!-- Formulário -->
+    <form class="gate-form" id="gateForm" novalidate>
+
+      <div class="form-error-msg" id="formError">
+        Por favor, preencha todos os campos corretamente.
+      </div>
+
+      <div class="field-wrap">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+      </div>
+
+      <div class="field-wrap">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+      </div>
+
+      <div class="field-wrap">
+        <label for="telefone">WhatsApp / Telefone</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">Acessar a Comunidade →</span>
+      </button>
+
+    </form>
+
+    <p class="gate-disclaimer">
+      Ao se cadastrar você concorda com nossa
+      <a href="politica-privacidade.html" target="_blank">Política de Privacidade</a>.
+      Seus dados estão protegidos.
+    </p>
+
+  </div>
+
+  <a class="back-link" href="index.html">← Voltar ao site</a>
+
+</div>
+
+<script>
+  // Máscara de telefone
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    var v = e.target.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length > 10) {
+      v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    } else if (v.length > 6) {
+      v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    } else if (v.length > 2) {
+      v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+    } else {
+      v = v.replace(/^(\d*)$/, '$1');
+    }
+    e.target.value = v;
+  });
+
+  // Submit
+  document.getElementById('gateForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var nome     = document.getElementById('nome').value.trim();
+    var email    = document.getElementById('email').value.trim();
+    var telefone = document.getElementById('telefone').value.trim();
+    var errEl    = document.getElementById('formError');
+    var btn      = document.getElementById('submitBtn');
+
+    // Reset errors
+    errEl.classList.remove('show');
+    ['nome','email','telefone'].forEach(function(id){
+      document.getElementById(id).classList.remove('error');
+    });
+
+    var valid = true;
+    if (!nome || nome.length < 3) {
+      document.getElementById('nome').classList.add('error');
+      valid = false;
+    }
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRe.test(email)) {
+      document.getElementById('email').classList.add('error');
+      valid = false;
+    }
+    if (!telefone || telefone.replace(/\D/g,'').length < 10) {
+      document.getElementById('telefone').classList.add('error');
+      valid = false;
+    }
+
+    if (!valid) {
+      errEl.classList.add('show');
+      return;
+    }
+
+    // Salva no localStorage
+    localStorage.setItem('comunidade_user', JSON.stringify({
+      nome: nome,
+      email: email,
+      telefone: telefone,
+      cadastro: new Date().toISOString()
+    }));
+
+    // Loading
+    btn.classList.add('loading');
+    document.getElementById('btnText').textContent = 'Entrando…';
+
+    // Redireciona
+    setTimeout(function(){
+      window.location.href = 'area-gratuita.html';
+    }, 600);
+  });
+
+  // Se já cadastrado, vai direto
+  if (localStorage.getItem('comunidade_user')) {
+    window.location.replace('area-gratuita.html');
+  }
+</script>
+
+</body>
+</html>
