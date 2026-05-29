@@ -119,12 +119,13 @@
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
     .nav-links {
-      display:flex; align-items:center; gap:36px; list-style:none;
+      display:flex; align-items:center; gap:22px; list-style:none;
     }
     .nav-links a {
       color:var(--brown-mid); text-decoration:none;
       font-size:.8rem; font-weight:500; letter-spacing:.6px; text-transform:uppercase;
       transition:var(--t); position:relative;
+      white-space:nowrap;
     }
     #nav.scrolled .nav-links a { color:rgba(255,255,255,.8); }
     #nav.scrolled .nav-links a:hover { color:var(--gold); }
