@@ -561,6 +561,17 @@
   try { userData = JSON.parse(localStorage.getItem('comunidade_user')); } catch(e){}
   if (!userData || !userData.nome) { window.location.replace('comunidade.html'); }
 
+  /* ===== WEBHOOK DE ACESSO ===== */
+  if (userData && userData.email) {
+    var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+    fetch(WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'access', email: userData.email })
+    }).catch(function(){});
+  }
+
   /* ===== USUÁRIO ===== */
   if (userData) {
     var fn = userData.nome.split(' ')[0];

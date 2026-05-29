@@ -329,6 +329,15 @@
       cadastro: new Date().toISOString()
     }));
 
+    // Envia para a planilha (fire-and-forget)
+    var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+    fetch(WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'register', nome: nome, telefone: telefone, email: email })
+    }).catch(function(){});
+
     // Loading
     btn.classList.add('loading');
     document.getElementById('btnText').textContent = 'Entrando…';
