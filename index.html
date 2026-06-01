@@ -1995,9 +1995,9 @@
     let gordura;
     if (sexo === 'F') {
       if (!quadril || quadril <= 0) { alert('Informe a medida do quadril.'); return; }
-      gordura = 163.205 * Math.log10(cintura + quadril - pescoco) - 97.684 * Math.log10(altCm) - 78.387;
+      gordura = 495 / (1.29579 - 0.35004 * Math.log10(cintura + quadril - pescoco) + 0.22100 * Math.log10(altCm)) - 450;
     } else {
-      gordura = 86.010 * Math.log10(cintura - pescoco) - 70.041 * Math.log10(altCm) + 36.76;
+      gordura = 495 / (1.0324 - 0.19077 * Math.log10(cintura - pescoco) + 0.15456 * Math.log10(altCm)) - 450;
     }
 
     gordura = Math.max(3, Math.min(gordura, 60));
