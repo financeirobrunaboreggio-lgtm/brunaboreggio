@@ -358,10 +358,6 @@
         </button>
         <button class="lesson-btn" id="lb-1-2" onclick="loadLesson('1-2')">
           <div class="l-icon play" id="li-1-2">▶</div>
-          <div class="l-name">Como Funciona o Processo</div>
-        </button>
-        <button class="lesson-btn" id="lb-1-3" onclick="loadLesson('1-3')">
-          <div class="l-icon play" id="li-1-3">▶</div>
           <div class="l-name">1 Dia no Consultório</div>
         </button>
       </div>
@@ -621,8 +617,15 @@
       </div>
     </div>
 
-    <!-- AULA 1-2: Como Funciona o Processo -->
+    <!-- AULA 1-2: 1 Dia no Consultório -->
     <div id="content-1-2" style="display:none;">
+      <div class="video-frame-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/eVby3xSQGv4"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
       <div class="lesson-body">
         <h2 style="font-family:'Dancing Script',cursive; color:var(--brown-light); font-size:2rem; margin-bottom:8px;">Como Funciona o Processo</h2>
         <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:32px;">Módulo 01 · Aula 2</p>
@@ -668,37 +671,6 @@
 
         <div style="display:flex; justify-content:center; margin-top:8px;">
           <button onclick="toggleDone('1-2')" id="done-1-2"
-            style="background:var(--brown); color:#fff; border:none; border-radius:30px; padding:12px 32px; font-family:'Poppins',sans-serif; font-size:.9rem; font-weight:600; cursor:pointer;">
-            ✓ Marcar como concluída
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- AULA 1-3: 1 Dia no Consultório -->
-    <div id="content-1-3" style="display:none;">
-      <!-- Vídeo Google Drive — substitua o ID quando tiver o link -->
-      <div class="video-frame-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/eVby3xSQGv4"
-          allow="autoplay"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div class="lesson-body">
-        <h2 style="font-family:'Dancing Script',cursive; color:var(--brown-light); font-size:2rem; margin-bottom:8px;">1 Dia no Consultório</h2>
-        <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:24px;">Módulo 01 · Aula 3</p>
-
-        <p style="color:var(--gold-light); font-size:1rem; line-height:1.7; margin-bottom:24px;">
-          Acompanhe a Bruna em um dia real de atendimentos no consultório. Veja como funciona na prática o processo de acompanhamento — desde a chegada da paciente até as orientações finais.
-        </p>
-        <p style="color:var(--text-muted); font-size:.9rem; line-height:1.7; margin-bottom:32px;">
-          Esse vídeo mostra o cuidado e a individualidade que cada paciente recebe. Você vai entender por que os resultados da Bruna são reais e duradouros.
-        </p>
-
-        <div style="display:flex; justify-content:center; margin-top:8px;">
-          <button onclick="toggleDone('1-3')" id="done-1-3"
             style="background:var(--brown); color:#fff; border:none; border-radius:30px; padding:12px 32px; font-family:'Poppins',sans-serif; font-size:.9rem; font-weight:600; cursor:pointer;">
             ✓ Marcar como concluída
           </button>
@@ -753,10 +725,10 @@
   var progress = {};
   try { progress = JSON.parse(localStorage.getItem('comece_leve_progress') || '{}'); } catch(e){}
 
-  var TOTAL_LESSONS = 3; // Total de aulas disponíveis
+  var TOTAL_LESSONS = 2; // Total de aulas disponíveis
 
   function updateProgress() {
-    var done = (progress['1-1'] ? 1 : 0) + (progress['1-2'] ? 1 : 0) + (progress['1-3'] ? 1 : 0);
+    var done = (progress['1-1'] ? 1 : 0) + (progress['1-2'] ? 1 : 0);
     var pct = Math.round((done / TOTAL_LESSONS) * 100);
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressLabel').textContent = pct + '%';
@@ -800,7 +772,7 @@
   /* ===== CARREGAR AULA ===== */
   function loadLesson(id) {
     // Esconde tudo
-    ['content-1-1','content-1-2','content-1-3','content-cs'].forEach(function(cid){
+    ['content-1-1','content-1-2','content-cs'].forEach(function(cid){
       var el = document.getElementById(cid);
       if (el) el.style.display = 'none';
     });
@@ -809,8 +781,6 @@
       document.getElementById('content-1-1').style.display = 'block';
     } else if (id === '1-2') {
       document.getElementById('content-1-2').style.display = 'block';
-    } else if (id === '1-3') {
-      document.getElementById('content-1-3').style.display = 'block';
     } else {
       // Coming soon
       var modNum = parseInt(id.split('-')[0]);
