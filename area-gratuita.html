@@ -360,44 +360,28 @@
           <div class="l-icon play" id="li-1-2">▶</div>
           <div class="l-name">1 Dia no Consultório</div>
         </button>
+        <button class="lesson-btn" id="lb-1-3" onclick="loadLesson('1-3')">
+          <div class="l-icon play" id="li-1-3">▶</div>
+          <div class="l-name">Como Bater Sua Meta</div>
+        </button>
       </div>
     </div>
 
     <!-- MÓDULO 02 -->
-    <div class="mod-block locked" id="mod-2">
+    <div class="mod-block" id="mod-2">
       <div class="mod-header" onclick="toggleMod(2)">
         <div class="mod-num" id="mnum-2">2</div>
         <div class="mod-info">
           <div class="mod-label">Módulo 02</div>
-          <div class="mod-name">Um Dia no Meu Consultório</div>
+          <div class="mod-name">Estratégias de Pacientes</div>
         </div>
         <div class="mod-chevron">▼</div>
       </div>
       <div class="lesson-list">
-        <div class="lesson-btn locked">
-          <div class="l-icon lock">🔒</div>
-          <div class="l-name">Em breve…</div>
-          <span class="badge-soon">Em breve</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- MÓDULO 03 -->
-    <div class="mod-block locked" id="mod-3">
-      <div class="mod-header" onclick="toggleMod(3)">
-        <div class="mod-num" id="mnum-3">3</div>
-        <div class="mod-info">
-          <div class="mod-label">Módulo 03</div>
-          <div class="mod-name">A Paciente que Recomeçou</div>
-        </div>
-        <div class="mod-chevron">▼</div>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-btn locked">
-          <div class="l-icon lock">🔒</div>
-          <div class="l-name">Em breve…</div>
-          <span class="badge-soon">Em breve</span>
-        </div>
+        <button class="lesson-btn" id="lb-2-1" onclick="loadLesson('2-1')">
+          <div class="l-icon play" id="li-2-1">▶</div>
+          <div class="l-name">Casos Reais de Transformação</div>
+        </button>
       </div>
     </div>
 
@@ -678,7 +662,74 @@
       </div>
     </div>
 
-    <!-- COMING SOON para módulos 2-8 -->
+    <!-- AULA 1-3: Como Bater Sua Meta -->
+    <div id="content-1-3" style="display:none;">
+      <div class="lesson-body">
+        <h2 style="font-family:'Dancing Script',cursive; color:var(--brown-light); font-size:2rem; margin-bottom:8px;">Como Bater Sua Meta</h2>
+        <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:32px;">Módulo 01 · Aula 3</p>
+
+        <div style="background:rgba(197,150,90,.08); border-left:3px solid var(--brown); border-radius:0 12px 12px 0; padding:20px 24px; margin-bottom:32px;">
+          <p style="color:var(--gold-light); font-size:1rem; line-height:1.7; margin:0;">
+            Quer perder 20kg? Chegar no peso dos sonhos? A meta grande se conquista com passos pequenos e consistentes. Nessa aula você vai entender exatamente o processo que a Bruna usa com cada paciente para transformar o objetivo em realidade.
+          </p>
+        </div>
+
+        <h3 style="color:var(--brown-light); font-size:1.1rem; margin-bottom:20px;">O caminho para bater qualquer meta</h3>
+
+        <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:36px;">
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--brown); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-weight:700; font-size:.9rem;">1</div>
+            <div>
+              <p style="color:var(--gold-light); font-weight:600; margin:0 0 4px;">Defina uma meta realista</p>
+              <p style="color:var(--text-muted); font-size:.9rem; line-height:1.6; margin:0;">Perder 20kg em 3 meses é diferente de perder 20kg em 1 ano. Metas realistas criam consistência; metas impossíveis criam desistência.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--brown); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-weight:700; font-size:.9rem;">2</div>
+            <div>
+              <p style="color:var(--gold-light); font-weight:600; margin:0 0 4px;">Divida em metas mensais</p>
+              <p style="color:var(--text-muted); font-size:.9rem; line-height:1.6; margin:0;">Cada retorno mensal tem um mini-objetivo: perder 2kg, ajustar o plano, medir as dobras. Pequenas vitórias constroem o caminho.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--brown); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-weight:700; font-size:.9rem;">3</div>
+            <div>
+              <p style="color:var(--gold-light); font-weight:600; margin:0 0 4px;">Ajuste quando necessário</p>
+              <p style="color:var(--text-muted); font-size:.9rem; line-height:1.6; margin:0;">O corpo muda. A vida muda. O plano precisa acompanhar. Não é fraqueza ajustar a rota — é inteligência estratégica.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--brown); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-weight:700; font-size:.9rem;">4</div>
+            <div>
+              <p style="color:var(--gold-light); font-weight:600; margin:0 0 4px;">Celebre cada etapa vencida</p>
+              <p style="color:var(--text-muted); font-size:.9rem; line-height:1.6; margin:0;">Reconhecer o progresso alimenta a motivação para continuar. A meta de 20kg começa no primeiro quilo perdido.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center;">
+          <button onclick="toggleDone('1-3')" id="done-1-3"
+            style="background:var(--brown); color:#fff; border:none; border-radius:30px; padding:12px 32px; font-family:'Poppins',sans-serif; font-size:.9rem; font-weight:600; cursor:pointer;">
+            ✓ Marcar como concluída
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AULA 2-1: Estratégias de Pacientes -->
+    <div id="content-2-1" style="display:none;">
+      <div class="lesson-body">
+        <h2 style="font-family:'Dancing Script',cursive; color:var(--brown-light); font-size:2rem; margin-bottom:8px;">Casos Reais de Transformação</h2>
+        <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:32px;">Módulo 02 · Aula 1</p>
+        <div style="background:rgba(197,150,90,.08); border:1px dashed var(--brown); border-radius:12px; padding:32px; text-align:center;">
+          <div style="font-size:2rem; margin-bottom:12px;">🎬</div>
+          <p style="color:var(--gold-light); font-weight:600; margin-bottom:8px;">Vídeo em breve</p>
+          <p style="color:var(--text-muted); font-size:.9rem;">Este vídeo será disponibilizado em breve.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMING SOON para módulos 3-8 -->
     <div id="content-cs" style="display:none;">
       <div class="cs-wrap">
         <div class="cs-icon" id="cs-icon">🌿</div>
@@ -725,10 +776,10 @@
   var progress = {};
   try { progress = JSON.parse(localStorage.getItem('comece_leve_progress') || '{}'); } catch(e){}
 
-  var TOTAL_LESSONS = 2; // Total de aulas disponíveis
+  var TOTAL_LESSONS = 3; // Total de aulas disponíveis
 
   function updateProgress() {
-    var done = (progress['1-1'] ? 1 : 0) + (progress['1-2'] ? 1 : 0);
+    var done = (progress['1-1'] ? 1 : 0) + (progress['1-2'] ? 1 : 0) + (progress['1-3'] ? 1 : 0);
     var pct = Math.round((done / TOTAL_LESSONS) * 100);
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressLabel').textContent = pct + '%';
@@ -772,7 +823,7 @@
   /* ===== CARREGAR AULA ===== */
   function loadLesson(id) {
     // Esconde tudo
-    ['content-1-1','content-1-2','content-cs'].forEach(function(cid){
+    ['content-1-1','content-1-2','content-1-3','content-2-1','content-cs'].forEach(function(cid){
       var el = document.getElementById(cid);
       if (el) el.style.display = 'none';
     });
@@ -781,6 +832,10 @@
       document.getElementById('content-1-1').style.display = 'block';
     } else if (id === '1-2') {
       document.getElementById('content-1-2').style.display = 'block';
+    } else if (id === '1-3') {
+      document.getElementById('content-1-3').style.display = 'block';
+    } else if (id === '2-1') {
+      document.getElementById('content-2-1').style.display = 'block';
     } else {
       // Coming soon
       var modNum = parseInt(id.split('-')[0]);
