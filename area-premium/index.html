@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio Comece Leve — Bruna Boreggio | Nutricionista</title>
+  <meta name="description" content="Participe do Desafio Comece Leve de 10 dias com a Nutricionista Bruna Boreggio. Transforme sua alimentação e ganhe prêmios.">
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '863466929657523');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=863466929657523&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-6525628068"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-6525628068');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:       #FAF7F2;
+      --gold:        #C5965A;
+      --gold-light:  #E8D4B5;
+      --gold-dark:   #A07840;
+      --brown:       #2C1A0E;
+      --brown-mid:   #5A3E28;
+      --brown-light: #8B6A4A;
+      --white:       #FFFFFF;
+      --off-white:   #F4EFE6;
+      --green:       #3D8B5E;
+      --green-light: #E8F5EE;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      font-family:'Poppins', sans-serif;
+      background:var(--brown);
+      color:var(--brown);
+      min-height:100vh;
+      padding:0 0 60px;
+      position:relative;
+      overflow-x:hidden;
+    }
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(197,150,90,.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 90%, rgba(197,150,90,.10) 0%, transparent 60%);
+      pointer-events:none; z-index:0;
+    }
+    .site-header {
+      position:relative; z-index:1;
+      text-align:center;
+      padding:28px 20px 0;
+    }
+    .header-logo { color:var(--gold-light); text-decoration:none; display:inline-block; }
+    .header-logo-name { font-weight:700; font-size:1.15rem; letter-spacing:.12em; text-transform:uppercase; }
+    .header-logo-sub  { font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(229,212,181,.5); margin-top:2px; }
+    .hero {
+      position:relative; z-index:1;
+      text-align:center;
+      padding:48px 20px 36px;
+      max-width:680px;
+      margin:0 auto;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(197,150,90,.2); border:1px solid rgba(197,150,90,.4);
+      border-radius:100px; padding:5px 16px;
+      font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--gold-light); margin-bottom:22px;
+    }
+    .hero h1 {
+      font-size:clamp(2rem, 5vw, 3.2rem); font-weight:700;
+      color:var(--white); line-height:1.15; margin-bottom:16px;
+    }
+    .hero h1 span { font-family:'Dancing Script', cursive; color:var(--gold); font-size:1.15em; }
+    .hero-sub { font-size:1.05rem; color:rgba(229,212,181,.8); line-height:1.7; margin-bottom:32px; }
+    .hero-bullets { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .hero-bullet {
+      display:flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(197,150,90,.25);
+      border-radius:100px; padding:7px 16px;
+      font-size:.82rem; color:var(--gold-light);
+    }
+    .main-card-wrap {
+      position:relative; z-index:1;
+      max-width:520px; margin:40px auto 0; padding:0 20px;
+    }
+    .main-card {
+      background:var(--white); border-radius:24px;
+      padding:44px 44px 40px;
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
+    }
+    @media(max-width:520px){ .main-card { padding:32px 24px 28px; } }
+    .offer-block { text-align:center; margin-bottom:32px; }
+    .offer-label { display:inline-block; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--brown-light); margin-bottom:8px; }
+    .offer-price { font-size:3.6rem; font-weight:700; color:var(--brown); line-height:1; }
+    .offer-price sup { font-size:1.4rem; font-weight:600; vertical-align:top; margin-top:8px; display:inline-block; }
+    .offer-price-sub { font-size:.85rem; color:var(--brown-light); margin-top:6px; }
+    .features-list {
+      list-style:none; display:flex; flex-direction:column; gap:10px;
+      margin-bottom:32px; padding:20px;
+      background:var(--cream); border-radius:14px; border:1px solid var(--gold-light);
+    }
+    .feature-item { display:flex; align-items:flex-start; gap:10px; font-size:.86rem; color:var(--brown-mid); line-height:1.4; }
+    .feature-item .icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+    .form-title { font-size:1.1rem; font-weight:700; color:var(--brown); margin-bottom:4px; }
+    .form-sub { font-size:.82rem; color:var(--brown-light); margin-bottom:20px; line-height:1.5; }
+    .field-wrap { display:flex; flex-direction:column; gap:5px; margin-bottom:14px; }
+    .field-wrap label { font-size:.76rem; font-weight:600; color:var(--brown-mid); letter-spacing:.04em; text-transform:uppercase; }
+    .field-wrap input {
+      height:50px; border-radius:12px; border:1.5px solid var(--gold-light);
+      padding:0 16px; font-family:'Poppins', sans-serif; font-size:.95rem; color:var(--brown);
+      background:var(--cream); outline:none; transition:border-color .2s, box-shadow .2s;
+    }
+    .field-wrap input::placeholder { color:rgba(90,62,40,.35); }
+    .field-wrap input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(197,150,90,.15); background:var(--white); }
+    .field-wrap input.error { border-color:#e05555; }
+    .btn-primary {
+      width:100%; height:54px; border-radius:14px;
+      background:var(--gold); border:none; cursor:pointer;
+      font-family:'Poppins', sans-serif; font-size:1rem; font-weight:700;
+      color:var(--brown); letter-spacing:.04em; transition:all .2s;
+      box-shadow:0 4px 20px rgba(197,150,90,.4);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn-primary:hover { background:var(--gold-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(197,150,90,.5); }
+    .btn-primary:disabled { opacity:.6; pointer-events:none; }
+    .form-error-msg {
+      background:#fff0f0; border:1px solid #ffcccc;
+      border-radius:10px; padding:12px 16px;
+      font-size:.82rem; color:#c0392b; display:none; margin-bottom:14px;
+    }
+    .form-error-msg.show { display:block; }
+    .card-disclaimer { font-size:.72rem; color:var(--brown-light); text-align:center; margin-top:14px; line-height:1.5; }
+    .card-disclaimer a { color:var(--gold-dark); }
+    .payment-block { display:none; }
+    .payment-block.visible { display:block; }
+    .payment-icon { font-size:2.8rem; text-align:center; margin-bottom:14px; }
+    .payment-block h3 { font-size:1.2rem; font-weight:700; color:var(--brown); text-align:center; margin-bottom:8px; }
+    .payment-block p { font-size:.88rem; color:var(--brown-light); text-align:center; line-height:1.6; margin-bottom:24px; }
+    .btn-payment {
+      display:flex; align-items:center; justify-content:center;
+      height:54px; border-radius:14px; background:var(--gold); color:var(--brown);
+      font-family:'Poppins1sans-serif; font-size:1rem; font-weight:700;
+      text-decoration:none; box-shadow:0 4px 20px rgba(197,150,90,.4);
+      transition:all .2s; margin-bottom:12px;
+    }
+    .btn-payment:hover { background:var(--gold-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(197,150,90,.5); }
+    .btn-check {
+      width:100%; height:44px; border-radius:12px;
+      background:transparent; border:1.5px solid var(--gold-light);
+      color:var(--brown-mid); font-family:'Poppins', sans-serif;
+      font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s;
+    }
+    .btn-check:hover { background:var(--off-white); }
+    .btn-check:disabled { opacity:.5; pointer-events:none; }
+    .checking-text { font-size:.78rem; color:var(--brown-light); text-align:center; margin-top:10px; display:none; }
+    .checking-text.show { display:block; }
+    .guarantee { position:relative; z-index:1; max-width:520px; margin:24px auto 0; padding:0 20px; text-align:center; }
+    .guarantee-inner {
+      background:rgba(255,255,255,.05); border:1px solid rgba(197,150,90,.2);
+      border-radius:14px; padding:18px 20px; color:rgba(229,212,181,.65); font-size:.8rem; line-height:1.6;
+    }
+    .guarantee-inner strong { color:var(--gold-light); }
+    .back-link {
+      display:block; text-align:center; margin-top:28px;
+      font-size:.8rem; color:rgba(229,212,181,.4); text-decoration:none;
+      transition:color .2s; position:relative; z-index:1;
+    }
+    .back-link:hover { color:var(--gold-light); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="header-logo" href="/">
+    <div class="header-logo-name">Bruna Boreggio</div>
+    <div class="header-logo-sub">Nutriconista · CRN 68497</div>
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">🏆 Desafio Comece Leve</div>
+  <h1>10 dias para<br><span>transformar</span><br>sua alimentação</h1>
+  <p class="hero-sub">
+    Um desafio prático, com suporte da nutricionista Bruna Boreggio, fotos de evolução, pontuação diária e premiação para quem mais se dedicar.
+  </p>
+  <div class="hero-bullets">
+    <div class="hero-bullet">📅 10 dias de conteúdo</div>
+    <div class="hero-bullet">📸 Fotos de evolução</div>
+    <div class="hero-bullet">🏆 Ranking com prêmios</div>
+    <div class="hero-bullet">💬 Suporte da Bruna</div>
+  </div>
+</section>
+
+<div class="main-card-wrap">
+  <div class="main-card">
+
+    <div class="offer-block" id="offerBlock">
+      <div class="offer-label">Investimento único</div>
+      <div class="offer-price"><sup>R$</sup>97</div>
+      <div class="offer-price-sub">Acesso completo aos 10 dias</div>
+    </div>
+
+    <ul class="features-list" id="featuresList">
+      <li class="feature-item"><span class="icon">🎥</span><span>Vídeo-aulas exclusivas para cada dia do desafio</span></li>
+      <li class="feature-item"><span class="icon">📸</span><span>Upload de fotos diárias com pontuação automática</span></li>
+      <li class="feature-item"><span class="icon">💧</span><span>Registro de metas de água e check-ins diários</span></li>
+      <li class="feature-item"><span class="icon">🏆</span><span>Ranking ao vivo — quem mais pontuar ganha prêmio</span></li>
+      <li class="feature-item"><span class="icon">💬</span><span>Comentários e feedback da Bruna nas suas fotos</span></li>
+      <li class="feature-item"><span class="icon">📊</span><span>Foto do antes e depois com pontuação especial</span></li>
+    </ul>
+
+    <div id="registerBlock">
+      <div class="form-title">Garanta sua vaga</div>
+      <div class="form-sub">Preencha seus dados para reservar e receber o link de pagamento.</div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-error-msg" id="formError">Por favor, preencha todos os campos corretamente.</div>
+        <div class="field-wrap">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" required>
+        </div>
+        <div class="field-wrap">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required>
+        </div>
+        <div class="field-wrap">
+          <label for="telefone">WhatsApp</label>
+          <input type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required>
+        </div>
+        <button type="submit" class="btn-primary" id="registerBtn">
+          <span id="registerBtnText">Quero participar →</span>
+        </button>
+      </form>
+
+      <p class="card-disclaimer">
+        Ao se cadastrar você concorda com nossa
+        <a href="/politica-privacidade.html" target="_blank">Política de Privacidade</a>.
+        Seus dados estão protegidos.
+      </p>
+    </div>
+
+    <div class="payment-block" id="paymentBlock">
+      <div class="payment-icon">💳</div>
+      <h3>Finalize seu pagamento</h3>
+      <p>
+        Clique abaixo para ir à página de pagamento seguro.<br>
+        Após confirmar, você terá acesso imediato ao desafio.
+      </p>
+      <a href="#" id="paymentLink" class="btn-payment" target="_blank">
+        Pagar R$97 e entrar no desafio →
+      </a>
+      <button class="btn-check" id="checkBtn" onclick="checkPayment()">
+        Já paguei — verificar acesso
+      </button>
+      <p class="checking-text" id="checkingText">⏳ Verificando pagamento…</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="guarantee">
+  <div class="guarantee-inner">
+    <strong>🔒 Pagamento 100% seguro</strong> · Processado pela Asaas.<br>
+    Dúvidas? Fale diretamente com a Bruna pelo WhatsApp.
+  </div>
+</div>
+
+<a class="back-link" href="/">← Voltar ao site</a>
+
+<script>
+  var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+  var PAYMENT_LINK = 'LINK_ASAAS_AQUI';
+
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    var v = e.target.value.replace(/\D/g,'').substring(0,11);
+    if (v.length > 10)     v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+    e.target.value = v;
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var nome     = document.getElementById('nome').value.trim();
+    var email    = document.getElementById('email').value.trim();
+    var telefone = document.getElementById('telefone').value.trim();
+    var errEl    = document.getElementById('formError');
+    var btn      = document.getElementById('registerBtn');
+
+    errEl.classList.remove('show');
+    ['nome','email','telefone'].forEach(function(id){ document.getElementById(id).classList.remove('error'); });
+
+    var valid = true;
+    if (!nome || nome.length < 3) { document.getElementById('nome').classList.add('error'); valid = false; }
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRe.test(email)) { document.getElementById('email').classList.add('error'); valid = false; }
+    if (!telefone || telefone.replace(/\D/g,'').length < 10) { document.getElementById('telefone').classList.remove('error'); valid = false; }
+    if (!valid) { errEl.classList.add('show'); return; }
+
+    btn.disabled = true;
+    document.getElementById('registerBtnText').textContent = 'Salvando…';
+
+    localStorage.setItem('desafio_user', JSON.stringify({
+      nome: nome, email: email, telefone: telefone, plano: 'Desafio', preco: 97
+    }));
+
+    fetch(WEBHOOK, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'challenge_register', nome:nome, email:email, telefone:telefone, plano:'Desafio', preco:97 })
+    }).catch(function(){});
+
+    if (typeof fbq === 'function') {
+      fbq('track', 'InitiateCheckout', {value:97, currency:'BRL', content_name:'Desafio Comece Leve'});
+    }
+
+    document.getElementById('registerBlock').style.display = 'none';
+    document.getElementById('offerBlock').style.display    = 'none';
+    document.getElementById('featuresList').style.display  = 'none';
+    document.getElementById('paymentLink').href = PAYMENT_LINK;
+    document.getElementById('paymentBlock').classList.add('visible');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  function checkPayment() {
+    var userData = JSON.parse(localStorage.getItem('desafio_user') || '{}');
+    if (!userData.email) { alert('Dados não encontrados. Preencha o cadastro novamente.'); return; }
+    var btn = document.getElementById('checkBtn');
+    var checking = document.getElementById('checkingText');
+    btn.disabled = true;
+    checking.classList.add('show');
+
+    fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(userData.email))
+      .then(function(r){ return r.json(); })
+      .then(function(data) {
+        if (data.pago) {
+          if (typeof fbq === 'function') fbq('track', 'Purchase', {value:97, currency:'BRL', content_name:'Desafio Comece Leve'});
+          if (typeof gtag === 'function') gtag('event', 'purchase', {value:97, currency:'BRL'});
+          window.location.href = '/area-desafio/';
+        } else {
+          checking.classList.remove('show');
+          btn.disabled = false;
+          alert('Pagamento ainda não confirmado. Aguarde alguns minutos e tente novamente. Se já pagou há mais de 10 minutos, entre em contato com a Bruna.');
+        }
+      })
+      .catch(function() {
+        checking.classList.remove('show');
+        btn.disabled = false;
+        alert('Erro ao verificar. Tente novamente em instantes.');
+      });
+  }
+
+  var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
+  if (saved.email && saved.pago) {
+    window.location.replace('/area-desafio/');
+  }
+</script>
+
+</body>
+</html>
