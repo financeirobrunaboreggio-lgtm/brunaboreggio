@@ -1,566 +1,706 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minha Área — Desafio Comece Leve</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desafio Comece Leve — Área de Membros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06040A;
+  --bg2:#0D0A14;
+  --gold:#C9954E;
+  --gold2:#E8C07A;
+  --gold3:#F5DFA0;
+  --glass:rgba(255,255,255,0.035);
+  --glass2:rgba(255,255,255,0.06);
+  --border:rgba(201,149,78,0.18);
+  --text:#F2EEF8;
+  --muted:rgba(242,238,248,0.55);
+  --green:#4ADE80;
+  --red:#F87171;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
 
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '863466929657523');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=863466929657523&ev=PageView&noscript=1"/></noscript>
+/* ── LOADING ─────────────────────────────────────────── */
+#loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .6s ease}
+#loading.fade-out{opacity:0;pointer-events:none}
+.load-logo{font-size:28px;font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.load-bar-wrap{width:200px;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
+.load-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold3));border-radius:2px;animation:loadBar 1.6s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes loadBar{to{width:100%}}
+.load-text{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-6525628068"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-6525628068');
-  </script>
+/* ── CANVAS PARTICLES ────────────────────────────────── */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+/* ── AMBIENT ORBS ────────────────────────────────────── */
+.orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.18;pointer-events:none;z-index:0;animation:orbFloat var(--dur,10s) ease-in-out infinite alternate}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,#C9954E,transparent 70%);top:-120px;left:-120px;--dur:9s}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,#7C3AED,transparent 70%);bottom:-100px;right:-80px;--dur:12s}
+.orb3{width:320px;height:320px;background:radial-gradient(circle,#C9954E44,transparent 70%);top:40%;left:60%;--dur:8s}
+@keyframes orbFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.08)}}
 
-  <style>
-    :root {
-      --cream:       #FAF7F2;
-      --gold:        #C5965A;
-      --gold-light:  #E8D4B5;
-      --gold-dark:   #A07840;
-      --brown:       #2C1A0E;
-      --brown-mid:   #5A3E28;
-      --brown-light: #8B6A4A;
-      --white:       #FFFFFF;
-      --off-white:   #F4EFE6;
-      --green:       #3D8B5E;
-      --green-light: #E8F5EE;
-      --blue:        #2D6A9F;
-      --blue-light:  #E8F0FA;
-    }
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; font-size:16px; }
-    body { font-family:'Poppins', sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+/* ── HEADER ──────────────────────────────────────────── */
+header{position:sticky;top:0;z-index:100;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,4,10,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.hdr-brand{font-size:15px;font-weight:700;letter-spacing:-.3px;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.hdr-name{font-size:13px;color:var(--muted)}
+.btn-exit{font-size:12px;font-weight:600;color:var(--gold);background:rgba(201,149,78,0.1);border:1px solid rgba(201,149,78,0.25);border-radius:8px;padding:6px 14px;cursor:pointer;transition:all .25s;letter-spacing:.04em}
+.btn-exit:hover{background:rgba(201,149,78,0.2);color:var(--gold3)}
 
-    .page-loading {
-      position:fixed; inset:0; background:var(--brown);
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column; gap:14px; z-index:9999; transition:opacity .4s;
-    }
-    .page-loading.hide { opacity:0; pointer-events:none; }
-    .loading-logo { color:var(--gold-light); font-size:1.1rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-    .loading-spinner {
-      width:36px; height:36px; border:3px solid rgba(197,150,90,.3);
-      border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
+/* ── MAIN ────────────────────────────────────────────── */
+main{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:40px 20px 80px}
 
-    .app-header {
-      background:var(--brown); padding:0 24px;
-      display:flex; align-items:center; justify-content:space-between;
-      height:64px; position:sticky; top:0; z-index:100;
-      box-shadow:0 2px 20px rgba(0,0,0,.3);
-    }
-    .header-brand { color:var(--gold-light); text-decoration:none; }
-    .header-brand-name { font-size:.95rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-    .header-brand-sub  { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(229,212,181,.4); }
-    .header-user { display:flex; align-items:center; gap:12px; }
-    .header-points-badge {
-      background:rgba(197,150,90,.2); border:1px solid rgba(197,150,90,.4);
-      border-radius:100px; padding:4px 14px; font-size:.78rem; font-weight:600; color:var(--gold-light);
-    }
-    .header-user-name { font-size:.82rem; color:rgba(229,212,181,.7); max-width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    @media(max-width:480px){ .header-user-name { display:none; } }
+/* ── REVEAL ──────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
 
-    .app-body { max-width:820px; margin:0 auto; padding:28px 20px 60px; }
+/* ── HERO ────────────────────────────────────────────── */
+.hero{text-align:center;padding:48px 0 40px;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,0.1);border:1px solid rgba(201,149,78,0.2);border-radius:100px;padding:6px 16px;margin-bottom:20px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulseDot 1.6s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.hero h1{font-size:clamp(26px,5vw,42px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:10px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
 
-    .welcome-banner {
-      background:linear-gradient(135deg, var(--brown) 0%, #3D2410 100%);
-      border-radius:18px; padding:28px; margin-bottom:28px;
-      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-    }
-    .welcome-text h2 { font-size:1.4rem; font-weight:700; color:var(--white); margin-bottom:4px; }
-    .welcome-text h2 span { font-family:'Dancing Script', cursive; color:var(--gold); }
-    .welcome-text p { font-size:.85rem; color:rgba(229,212,181,.7); }
-    .welcome-pts {
-      text-align:center; background:rgba(197,150,90,.15); border:1px solid rgba(197,150,90,.3);
-      border-radius:14px; padding:14px 24px; flex-shrink:0;
-    }
-    .welcome-pts-number { font-size:2.2rem; font-weight:700; color:var(--gold); line-height:1; }
-    .welcome-pts-label  { font-size:.72rem; color:rgba(229,212,181,.6); text-transform:uppercase; letter-spacing:.06em; }
+/* points card */
+.pts-card{display:inline-flex;align-items:center;gap:16px;background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:20px 32px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.pts-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,149,78,0.07),transparent);pointer-events:none}
+.pts-val{font-size:48px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--gold),var(--gold3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
+@keyframes shimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.pts-meta{text-align:left}
+.pts-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.pts-rank{font-size:13px;color:var(--gold2);font-weight:600}
 
-    .section-card { background:var(--white); border-radius:16px; padding:24px; margin-bottom:20px; box-shadow:0 2px 16px rgba(44,26,14,.08); }
-    .section-card-title { font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-    .section-card-title .badge { background:var(--gold); color:var(--brown); font-size:.65rem; font-weight:700; padding:2px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:.06em; }
+/* progress */
+.prog-wrap{margin-top:28px}
+.prog-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.prog-bar{height:6px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:visible;position:relative}
+.prog-fill{height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--gold),var(--gold3));transition:width 1.5s cubic-bezier(.4,0,.2,1);position:relative}
+.prog-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:12px;height:12px;border-radius:50%;background:var(--gold3);box-shadow:0 0 12px var(--gold)}
 
-    .leaderboard-list { display:flex; flex-direction:column; gap:10px; }
-    .lb-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--cream); border-radius:12px; border:1px solid var(--gold-light); }
-    .lb-item.lb-me { background:linear-gradient(90deg, rgba(197,150,90,.12) 0%, var(--cream) 100%); border-color:var(--gold); }
-    .lb-rank { font-size:1.2rem; font-weight:700; color:var(--gold-dark); min-width:32px; text-align:center; }
-    .lb-rank.gold { color:#C5A028; } .lb-rank.silver { color:#888; }
-    .lb-name { flex:1; font-size:.88rem; font-weight:600; color:var(--brown); }
-    .lb-pts  { font-size:.88rem; font-weight:700; color:var(--gold-dark); }
-    .lb-me-tag { font-size:.65rem; font-weight:700; background:var(--gold); color:var(--brown); padding:2px 8px; border-radius:100px; text-transform:uppercase; }
-    .lb-loading { font-size:.85rem; color:var(--brown-light); text-align:center; padding:12px; }
+/* ── SECTION TITLES ──────────────────────────────────── */
+.sec-title{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 
-    .days-list { display:flex; flex-direction:column; gap:10px; }
-    .day-item { border:1px solid #EDE3D5; border-radius:14px; overflow:hidden; }
-    .day-header { display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; background:var(--white); transition:background .15s; user-select:none; }
-    .day-header:hover { background:var(--cream); }
-    .day-header.open { background:var(--cream); border-bottom:1px solid #EDE3D5; }
-    .day-num { width:36px; height:36px; border-radius:50%; background:var(--gold); color:var(--brown); font-size:.85rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .day-info { flex:1; }
-    .day-title { font-size:.92rem; font-weight:600; color:var(--brown); }
-    .day-subtitle { font-size:.76rem; color:var(--brown-light); margin-top:2px; }
-    .day-chevron { font-size:1rem; color:var(--brown-light); transition:transform .2s; }
-    .day-header.open .day-chevron { transform:rotate(180deg); }
-    .day-body { display:none; padding:20px; background:var(--white); }
-    .day-body.open { display:block; }
+/* ── GLASS CARD ──────────────────────────────────────── */
+.glass-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:24px;backdrop-filter:blur(20px);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.glass-card:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(201,149,78,0.1);border-color:rgba(201,149,78,0.3)}
 
-    .video-wrap { position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; background:#000; margin-bottom:20px; }
-    .video-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
-    .video-coming { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--brown); color:rgba(229,212,181,.5); font-size:.9rem; gap:8px; }
-    .video-coming span { font-size:2rem; }
+/* ── LEADERBOARD ─────────────────────────────────────── */
+.lb-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);transition:transform .25s ease}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{transform:translateX(5px)}
+.lb-rank{width:28px;text-align:center;font-size:13px;font-weight:700;color:var(--muted);flex-shrink:0}
+.lb-rank.gold{color:#FFD700;text-shadow:0 0 12px #FFD700}
+.lb-rank.silver{color:#C0C0C0}
+.lb-rank.bronze{color:#CD7F32}
+.lb-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold3));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--bg);flex-shrink:0}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:14px;font-weight:600;white-space:nowraw;overflow:hidden;text-overflow:ellipsis}
+.lb-pts-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:3px;margin-top:5px;overflow:hidden}
+.lb-pts-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold3));transition:width 1.2s ease}
+.lb-pts{font-size:13px;font-weight:700;color:var(--gold2);flex-shrink:0}
 
-    .upload-area { border:2px dashed var(--gold-light); border-radius:12px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--cream); margin-bottom:14px; }
-    .upload-area:hover { border-color:var(--gold); background:var(--off-white); }
-    .upload-area-icon { font-size:2rem; margin-bottom:6px; }
-    .upload-area-text { font-size:.83rem; color:var(--brown-light); line-height:1.5; }
-    .upload-area-pts  { font-size:.75rem; font-weight:600; color:var(--gold-dark); margin-top:4px; }
-    .upload-input { display:none; }
+/* ── PHOTO UPLOAD ────────────────────────────────────── */
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.photo-box{border:2px dashed var(--border);border-radius:16px;padding:32px 16px;text-align:center;cursor:pointer;transition:all .3s ease;position:relative;overflow:hidden}
+.photo-box:hover{border-color:var(--gold);background:rgba(201,149,78,0.05)}
+.photo-box .ico{font-size:28px;margin-bottom:8px}
+.photo-box .lbl{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.photo-box .sub{font-size:11px;color:var(--muted)}
+.photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;opacity:0;transition:opacity .4s ease}
+.photo-box img.loaded{opacity:1}
+.pts-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,0.12);border:1px solid rgba(201,149,78,0.2);border-radius:100px;padding:2px 8px;margin-top:6px}
+input[type=file]{display:none}
 
-    .photo-preview { display:none; position:relative; margin-bottom:14px; }
-    .photo-preview img { width:100%; border-radius:12px; max-height:280px; object-fit:cover; }
-    .photo-preview-remove { position:absolute; top:8px; right:8px; background:rgba(0,0,0,.6); color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; font-size:1rem; line-height:1; }
+/* ── DAILY CHECKIN ───────────────────────────────────── */
+.checkin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.checkin-item{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;cursor:pointer;transition:all .3s ease}
+.checkin-item:hover{border-color:var(--gold);transform:translateY(-2px)}
+.checkin-item.done{background:rgba(74,222,128,0.07);border-color:rgba(74,222,128,0.3)}
+.checkin-item .ci-ico{font-size:22px;margin-bottom:6px}
+.checkin-item .ci-lbl{font-size:12px;font-weight:600;color:var(--text)}
+.checkin-item .ci-pts{font-size:10px;color:var(--muted);margin-top:2px}
 
-    .btn-upload { width:100%; height:44px; border-radius:12px; background:var(--gold); border:none; cursor:pointer; font-family:'Poppins', sans-serif; font-size:.88rem; font-weight:700; color:var(--brown); transition:all .2s; display:none; }
-    .btn-upload.visible { display:block; }
-    .btn-upload:hover { background:var(--gold-dark); }
-    .btn-upload:disabled { opacity:.6; pointer-events:none; }
+/* ── DAYS ACCORDION ──────────────────────────────────── */
+.day-item{margin-bottom:10px}
+.day-head{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--glass);border:1px solid var(--border);border-radius:16px;cursor:pointer;transition:all .3s ease;user-select:none}
+.day-head:hover{border-color:rgba(201,149,78,0.35);background:var(--glass2)}
+.day-head.open{border-color:rgba(201,149,78,0.4);border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;background:var(--glass2)}
+.day-num{width:36px;height:36px;border-radius:10px;background:rgba(201,149,78,0.12);border:1px solid rgba(201,149,78,0.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--gold);flex-shrink:0}
+.day-head.done .day-num{background:rgba(74,222,128,0.12);border-color:rgba(74,222,128,0.3);color:var(--green)}
+.day-info{flex:1}
+.day-title{font-size:15px;font-weight:700}
+.day-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.day-chevron{width:20px;height:20px;color:var(--muted);transition:transform .35s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.day-head.open .day-chevron{transform:rotate(180deg)}
+.day-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);background:var(--glass2);border:1px solid rgba(201,149,78,0.4);border-top:none;border-bottom-left-radius:16px;border-bottom-right-radius:16px}
+.day-body-inner{padding:24px}
+.video-wrap{position:relative;padding-bottom:56.25%;background:rgba(0,0,0,0.4);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+.video-placeholder .vp-ico{font-size:40px;opacity:.4}
+.video-placeholder .vp-txt{font-size:13px}
+.day-checkin-row{display:flex;gap:10px;flex-wrap:wrap}
+.day-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s;border:1px solid;letter-spacing:.04em}
+.day-btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--bg);border-color:transparent}
+.day-btn.primary:hover{filter:brightness(1.1);transform:scale(1.02)}
+.day-btn.secondary{background:rgba(201,149,78,0.08);color:var(--gold2);border-color:rgba(201,149,78,0.25)}
+.day-btn.secondary:hover{background:rgba(201,149,78,0.15)}
+.day-btn.done-btn{background:rgba(74,222,128,0.08);color:var(--green);border-color:rgba(74,222,128,0.25);cursor:default}
 
-    .upload-success { display:none; background:var(--green-light); border:1px solid rgba(61,139,94,.3); border-radius:10px; padding:12px 16px; font-size:.82rem; color:var(--green); text-align:center; margin-top:8px; }
-    .upload-success.show { display:block; }
+/* ── ADMIN PANEL ─────────────────────────────────────── */
+.admin-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#A78BFA;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:100px;padding:4px 12px;margin-bottom:20px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.admin-stat{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center}
+.admin-stat-val{font-size:36px;font-weight:800;color:var(--gold2)}
+.admin-stat-lbl{font-size:11px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.admin-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.admin-table th{text-align:left;padding:8px 12px;color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}
+.admin-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:rgba(255,255,255,0.02)}
 
-    .sent-photos { margin-top:16px; }
-    .sent-photos-title { font-size:.78rem; font-weight:600; color:var(--brown-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px; }
-    .sent-photos-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:8px; }
-    .sent-photo-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1; }
-    .sent-photo-item img { width:100%; height:100%; object-fit:cover; }
-    .sent-photo-pts { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.6); color:var(--gold-light); font-size:.65rem; font-weight:600; text-align:center; padding:3px; }
+/* ── TOAST ───────────────────────────────────────────── */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(13,10,20,0.95);border:1px solid var(--border);border-radius:14px;padding:14px 24px;font-size:13px;font-weight:600;color:var(--text);backdrop-filter:blur(20px);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;opacity:0;z-index:9000;max-width:340px;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-    .bruna-comment { background:var(--off-white); border-left:3px solid var(--gold); border-radius:0 10px 10px 0; padding:12px 16px; margin-top:12px; }
-    .bruna-comment-who { font-size:.72rem; font-weight:700; color:var(--gold-dark); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
-    .bruna-comment-text { font-size:.85rem; color:var(--brown-mid); line-height:1.5; }
+/* ── AUTH SCREENS ────────────────────────────────────── */
+#auth-screen,#register-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-box{width:100%;max-width:420px;background:var(--glass2);border:1px solid var(--border);border-radius:24px;padding:40px 36px;backdrop-filter:blur(30px);position:relative;overflow:hidden}
+.auth-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,149,78,0.5),transparent)}
+.auth-logo{text-align:center;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.auth-sub{text-align:center;font-size:13px;color:var(--muted);margin-bottom:32px}
+.auth-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--text);font-family:'Sora',sans-serif;margin-bottom:12px;transition:border-color .25s,background .25s;outline:none}
+.auth-input:focus{border-color:rgba(201,149,78,0.5);background:rgba(255,255,255,0.07)}
+.auth-input::placeholder{color:rgba(242,238,248,0.3)}
+.auth-btn{width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'Sora',sans-serif;background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--bg);transition:all .25s;margin-top:4px}
+.auth-btn:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 30px rgba(201,149,78,0.3)}
+.auth-err{font-size:12px;color:var(--red);text-align:center;margin-top:8px;min-height:18px}
 
-    .checkin-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-    .btn-checkin { flex:1; min-width:140px; height:44px; border-radius:12px; border:1.5px solid var(--gold-light); background:var(--cream); font-family:'Poppins', sans-serif; font-size:.83rem; font-weight:600; color:var(--brown-mid); cursor:pointer; transition:all .2s; }
-    .btn-checkin:hover { background:var(--off-white); border-color:var(--gold); }
-    .btn-checkin.done { background:var(--green-light); border-color:rgba(61,139,94,.4); color:var(--green); }
-    .btn-checkin:disabled { opacity:.6; pointer-events:none; }
-
-    .before-after-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .ba-label { font-size:.78rem; font-weight:600; color:var(--brown-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; }
-    .ba-pts   { font-size:.72rem; color:var(--gold-dark); font-weight:600; margin-bottom:8px; }
-
-    .admin-panel { display:none; background:var(--white); border:2px solid var(--gold); border-radius:16px; padding:24px; margin-bottom:20px; box-shadow:0 2px 16px rgba(44,26,14,.08); }
-    .admin-panel.visible { display:block; }
-    .admin-panel-title { font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
-    .admin-tag { background:var(--gold); color:var(--brown); font-size:.65rem; font-weight:700; padding:3px 10px; border-radius:100px; text-transform:uppercase; }
-
-    .participants-list { display:flex; flex-direction:column; gap:10px; }
-    .participant-row { border:1px solid #EDE3D5; border-radius:12px; overflow:hidden; }
-    .participant-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; background:var(--cream); transition:background .15s; }
-    .participant-header:hover { background:var(--off-white); }
-    .participant-name { font-size:.9rem; font-weight:600; color:var(--brown); }
-    .participant-meta { font-size:.75rem; color:var(--brown-light); margin-top:2px; }
-    .participant-pts-badge { background:var(--gold-light); color:var(--brown-mid); font-size:.75rem; font-weight:700; padding:3px 10px; border-radius:100px; }
-    .participant-body { display:none; padding:16px; background:var(--white); }
-    .participant-body.open { display:block; }
-    .participant-photos-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:8px; margin-bottom:14px; }
-    .participant-photo-item { position:relative; border-radius:8px; overflow:hidden; aspect-ratio:1; }
-    .participant-photo-item img { width:100%; height:100%; object-fit:cover; }
-    .participant-photo-tipo { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.6); color:var(--gold-light); font-size:.6rem; text-align:center; padding:2px; }
-    .admin-comment-form { margin-top:14px; }
-    .admin-comment-form textarea { width:100%; border:1.5px solid var(--gold-light); border-radius:10px; padding:12px; resize:vertical; min-height:72px; font-family:'Poppins', sans-serif; font-size:.85rem; color:var(--brown); background:var(--cream); outline:none; }
-    .admin-comment-form textarea:focus { border-color:var(--gold); }
-    .btn-comment { margin-top:8px; height:40px; padding:0 20px; border-radius:10px; background:var(--gold); border:none; cursor:pointer; font-family:'Poppins', sans-serif; font-size:.82rem; font-weight:700; color:var(--brown); transition:all .2s; }
-    .btn-comment:hover { background:var(--gold-dark); }
-    .btn-comment:disabled { opacity:.6; pointer-events:none; }
-    .no-participants { font-size:.85rem; color:var(--brown-light); text-align:center; padding:20px; }
-
-    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--brown); color:var(--gold-light); padding:12px 24px; border-radius:12px; font-size:.85rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.3); z-index:9999; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
-    .toast.show { opacity:1; }
-  </style>
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media(max-width:600px){
+  .photo-grid{grid-template-columns:1fr 1fr}
+  .admin-grid{grid-template-columns:1fr 1fr}
+  .pts-card{padding:16px 24px}
+  .pts-val{font-size:36px}
+}
+</style>
 </head>
 <body>
 
-<div class="page-loading" id="pageLoading">
-  <div class="loading-logo">Comece Leve</div>
-  <div class="loading-spinner"></div>
+<!-- LOADING -->
+<div id="loading">
+  <div class="load-logo">Comece Leve</div>
+  <div class="load-bar-wrap"><div class="load-bar"></div></div>
+  <div class="load-text">carregando sua jornada...</div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
 
-<header class="app-header">
-  <a class="header-brand" href="/">
-    <div class="header-brand-name">Bruna Boreggio</div>
-    <div class="header-brand-sub">Desafio Comece Leve</div>
-  </a>
-  <div class="header-user">
-    <div class="header-points-badge" id="headerPts">0 pts</div>
-    <div class="header-user-name" id="headerName">—</div>
+<!-- AMBIENT ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Comece Leve</div>
+    <div class="auth-sub">Entre com seu e-mail para acessar</div>
+    <input class="auth-input" id="auth-email" type="email" placeholder="Seu e-mail">
+    <input class="auth-input" id="auth-phone" type="tel" placeholder="Seu telefone">
+    <button class="auth-btn" id="auth-btn">Acessar minha área</button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- REGISTER SCREEN (redirect to payment) -->
+<div id="register-screen" style="display:none">
+  <div class="auth-box">
+    <div class="auth-logo">Comece Leve</div>
+    <div class="auth-sub">Você ainda não está inscrita no desafio.</div>
+    <button class="auth-btn" onclick="window.location.href='/area-premium/'">Quero participar</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header" style="display:none">
+  <div class="hdr-brand">Desafio Comece Leve</div>
+  <div class="hdr-right">
+    <span class="hdr-name" id="hdr-name"></span>
+    <button class="btn-exit" onclick="logout()">Sair</button>
   </div>
 </header>
 
-<div class="app-body">
+<!-- MAIN AREA -->
+<main id="main-area" style="display:none">
 
-  <div class="welcome-banner">
-    <div class="welcome-text">
-      <h2>Olá, <span id="welcomeName">participante</span>! 🌿</h2>
-      <p>Seu desafio de 10 dias começa aqui. A cada dia, novos conteúdos e mais pontos para você acumular.</p>
-    </div>
-    <div class="welcome-pts">
-      <div class="welcome-pts-number" id="totalPts">0</div>
-      <div class="welcome-pts-label">pontos</div>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="section-card-title">🏆 Ranking <span class="badge">Ao vivo</span></div>
-    <div class="leaderboard-list" id="leaderboardList">
-      <div class="lb-loading">Carregando ranking…</div>
-    </div>
-  </div>
-
-  <div class="admin-panel" id="adminPanel">
-    <div class="admin-panel-title">Painel da Bruna <span class="admin-tag">Admin</span></div>
-    <div class="participants-list" id="participantsList">
-      <div class="no-participants">Carregando participantes…</div>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="section-card-title">📊 Foto do Antes e Depois <span class="badge">50 pts cada</span></div>
-    <p style="font-size:.84rem;color:var(--brown-light);margin-bottom:20px;line-height:1.6">
-      Envie sua foto do <strong>antes</strong> no início do desafio e a foto do <strong>depois</strong> no último dia. Cada uma vale <strong>50 pontos</strong> e será acompanhada pela Bruna.
-    </p>
-    <div class="before-after-grid">
-      <div class="ba-slot">
-        <div class="ba-label">📸 Antes</div>
-        <div class="ba-pts">+50 pts</div>
-        <div class="upload-area" onclick="triggerUpload('antes')">
-          <div class="upload-area-icon">📷</div>
-          <div class="upload-area-text">Toque para enviar sua foto do antes</div>
-        </div>
-        <input type="file" accept="image/*" class="upload-input" id="upload-antes" onchange="previewPhoto(this,'antes')">
-        <div class="photo-preview" id="preview-antes">
-          <img id="preview-img-antes" src="" alt="Preview antes">
-          <button class="photo-preview-remove" onclick="removePreview('antes')">✕</button>
-        </div>
-        <button class="btn-upload" id="btn-send-antes" onclick="sendPhoto('antes')">Enviar foto (+50 pts)</button>
-        <div class="upload-success" id="success-antes">✅ Foto do antes enviada! +50 pts</div>
-        <div id="sent-antes" class="sent-photos"></div>
-      </div>
-      <div class="ba-slot">
-        <div class="ba-label">📸 Depois</div>
-        <div class="ba-pts">+50 pts</div>
-        <div class="upload-area" onclick="triggerUpload('depois')">
-          <div class="upload-area-icon">🌟</div>
-          <div class="upload-area-text">Toque para enviar sua foto do depois</div>
-        </div>
-        <input type="file" accept="image/*" class="upload-input" id="upload-depois" onchange="previewPhoto(this,'depois')">
-        <div class="photo-preview" id="preview-depois">
-          <img id="preview-img-depois" src="" alt="Preview depois">
-          <button class="photo-preview-remove" onclick="removePreview('depois')">✕</button>
-        </div>
-        <button class="btn-upload" id="btn-send-depois" onclick="sendPhoto('depois')">Enviar foto (+50 pts)</button>
-        <div class="upload-success" id="success-depois">✅ Foto do depois enviada! +50 pts</div>
-        <div id="sent-depois" class="sent-photos"></div>
+  <!-- HERO -->
+  <section class="hero reveal">
+    <div class="hero-tag"><span class="live-dot"></span> Desafio Ativo</div>
+    <h1>Sua jornada de<br><span>transformação</span></h1>
+    <p class="hero-sub" id="hero-sub">Bem-vinda ao Desafio Comece Leve</p>
+    <div class="pts-card">
+      <div class="pts-val" id="pts-display">0</div>
+      <div class="pts-meta">
+        <span class="pts-label">seus pontos</span>
+        <span class="pts-rank" id="pts-rank">Calculando...</span>
       </div>
     </div>
-    <div id="bruna-comment-ba"></div>
-  </div>
+    <div class="prog-wrap">
+      <div class="prog-labels">
+        <span>Progresso do desafio</span>
+        <span id="prog-label">0 / 10 dias</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+    </div>
+  </section>
 
-  <div class="section-card">
-    <div class="section-card-title">📅 Os 10 Dias do Desafio</div>
-    <div class="days-list" id="daysList"></div>
-  </div>
+  <!-- ADMIN PANEL -->
+  <section id="admin-section" style="display:none">
+    <div class="sec-title">Painel Admin</div>
+    <div class="admin-badge">&#9733; Acesso administrativo</div>
+    <div class="glass-card reveal">
+      <div class="admin-grid">
+        <div class="admin-stat"><div class="admin-stat-val" id="adm-total">—</div><div class="admin-stat-lbl">Participantes</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" id="adm-checkins">—</div><div class="admin-stat-lbl">Check-ins hoje</div></div>
+      </div>
+      <table class="admin-table" id="adm-table">
+        <thead><tr><th>#</th><th>Nome</th><th>E-mail</th><th>Pts</th></tr></thead>
+        <tbody id="adm-tbody"></tbody>
+      </table>
+    </div>
+  </section>
 
-</div>
+  <!-- LEADERBOARD -->
+  <section style="margin-bottom:40px">
+    <div class="sec-title">Ranking</div>
+    <div class="glass-card reveal">
+      <div id="lb-list"><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Carregando...</div></div>
+    </div>
+  </section>
+
+  <!-- FOTOS ANTES E DEPOIS -->
+  <section style="margin-bottom:40px">
+    <div class="sec-title">Fotos — Antes & Depois</div>
+    <div class="glass-card reveal">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Envie sua foto inicial e final. Cada envio vale <strong style="color:var(--gold)">+50 pts</strong>.</p>
+      <div class="photo-grid">
+        <div>
+          <div class="photo-box" id="box-antes" onclick="document.getElementById('file-antes').click()">
+            <div class="ico">📸</div>
+            <div class="lbl">Foto Antes</div>
+            <div class="sub">Clique para enviar</div>
+            <div class="pts-badge">+50 pts</div>
+            <img id="img-antes" alt="">
+          </div>
+          <input type="file" id="file-antes" accept="image/*" onchange="handlePhoto('antes',this)">
+        </div>
+        <div>
+          <div class="photo-box" id="box-depois" onclick="document.getElementById('file-depois').click()">
+            <div class="ico">✨</div>
+            <div class="lbl">Foto Depois</div>
+            <div class="sub">Clique para enviar</div>
+            <div class="pts-badge">+50 pts</div>
+            <img id="img-depois" alt="">
+          </div>
+          <input type="file" id="file-depois" accept="image/*" onchange="handlePhoto('depois',this)">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK-IN DIÁRIO -->
+  <section style="margin-bottom:40px">
+    <div class="sec-title">Check-in de Hoje</div>
+    <div class="glass-card reveal">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Complete suas ações diárias e acumule pontos.</p>
+      <div class="checkin-grid" id="checkin-grid">
+        <div class="checkin-item" id="ci-agua" onclick="doCheckin('agua')">
+          <div class="ci-ico">💧</div>
+          <div class="ci-lbl">Bebeu água</div>
+          <div class="ci-pts">+10 pts</div>
+        </div>
+        <div class="checkin-item" id="ci-refeicao" onclick="doCheckin('refeicao')">
+          <div class="ci-ico">🥗</div>
+          <div class="ci-lbl">Refeição saudável</div>
+          <div class="ci-pts">+10 pts</div>
+        </div>
+        <div class="checkin-item" id="ci-fotodia" onclick="document.getElementById('file-fotodia').click()">
+          <div class="ci-ico">📷</div>
+          <div class="ci-lbl">Foto do dia</div>
+          <div class="ci-pts">+10 pts</div>
+        </div>
+        <div class="checkin-item" id="ci-aula" onclick="doCheckin('aula')">
+          <div class="ci-ico">🎓</div>
+          <div class="ci-lbl">Assisti a aula</div>
+          <div class="ci-pts">+10 pts</div>
+        </div>
+      </div>
+      <input type="file" id="file-fotodia" accept="image/*" onchange="handleFotoDia(this)">
+    </div>
+  </section>
+
+  <!-- AULAS DO DESAFIO -->
+  <section>
+    <div class="sec-title">10 Dias de Transformação</div>
+    <div id="days-list"></div>
+  </section>
+
+</main>
 
 <script>
 var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+var ADMINS = ['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var currentUser = null;
+var isAdmin = false;
+var userPts = 0;
 
 var DAYS = [
-  { num:1,  title:'Começando do zero',          sub:'Por que a maioria falha nas dietas',  videoId:'' },
-  { num:2,  title:'O prato ideal',              sub:'Como montar refeições equilibradas',   videoId:'' },
-  { num:3,  title:'Hidratação que transforma',  sub:'A meta de água que vai mudar tudo',    videoId:'' },
-  { num:4,  title:'Alimentos inflamatórios',    sub:'O que evitar e por quê',               videoId:'' },
-  { num:5,  title:'Meio caminho!',              sub:'Revisando e ajustando a rota',         videoId:'' },
-  { num:6,  title:'Rotina que sustenta',        sub:'Criando hábitos reais e duradouros',   videoId:'' },
-  { num:7,  title:'Exercício e alimentação',    sub:'A combinação que acelera resultados',  videoId:'' },
-  { num:8,  title:'Emoções e comida',           sub:'Entendendo a fome emocional',          videoId:'' },
-  { num:9,  title:'Planejamento semanal',       sub:'Como se organizar para não errar',     videoId:'' },
-  { num:10, title:'Você chegou lá!',            sub:'Próximos passos e manutenção',         videoId:'' }
+  {num:1,  title:'Começando do zero',        sub:'Por que a maioria falha nas dietas',   videoId:''},
+  {num:2,  title:'O prato ideal',             sub:'Como montar refeições equilibradas',    videoId:''},
+  {num:3,  title:'Hidratação que transforma', sub:'A meta de água que vai mudar tudo',     videoId:''},
+  {num:4,  title:'Alimentos inflamatórios',   sub:'O que evitar e por quê',                videoId:''},
+  {num:5,  title:'Meio caminho!',             sub:'Revisando e ajustando a rota',          videoId:''},
+  {num:6,  title:'Rotina que sustenta',       sub:'Criando hábitos reais e duradouros',    videoId:''},
+  {num:7,  title:'Exercício e alimentação',   sub:'A combinação que acelera resultados',   videoId:''},
+  {num:8,  title:'Emoções e comida',          sub:'Entendendo a fome emocional',           videoId:''},
+  {num:9,  title:'Planejamento semanal',      sub:'Como se organizar para não errar',      videoId:''},
+  {num:10, title:'Você chegou lá!',           sub:'Próximos passos e manutenção',          videoId:''}
 ];
 
-var currentUser = {}, userPts = 0, isAdmin = false;
+// ── PARTICLES ──────────────────────────────────────────
+(function(){
+  var canvas = document.getElementById('particles');
+  var ctx = canvas.getContext('2d');
+  var W, H, pts = [];
+  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+  resize();window.addEventListener('resize',resize);
+  for(var i=0;i<80;i++){
+    pts.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.4+.4,gold:Math.random()<.28,a:Math.random()*.5+.2});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.gold?'rgba(201,149,78,'+p.a+')':'rgba(242,238,248,'+p.a*.6+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-window.addEventListener('DOMContentLoaded', function() {
-  var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
-  if (!saved.email) { window.location.replace('/area-premium/'); return; }
-  currentUser = saved;
-  var ADMINS = ['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-  if (ADMINS.indexOf(saved.email) !== -1) { isAdmin=true; renderArea(); return; }
+// ── LOADING ────────────────────────────────────────────
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    var el=document.getElementById('loading');
+    el.classList.add('fade-out');
+    setTimeout(function(){el.style.display='none'},600);
+  },1800);
+});
 
-  fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(saved.email))
-    .then(function(r){ return r.json(); })
-    .then(function(data) {
-      if (!data.pago) { window.location.replace('/area-premium/'); return; }
-      renderArea();
+// ── SCROLL REVEAL ──────────────────────────────────────
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:.12});
+function observeReveals(){document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});}
+
+// ── AUTH ───────────────────────────────────────────────
+document.getElementById('auth-btn').addEventListener('click',function(){
+  var email=(document.getElementById('auth-email').value||'').trim().toLowerCase();
+  var phone=(document.getElementById('auth-phone').value||'').trim();
+  var err=document.getElementById('auth-err');
+  if(!email){err.textContent='Informe seu e-mail.';return;}
+  err.textContent='Verificando...';
+  if(ADMINS.indexOf(email)!==-1){
+    var nome=email===ADMINS[0]?'Bruna':'Aline';
+    var u={email:email,nome:nome,telefone:phone,plano:'admin',preco:'0',pago:true};
+    localStorage.setItem('desafio_user',JSON.stringify(u));
+    currentUser=u;isAdmin=true;
+    enterArea();return;
+  }
+  var saved=null;
+  try{saved=JSON.parse(localStorage.getItem('desafio_user')||'null')}catch(e){}
+  if(saved&&saved.email===email&&saved.pago){currentUser=saved;enterArea();return;}
+  fetch(WEBHOOK+'?action=verify_payment&email='+encodeURIComponent(email))
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d.pago){
+        var u={email:email,nome:d.nome||email,telefone:phone,plano:d.plano||'basico',preco:d.preco||'97',pago:true};
+        localStorage.setItem('desafio_user',JSON.stringify(u));
+        currentUser=u;enterArea();
+      } else {
+        document.getElementById('auth-screen').style.display='none';
+        document.getElementById('register-screen').style.display='flex';
+      }
     })
-    .catch(function() {
-      if (saved.email) renderArea();
-      else window.location.replace('/area-premium/');
+    .catch(function(){
+      if(saved&&saved.email===email){currentUser=saved;enterArea();}
+      else{err.textContent='Erro de conexão. Tente novamente.';}
     });
 });
 
-function renderArea() {
-  var firstName = currentUser.nome ? currentUser.nome.split(' ')[0] : 'participante';
-  document.getElementById('welcomeName').textContent = firstName;
-  document.getElementById('headerName').textContent  = firstName;
+// ── ENTER AREA ─────────────────────────────────────────
+function enterArea(){
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('register-screen').style.display='none';
+  document.getElementById('site-header').style.display='flex';
+  document.getElementById('main-area').style.display='block';
+  if(currentUser.nome)document.getElementById('hdr-name').textContent=currentUser.nome.split(' ')[0];
+  document.getElementById('hero-sub').textContent='Olá, '+(currentUser.nome||currentUser.email).split(' ')[0]+' 👋';
+  loadData();
   buildDays();
+  observeReveals();
+}
+
+function logout(){
+  localStorage.removeItem('desafio_user');
+  window.location.reload();
+}
+
+// ── ANIMATED COUNTER ───────────────────────────────────
+function animateCounter(el,target,dur){
+  var start=0,t0=null;
+  function step(ts){
+    if(!t0)t0=ts;
+    var p=Math.min((ts-t0)/dur,1);
+    var v=Math.round(start+(target-start)*easeOut(p));
+    el.textContent=v;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function easeOut(t){return 1-Math.pow(1-t,3);}
+
+// ── LOAD DATA ──────────────────────────────────────────
+function loadData(){
+  var stored={};
+  try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  userPts=stored.pts||0;
+  animateCounter(document.getElementById('pts-display'),userPts,900);
+  var daysOk=stored.daysOk||0;
+  document.getElementById('prog-label').textContent=daysOk+' / 10 dias';
+  setTimeout(function(){document.getElementById('prog-fill').style.width=(daysOk/10*100)+'%';},300);
+  restoreCheckins(stored);
   loadLeaderboard();
-  loadMyPhotos();
-  fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(currentUser.email))
-    .then(function(r){ return r.json(); })
-    .then(function(data) {
-      if (data.isAdmin) {
-        isAdmin = true;
-        document.getElementById('adminPanel').classList.add('visible');
-        loadParticipants();
-      }
-    }).catch(function(){});
-  hidePage();
+  if(isAdmin)loadAdmin();
 }
 
-function hidePage() {
-  var loader = document.getElementById('pageLoading');
-  loader.classList.add('hide');
-  setTimeout(function(){ loader.style.display='none'; }, 500);
+function saveData(key,val){
+  var stored={};
+  try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  stored[key]=val;
+  localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
 }
 
-function buildDays() {
-  var list = document.getElementById('daysList');
-  DAYS.forEach(function(day) {
-    var item = document.createElement('div');
-    item.className = 'day-item';
-    item.innerHTML =
-      '<div class="day-header" id="dh-'+day.num+'" onclick="toggleDay('+day.num+')">' +
-        '<div class="day-num">'+day.num+'</div>' +
-        '<div class="day-info"><div class="day-title">'+day.title+'</div><div class="day-subtitle">'+day.sub+'</div></div>' +
-        '<div class="day-chevron">▼</div>' +
-      '</div>' +
-      '<div class="day-body" id="db-'+day.num+'">' + buildDayBody(day) + '</div>';
-    list.appendChild(item);
+function addPts(n){
+  var stored={};
+  try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  stored.pts=(stored.pts||0)+n;
+  userPts=stored.pts;
+  localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
+  animateCounter(document.getElementById('pts-display'),userPts,600);
+  pingWebhook({action:'add_pts',email:currentUser.email,nome:currentUser.nome,pts:stored.pts});
+}
+
+function pingWebhook(data){
+  try{
+    fetch(WEBHOOK,{method:'POST',body:JSON.stringify(data)}).catch(function(){});
+  }catch(e){}
+}
+
+// ── LEADERBOARD ────────────────────────────────────────
+function loadLeaderboard(){
+  fetch(WEBHOOK+'?action=leaderboard')
+    .then(function(r){return r.json()})
+    .then(function(d){renderLB(d.ranking||[])})
+    .catch(function(){renderLB([{nome:currentUser.nome||currentUser.email,pts:userPts}])});
+}
+function renderLB(arr){
+  var max=arr[0]?arr[0].pts||1:1;
+  var medals=['🥇','🥈','🥉'];
+  var rnkClass=['gold','silver','bronze'];
+  var html='';
+  arr.slice(0,10).forEach(function(p,i){
+    var ini=(p.nome||'?')[0].toUpperCase();
+    var pct=Math.round((p.pts||0)/max*100);
+    var isSelf=p.email&&currentUser&&p.email===currentUser.email;
+    html+='<div class="lb-row'+(isSelf?' lb-self':'')+'">';
+    html+='<div class="lb-rank '+(rnkClass[i]||'')+'">'+( medals[i]||('#'+(i+1)) )+'</div>';
+    html+='<div class="lb-avatar" style="'+(isSelf?'background:linear-gradient(135deg,var(--gold),var(--gold3));':'')+'">'+ini+'</div>';
+    html+='<div class="lb-info"><div class="lb-name">'+(p.nome||'Participante')+(isSelf?' (você)':'')+'</div>';
+    html+='<div class="lb-pts-bar"><div class="lb-pts-fill" data-w="'+pct+'"></div></div></div>';
+    html+='<div class="lb-pts">'+(p.pts||0)+' pts</div></div>';
   });
+  if(!arr.length)html='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Seja a primeira! 🌟</div>';
+  document.getElementById('lb-list').innerHTML=html;
+  if(arr[0]){
+    var rank=arr.findIndex(function(p){return p.email&&currentUser&&p.email===currentUser.email;});
+    document.getElementById('pts-rank').textContent=rank>=0?'#'+(rank+1)+' no ranking':'No ranking';
+  }
+  setTimeout(function(){
+    document.querySelectorAll('.lb-pts-fill[data-w]').forEach(function(el){
+      el.style.width=el.getAttribute('data-w')+'%';
+    });
+  },200);
 }
 
-function buildDayBody(day) {
-  var videoHtml = day.videoId
-    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+day.videoId+'" allowfullscreen></iframe></div>'
-    : '<div class="video-wrap"><div class="video-coming"><span>🎥</span>Vídeo em breve</div></div>';
-  return videoHtml +
-    '<p style="font-size:.82rem;color:var(--brown-light);margin-bottom:14px">Registre sua evolução no Dia '+day.num+'</p>' +
-    '<div class="upload-area" onclick="triggerUpload(\'dia'+day.num+'\')">' +
-      '<div class="upload-area-icon">📸</div>' +
-      '<div class="upload-area-text">Foto do dia (alimentação, água, atividade…)</div>' +
-      '<div class="upload-area-pts">+10 pontos</div>' +
-    '</div>' +
-    '<input type="file" accept="image/*" class="upload-input" id="upload-dia'+day.num+'" onchange="previewPhoto(this,\'dia'+day.num+'\')">' +
-    '<div class="photo-preview" id="preview-dia'+day.num+'"><img id="preview-img-dia'+day.num+'" src="" alt="Preview"><button class="photo-preview-remove" onclick="removePreview(\'dia'+day.num+'\')">✕</button></div>' +
-    '<button class="btn-upload" id="btn-send-dia'+day.num+'" onclick="sendPhoto(\'dia'+day.num+'\')">Enviar foto (+10 pts)</button>' +
-    '<div class="upload-success" id="success-dia'+day.num+'">✅ Foto enviada! +10 pts</div>' +
-    '<div id="sent-dia'+day.num+'" class="sent-photos"></div>' +
-    '<div class="checkin-row">' +
-      '<button class="btn-checkin" id="ci-agua-'+day.num+'" onclick="doCheckin(\'agua\','+day.num+')">💧 Meta de água atingida</button>' +
-      '<button class="btn-checkin" id="ci-dia-'+day.num+'"  onclick="doCheckin(\'checkin\','+day.num+')">✅ Check-in do dia</button>' +
-    '</div>' +
-    '<div id="bruna-comment-dia'+day.num+'"></div>';
-}
-
-function toggleDay(num) {
-  var h = document.getElementById('dh-'+num), b = document.getElementById('db-'+num);
-  var open = h.classList.contains('open');
-  h.classList.toggle('open', !open); b.classList.toggle('open', !open);
-}
-
-function loadLeaderboard() {
-  fetch(WEBHOOK + '?action=get_leaderboard&email=' + encodeURIComponent(currentUser.email))
-    .then(function(r){ return r.json(); })
-    .then(function(data) {
-      var list = document.getElementById('leaderboardList');
-      list.innerHTML = '';
-      if (!data.top || !data.top.length) { list.innerHTML = '<div class="lb-loading">Nenhum ponto registrado ainda. Seja a primeira! 🏆</div>'; return; }
-      data.top.forEach(function(p, i) {
-        var rc = i===0?'gold':i===1?'silver':'', rl = i===0?'🥇':i===1?'🥈':'#'+(i+1);
-        var me = p.email === currentUser.email;
-        var el = document.createElement('div');
-        el.className = 'lb-item'+(me?' lb-me':'');
-        el.innerHTML = '<div class="lb-rank '+rc+'">'+rl+'</div><div class="lb-name">'+p.nome+'</div>'+(me?'<span class="lb-me-tag">você</span>':'')+'<div class="lb-pts">'+p.pontos+' pts</div>';
-        list.appendChild(el);
-      });
-      if (data.userPosicao && data.userPosicao > data.top.length) {
-        var sep = document.createElement('div'); sep.style.cssText='text-align:center;font-size:.78rem;color:var(--brown-light);padding:4px'; sep.textContent='···'; list.appendChild(sep);
-        var mr = document.createElement('div'); mr.className='lb-item lb-me';
-        mr.innerHTML='<div class="lb-rank">#'+data.userPosicao+'</div><div class="lb-name">'+currentUser.nome+'</div><span class="lb-me-tag">você</span><div class="lb-pts">'+(data.userPontos||0)+' pts</div>';
-        list.appendChild(mr);
-      }
-      userPts = data.userPontos || 0; updatePtsDisplay();
+// ── ADMIN ──────────────────────────────────────────────
+function loadAdmin(){
+  document.getElementById('admin-section').style.display='block';
+  fetch(WEBHOOK+'?action=admin_data&email='+encodeURIComponent(currentUser.email))
+    .then(function(r){return r.json()})
+    .then(function(d){
+      document.getElementById('adm-total').textContent=d.total||'—';
+      document.getElementById('adm-checkins').textContent=d.checkinsHoje||'—';
+      var rows=d.participantes||[];
+      document.getElementById('adm-tbody').innerHTML=rows.map(function(p,i){
+        return '<tr><td>'+(i+1)+'</td><td>'+p.nome+'</td><td>'+p.email+'</td><td>'+p.pts+'</td></tr>';
+      }).join('');
     })
-    .catch(function(){ document.getElementById('leaderboardList').innerHTML='<div class="lb-loading">Não foi possível carregar o ranking.</div>'; });
+    .catch(function(){document.getElementById('adm-total').textContent='—';});
 }
 
-function updatePtsDisplay() {
-  document.getElementById('headerPts').textContent = userPts+' pts';
-  document.getElementById('totalPts').textContent  = userPts;
-}
-
-function loadMyPhotos() {
-  fetch(WEBHOOK + '?action=get_participant_data&email=' + encodeURIComponent(currentUser.email))
-    .then(function(r){ return r.json(); })
-    .then(function(data) {
-      userPts = data.pontos||0; updatePtsDisplay();
-      if (data.fotos) data.fotos.forEach(function(f){ renderSentPhoto(f.tipo, f.url, f.pontos); });
-      if (data.comentarios) data.comentarios.forEach(function(c){ renderBrunaComment(c.tipo, c.texto); });
-    }).catch(function(){});
-}
-
-function renderSentPhoto(tipo, url, pts) {
-  var c = document.getElementById('sent-'+tipo); if(!c) return;
-  if (!c.querySelector('.sent-photos-title')) c.innerHTML='<div class="sent-photos-title">Fotos enviadas</div><div class="sent-photos-grid" id="grid-'+tipo+'"></div>';
-  var g = document.getElementById('grid-'+tipo)||c.querySelector('.sent-photos-grid'); if(!g) return;
-  var el = document.createElement('div'); el.className='sent-photo-item';
-  el.innerHTML='<img src="'+url+'" alt="foto" onerror="this.parentElement.style.display=\'none\'"><div class="sent-photo-pts">+'+pts+' pts</div>';
-  g.appendChild(el);
-}
-
-function renderBrunaComment(tipo, texto) {
-  var c = document.getElementById('bruna-comment-'+tipo); if(!c) return;
-  var d = document.createElement('div'); d.className='bruna-comment';
-  d.innerHTML='<div class="bruna-comment-who">💬 Bruna Boreggio</div><div class="bruna-comment-text">'+texto+'</div>';
-  c.appendChild(d);
-}
-
-function triggerUpload(tipo) { var i = document.getElementById('upload-'+tipo); if(i) i.click(); }
-
-function previewPhoto(input, tipo) {
-  if (!input.files||!input.files[0]) return;
-  var r = new FileReader();
-  r.onload = function(e) {
-    document.getElementById('preview-img-'+tipo).src = e.target.result;
-    document.getElementById('preview-'+tipo).style.display = 'block';
-    document.getElementById('btn-send-'+tipo).classList.add('visible');
-  };
-  r.readAsDataURL(input.files[0]);
-}
-
-function removePreview(tipo) {
-  document.getElementById('upload-'+tipo).value='';
-  document.getElementById('preview-'+tipo).style.display='none';
-  document.getElementById('btn-send-'+tipo).classList.remove('visible');
-}
-
-function sendPhoto(tipo) {
-  var input = document.getElementById('upload-'+tipo);
-  if (!input||!input.files||!input.files[0]) return;
-  var btn = document.getElementById('btn-send-'+tipo); btn.disabled=true; btn.textContent='Enviando…';
-  var file = input.files[0], r = new FileReader();
-  r.onload = function(e) {
-    var pts = (tipo==='antes'||tipo==='depois') ? 50 : 10;
-    fetch(WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ action:'photo_upload', email:currentUser.email, nome:currentUser.nome, tipo:tipo, fileData:e.target.result.split(',')[1], fileName:file.name, mimeType:file.type })
-    }).then(function(){
-      document.getElementById('success-'+tipo).classList.add('show');
-      document.getElementById('preview-'+tipo).style.display='none';
-      btn.classList.remove('visible'); userPts+=pts; updatePtsDisplay();
-      showToast('Foto enviada! +'+pts+' pts 🎉');
-      setTimeout(loadLeaderboard, 2000);
-    }).catch(function(){ btn.disabled=false; btn.textContent='Tentar novamente'; showToast('Erro ao enviar. Tente novamente.'); });
+// ── PHOTOS ────────────────────────────────────────────
+function handlePhoto(tipo,input){
+  var file=input.files[0];if(!file)return;
+  var r=new FileReader();
+  r.onload=function(e){
+    var img=document.getElementById('img-'+tipo);
+    img.src=e.target.result;
+    img.onload=function(){img.classList.add('loaded');};
+    addPts(50);showToast('Foto enviada! +50 pontos ⭐');
+    pingWebhook({action:'photo',email:currentUser.email,nome:currentUser.nome,tipo:tipo,ts:Date.now()});
   };
   r.readAsDataURL(file);
 }
 
-function doCheckin(tipo, dia) {
-  var btn = document.getElementById('ci-'+tipo+'-'+dia);
-  if (!btn||btn.classList.contains('done')) return;
-  btn.disabled=true;
-  fetch(WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ action:'checkin', email:currentUser.email, nome:currentUser.nome, tipo:tipo, dia:dia })
-  }).then(function(){ btn.classList.add('done'); btn.disabled=false; userPts+=10; updatePtsDisplay(); showToast('Check-in registrado! +10 pts ✅'); setTimeout(loadLeaderboard,2000); })
-  .catch(function(){ btn.disabled=false; showToast('Erro. Tente novamente.'); });
+// ── DAILY CHECKIN ─────────────────────────────────────
+var ciDone={};
+function restoreCheckins(stored){
+  var today=new Date().toDateString();
+  if(stored.ciDate===today){ciDone=stored.ciDone||{};}
+  else{ciDone={};}
+  ['agua','refeicao','fotodia','aula'].forEach(function(k){
+    if(ciDone[k])document.getElementById('ci-'+k).classList.add('done');
+  });
+}
+function doCheckin(tipo){
+  if(ciDone[tipo]){showToast('Já marcado hoje! ✓');return;}
+  ciDone[tipo]=true;
+  document.getElementById('ci-'+tipo).classList.add('done');
+  addPts(10);showToast('Check-in feito! +10 pontos 💪');
+  var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  stored.ciDate=new Date().toDateString();stored.ciDone=ciDone;
+  localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
+  pingWebhook({action:'checkin',email:currentUser.email,nome:currentUser.nome,tipo:tipo,ts:Date.now()});
+}
+function handleFotoDia(input){
+  if(!input.files[0])return;
+  doCheckin('fotodia');
 }
 
-function loadParticipants() {
-  fetch(WEBHOOK + '?action=get_participants_list&adminEmail=' + encodeURIComponent(currentUser.email))
-    .then(function(r){ return r.json(); })
-    .then(function(data) {
-      var list = document.getElementById('participantsList'); list.innerHTML='';
-      if (!data.participantes||!data.participantes.length) { list.innerHTML='<div class="no-participants">Nenhum participante ainda.</div>'; return; }
-      data.participantes.forEach(function(p) {
-        var row = document.createElement('div'); row.className='participant-row';
-        var es = p.email.replace(/[@.]/g,'-');
-        row.innerHTML=
-          '<div class="participant-header" onclick="toggleParticipant(\'p-'+es+'\')">' +
-            '<div><div class="participant-name">'+p.nome+'</div><div class="participant-meta">'+p.email+' · '+p.plano+'</div></div>' +
-            '<div class="participant-pts-badge">'+p.pontos+' pts</div>' +
-          '</div>' +
-          '<div class="participant-body" id="p-'+es+'">'+buildParticipantBody(p)+'</div>';
-        list.appendChild(row);
-      });
-    }).catch(function(){ document.getElementById('participantsList').innerHTML='<div class="no-participants">Erro ao carregar.</div>'; });
+// ── DAYS ──────────────────────────────────────────────
+function buildDays(){
+  var container=document.getElementById('days-list');
+  container.innerHTML='';
+  DAYS.forEach(function(d){
+    var item=document.createElement('div');
+    item.className='day-item reveal';
+    item.innerHTML=
+      '<div class="day-head" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">'
+        +'<div class="day-num">'+d.num+'</div>'
+        +'<div class="day-info"><div class="day-title">'+d.title+'</div><div class="day-sub">'+d.sub+'</div></div>'
+        +'<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>'
+      +'</div>'
+      +'<div class="day-body" id="db-'+d.num+'">'
+        +'<div class="day-body-inner">'
+          +(d.videoId
+            ?'<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>'
+            :'<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>'
+          )
+          +'<div class="day-checkin-row">'
+            +'<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo</button>'
+            +'<button class="day-btn secondary">Fazer anotações</button>'
+          +'</div>'
+        +'</div>'
+      +'</div>';
+    container.appendChild(item);
+  });
+  var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  var daysOkArr=stored.daysOkArr||[];
+  daysOkArr.forEach(function(n){markDayUi(n);});
+  observeReveals();
 }
 
-function buildParticipantBody(p) {
-  var ph = p.fotos&&p.fotos.length
-    ? '<div class="participant-photos-grid">'+p.fotos.map(function(f){ return '<div class="participant-photo-item"><img src="'+f.url+'" alt="foto" onerror="this.parentElement.style.display=\'none\'"><div class="participant-photo-tipo">'+f.tipo+'</div></div>'; }).join('')+'</div>'
-    : '<p style="font-size:.8rem;color:var(--brown-light);margin-bottom:12px">Nenhuma foto enviada ainda.</p>';
-  var es = p.email.replace(/[@.]/g,'-');
-  return ph+'<div class="admin-comment-form"><textarea id="comment-'+es+'" placeholder="Deixe um feedback para '+p.nome+'…"></textarea><button class="btn-comment" onclick="sendAdminComment(\''+p.email+'\',\''+es+'\')">Enviar comentário</button></div><div id="comment-result-'+es+'"></div>';
+function toggleDay(n){
+  var head=document.getElementById('dh-'+n);
+  var body=document.getElementById('db-'+n);
+  var isOpen=head.classList.contains('open');
+  document.querySelectorAll('.day-head.open').forEach(function(h){
+    h.classList.remove('open');
+    document.getElementById(h.id.replace('dh-','db-')).style.maxHeight='0';
+  });
+  if(!isOpen){
+    head.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
 }
 
-function toggleParticipant(id) { var b=document.getElementById(id); if(b) b.classList.toggle('open'); }
-
-function sendAdminComment(emailP, es) {
-  var ta = document.getElementById('comment-'+es), texto = ta?ta.value.trim():''; if(!texto) return;
-  var btn = ta.nextElementSibling; btn.disabled=true; btn.textContent='Enviando…';
-  fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ action:'admin_comment', adminEmail:currentUser.email, participantEmail:emailP, tipo:'geral', comentario:texto })
-  }).then(function(r){ return r.json(); })
-  .then(function(data){
-    if (data.ok) {
-      ta.value=''; btn.disabled=false; btn.textContent='Enviar comentário';
-      var re=document.getElementById('comment-result-'+es);
-      if(re){ re.innerHTML='<div style="font-size:.78rem;color:var(--green);margin-top:8px">✅ Comentário enviado!</div>'; setTimeout(function(){re.innerHTML='';},3000); }
-      showToast('Comentário enviado! 💬');
-    }
-  }).catch(function(){ btn.disabled=false; btn.textContent='Tentar novamente'; showToast('Erro. Tente novamente.'); });
+function markDayDone(n){
+  var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+  var arr=stored.daysOkArr||[];
+  if(arr.indexOf(n)!==-1){showToast('Dia '+n+' já marcado! ✓');return;}
+  arr.push(n);
+  stored.daysOkArr=arr;stored.daysOk=arr.length;
+  localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
+  addPts(20);
+  markDayUi(n);
+  document.getElementById('prog-label').textContent=arr.length+' / 10 dias';
+  document.getElementById('prog-fill').style.width=(arr.length/10*100)+'%';
+  showToast('Dia '+n+' concluído! +20 pontos 🎉');
+  pingWebhook({action:'day_done',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
+}
+function markDayUi(n){
+  var head=document.getElementById('dh-'+n);
+  if(!head)return;
+  head.classList.add('done');
+  var btn=head.parentElement.querySelector('.day-btn.primary');
+  if(btn){btn.className='day-btn done-btn';btn.textContent='✓ Dia concluído';}
 }
 
-function showToast(msg) {
-  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},3000);
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2800);
 }
+
+// ── INIT ──────────────────────────────────────────────
+(function(){
+  var saved=null;
+  try{saved=JSON.parse(localStorage.getItem('desafio_user')||'null')}catch(e){}
+  if(!saved||!saved.email){return;}
+  currentUser=saved;
+  if(ADMINS.indexOf(saved.email)!==-1){isAdmin=true;enterArea();return;}
+  if(saved.pago){enterArea();}
+})();
 </script>
-
 </body>
 </html>
