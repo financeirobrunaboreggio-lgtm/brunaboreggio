@@ -319,6 +319,8 @@ window.addEventListener('DOMContentLoaded', function() {
   var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
   if (!saved.email) { window.location.replace('/area-premium/'); return; }
   currentUser = saved;
+  var ADMINS = ['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+  if (ADMINS.indexOf(saved.email) !== -1) { isAdmin=true; renderArea(); return; }
 
   fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(saved.email))
     .then(function(r){ return r.json(); })
