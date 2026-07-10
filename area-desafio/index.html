@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Área — Desafio Comece Leve</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '863466929657523');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=863466929657523&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-6525628068"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-6525628068');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:       #FAF7F2;
+      --gold:        #C5965A;
+      --gold-light:  #E8D4B5;
+      --gold-dark:   #A07840;
+      --brown:       #2C1A0E;
+      --brown-mid:   #5A3E28;
+      --brown-light: #8B6A4A;
+      --white:       #FFFFFF;
+      --off-white:   #F4EFE6;
+      --green:       #3D8B5E;
+      --green-light: #E8F5EE;
+      --blue:        #2D6A9F;
+      --blue-light:  #E8F0FA;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body { font-family:'Poppins', sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+    .page-loading {
+      position:fixed; inset:0; background:var(--brown);
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:14px; z-index:9999; transition:opacity .4s;
+    }
+    .page-loading.hide { opacity:0; pointer-events:none; }
+    .loading-logo { color:var(--gold-light); font-size:1.1rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .loading-spinner {
+      width:36px; height:36px; border:3px solid rgba(197,150,90,.3);
+      border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .app-header {
+      background:var(--brown); padding:0 24px;
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px; position:sticky; top:0; z-index:100;
+      box-shadow:0 2px 20px rgba(0,0,0,.3);
+    }
+    .header-brand { color:var(--gold-light); text-decoration:none; }
+    .header-brand-name { font-size:.95rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .header-brand-sub  { font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(229,212,181,.4); }
+    .header-user { display:flex; align-items:center; gap:12px; }
+    .header-points-badge {
+      background:rgba(197,150,90,.2); border:1px solid rgba(197,150,90,.4);
+      border-radius:100px; padding:4px 14px; font-size:.78rem; font-weight:600; color:var(--gold-light);
+    }
+    .header-user-name { font-size:.82rem; color:rgba(229,212,181,.7); max-width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    @media(max-width:480px){ .header-user-name { display:none; } }
+
+    .app-body { max-width:820px; margin:0 auto; padding:28px 20px 60px; }
+
+    .welcome-banner {
+      background:linear-gradient(135deg, var(--brown) 0%, #3D2410 100%);
+      border-radius:18px; padding:28px; margin-bottom:28px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .welcome-text h2 { font-size:1.4rem; font-weight:700; color:var(--white); margin-bottom:4px; }
+    .welcome-text h2 span { font-family:'Dancing Script', cursive; color:var(--gold); }
+    .welcome-text p { font-size:.85rem; color:rgba(229,212,181,.7); }
+    .welcome-pts {
+      text-align:center; background:rgba(197,150,90,.15); border:1px solid rgba(197,150,90,.3);
+      border-radius:14px; padding:14px 24px; flex-shrink:0;
+    }
+    .welcome-pts-number { font-size:2.2rem; font-weight:700; color:var(--gold); line-height:1; }
+    .welcome-pts-label  { font-size:.72rem; color:rgba(229,212,181,.6); text-transform:uppercase; letter-spacing:.06em; }
+
+    .section-card { background:var(--white); border-radius:16px; padding:24px; margin-bottom:20px; box-shadow:0 2px 16px rgba(44,26,14,.08); }
+    .section-card-title { font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+    .section-card-title .badge { background:var(--gold); color:var(--brown); font-size:.65rem; font-weight:700; padding:2px 8px; border-radius:100px; text-transform:uppercase; letter-spacing:.06em; }
+
+    .leaderboard-list { display:flex; flex-direction:column; gap:10px; }
+    .lb-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--cream); border-radius:12px; border:1px solid var(--gold-light); }
+    .lb-item.lb-me { background:linear-gradient(90deg, rgba(197,150,90,.12) 0%, var(--cream) 100%); border-color:var(--gold); }
+    .lb-rank { font-size:1.2rem; font-weight:700; color:var(--gold-dark); min-width:32px; text-align:center; }
+    .lb-rank.gold { color:#C5A028; } .lb-rank.silver { color:#888; }
+    .lb-name { flex:1; font-size:.88rem; font-weight:600; color:var(--brown); }
+    .lb-pts  { font-size:.88rem; font-weight:700; color:var(--gold-dark); }
+    .lb-me-tag { font-size:.65rem; font-weight:700; background:var(--gold); color:var(--brown); padding:2px 8px; border-radius:100px; text-transform:uppercase; }
+    .lb-loading { font-size:.85rem; color:var(--brown-light); text-align:center; padding:12px; }
+
+    .days-list { display:flex; flex-direction:column; gap:10px; }
+    .day-item { border:1px solid #EDE3D5; border-radius:14px; overflow:hidden; }
+    .day-header { display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; background:var(--white); transition:background .15s; user-select:none; }
+    .day-header:hover { background:var(--cream); }
+    .day-header.open { background:var(--cream); border-bottom:1px solid #EDE3D5; }
+    .day-num { width:36px; height:36px; border-radius:50%; background:var(--gold); color:var(--brown); font-size:.85rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .day-info { flex:1; }
+    .day-title { font-size:.92rem; font-weight:600; color:var(--brown); }
+    .day-subtitle { font-size:.76rem; color:var(--brown-light); margin-top:2px; }
+    .day-chevron { font-size:1rem; color:var(--brown-light); transition:transform .2s; }
+    .day-header.open .day-chevron { transform:rotate(180deg); }
+    .day-body { display:none; padding:20px; background:var(--white); }
+    .day-body.open { display:block; }
+
+    .video-wrap { position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; background:#000; margin-bottom:20px; }
+    .video-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .video-coming { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--brown); color:rgba(229,212,181,.5); font-size:.9rem; gap:8px; }
+    .video-coming span { font-size:2rem; }
+
+    .upload-area { border:2px dashed var(--gold-light); border-radius:12px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--cream); margin-bottom:14px; }
+    .upload-area:hover { border-color:var(--gold); background:var(--off-white); }
+    .upload-area-icon { font-size:2rem; margin-bottom:6px; }
+    .upload-area-text { font-size:.83rem; color:var(--brown-light); line-height:1.5; }
+    .upload-area-pts  { font-size:.75rem; font-weight:600; color:var(--gold-dark); margin-top:4px; }
+    .upload-input { display:none; }
+
+    .photo-preview { display:none; position:relative; margin-bottom:14px; }
+    .photo-preview img { width:100%; border-radius:12px; max-height:280px; object-fit:cover; }
+    .photo-preview-remove { position:absolute; top:8px; right:8px; background:rgba(0,0,0,.6); color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; font-size:1rem; line-height:1; }
+
+    .btn-upload { width:100%; height:44px; border-radius:12px; background:var(--gold); border:none; cursor:pointer; font-family:'Poppins', sans-serif; font-size:.88rem; font-weight:700; color:var(--brown); transition:all .2s; display:none; }
+    .btn-upload.visible { display:block; }
+    .btn-upload:hover { background:var(--gold-dark); }
+    .btn-upload:disabled { opacity:.6; pointer-events:none; }
+
+    .upload-success { display:none; background:var(--green-light); border:1px solid rgba(61,139,94,.3); border-radius:10px; padding:12px 16px; font-size:.82rem; color:var(--green); text-align:center; margin-top:8px; }
+    .upload-success.show { display:block; }
+
+    .sent-photos { margin-top:16px; }
+    .sent-photos-title { font-size:.78rem; font-weight:600; color:var(--brown-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px; }
+    .sent-photos-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:8px; }
+    .sent-photo-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1; }
+    .sent-photo-item img { width:100%; height:100%; object-fit:cover; }
+    .sent-photo-pts { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.6); color:var(--gold-light); font-size:.65rem; font-weight:600; text-align:center; padding:3px; }
+
+    .bruna-comment { background:var(--off-white); border-left:3px solid var(--gold); border-radius:0 10px 10px 0; padding:12px 16px; margin-top:12px; }
+    .bruna-comment-who { font-size:.72rem; font-weight:700; color:var(--gold-dark); text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+    .bruna-comment-text { font-size:.85rem; color:var(--brown-mid); line-height:1.5; }
+
+    .checkin-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .btn-checkin { flex:1; min-width:140px; height:44px; border-radius:12px; border:1.5px solid var(--gold-light); background:var(--cream); font-family:'Poppins', sans-serif; font-size:.83rem; font-weight:600; color:var(--brown-mid); cursor:pointer; transition:all .2s; }
+    .btn-checkin:hover { background:var(--off-white); border-color:var(--gold); }
+    .btn-checkin.done { background:var(--green-light); border-color:rgba(61,139,94,.4); color:var(--green); }
+    .btn-checkin:disabled { opacity:.6; pointer-events:none; }
+
+    .before-after-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .ba-label { font-size:.78rem; font-weight:600; color:var(--brown-light); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; }
+    .ba-pts   { font-size:.72rem; color:var(--gold-dark); font-weight:600; margin-bottom:8px; }
+
+    .admin-panel { display:none; background:var(--white); border:2px solid var(--gold); border-radius:16px; padding:24px; margin-bottom:20px; box-shadow:0 2px 16px rgba(44,26,14,.08); }
+    .admin-panel.visible { display:block; }
+    .admin-panel-title { font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .admin-tag { background:var(--gold); color:var(--brown); font-size:.65rem; font-weight:700; padding:3px 10px; border-radius:100px; text-transform:uppercase; }
+
+    .participants-list { display:flex; flex-direction:column; gap:10px; }
+    .participant-row { border:1px solid #EDE3D5; border-radius:12px; overflow:hidden; }
+    .participant-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; background:var(--cream); transition:background .15s; }
+    .participant-header:hover { background:var(--off-white); }
+    .participant-name { font-size:.9rem; font-weight:600; color:var(--brown); }
+    .participant-meta { font-size:.75rem; color:var(--brown-light); margin-top:2px; }
+    .participant-pts-badge { background:var(--gold-light); color:var(--brown-mid); font-size:.75rem; font-weight:700; padding:3px 10px; border-radius:100px; }
+    .participant-body { display:none; padding:16px; background:var(--white); }
+    .participant-body.open { display:block; }
+    .participant-photos-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:8px; margin-bottom:14px; }
+    .participant-photo-item { position:relative; border-radius:8px; overflow:hidden; aspect-ratio:1; }
+    .participant-photo-item img { width:100%; height:100%; object-fit:cover; }
+    .participant-photo-tipo { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.6); color:var(--gold-light); font-size:.6rem; text-align:center; padding:2px; }
+    .admin-comment-form { margin-top:14px; }
+    .admin-comment-form textarea { width:100%; border:1.5px solid var(--gold-light); border-radius:10px; padding:12px; resize:vertical; min-height:72px; font-family:'Poppins', sans-serif; font-size:.85rem; color:var(--brown); background:var(--cream); outline:none; }
+    .admin-comment-form textarea:focus { border-color:var(--gold); }
+    .btn-comment { margin-top:8px; height:40px; padding:0 20px; border-radius:10px; background:var(--gold); border:none; cursor:pointer; font-family:'Poppins', sans-serif; font-size:.82rem; font-weight:700; color:var(--brown); transition:all .2s; }
+    .btn-comment:hover { background:var(--gold-dark); }
+    .btn-comment:disabled { opacity:.6; pointer-events:none; }
+    .no-participants { font-size:.85rem; color:var(--brown-light); text-align:center; padding:20px; }
+
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--brown); color:var(--gold-light); padding:12px 24px; border-radius:12px; font-size:.85rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.3); z-index:9999; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
+    .toast.show { opacity:1; }
+  </style>
+</head>
+<body>
+
+<div class="page-loading" id="pageLoading">
+  <div class="loading-logo">Comece Leve</div>
+  <div class="loading-spinner"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<header class="app-header">
+  <a class="header-brand" href="/">
+    <div class="header-brand-name">Bruna Boreggio</div>
+    <div class="header-brand-sub">Desafio Comece Leve</div>
+  </a>
+  <div class="header-user">
+    <div class="header-points-badge" id="headerPts">0 pts</div>
+    <div class="header-user-name" id="headerName">—</div>
+  </div>
+</header>
+
+<div class="app-body">
+
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h2>Olá, <span id="welcomeName">participante</span>! 🌿</h2>
+      <p>Seu desafio de 10 dias começa aqui. A cada dia, novos conteúdos e mais pontos para você acumular.</p>
+    </div>
+    <div class="welcome-pts">
+      <div class="welcome-pts-number" id="totalPts">0</div>
+      <div class="welcome-pts-label">pontos</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card-title">🏆 Ranking <span class="badge">Ao vivo</span></div>
+    <div class="leaderboard-list" id="leaderboardList">
+      <div class="lb-loading">Carregando ranking…</div>
+    </div>
+  </div>
+
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-panel-title">Painel da Bruna <span class="admin-tag">Admin</span></div>
+    <div class="participants-list" id="participantsList">
+      <div class="no-participants">Carregando participantes…</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card-title">📊 Foto do Antes e Depois <span class="badge">50 pts cada</span></div>
+    <p style="font-size:.84rem;color:var(--brown-light);margin-bottom:20px;line-height:1.6">
+      Envie sua foto do <strong>antes</strong> no início do desafio e a foto do <strong>depois</strong> no último dia. Cada uma vale <strong>50 pontos</strong> e será acompanhada pela Bruna.
+    </p>
+    <div class="before-after-grid">
+      <div class="ba-slot">
+        <div class="ba-label">📸 Antes</div>
+        <div class="ba-pts">+50 pts</div>
+        <div class="upload-area" onclick="triggerUpload('antes')">
+          <div class="upload-area-icon">📷</div>
+          <div class="upload-area-text">Toque para enviar sua foto do antes</div>
+        </div>
+        <input type="file" accept="image/*" class="upload-input" id="upload-antes" onchange="previewPhoto(this,'antes')">
+        <div class="photo-preview" id="preview-antes">
+          <img id="preview-img-antes" src="" alt="Preview antes">
+          <button class="photo-preview-remove" onclick="removePreview('antes')">✕</button>
+        </div>
+        <button class="btn-upload" id="btn-send-antes" onclick="sendPhoto('antes')">Enviar foto (+50 pts)</button>
+        <div class="upload-success" id="success-antes">✅ Foto do antes enviada! +50 pts</div>
+        <div id="sent-antes" class="sent-photos"></div>
+      </div>
+      <div class="ba-slot">
+        <div class="ba-label">📸 Depois</div>
+        <div class="ba-pts">+50 pts</div>
+        <div class="upload-area" onclick="triggerUpload('depois')">
+          <div class="upload-area-icon">🌟</div>
+          <div class="upload-area-text">Toque para enviar sua foto do depois</div>
+        </div>
+        <input type="file" accept="image/*" class="upload-input" id="upload-depois" onchange="previewPhoto(this,'depois')">
+        <div class="photo-preview" id="preview-depois">
+          <img id="preview-img-depois" src="" alt="Preview depois">
+          <button class="photo-preview-remove" onclick="removePreview('depois')">✕</button>
+        </div>
+        <button class="btn-upload" id="btn-send-depois" onclick="sendPhoto('depois')">Enviar foto (+50 pts)</button>
+        <div class="upload-success" id="success-depois">✅ Foto do depois enviada! +50 pts</div>
+        <div id="sent-depois" class="sent-photos"></div>
+      </div>
+    </div>
+    <div id="bruna-comment-ba"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card-title">📅 Os 10 Dias do Desafio</div>
+    <div class="days-list" id="daysList"></div>
+  </div>
+
+</div>
+
+<script>
+var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+
+var DAYS = [
+  { num:1,  title:'Começando do zero',          sub:'Por que a maioria falha nas dietas',  videoId:'' },
+  { num:2,  title:'O prato ideal',              sub:'Como montar refeições equilibradas',   videoId:'' },
+  { num:3,  title:'Hidratação que transforma',  sub:'A meta de água que vai mudar tudo',    videoId:'' },
+  { num:4,  title:'Alimentos inflamatórios',    sub:'O que evitar e por quê',               videoId:'' },
+  { num:5,  title:'Meio caminho!',              sub:'Revisando e ajustando a rota',         videoId:'' },
+  { num:6,  title:'Rotina que sustenta',        sub:'Criando hábitos reais e duradouros',   videoId:'' },
+  { num:7,  title:'Exercício e alimentação',    sub:'A combinação que acelera resultados',  videoId:'' },
+  { num:8,  title:'Emoções e comida',           sub:'Entendendo a fome emocional',          videoId:'' },
+  { num:9,  title:'Planejamento semanal',       sub:'Como se organizar para não errar',     videoId:'' },
+  { num:10, title:'Você chegou lá!',            sub:'Próximos passos e manutenção',         videoId:'' }
+];
+
+var currentUser = {}, userPts = 0, isAdmin = false;
+
+window.addEventListener('DOMContentLoaded', function() {
+  var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
+  if (!saved.email) { window.location.replace('/area-premium/'); return; }
+  currentUser = saved;
+
+  fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(saved.email))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      if (!data.pago) { window.location.replace('/area-premium/'); return; }
+      renderArea();
+    })
+    .catch(function() {
+      if (saved.email) renderArea();
+      else window.location.replace('/area-premium/');
+    });
+});
+
+function renderArea() {
+  var firstName = currentUser.nome ? currentUser.nome.split(' ')[0] : 'participante';
+  document.getElementById('welcomeName').textContent = firstName;
+  document.getElementById('headerName').textContent  = firstName;
+  buildDays();
+  loadLeaderboard();
+  loadMyPhotos();
+  fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(currentUser.email))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      if (data.isAdmin) {
+        isAdmin = true;
+        document.getElementById('adminPanel').classList.add('visible');
+        loadParticipants();
+      }
+    }).catch(function(){});
+  hidePage();
+}
+
+function hidePage() {
+  var loader = document.getElementById('pageLoading');
+  loader.classList.add('hide');
+  setTimeout(function(){ loader.style.display='none'; }, 500);
+}
+
+function buildDays() {
+  var list = document.getElementById('daysList');
+  DAYS.forEach(function(day) {
+    var item = document.createElement('div');
+    item.className = 'day-item';
+    item.innerHTML =
+      '<div class="day-header" id="dh-'+day.num+'" onclick="toggleDay('+day.num+')">' +
+        '<div class="day-num">'+day.num+'</div>' +
+        '<div class="day-info"><div class="day-title">'+day.title+'</div><div class="day-subtitle">'+day.sub+'</div></div>' +
+        '<div class="day-chevron">▼</div>' +
+      '</div>' +
+      '<div class="day-body" id="db-'+day.num+'">' + buildDayBody(day) + '</div>';
+    list.appendChild(item);
+  });
+}
+
+function buildDayBody(day) {
+  var videoHtml = day.videoId
+    ? '<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+day.videoId+'" allowfullscreen></iframe></div>'
+    : '<div class="video-wrap"><div class="video-coming"><span>🎥</span>Vídeo em breve</div></div>';
+  return videoHtml +
+    '<p style="font-size:.82rem;color:var(--brown-light);margin-bottom:14px">Registre sua evolução no Dia '+day.num+'</p>' +
+    '<div class="upload-area" onclick="triggerUpload(\'dia'+day.num+'\')">' +
+      '<div class="upload-area-icon">📸</div>' +
+      '<div class="upload-area-text">Foto do dia (alimentação, água, atividade…)</div>' +
+      '<div class="upload-area-pts">+10 pontos</div>' +
+    '</div>' +
+    '<input type="file" accept="image/*" class="upload-input" id="upload-dia'+day.num+'" onchange="previewPhoto(this,\'dia'+day.num+'\')">' +
+    '<div class="photo-preview" id="preview-dia'+day.num+'"><img id="preview-img-dia'+day.num+'" src="" alt="Preview"><button class="photo-preview-remove" onclick="removePreview(\'dia'+day.num+'\')">✕</button></div>' +
+    '<button class="btn-upload" id="btn-send-dia'+day.num+'" onclick="sendPhoto(\'dia'+day.num+'\')">Enviar foto (+10 pts)</button>' +
+    '<div class="upload-success" id="success-dia'+day.num+'">✅ Foto enviada! +10 pts</div>' +
+    '<div id="sent-dia'+day.num+'" class="sent-photos"></div>' +
+    '<div class="checkin-row">' +
+      '<button class="btn-checkin" id="ci-agua-'+day.num+'" onclick="doCheckin(\'agua\','+day.num+')">💧 Meta de água atingida</button>' +
+      '<button class="btn-checkin" id="ci-dia-'+day.num+'"  onclick="doCheckin(\'checkin\','+day.num+')">✅ Check-in do dia</button>' +
+    '</div>' +
+    '<div id="bruna-comment-dia'+day.num+'"></div>';
+}
+
+function toggleDay(num) {
+  var h = document.getElementById('dh-'+num), b = document.getElementById('db-'+num);
+  var open = h.classList.contains('open');
+  h.classList.toggle('open', !open); b.classList.toggle('open', !open);
+}
+
+function loadLeaderboard() {
+  fetch(WEBHOOK + '?action=get_leaderboard&email=' + encodeURIComponent(currentUser.email))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('leaderboardList');
+      list.innerHTML = '';
+      if (!data.top || !data.top.length) { list.innerHTML = '<div class="lb-loading">Nenhum ponto registrado ainda. Seja a primeira! 🏆</div>'; return; }
+      data.top.forEach(function(p, i) {
+        var rc = i===0?'gold':i===1?'silver':'', rl = i===0?'🥇':i===1?'🥈':'#'+(i+1);
+        var me = p.email === currentUser.email;
+        var el = document.createElement('div');
+        el.className = 'lb-item'+(me?' lb-me':'');
+        el.innerHTML = '<div class="lb-rank '+rc+'">'+rl+'</div><div class="lb-name">'+p.nome+'</div>'+(me?'<span class="lb-me-tag">você</span>':'')+'<div class="lb-pts">'+p.pontos+' pts</div>';
+        list.appendChild(el);
+      });
+      if (data.userPosicao && data.userPosicao > data.top.length) {
+        var sep = document.createElement('div'); sep.style.cssText='text-align:center;font-size:.78rem;color:var(--brown-light);padding:4px'; sep.textContent='···'; list.appendChild(sep);
+        var mr = document.createElement('div'); mr.className='lb-item lb-me';
+        mr.innerHTML='<div class="lb-rank">#'+data.userPosicao+'</div><div class="lb-name">'+currentUser.nome+'</div><span class="lb-me-tag">você</span><div class="lb-pts">'+(data.userPontos||0)+' pts</div>';
+        list.appendChild(mr);
+      }
+      userPts = data.userPontos || 0; updatePtsDisplay();
+    })
+    .catch(function(){ document.getElementById('leaderboardList').innerHTML='<div class="lb-loading">Não foi possível carregar o ranking.</div>'; });
+}
+
+function updatePtsDisplay() {
+  document.getElementById('headerPts').textContent = userPts+' pts';
+  document.getElementById('totalPts').textContent  = userPts;
+}
+
+function loadMyPhotos() {
+  fetch(WEBHOOK + '?action=get_participant_data&email=' + encodeURIComponent(currentUser.email))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      userPts = data.pontos||0; updatePtsDisplay();
+      if (data.fotos) data.fotos.forEach(function(f){ renderSentPhoto(f.tipo, f.url, f.pontos); });
+      if (data.comentarios) data.comentarios.forEach(function(c){ renderBrunaComment(c.tipo, c.texto); });
+    }).catch(function(){});
+}
+
+function renderSentPhoto(tipo, url, pts) {
+  var c = document.getElementById('sent-'+tipo); if(!c) return;
+  if (!c.querySelector('.sent-photos-title')) c.innerHTML='<div class="sent-photos-title">Fotos enviadas</div><div class="sent-photos-grid" id="grid-'+tipo+'"></div>';
+  var g = document.getElementById('grid-'+tipo)||c.querySelector('.sent-photos-grid'); if(!g) return;
+  var el = document.createElement('div'); el.className='sent-photo-item';
+  el.innerHTML='<img src="'+url+'" alt="foto" onerror="this.parentElement.style.display=\'none\'"><div class="sent-photo-pts">+'+pts+' pts</div>';
+  g.appendChild(el);
+}
+
+function renderBrunaComment(tipo, texto) {
+  var c = document.getElementById('bruna-comment-'+tipo); if(!c) return;
+  var d = document.createElement('div'); d.className='bruna-comment';
+  d.innerHTML='<div class="bruna-comment-who">💬 Bruna Boreggio</div><div class="bruna-comment-text">'+texto+'</div>';
+  c.appendChild(d);
+}
+
+function triggerUpload(tipo) { var i = document.getElementById('upload-'+tipo); if(i) i.click(); }
+
+function previewPhoto(input, tipo) {
+  if (!input.files||!input.files[0]) return;
+  var r = new FileReader();
+  r.onload = function(e) {
+    document.getElementById('preview-img-'+tipo).src = e.target.result;
+    document.getElementById('preview-'+tipo).style.display = 'block';
+    document.getElementById('btn-send-'+tipo).classList.add('visible');
+  };
+  r.readAsDataURL(input.files[0]);
+}
+
+function removePreview(tipo) {
+  document.getElementById('upload-'+tipo).value='';
+  document.getElementById('preview-'+tipo).style.display='none';
+  document.getElementById('btn-send-'+tipo).classList.remove('visible');
+}
+
+function sendPhoto(tipo) {
+  var input = document.getElementById('upload-'+tipo);
+  if (!input||!input.files||!input.files[0]) return;
+  var btn = document.getElementById('btn-send-'+tipo); btn.disabled=true; btn.textContent='Enviando…';
+  var file = input.files[0], r = new FileReader();
+  r.onload = function(e) {
+    var pts = (tipo==='antes'||tipo==='depois') ? 50 : 10;
+    fetch(WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ action:'photo_upload', email:currentUser.email, nome:currentUser.nome, tipo:tipo, fileData:e.target.result.split(',')[1], fileName:file.name, mimeType:file.type })
+    }).then(function(){
+      document.getElementById('success-'+tipo).classList.add('show');
+      document.getElementById('preview-'+tipo).style.display='none';
+      btn.classList.remove('visible'); userPts+=pts; updatePtsDisplay();
+      showToast('Foto enviada! +'+pts+' pts 🎉');
+      setTimeout(loadLeaderboard, 2000);
+    }).catch(function(){ btn.disabled=false; btn.textContent='Tentar novamente'; showToast('Erro ao enviar. Tente novamente.'); });
+  };
+  r.readAsDataURL(file);
+}
+
+function doCheckin(tipo, dia) {
+  var btn = document.getElementById('ci-'+tipo+'-'+dia);
+  if (!btn||btn.classList.contains('done')) return;
+  btn.disabled=true;
+  fetch(WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ action:'checkin', email:currentUser.email, nome:currentUser.nome, tipo:tipo, dia:dia })
+  }).then(function(){ btn.classList.add('done'); btn.disabled=false; userPts+=10; updatePtsDisplay(); showToast('Check-in registrado! +10 pts ✅'); setTimeout(loadLeaderboard,2000); })
+  .catch(function(){ btn.disabled=false; showToast('Erro. Tente novamente.'); });
+}
+
+function loadParticipants() {
+  fetch(WEBHOOK + '?action=get_participants_list&adminEmail=' + encodeURIComponent(currentUser.email))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      var list = document.getElementById('participantsList'); list.innerHTML='';
+      if (!data.participantes||!data.participantes.length) { list.innerHTML='<div class="no-participants">Nenhum participante ainda.</div>'; return; }
+      data.participantes.forEach(function(p) {
+        var row = document.createElement('div'); row.className='participant-row';
+        var es = p.email.replace(/[@.]/g,'-');
+        row.innerHTML=
+          '<div class="participant-header" onclick="toggleParticipant(\'p-'+es+'\')">' +
+            '<div><div class="participant-name">'+p.nome+'</div><div class="participant-meta">'+p.email+' · '+p.plano+'</div></div>' +
+            '<div class="participant-pts-badge">'+p.pontos+' pts</div>' +
+          '</div>' +
+          '<div class="participant-body" id="p-'+es+'">'+buildParticipantBody(p)+'</div>';
+        list.appendChild(row);
+      });
+    }).catch(function(){ document.getElementById('participantsList').innerHTML='<div class="no-participants">Erro ao carregar.</div>'; });
+}
+
+function buildParticipantBody(p) {
+  var ph = p.fotos&&p.fotos.length
+    ? '<div class="participant-photos-grid">'+p.fotos.map(function(f){ return '<div class="participant-photo-item"><img src="'+f.url+'" alt="foto" onerror="this.parentElement.style.display=\'none\'"><div class="participant-photo-tipo">'+f.tipo+'</div></div>'; }).join('')+'</div>'
+    : '<p style="font-size:.8rem;color:var(--brown-light);margin-bottom:12px">Nenhuma foto enviada ainda.</p>';
+  var es = p.email.replace(/[@.]/g,'-');
+  return ph+'<div class="admin-comment-form"><textarea id="comment-'+es+'" placeholder="Deixe um feedback para '+p.nome+'…"></textarea><button class="btn-comment" onclick="sendAdminComment(\''+p.email+'\',\''+es+'\')">Enviar comentário</button></div><div id="comment-result-'+es+'"></div>';
+}
+
+function toggleParticipant(id) { var b=document.getElementById(id); if(b) b.classList.toggle('open'); }
+
+function sendAdminComment(emailP, es) {
+  var ta = document.getElementById('comment-'+es), texto = ta?ta.value.trim():''; if(!texto) return;
+  var btn = ta.nextElementSibling; btn.disabled=true; btn.textContent='Enviando…';
+  fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ action:'admin_comment', adminEmail:currentUser.email, participantEmail:emailP, tipo:'geral', comentario:texto })
+  }).then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.ok) {
+      ta.value=''; btn.disabled=false; btn.textContent='Enviar comentário';
+      var re=document.getElementById('comment-result-'+es);
+      if(re){ re.innerHTML='<div style="font-size:.78rem;color:var(--green);margin-top:8px">✅ Comentário enviado!</div>'; setTimeout(function(){re.innerHTML='';},3000); }
+      showToast('Comentário enviado! 💬');
+    }
+  }).catch(function(){ btn.disabled=false; btn.textContent='Tentar novamente'; showToast('Erro. Tente novamente.'); });
+}
+
+function showToast(msg) {
+  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+</script>
+
+</body>
+</html>
