@@ -346,6 +346,8 @@
   function checkPayment() {
     var userData = JSON.parse(localStorage.getItem('desafio_user') || '{}');
     if (!userData.email) { alert('Dados não encontrados. Preencha o cadastro novamente.'); return; }
+  var ADMINS = ['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+  if (ADMINS.indexOf(userData.email) !== -1) { window.location.href = '/area-desafio/'; return; }
     var btn = document.getElementById('checkBtn');
     var checking = document.getElementById('checkingText');
     btn.disabled = true;
@@ -371,8 +373,9 @@
       });
   }
 
-  var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
-  if (saved.email && saved.pago) {
+  var ADMINS = ['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
+  if (saved.email && (saved.pago || ADMINS.indexOf(saved.email) !== -1)) {
     window.location.replace('/area-desafio/');
   }
 </script>
