@@ -37,13 +37,446 @@ position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)
 .orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(201,149,78,.12),transparent 70%);top:-150px;left:-150px;animation:orbF 18s ease-in-out infinite;}
 .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(201,149,78,.08),transparent 70%);bottom:-100px;right:-100px;animation:orbF 24s ease-in-out infinite reverse;}
 @keyframes orbF{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+
+/* HEADER */
 .hdr{position:relative;z-index:10;text-align:center;padding:28px 20px 0;}
 .hdr-logo{display:inline-block;text-decoration:none;}
 .hdr-name{font-size:1rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);}
 .hdr-sub{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,192,122,.4);margin-top:3px;}
-.hero{position:relative;z-index:2;text-align:center;padding:52px 20px 40px;max-width:720px;margin:0 auto;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,149,78,.12);border:1px solid var(--border2);border-radius:100px;padding:6px 20px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:28px;animation:fadeUp .8s ease both;}
+
+/* HERO */
+.hero{
+position:relative;z-index:2;
+text-align:center;padding:52px 20px 40px;
+max-width:720px;margin:0 auto;
+}
+.hero-badge{
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(201,149,78,.12);border:1px solid var(--border2);
+border-radius:100px;padding:6px 20px;
+font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+color:var(--gold2);margin-bottom:28px;
+animation:fadeUp .8s ease both;
+}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;}
-@keyframes pulse{0%,100%{�6�G���G&�6f�&ӧ66�R���S���6�G���S�G&�6f�&ӧ66�R�゗�Ф�W�g&�W2fFUW�g&�׶�6�G���G&�6f�&ӧG&�6�FU��#���F���6�G���G&�6f�&ӧG&�6�FU����Т�W&���f��B�6��S�6���"�'&V��Wgr�2�g&Vғ�f��B�vV�v�C���Ɩ�RֆV�v�C����&v���&�GF�ӣ�����F���fFUW�2�2V6R&�F��Т�W&���Ƕ&6�w&�V�C�Ɩ�V"�w&F�V�B�3VFVr�f"���v��B�R�f"���v��C2�R���vV&��B�&6�w&�V�B�6Ɨ�FW�C��vV&��B�FW�B�f����6���#�G&�7&V�C�&6�w&�V�B�6Ɨ�FW�C�Т�W&��7V'�f��B�6��S�&VӶ6���#�f"����WFVB��Ɩ�RֆV�v�C��sS��&v���&�GF�ӣ3g����F���fFUW2�'2V6R&�F��Т�W&�����7�F�7���f�W��f�W��w&�w&��W7F�g��6��FV�C�6V�FW#�v�����F���fFUW2�72V6R&�F��Т���ǶF�7���f�W��Ɩv�֗FV�3�6V�FW#�v�w��&6�w&�V�C�f"���v�73"��&�&FW#��6�ƖBf"���&�&FW"��&�&FW"�&F�W3���FF��s������f��B�6��S��s�&VӶf��B�vV�v�C�c�6���#�f"���v��C"��G&�6�F������73�7W'6�#�FVfV�C�Т���æ��fW'�&6�w&�V�C�&v&�#�C��s�����&�&FW"�6���#�f"���&�&FW#"��G&�6f�&ӧG&�6�FU���'���Т�&��g��6�F���&V�F�fS��֖�FW��#�F�7���f�W���W7F�g��6��FV�C�6V�FW#�v�����v�GF��S#���&v��WF�C��FF��s�#��Т�&��b֗FV׶f�W���FW�B�Ɩv�6V�FW#�FF��s�#���&�&FW"�&�v�C��6�ƖBf"���&�&FW"����F���fFUW2�G2V6R&�F��Т�&��b֗FVӦ�7B�6���G�&�&FW"�&�v�C����S�Т�&��b��V׶f��B�6��S��&VӶf��B�vV�v�C���6���#�f"���v��C"��Ɩ�RֆV�v�C��Т�&��b��&Ƕf��B�6��S��cW&VӶf��B�vV�v�C�c��WGFW"�76��s���VӷFW�B�G&�6f�&ӧWW&66S�6���#�f"����WFVB���&v���F��G��Т�6&B�w&��6�F���&V�F�fS��֖�FW��#����v�GF��SC���&v��WF�FF��s�#�c��Т�6&G�&6�w&�V�C�f"���v�73"��&�&FW#��6�ƖBf"���&�&FW"��&�&FW"�&F�W3�#���FF��s�CG��&6�G&��f��FW#�&�W"�#����vV&��B�&6�G&��f��FW#�&�W"�#���&���6�F�s�3'���&v&�����R���&v&�#�C��s�������6WC���F���fFUW2�W2V6R&�F��Ф�VF�����v�GF��S#����6&G�FF��s�#��#���Т��ffW"�&��6��FW�B�Ɩv�6V�FW#��&v���&�GF�ӣ3'��Т��ffW"��&Ƕf��B�6��S��cW&VӶf��B�vV�v�C�s��WGFW"�76��s��FVӷFW�B�G&�6f�&ӧWW&66S�6���#�f"����WFVB���&v���&�GF�ӣ��Т��ffW"�&�6R�&�w�F�7���f�W��Ɩv�֗FV�3�f�W��7F'C��W7F�g��6��FV�C�6V�FW#�v�g��Т��ffW"�'7�f��B�6��S��G&VӶf��B�vV�v�C�s�6���#�f"���v��C"���&v���F��'��Т��ffW"��V׶f��B�6��S�W&VӶf��B�vV�v�C���Ɩ�RֆV�v�C��&6�w&�V�C�Ɩ�V"�w&F�V�B�3VFVr�f"���v��B�R�f"���v��C2�R���vV&��B�&6�w&�V�B�6Ɨ�FW�C��vV&��B�FW�B�f����6���#�G&�7&V�C�&6�w&�V�B�6Ɨ�FW�C�Т��ffW"�7V'�f��B�6��S��&VӶ6���#�f"����WFVB���&v���F�����Т�F�f�FW'�&�&FW#����S�&�&FW"�F���6�ƖBf"���&�&FW"���&v��#G��Т�fVB�Ɨ7G�Ɨ7B�7G��S����S�F�7���f�W��f�W��F�&V7F���6��V��v�'���&v���&�GF�ӣ#���Т�fVB֗FV׶F�7���f�W��Ɩv�֗FV�3�f�W��7F'C�v�'��f��B�6��S��W&VӶ6���#�f"���FW�B��Ɩ�RֆV�v�C��S�FF��s��'��&�&FW"�&F�W3�'��&6�w&�V�C�f"���v�72��&�&FW#��6�ƖB&v&�#�C��s������G&�6�F������73�Т�fVB֗FVӦ��fW'�&6�w&�V�C�&v&�#�C��s���b��&�&FW"�6���#�f"���&�&FW"��G&�6f�&ӧG&�6�FU��G���Т�fVB֖6��f��B�6��S��&VӶf�W��6�&�泣��&v���F����Т�f�&��F�F�W�f��B�6��S��W&VӶf��B�vV�v�C�s�6���#�f"���FW�B���&v���&�GF�ӣG��Т�f�&��7V'�f��B�6��S��&VӶ6���#�f"����WFVB���&v���&�GF�ӣ#'��Ɩ�RֆV�v�C��S�Т�f�V�G�F�7���f�W��f�W��F�&V7F���6��V��v�g���&v���&�GF�ӣG��Т�f�V�B�&VǶf��B�6��S��c�&VӶf��B�vV�v�C�s��WGFW"�76��s��VӷFW�B�G&�6f�&ӧWW&66S�6���#�f"����WFVB��Т�f�V�B��WG��V�v�C�S��&�&FW"�&F�W3�G��&�&FW#��6�ƖBf"���&�&FW"��&6�w&�V�C�&v&�#SR�#SR�#SR��B��6���#�f"���FW�B��f��B�f֖Ǔ�u6�&r�6�2�6W&�c�f��B�6��S��&VӷFF��s�g���WFƖ�S����S�G&�6�F������'3�Т�f�V�B��WC���6V���FW'�6���#�&v&�#C"�#3��#C���#R��Т�f�V�B��WC�f�7W7�&�&FW"�6���#�f"���v��B��&6�w&�V�C�&v&�#�C��s���b��&���6�F�s�7�&v&�#�C��s���"��Т�f�V�B��WB�W''�&�&FW"�6���#�f"���&VB��Т�W'"��6w�&6�w&�V�C�&v&�#C��2�2����&�&FW#��6�ƖB&v&�#C��2�2��#R��&�&FW"�&F�W3�'��FF��s�'�g��f��B�6��S��&VӶ6���#�f"���&VB��F�7������S��&v���&�GF�ӣG��Т�W'"��6r�6��w�F�7���&��6��Т�'F��&��'��v�GF��S��V�v�C�Sg��&�&FW"�&F�W3�g��&�&FW#����S�7W'6�#����FW#�f��B�f֖Ǔ�u6�&r�6�2�6W&�c�f��B�6��S�&VӶf��B�vV�v�C�s�6���#�3cC��WGFW"�76��s��FVӶ&6�w&�V�C�Ɩ�V"�w&F�V�B�3VFVr�f"���v��B�R�f"���v��C2�R��&���6�F�s�G�#G�&v&�#�C��s���B��F�7���f�W��Ɩv�֗FV�3�6V�FW#��W7F�g��6��FV�C�6V�FW#�v����G&�6�F������#W3��6�F���&V�F�fS��fW&f��s���FFV�Т�'F��&��'���gFW'�6��FV�C�rs��6�F���'6��WFS���6WC��&6�w&�V�C�Ɩ�V"�w&F�V�B��FVr�G&�7&V�BR�&v&�#SR�#SR�#SR����SR�G&�7&V�BR��G&�6f�&ӧG&�6�FU���R��G&�6�F���G&�6f�&��W2V6S�Т�'F��&��'����fW#��gFW'�G&�6f�&ӧG&�6�FU��R��Т�'F��&��'����fW'�G&�6f�&ӧG&�6�FU���'���&���6�F�s���3'�&v&�#�C��s���SR��Т�'F��&��'��F�6&�VG��6�G���S����FW"�WfV�G3����S�Т�F�66���W'�f��B�6��S��w&VӶ6���#�f"����WFVB��FW�B�Ɩv�6V�FW#��&v���F��'��Ɩ�RֆV�v�C��S�Т�F�66���W"�6���#�f"���v��B��FW�B�FV6�&F������S�Т���&��6��F�7������S�Т���&��6��6��w�F�7���&��6��Т��֖6��f��B�6��S�"�W&VӷFW�B�Ɩv�6V�FW#��&v���&�GF�ӣ'��Т���F�F�W�f��B�6��S��'&VӶf��B�vV�v�C�s�FW�B�Ɩv�6V�FW#��&v���&�GF�ӣ���Т���FW67�f��B�6��S��W&VӶ6���#�f"����WFVB��FW�B�Ɩv�6V�FW#�Ɩ�RֆV�v�C��cS��&v���&�GF�ӣ#G��Т�'F����F�7���f�W��Ɩv�֗FV�3�6V�FW#��W7F�g��6��FV�C�6V�FW#��V�v�C�Sg��&�&FW"�&F�W3�g��FW�B�FV6�&F������S�&6�w&�V�C�Ɩ�V"�w&F�V�B�3VFVr�f"���v��B�R�f"���v��C2�R��6���#�3cC�f��B�f֖Ǔ�u6�&r�6�2�6W&�c�f��B�6��S�&VӶf��B�vV�v�C�s�&���6�F�s�G�#G�&v&�#�C��s���B��G&�6�F������#W3��&v���&�GF�ӣ'���6�F���&V�F�fS��fW&f��s���FFV�Т�'F�����gFW'�6��FV�C�rs��6�F���'6��WFS���6WC��&6�w&�V�C�Ɩ�V"�w&F�V�B��FVr�G&�7&V�B�&v&�#SR�#SR�#SR�����G&�7&V�B��G&�6f�&ӧG&�6�FU���R��G&�6�F���G&�6f�&��W2V6S�Т�'F������fW#��gFW'�G&�6f�&ӧG&�6�FU��R��Т�'F������fW'�G&�6f�&ӧG&�6�FU���'���&���6�F�s���3'�&v&�#�C��s���SR��Т�'F��6�V6��v�GF��S��V�v�C�Cg��&�&FW"�&F�W3�G��&6�w&�V�C�f"���v�72��&�&FW#��6�ƖBf"���&�&FW"��6���#�f"����WFVB��f��B�f֖Ǔ�u6�&r�6�2�6W&�c�f��B�6��S��W&VӶf��B�vV�v�C�c�7W'6�#����FW#�G&�6�F������'3�Т�'F��6�V6����fW'�&6�w&�V�C�f"���v�73"��&�&FW"�6���#�f"���&�&FW#"��6���#�f"���FW�B��Т�'F��6�V6��F�6&�VG��6�G���C����FW"�WfV�G3����S�Т�6�V6���w�f��B�6��S��sW&VӶ6���#�f"����WFVB��FW�B�Ɩv�6V�FW#��&v���F����F�7������S�Т�6�V6���r�6��w�F�7���&��6��Т�wV&�FVW��6�F���&V�F�fS��֖�FW��#����v�GF��SC���&v��WF�#��FF��s�#��Т�wV"֖��W'�&6�w&�V�C�f"���v�72��&�&FW#��6�ƖBf"���&�&FW"��&�&FW"�&F�W3�g��FF��s���#'��f��B�6��S��sW&VӶ6���#�f"����WFVB��FW�B�Ɩv�6V�FW#�Ɩ�RֆV�v�C��cS�Т�wV"֖��W"7G&��w�6���#�f"���v��C"��Т�&6��F�7���&��6��FW�B�Ɩv�6V�FW#�FF��r�&�GF�ӣC��f��B�6��S��sW&VӶ6���#�&v&�#C"�#3��#C���2��FW�B�FV6�&F������S�G&�6�F���6���"�'3��6�F���&V�F�fS��֖�FW��#�Т�&6����fW'�6���#�f"���v��C"��Т�&WfVǶ�6�G���G&�6f�&ӧG&�6�FU��#G���G&�6�F����6�G��w2V6R�G&�6f�&��w2V6S�Т�&WfV��f�6�&�W��6�G���G&�6f�&ӧG&�6�FU����У��7G��S����VC��&�G���6�f2�C�''F�6�W2#���6�f3��F�b6�73�&�&"�&##���F�c��F�b6�73�&�&"�&#"#���F�cࠣƆVFW"6�73�&�G"#��6�73�&�G"���v�"�&Vc�"�#��F�b6�73�&�G"���R#�''V�&�&Vvv����F�c��F�b6�73�&�G"�7V"#��WG&�6���7F+r5$�c�C�s��F�c�������VFW#ࠣ�6V7F���6�73�&�W&�#��F�b6�73�&�W&��&FvR#��F�b6�73�&ƗfR�F�B#���F�c�FW6f��6��V6R�WfR(	Bfv2&W'F3��F�c�ƃ�F�2&�'#��7�6�73�&��#�G&�6f�&�#��7���'#�7VƖ�V�F:|:6������6�73�&�W&��7V"#�V�FW6f��,:F�6�6��7W�'FRF''V�&�&Vvv����'#�f�F�2FRWf��\:|:6����GV:|:6�F�:&�R&V֖:|:6�&VV���26RFVF�6"�����F�b6�73�&�W&�����2#��F�b6�73�'���#�	�8RF�2FR6��F\;�F���F�c��F�b6�73�'���#�	�;�f�F�2FRWf��\:|:6���F�c��F�b6�73�'���#�	��b&涖�r6��,:�֖�3��F�c��F�b6�73�'���#�	�*�7W�'FRF''V���F�c���F�c���6V7F���ࠣ�F�b6�73�'&��b&WfV�#��F�b6�73�'&��b֗FV�#��F�b6�73�'&��b��V�"�C�&6�C#���F�c��F�b6�73�'&��b��&�#�'F�6��FW3��F�c���F�c��F�b6�73�'&��b֗FV�#��F�b6�73�'&��b��V�"�C�&6�C"#���F�c��F�b6�73�'&��b��&�#�F�2FRFW6f����F�c���F�c��F�b6�73�'&��b֗FV�#��F�b6�73�'&��b��V�"�C�&6�C2#�S��F�c��F�b6�73�'&��b��&�#�6F�6f:|:6���F�c���F�c���F�cࠣ�F�b6�73�&6&B�w&#��F�b6�73�&6&B&WfV�#��F�b6�73�&�ffW"�&��6�#��F�b6�73�&�ffW"��&�#��fW7F��V�F�;��6���F�c��F�b6�73�&�ffW"�&�6R�&�r#��7�6�73�&�ffW"�'2#�"C��7���7�6�73�&�ffW"��V�"�C�'&�6T�V�#�s��7����F�c��F�b6�73�&�ffW"�7V"#�6W76�6���WF��2F�2F�FW6f����F�c���F�c�Ƈ"6�73�&F�f�FW"#��V�6�73�&fVB�Ɨ7B"�C�&fVGW&W4Ɨ7B#��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	��S��7���7��l:�FV��V�2W�6�W6�f2&6FF�F�FW6f����7����Ɠ��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	�;���7���7��W��BFRf�F�2F�:&�26����GV:|:6�WF��:F�6��7����Ɠ��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	�*s��7���7��&Vv�7G&�FR�WF2FR:wVR6�V6�֖�2F�:&��3��7����Ɠ��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	��c��7���7��&涖�r�f�f�(	BVV���2��GV"v�,:�֖���7����Ɠ��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	�*���7���7��6��V�L:&��2RfVVF&6�F''V��27V2f�F�3��7����Ɠ��ƒ6�73�&fVB֗FV�#��7�6�73�&fVB֖6��#�	�8���7���7��f�F�F��FW2RFW��26����GV:|:6�W7V6����7����Ɠ���V��Ƈ"6�73�&F�f�FW"#��F�b�C�'&Vv�7FW$&��6�#��F�b6�73�&f�&��F�F�R#�v&�F7Vfv��F�c��F�b6�73�&f�&��7V"#�&VV�6�6WW2FF�2&&W6W'f"R&V6V&W"�Ɩ�FRv�V�F����F�c��f�&��C�'&Vv�7FW$f�&�"��fƖFFS��F�b6�73�&W'"��6r"�C�&f�&�W'&�"#��"ff�"�&VV�6�F�F�2�26��26�'&WF�V�FR���F�c��F�b6�73�&f�V�B#���&V�f�#�&���R#����R6���WF����&V��Ɩ�WBG�S�'FW�B"�C�&���R"�6V���FW#�%6WR���R6���WF�"WF�6���WFS�&��R"&WV�&VC���F�c��F�b6�73�&f�V�B#���&V�f�#�&V���#�R�������&V��Ɩ�WBG�S�&V���"�C�&V���"�6V���FW#�'6WTV����6��"WF�6���WFS�&V���"&WV�&VC���F�c��F�b6�73�&f�V�B#���&V�f�#�'FV�Vf��R#�v�G4���&V��Ɩ�WBG�S�'FV�"�C�'FV�Vf��R"�6V���FW#�"�������ӓ���"WF�6���WFS�'FV�"&WV�&VC���F�c��'WGF��G�S�'7V&֗B"6�73�&'F��&��'�"�C�'&Vv�7FW$'F�#��7��C�'&Vv�7FW$'F�FW�B#�VW&�'F�6�"(k#��7����'WGF�����f�&���6�73�&F�66���W"#��6R6F7G&"f�<:�6��6�&F6����76��&Vc�"��ƗF�6�&�f6�FFR�F��"F&vWC�%�&��#���:�F�6FR&�f6�FFS����6WW2FF�2W7L:6�&�FVv�F�2������F�c��F�b6�73�'��&��6�"�C�'��V�D&��6�#��F�b6�73�'�֖6��#�	�+3��F�c��F�b6�73�'��F�F�R#�f��Ɨ�R6WRv�V�F���F�c��6�73�'��FW62#�6ƗVR&���&�"�v�V�F�6VwW&���'#�kg26��f�&�"�f�<:�FW,:6W76���VF�F��FW6f��������&Vc�"2"�C�'��V�DƖ�"6�73�&'F���"F&vWC�%�&��#�v""C�rRV�G&"��FW6f��(i#����'WGF��6�73�&'F��6�V6�"�C�&6�V6�'F�"��6Ɩ6��&6�V6���V�B��#�:wVV�(	BfW&�f�6"6W76���'WGF����6�73�&6�V6���r"�C�&6�V6���uFW�B#�(�2fW&�f�6�F�v�V�F�(
-c�����F�c���F�c���F�c��F�b6�73�&wV&�FVR&WfV�#��F�b6�73�&wV"֖��W"#��7G&��s�	�I"v�V�F�R6VwW&���7G&��s�+r&�6W76F�V�62��'#�L;�f�F3�f�RF�&WF�V�FR6��''V�V��v�G4���F�c���F�c��6�73�&&6�"�&Vc�"�#�(kf��F"�6�FS����67&�C�f"tT$�����v�GG3���67&�B�v��v�R�6����7&�2�2��g�6'tU��66��#g7w$u�W5���T�3�uw�u�tt�GssTs6��7$3G�WSgD�֗WvDwFgfur�W�V2s�f"��T�E�Ĕ��v�GG3���wwr�62�6���2�'37���SG�7��f�s�f"DԔ�3ղvf���6V�&��''V�&�&Vvv��v����6��r�vF�f&V&V����v����6��uӲ�gV�7F��ₗ�f"3�F�7V�V�B�vWDV�V�V�D'��B�w'F�6�W2r��7G��2�vWD6��FW�B�s&Br��f"rĂ�F�G3յӶgV�7F���&W6��R���s�2�v�GF��v��F�r���W%v�GF����2�V�v�C�v��F�r���W$�V�v�C��&W6��R���v��F�r�FDWfV�DƗ7FV�W"�w&W6��Rr�&W6��R��gV�7F���F�B���F��2���F��&�F�҂��s�F��2���F��&�F�҂����F��2�#��F��&�F�҂��ゲ�C�F��2�g�҄�F��&�F�҂���R���#S�F��2�g�҄�F��&�F�҂���R���#S�F��2�v��C��F��&�F�҂���s�F��2���F��&�F�҂���b��3��f�"�f"����Ã�����F�G2�W6���WrF�B����gV�7F���G&r���7G��6�V%&V7B���rĂ��F�G2�f�$V6��gV�7F���B��B炳�B�g��B畳�B�g���b�B���B��s��b�B��r�B����b�B���B�ԃ��b�B�䂖B���7G��&Vv��F����7G��&2�B��B��B�"���F����"��7G��f���7G��S�B�v��C�w&v&�#�C��s��r�B��r�s�w&v&�#C"�#3��#C��r�B���r�r�s�7G��f����ғ�&WVW7D��F���g&�R�G&r���G&r���Ғ����gV�7F��ₗ�f"V�3�F�7V�V�B�VW'�6V�V7F�$�r�&WfV�r��f"�'3��Wr��FW'6V7F����'6W'fW"�gV�7F���V�G&�W2��V�G&�W2�f�$V6��gV�7F���R���b�R�4��FW'6V7F��r�R�F&vWB�6�74Ɨ7B�FB�wf�6�&�Rr��ғ��ǷF�&W6���C��ғ�V�2�f�$V6��gV�7F���V��'2��'6W'fR�V�ғ�Ғ����gV�7F��ₗ�gV�7F�����6�V�B�V��F&vWB�7Vff���GW"��f"7F'C�W&f�&��6R���r���gV�7F���7FW���r��f"��F��֖₆��r�7F'B��GW"���f"f���F��&�V�B��F&vWB��V��FW�D6��FV�C�f²�7Vff����rrb���b���&WVW7D��F���g&�R�7FW���&WVW7D��F���g&�R�7FW���f"�'3��Wr��FW'6V7F����'6W'fW"�gV�7F���V�G&�W2��V�G&�W2�f�$V6��gV�7F���R���b�R�4��FW'6V7F��r����6�V�B�F�7V�V�B�vWDV�V�V�D'��B�v6�Cr�ÃCr�rr�#����6�V�B�F�7V�V�B�vWDV�V�V�D'��B�v6�C"r���rrÃ����6�V�B�F�7V�V�B�vWDV�V�V�D'��B�v6�C2r�Ó��rRr�C���'2�F�66���V7B����ғ��ǷF�&W6���C��Wғ��'2��'6W'fR�F�7V�V�B�VW'�6V�V7F�"�r�&��br���Ғ���F�7V�V�B�vWDV�V�V�D'��B�wFV�Vf��Rr��FDWfV�DƗ7FV�W"�v��WBr�gV�7F���R��f"c�R�F&vWB�f�VR�&W�6R���B�r�rr��7V'7G&��r�����b�b��V�wF���c�b�&W�6R����G�'Ғ��G�WҒ��G�GҒB��r�C�C"�C2r��V�6R�b�b��V�wF��b�c�b�&W�6R����G�'Ғ��G�GҒ��G��GҒB��r�C�C"�C2r��V�6R�b�b��V�wF��"�c�b�&W�6R����G�'Ғ��G��WҒB��r�C�C"r��R�F&vWB�f�VS�c�ғ�F�7V�V�B�vWDV�V�V�D'��B�w&Vv�7FW$f�&�r��FDWfV�DƗ7FV�W"�w7V&֗Br�gV�7F���R��R�&WfV�DFVfV�B���f"���S�F�7V�V�B�vWDV�V�V�D'��B�v���Rr��f�VR�G&�҂��f"V����F�7V�V�B�vWDV�V�V�D'��B�vV���r��f�VR�G&�҂��f"FV�Vf��S�F�7V�V�B�vWDV�V�V�D'��B�wFV�Vf��Rr��f�VR�G&�҂��f"W'$V��F�7V�V�B�vWDV�V�V�D'��B�vf�&�W'&�"r��f"'F��F�7V�V�B�vWDV�V�V�D'��B�w&Vv�7FW$'F�r��W'$V��6�74Ɨ7B�&V��fR�w6��rr���v���Rr�vV���r�wFV�Vf��Ru��f�$V6��gV�7F��↖B��F�7V�V�B�vWDV�V�V�D'��B��B��6�74Ɨ7B�&V��fR�vW'"r��ғ�f"fƖC�G'VS��b����W�����R��V�wF��2��F�7V�V�B�vWDV�V�V�D'��B�v���Rr��6�74Ɨ7B�FB�vW'"r��fƖC�f�6S��f"&S������4Ҵ����4ҵ����4ҲB�b�V�����&R�FW7B�V����F�7V�V�B�vWDV�V�V�D'��B�vV���r��6�74Ɨ7B�FB�vW'"r��fƖC�f�6S�֖b�FV�Vf��W��FV�Vf��R�&W�6R���B�r�rr���V�wF����F�7V�V�B�vWDV�V�V�D'��B�wFV�Vf��Rr��6�74Ɨ7B�FB�vW'"r��fƖC�f�6S�֖b�fƖB��W'$V��6�74Ɨ7B�FB�w6��rr��&WGW&��'F��F�6&�VC�G'VS�F�7V�V�B�vWDV�V�V�D'��B�w&Vv�7FW$'F�FW�Br��FW�D6��FV�C�u6�f�F�(
-bs���6�7F�&vR�6WD�FV҂vFW6f���W6W"rĥ4���7G&��v�g������S����R�V��æV����FV�Vf��S�FV�Vf��R����tFW6f��"�&V6�wҒ��fWF6��tT$����Ƕ�WF��C�u�5Br���FS�v���6�'2rƆVFW'3��t6��FV�B�G�Rs�vƖ6F�����6��w��&�G���4���7G&��v�g���7F���v6���V�vU�&Vv�7FW"r����S����R�V��æV����FV�Vf��S�FV�Vf��R����tFW6f��r�&V6�wҗҒ�6F6��gV�7F��ₗ�ғ��b�G�V�bf'���vgV�7F���r�f'�wG&6�r�t��F�FT6�V6��WBrǷf�VS��r�7W'&V�7��t%$�r�6��FV�E���S�tFW6f��6��V6R�WfRwғ�F�7V�V�B�vWDV�V�V�D'��B�w&Vv�7FW$&��6�r��7G��R�F�7���v���Rs�F�7V�V�B�vWDV�V�V�D'��B�vfVGW&W4Ɨ7Br��7G��R�F�7���v���Rs�F�7V�V�B�VW'�6V�V7F�"�r��ffW"�&��6�r��7G��R�F�7���v���Rs�F�7V�V�B�VW'�6V�V7F�"�r�F�f�FW#�f�'7B��b�G�Rr��7G��R�F�7���v���Rs�F�7V�V�B�vWDV�V�V�D'��B�w��V�DƖ�r��&Vc���T�E�Ĕ䳶F�7V�V�B�vWDV�V�V�D'��B�w��V�D&��6�r��6�74Ɨ7B�FB�w6��rr��v��F�r�67&���F�F���&V�f��#�w6���F�wғ�ғ�gV�7F���6�V6���V�B���f"W6W$FFԥ4���'6R���6�7F�&vR�vWD�FV҂vFW6f���W6W"r���w��r���b�W6W$FF�V����W'B�tFF�2�:6�V�6��G&F�2�&VV�6��6F7G&���f�V�FR�r��&WGW&�֖b�DԔ�2��FW��b�W6W$FF�V�������v��F�r���6F����&Vc�r�&V�FW6f���s�&WGW&��f"'F��F�7V�V�B�vWDV�V�V�D'��B�v6�V6�'F�r��f"6���F�7V�V�B�vWDV�V�V�D'��B�v6�V6���uFW�Br��'F��F�6&�VC�G'VS�6���6�74Ɨ7B�FB�w6��rr��fWF6��tT$�����s�7F����fW&�g����V�BfV����r�V�6�FUU$�6����V�B�W6W$FF�V����F�V�gV�7F���"��&WGW&�"�6�ₓ�Ғ�F�V�gV�7F���FF���b�FF�v򗶖b�G�V�bf'���vgV�7F���r�f'�wG&6�r�uW&6�6RrǷf�VS��r�7W'&V�7��t%$�r�6��FV�E���S�tFW6f��6��V6R�WfRwғ��b�G�V�bwFs���vgV�7F���r�wFr�vWfV�Br�wW&6�6RrǷf�VS��r�7W'&V�7��t%$�wғ�v��F�r���6F����&Vc�r�&V�FW6f���s��V�6W�6���6�74Ɨ7B�&V��fR�w6��rr��'F��F�6&�VC�f�6S��W'B�uv�V�F���F�:6�6��f�&�F��wV&FR�wV�2֖�WF�2RFV�FR��f�V�FR�6R�:v�R���2FR֖�WF�2�V�G&RV�6��FF�6��''V��r���Ғ�6F6��gV�7F��ₗ�6���6�74Ɨ7B�&V��fR�w6��rr��'F��F�6&�VC�f�6S��W'B�tW'&��fW&�f�6"�FV�FR��f�V�FRV���7F�FW2�r��ғ��f"6fVCԥ4���'6R���6�7F�&vR�vWD�FV҂vFW6f���W6W"r���w��r���b�6fVB�V���bb�6fVB�v���DԔ�2��FW��b�6fVB�V��������v��F�r���6F����&W�6R�r�&V�FW6f���r��У��67&�C���&�G�����F���
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.hero h1{
+font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;
+line-height:1.1;margin-bottom:18px;
+animation:fadeUp .9s .1s ease both;
+}
+.hero h1 .hl{
+background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+font-size:1rem;color:var(--muted);line-height:1.75;
+margin-bottom:36px;animation:fadeUp 1s .2s ease both;
+}
+.hero-pills{
+display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+animation:fadeUp 1s .3s ease both;
+}
+.pill{
+display:flex;align-items:center;gap:7px;
+background:var(--glass2);border:1px solid var(--border);
+border-radius:100px;padding:8px 18px;
+font-size:.78rem;font-weight:600;color:var(--gold2);
+transition:all .3s;cursor:default;
+}
+.pill:hover{background:rgba(201,149,78,.1);border-color:var(--border2);transform:translateY(-2px);}
+
+/* SOCIAL PROOF */
+.proof{
+position:relative;z-index:2;
+display:flex;justify-content:center;gap:0;
+max-width:520px;margin:0 auto 40px;padding:0 20px;
+}
+.proof-item{
+flex:1;text-align:center;padding:20px 10px;
+border-right:1px solid var(--border);
+animation:fadeUp 1s .4s ease both;
+}
+.proof-item:last-child{border-right:none;}
+.proof-num{font-size:1.8rem;font-weight:800;color:var(--gold2);line-height:1;}
+.proof-lbl{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+/* MAIN CARD */
+.card-wrap{position:relative;z-index:2;max-width:540px;margin:0 auto;padding:0 20px 60px;}
+.card{
+background:var(--glass2);
+border:1px solid var(--border);
+border-radius:28px;padding:44px;
+backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 0 1px rgba(201,149,78,.08) inset;
+animation:fadeUp 1s .5s ease both;
+}
+@media(max-width:520px){.card{padding:28px 20px;}}
+
+.offer-block{text-align:center;margin-bottom:32px;}
+.offer-lbl{
+font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+color:var(--muted);margin-bottom:10px;
+}
+.offer-price-row{display:flex;align-items:flex-start;justify-content:center;gap:6px;}
+.offer-rs{font-size:1.4rem;font-weight:700;color:var(--gold2);margin-top:12px;}
+.offer-num{
+font-size:5rem;font-weight:800;line-height:1;
+background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.offer-sub{font-size:.8rem;color:var(--muted);margin-top:8px;}
+
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
+
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.feat-item{
+display:flex;align-items:flex-start;gap:12px;
+font-size:.85rem;color:var(--text);line-height:1.5;
+padding:10px 12px;border-radius:12px;
+background:var(--glass);border:1px solid rgba(201,149,78,.08);
+transition:all .3s;
+}
+.feat-item:hover{background:rgba(201,149,78,.06);border-color:var(--border);transform:translateX(4px);}
+.feat-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+
+/* FORM */
+.form-title{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.form-sub{font-size:.8rem;color:var(--muted);margin-bottom:22px;line-height:1.5;}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.field label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.field input{
+height:50px;border-radius:14px;
+border:1px solid var(--border);
+background:rgba(255,255,255,.04);
+color:var(--text);
+font-family:'Sora',sans-serif;font-size:.9rem;
+padding:0 16px;outline:none;
+transition:all .2s;
+}
+.field input::placeholder{color:rgba(242,238,248,.25);}
+.field input:focus{border-color:var(--gold);background:rgba(201,149,78,.06);box-shadow:0 0 0 3px rgba(201,149,78,.12);}
+.field input.err{border-color:var(--red);}
+
+.err-msg{
+background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);
+border-radius:12px;padding:12px 16px;
+font-size:.8rem;color:var(--red);display:none;margin-bottom:14px;
+}
+.err-msg.show{display:block;}
+
+.btn-primary{
+width:100%;height:56px;border-radius:16px;border:none;cursor:pointer;
+font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;
+color:#06040A;letter-spacing:.04em;
+background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
+box-shadow:0 4px 24px rgba(201,149,78,.4);
+display:flex;align-items:center;justify-content:center;gap:8px;
+transition:all .25s;position:relative;overflow:hidden;
+}
+.btn-primary::after{
+content:'';position:absolute;inset:0;
+background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.18) 50%,transparent 100%);
+transform:translateX(-100%);transition:transform .5s ease;
+}
+.btn-primary:hover::after{transform:translateX(100%);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,149,78,.55);}
+.btn-primary:disabled{opacity:.5;pointer-events:none;}
+
+.disclaimer{font-size:.7rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5;}
+.disclaimer a{color:var(--gold);text-decoration:none;}
+
+/* PAYMENT BLOCK */
+.pay-block{display:none;}
+.pay-block.show{display:block;}
+.pay-icon{font-size:2.5rem;text-align:center;margin-bottom:12px;}
+.pay-title{font-size:1.2rem;font-weight:700;text-align:center;margin-bottom:8px;}
+.pay-desc{font-size:.85rem;color:var(--muted);text-align:center;line-height:1.65;margin-bottom:24px;}
+.btn-pay{
+display:flex;align-items:center;justify-content:center;height:56px;
+border-radius:16px;text-decoration:none;
+background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
+color:#06040A;font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;
+box-shadow:0 4px 24px rgba(201,149,78,.4);transition:all .25s;
+margin-bottom:12px;position:relative;overflow:hidden;
+}
+.btn-pay::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);transition:transform .5s ease;}
+.btn-pay:hover::after{transform:translateX(100%);}
+.btn-pay:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,149,78,.55);}
+.btn-check{
+width:100%;height:46px;border-radius:14px;
+background:var(--glass);border:1px solid var(--border);
+color:var(--muted);font-family:'Sora',sans-serif;
+font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.btn-check:hover{background:var(--glass2);border-color:var(--border2);color:var(--text);}
+.btn-check:disabled{opacity:.4;pointer-events:none;}
+.checking{font-size:.75rem;color:var(--muted);text-align:center;margin-top:10px;display:none;}
+.checking.show{display:block;}
+
+/* GUARANTEE */
+.guarantee{
+position:relative;z-index:2;
+max-width:540px;margin:0 auto 20px;padding:0 20px;
+}
+.guar-inner{
+background:var(--glass);border:1px solid var(--border);
+border-radius:16px;padding:18px 22px;
+font-size:.75rem;color:var(--muted);text-align:center;line-height:1.65;
+}
+.guar-inner strong{color:var(--gold2);}
+
+.back{display:block;text-align:center;padding-bottom:40px;font-size:.75rem;color:rgba(242,238,248,.3);text-decoration:none;transition:color .2s;position:relative;z-index:2;}
+.back:hover{color:var(--gold2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<header class="hdr">
+  <a class="hdr-logo" href="/">
+    <div class="hdr-name">Bruna Boreggio</div>
+    <div class="hdr-sub">Nutricionista · CRN 68497</div>
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-badge"><div class="live-dot"></div>Desafio Comece Leve — Vagas abertas</div>
+  <h1>10 dias para<br><span class="hl">transformar</span><br>sua alimentação</h1>
+  <p class="hero-sub">Um desafio prático com suporte da Bruna Boreggio,<br>fotos de evolução, pontuação diária e premiação para quem mais se dedicar.</p>
+  <div class="hero-pills">
+    <div class="pill">📅 10 dias de conteúdo</div>
+    <div class="pill">📸 Fotos de evolução</div>
+    <div class="pill">🏆 Ranking com prêmios</div>
+    <div class="pill">💬 Suporte da Bruna</div>
+  </div>
+</section>
+
+<div class="proof reveal">
+  <div class="proof-item">
+    <div class="proof-num" id="cnt1">0</div>
+    <div class="proof-lbl">Participantes</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num" id="cnt2">0</div>
+    <div class="proof-lbl">Dias de desafio</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num" id="cnt3">0%</div>
+    <div class="proof-lbl">Satisfação</div>
+  </div>
+</div>
+
+<div class="card-wrap">
+  <div class="card reveal">
+
+    <div class="offer-block">
+      <div class="offer-lbl">Investimento único</div>
+      <div class="offer-price-row">
+        <span class="offer-rs">R$</span>
+        <span class="offer-num" id="priceNum">97</span>
+      </div>
+      <div class="offer-sub">Acesso completo aos 10 dias do desafio</div>
+    </div>
+
+    <hr class="divider">
+
+    <ul class="feat-list" id="featuresList">
+      <li class="feat-item"><span class="feat-icon">🎥</span><span>Vídeo-aulas exclusivas para cada dia do desafio</span></li>
+      <li class="feat-item"><span class="feat-icon">📸</span><span>Upload de fotos diárias com pontuação automática</span></li>
+      <li class="feat-item"><span class="feat-icon">💧</span><span>Registro de metas de água e check-ins diários</span></li>
+      <li class="feat-item"><span class="feat-icon">🏆</span><span>Ranking ao vivo — quem mais pontuar ganha prêmio</span></li>
+      <li class="feat-item"><span class="feat-icon">💬</span><span>Comentários e feedback da Bruna nas suas fotos</span></li>
+      <li class="feat-item"><span class="feat-icon">📊</span><span>Foto do antes e depois com pontuação especial</span></li>
+    </ul>
+
+    <hr class="divider">
+
+    <div id="registerBlock">
+      <div class="form-title">Garanta sua vaga</div>
+      <div class="form-sub">Preencha seus dados para reservar e receber o link de pagamento.</div>
+      <form id="registerForm" novalidate>
+        <div class="err-msg" id="formError">Por favor, preencha todos os campos corretamente.</div>
+        <div class="field">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="telefone">WhatsApp</label>
+          <input type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required>
+        </div>
+        <button type="submit" class="btn-primary" id="registerBtn">
+          <span id="registerBtnText">Quero participar →</span>
+        </button>
+      </form>
+      <p class="disclaimer">Ao se cadastrar você concorda com nossa <a href="/politica-privacidade.html" target="_blank">Política de Privacidade</a>. Seus dados estão protegidos.</p>
+    </div>
+
+    <div class="pay-block" id="paymentBlock">
+      <div class="pay-icon">💳</div>
+      <div class="pay-title">Finalize seu pagamento</div>
+      <p class="pay-desc">Clique abaixo para ir à página de pagamento seguro.<br>Após confirmar, você terá acesso imediato ao desafio.</p>
+      <a href="#" id="paymentLink" class="btn-pay" target="_blank">Pagar R$97 e entrar no desafio →</a>
+      <button class="btn-check" id="checkBtn" onclick="checkPayment()">Já paguei — verificar acesso</button>
+      <p class="checking" id="checkingText">⏳ Verificando pagamento…</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="guarantee reveal">
+  <div class="guar-inner">
+    <strong>🔒 Pagamento 100% seguro</strong> · Processado pela Asaas.<br>
+    Dúvidas? Fale diretamente com a Bruna pelo WhatsApp.
+  </div>
+</div>
+
+<a class="back" href="/">← Voltar ao site</a>
+
+<script>
+var WEBHOOK='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+var PAYMENT_LINK='https://www.asaas.com/c/bs3qoknu4ycxyvan';
+var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+
+/* Particles */
+(function(){
+var c=document.getElementById('particles'),ctx=c.getContext('2d');
+var W,H,dots=[];
+function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+function Dot(){
+this.x=Math.random()*W;this.y=Math.random()*H;
+this.r=Math.random()*1.8+.4;
+this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;
+this.gold=Math.random()>.7;
+this.a=Math.random()*.6+.3;
+}
+for(var i=0;i<80;i++)dots.push(new Dot());
+function draw(){
+ctx.clearRect(0,0,W,H);
+dots.forEach(function(d){
+d.x+=d.vx;d.y+=d.vy;
+if(d.x<0)d.x=W;if(d.x>W)d.x=0;
+if(d.y<0)d.y=H;if(d.y>H)d.y=0;
+ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+ctx.fillStyle=d.gold?'rgba(201,149,78,'+d.a+')':'rgba(242,238,248,'+d.a*.7+')';
+ctx.fill();
+});
+requestAnimationFrame(draw);
+}
+draw();
+})();
+
+/* Reveal */
+(function(){
+var els=document.querySelectorAll('.reveal');
+var obs=new IntersectionObserver(function(entries){
+entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.1});
+els.forEach(function(el){obs.observe(el);});
+})();
+
+/* Counters */
+(function(){
+function animCount(el,target,suffix,dur){
+var start=performance.now();
+function step(now){
+var p=Math.min((now-start)/dur,1);
+var val=Math.round(p*target);
+el.textContent=val+(suffix||'');
+if(p<1)requestAnimationFrame(step);
+}
+requestAnimationFrame(step);
+}
+var obs=new IntersectionObserver(function(entries){
+entries.forEach(function(e){
+if(e.isIntersecting){
+animCount(document.getElementById('cnt1'),847,'',1200);
+animCount(document.getElementById('cnt2'),10,'',800);
+animCount(document.getElementById('cnt3'),98,'%',1400);
+obs.disconnect();
+}
+});
+},{threshold:.5});
+obs.observe(document.querySelector('.proof'));
+})();
+
+/* Phone mask */
+document.getElementById('telefone').addEventListener('input',function(e){
+var v=e.target.value.replace(/\D/g,'').substring(0,11);
+if(v.length>10)v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');
+else if(v.length>6)v=v.replace(/^(\d{2})(\d{4})(\d{0,4})$/,'($1) $2-$3');
+else if(v.length>2)v=v.replace(/^(\d{2})(\d{0,5})$/,'($1) $2');
+e.target.value=v;
+});
+
+/* Form submit */
+document.getElementById('registerForm').addEventListener('submit',function(e){
+e.preventDefault();
+var nome=document.getElementById('nome').value.trim();
+var email=document.getElementById('email').value.trim();
+var telefone=document.getElementById('telefone').value.trim();
+var errEl=document.getElementById('formError');
+var btn=document.getElementById('registerBtn');
+errEl.classList.remove('show');
+['nome','email','telefone'].forEach(function(id){document.getElementById(id).classList.remove('err');});
+var valid=true;
+if(!nome||nome.length<3){document.getElementById('nome').classList.add('err');valid=false;}
+var re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!email||!re.test(email)){document.getElementById('email').classList.add('err');valid=false;}
+if(!telefone||telefone.replace(/\D/g,'').length<10){document.getElementById('telefone').classList.add('err');valid=false;}
+if(!valid){errEl.classList.add('show');return;}
+btn.disabled=true;
+document.getElementById('registerBtnText').textContent='Salvando…';
+localStorage.setItem('desafio_user',JSON.stringify({nome:nome,email:email,telefone:telefone,plano:'Desafio',preco:97}));
+fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'challenge_register',nome:nome,email:email,telefone:telefone,plano:'Desafio',preco:97})}).catch(function(){});
+if(typeof fbq==='function')fbq('track','InitiateCheckout',{value:97,currency:'BRL',content_name:'Desafio Comece Leve'});
+document.getElementById('registerBlock').style.display='none';
+document.getElementById('featuresList').style.display='none';
+document.querySelector('.offer-block').style.display='none';
+document.querySelector('.divider:first-of-type').style.display='none';
+document.getElementById('paymentLink').href=PAYMENT_LINK;
+document.getElementById('paymentBlock').classList.add('show');
+window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* Check payment */
+function checkPayment(){
+var userData=JSON.parse(localStorage.getItem('desafio_user')||'{}');
+if(!userData.email){alert('Dados não encontrados. Preencha o cadastro novamente.');return;}
+if(ADMINS.indexOf(userData.email)!==-1){window.location.href='/area-desafio/';return;}
+var btn=document.getElementById('checkBtn');
+var chk=document.getElementById('checkingText');
+btn.disabled=true;chk.classList.add('show');
+fetch(WEBHOOK+'?action=verify_payment&email='+encodeURIComponent(userData.email))
+.then(function(r){return r.json();})
+.then(function(data){
+if(data.pago){
+if(typeof fbq==='function')fbq('track','Purchase',{value:97,currency:'BRL',content_name:'Desafio Comece Leve'});
+if(typeof gtag==='function')gtag('event','purchase',{value:97,currency:'BRL'});
+window.location.href='/area-desafio/';
+}else{
+chk.classList.remove('show');btn.disabled=false;
+alert('Pagamento ainda não confirmado. Aguarde alguns minutos e tente novamente. Se já pagou há mais de 10 minutos, entre em contato com a Bruna.');
+}
+}).catch(function(){chk.classList.remove('show');btn.disabled=false;alert('Erro ao verificar. Tente novamente em instantes.');});
+}
+
+/* Auto-redirect if already paid or admin */
+var saved=JSON.parse(localStorage.getItem('desafio_user')||'{}');
+if(saved.email&&(saved.pago||ADMINS.indexOf(saved.email)!==-1)){window.location.replace('/area-desafio/');}
+</script>
+</body>
+</html>
