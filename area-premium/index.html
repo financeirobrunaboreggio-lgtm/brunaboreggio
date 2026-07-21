@@ -100,7 +100,7 @@ canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5
 @media(max-width:640px){.test-grid{grid-template-columns:1fr;}}
 .test-card{background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:24px;transition:all .3s;}
 .test-card:hover{border-color:var(--border2);transform:translateY(-3px);}
-.test-stars{color:var(--gold2);font-size:1rem;letter-spacing:2px;margin-bottom:12px;}
+.test-stars{color:var(--gold2);font-size:1rem;letter-spacing:.px;margin-bottom:12px;}
 .test-text{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:16px;font-style:italic;}
 .test-author{display:flex;align-items:center;gap:10px;}
 .test-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:var(--bg);flex-shrink:0;}
@@ -190,6 +190,15 @@ canvas#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5
 .faq-item.open .faq-ico{transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
 .faq-a-inner{padding:0 20px 18px;font-size:.85rem;color:var(--muted);line-height:1.75;}
+
+/* DEPO CAROUSEL */
+.depo-card{flex-shrink:0;width:200px;aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s,border-color .3s}
+.depo-card:hover{transform:scale(1.03);border-color:rgba(201,149,78,.5)}
+.depo-card img{width:100%;height:100%;object-fit:cover;display:block}
+.depo-btn{width:40px;height:40px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);color:var(--gold);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .25s;line-height:1}
+.depo-btn:hover{background:rgba(201,149,78,.1);border-color:rgba(201,149,78,.4)}
+.depo-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .3s,transform .3s}
+.depo-dot.active{background:var(--gold);transform:scale(1.4)}
 
 /* CTA FINAL */
 .cta-final{position:relative;z-index:2;text-align:center;padding:60px 20px;background:linear-gradient(180deg,transparent,rgba(201,149,78,.05),transparent);}
@@ -342,86 +351,37 @@ sem passar fome, sem dieta radical, sem efeito sanfona.
 </div>
 </div>
 
-<!-- TESTIMONIALS -->
+<!-- RESULTADOS REAIS — FOTOS DE ANTES E DEPOIS -->
 <div class="sec-wide">
-<div class="sec-label reveal">Depoimentos</div>
-<h2 class="sec-title reveal">Resultados reais<br>de quem j&aacute; participou</h2>
-<div class="test-grid">
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"Perdi 3,2 kg nos 10 dias e nunca me senti com tanta energia. O melhor: n&atilde;o passei fome nenhum dia. A Bruna explica tudo de um jeito que faz total sentido."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#C9954E,#F5DFA0)">F</div>
-<div>
-<div class="test-name">Fernanda M.</div>
-<div class="test-info">S&atilde;o Paulo, SP</div>
-<div class="test-badge">&#9660; -3,2 kg em 10 dias</div>
+<div class="sec-label reveal">Resultados reais</div>
+<h2 class="sec-title reveal">Fotos de quem j&aacute;<br>viveu essa transforma&ccedil;&atilde;o</h2>
+<p class="sec-sub reveal" style="margin-bottom:32px">Fotos reais enviadas pelas pr&oacute;prias pacientes da Bruna &mdash; antes e depois dos desafios.</p>
+
+<div style="position:relative">
+<div style="overflow:hidden;border-radius:16px">
+<div id="depo-track" style="display:flex;gap:12px;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform">
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/15VTLSxIhqEf3MYMwHriy6-lAb08VTit6=w1200')"><img src="https://lh3.googleusercontent.com/d/15VTLSxIhqEf3MYMwHriy6-lAb08VTit6=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1cZEqgrcGtNvn3sJbe7NzuhvbwveCPHcn=w1200')"><img src="https://lh3.googleusercontent.com/d/1cZEqgrcGtNvn3sJbe7NzuhvbwveCPHcn=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/142pPmJERjXad7wWjBRz7bwZ9WR5WJN6f=w1200')"><img src="https://lh3.googleusercontent.com/d/142pPmJERjXad7wWjBRz7bwZ9WR5WJN6f=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1xHlVsamm1bn63pdEbfrCzTcKcrvL7d8i=w1200')"><img src="https://lh3.googleusercontent.com/d/1xHlVsamm1bn63pdEbfrCzTcKcrvL7d8i=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1dxPpiTK5cx5cTJVswr_5L_O8pGasMj8m=w1200')"><img src="https://lh3.googleusercontent.com/d/1dxPpiTK5cx5cTJVswr_5L_O8pGasMj8m=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1KGJDTLCyhuishcry76vw1_ivSStLTSUK=w1200')"><img src="https://lh3.googleusercontent.com/d/1KGJDTLCyhuishcry76vw1_ivSStLTSUK=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1agfonX0q3SN8wZ3cMN-meB4NnINh-zxp=w1200')"><img src="https://lh3.googleusercontent.com/d/1agfonX0q3SN8wZ3cMN-meB4NnINh-zxp=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1gMwVPHtqDeQCfkzV5jgNCFQ7QnH9ncO7=w1200')"><img src="https://lh3.googleusercontent.com/d/1gMwVPHtqDeQCfkzV5jgNCFQ7QnH9ncO7=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
+<div class="depo-card" onclick="openLb('https://lh3.googleusercontent.com/d/1c5l1KwSYM9W4cKkFv554LK0oKFH20Gif=w1200')"><img src="https://lh3.googleusercontent.com/d/1c5l1KwSYM9W4cKkFv554LK0oKFH20Gif=w1200" alt="Resultado real — paciente da Nutri Bruna" loading="lazy"></div>
 </div>
 </div>
-</div>
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"Minha barriga desinflou em 3 dias! Eu n&atilde;o sabia que o que eu comia causava tanto inchaço. O desafio abriu meu olho. Fa&ccedil;o de novo sem hesitar."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#7C3AED,#C084FC)">R</div>
-<div>
-<div class="test-name">Renata C.</div>
-<div class="test-info">Curitiba, PR</div>
-<div class="test-badge">&#9660; -2,8 kg em 10 dias</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px">
+<button class="depo-btn" onclick="depoSlide(-1)">&#8592;</button>
+<div id="depo-dots" style="display:flex;gap:6px"></div>
+<button class="depo-btn" onclick="depoSlide(1)">&#8594;</button>
 </div>
 </div>
-</div>
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"J&aacute; fiz v&aacute;rios desafios antes mas esse foi o &uacute;nico que realmente mudou meus h&aacute;bitos. O ranking me motivou muito — &eacute; uma competi&ccedil;&atilde;o saud&aacute;vel que te faz querer dar o m&aacute;ximo."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#0F766E,#34D399)">J</div>
-<div>
-<div class="test-name">Juliana R.</div>
-<div class="test-info">Belo Horizonte, MG</div>
-<div class="test-badge">&#9733; Top 3 no ranking</div>
-</div>
-</div>
-</div>
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"Finalmente entendi como minha alimenta&ccedil;&atilde;o afetava minha energia. Eu me sentia cansada o tempo todo e achava que era normal. N&atilde;o &eacute;. Em 10 dias mudou completamente."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#B45309,#FCD34D)">P</div>
-<div>
-<div class="test-name">Patr&iacute;cia O.</div>
-<div class="test-info">Rio de Janeiro, RJ</div>
-<div class="test-badge">&#9660; -2,1 kg em 10 dias</div>
-</div>
-</div>
-</div>
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"A Bruna explica de um jeito t&atilde;o simples e pr&aacute;tico. N&atilde;o precisei de suplemento nem academia. S&oacute; mudei o que comia e como comia. Resultado veio r&aacute;pido."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#9F1239,#FB7185)">C</div>
-<div>
-<div class="test-name">Carla S.</div>
-<div class="test-info">Florian&oacute;polis, SC</div>
-<div class="test-badge">&#9660; -4,0 kg em 10 dias</div>
-</div>
-</div>
-</div>
-<div class="test-card reveal">
-<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<p class="test-text">"Fiy o desafio durante um per&iacute;odo estressante do trabalho e mesmo assim consegui manter tudo. O suporte da Bruna fez toda a diferen&ccedil;a. Me sinto outra pessoa."</p>
-<div class="test-author">
-<div class="test-avatar" style="background:linear-gradient(135deg,#1D4ED8,#60A5FA)">L</div>
-<div>
-<div class="test-name">Luciana B.</div>
-<div class="test-info">Porto Alegre, RS</div>
-<div class="test-badge">&#9660; -2,5 kg em 10 dias</div>
-</div>
-</div>
-</div>
-</div>
-<div class="results-note reveal">
-<strong>Resultados individuais podem variar.</strong> Os depoimentos acima s&atilde;o de participantes reais do Desafio Destrave seu Emagrecimento. Emagrecimento saud&aacute;vel &eacute; individual e depende da ades&atilde;o ao m&eacute;todo.
+
+<!-- Lightbox -->
+<div id="lb-overlay" onclick="closeLb()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;align-items:center;justify-content:center;cursor:zoom-out">
+<span onclick="closeLb()" style="position:absolute;top:20px;right:24px;font-size:28px;color:rgba(242,238,248,.6);cursor:pointer;line-height:1">&#10005;</span>
+<img id="lb-img" src="" alt="" style="max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain">
 </div>
 </div>
 
@@ -659,6 +619,21 @@ alert('Pagamento ainda nao confirmado. Aguarde alguns minutos e tente novamente.
 }
 }).catch(function(){chk.classList.remove('show');btn.disabled=false;alert('Erro ao verificar. Tente novamente em instantes.');});
 }
+
+/* Depo carousel */
+var depoIdx=0;var DEPO_N=9;var CARD_W=212;
+(function(){
+var dots=document.getElementById('depo-dots');
+for(var i=0;i<DEPO_N;i++){var d=document.createElement('div');d.className='depo-dot'+(i===0?' active':'');dots.appendChild(d);}
+})();
+function depoSlide(dir){
+depoIdx=Math.max(0,Math.min(DEPO_N-3,depoIdx+dir));
+document.getElementById('depo-track').style.transform='translateX(-'+(depoIdx*CARD_W)+'px)';
+document.querySelectorAll('.depo-dot').forEach(function(d,i){d.classList.toggle('active',i===depoIdx);});
+}
+function openLb(src){var o=document.getElementById('lb-overlay');var i=document.getElementById('lb-img');i.src=src;o.style.display='flex';}
+function closeLb(){document.getElementById('lb-overlay').style.display='none';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
 
 /* FAQ */
 function toggleFaq(el){
