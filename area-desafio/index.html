@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Desafio Comece Leve — Área de Membros</title>
+<title>Desafio Destrave seu Emagrecimento — Área de Membros</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -128,6 +128,12 @@ input[type=file]{display:none}
 .checkin-item .ci-lbl{font-size:12px;font-weight:600;color:var(--text)}
 .checkin-item .ci-pts{font-size:10px;color:var(--muted);margin-top:2px}
 
+/* ── MODULE HEADER ───────────────────────────────────── */
+.mod-header{display:flex;align-items:center;gap:16px;margin:36px 0 14px;padding:16px 20px;background:linear-gradient(135deg,rgba(201,149,78,0.1),rgba(201,149,78,0.04));border:1px solid rgba(201,149,78,0.25);border-radius:16px}
+.mod-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,0.14);border:1px solid rgba(201,149,78,0.28);border-radius:8px;padding:5px 11px;white-space:nowrap;flex-shrink:0}
+.mod-info-titulo{font-size:15px;font-weight:700;color:var(--text)}
+.mod-info-desc{font-size:12px;color:var(--muted);margin-top:2px}
+
 /* ── DAYS ACCORDION ──────────────────────────────────── */
 .day-item{margin-bottom:10px}
 .day-head{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--glass);border:1px solid var(--border);border-radius:16px;cursor:pointer;transition:all .3s ease;user-select:none}
@@ -197,7 +203,7 @@ input[type=file]{display:none}
 
 <!-- LOADING -->
 <div id="loading">
-  <div class="load-logo">Comece Leve</div>
+  <div class="load-logo">Destrave seu Emagrecimento</div>
   <div class="load-bar-wrap"><div class="load-bar"></div></div>
   <div class="load-text">carregando sua jornada...</div>
 </div>
@@ -216,7 +222,7 @@ input[type=file]{display:none}
 <!-- AUTH SCREEN -->
 <div id="auth-screen">
   <div class="auth-box">
-    <div class="auth-logo">Comece Leve</div>
+    <div class="auth-logo">Destrave seu Emagrecimento</div>
     <div class="auth-sub">Entre com seu e-mail para acessar</div>
     <input class="auth-input" id="auth-email" type="email" placeholder="Seu e-mail">
     <input class="auth-input" id="auth-phone" type="tel" placeholder="Seu telefone">
@@ -228,7 +234,7 @@ input[type=file]{display:none}
 <!-- REGISTER SCREEN (redirect to payment) -->
 <div id="register-screen" style="display:none">
   <div class="auth-box">
-    <div class="auth-logo">Comece Leve</div>
+    <div class="auth-logo">Destrave seu Emagrecimento</div>
     <div class="auth-sub">Você ainda não está inscrita no desafio.</div>
     <button class="auth-btn" onclick="window.location.href='/area-premium/'">Quero participar</button>
   </div>
@@ -236,7 +242,7 @@ input[type=file]{display:none}
 
 <!-- HEADER -->
 <header id="site-header" style="display:none">
-  <div class="hdr-brand">Desafio Comece Leve</div>
+  <div class="hdr-brand">Desafio Destrave seu Emagrecimento</div>
   <div class="hdr-right">
     <span class="hdr-name" id="hdr-name"></span>
     <button class="btn-exit" onclick="logout()">Sair</button>
@@ -250,7 +256,7 @@ input[type=file]{display:none}
   <section class="hero reveal">
     <div class="hero-tag"><span class="live-dot"></span> Desafio Ativo</div>
     <h1>Sua jornada de<br><span>transformação</span></h1>
-    <p class="hero-sub" id="hero-sub">Bem-vinda ao Desafio Comece Leve</p>
+    <p class="hero-sub" id="hero-sub">Bem-vinda ao Desafio Destrave seu Emagrecimento</p>
     <div class="pts-card">
       <div class="pts-val" id="pts-display">0</div>
       <div class="pts-meta">
@@ -352,9 +358,20 @@ input[type=file]{display:none}
     </div>
   </section>
 
-  <!-- AULAS DO DESAFIO -->
+  <!-- BOAS-VINDAS -->
+  <section style="margin-bottom:40px" id="boas-vindas-section">
+    <div class="sec-title">Boas-vindas</div>
+    <div class="glass-card reveal">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/pFcYHaaLoo4" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:14px;text-align:center">Assista antes de começar — a Bruna te explica tudo sobre o desafio.</p>
+    </div>
+  </section>
+
+  <!-- MÓDULOS DO DESAFIO -->
   <section>
-    <div class="sec-title">10 Dias de Transformação</div>
+    <div class="sec-title">Módulos do Desafio</div>
     <div id="days-list"></div>
   </section>
 
@@ -367,17 +384,25 @@ var currentUser = null;
 var isAdmin = false;
 var userPts = 0;
 
+var WELCOME_VIDEO = 'pFcYHaaLoo4';
+
 var DAYS = [
-  {num:1,  title:'Começando do zero',        sub:'Por que a maioria falha nas dietas',   videoId:''},
-  {num:2,  title:'O prato ideal',             sub:'Como montar refeições equilibradas',    videoId:''},
-  {num:3,  title:'Hidratação que transforma', sub:'A meta de água que vai mudar tudo',     videoId:''},
-  {num:4,  title:'Alimentos inflamatórios',   sub:'O que evitar e por quê',                videoId:''},
-  {num:5,  title:'Meio caminho!',             sub:'Revisando e ajustando a rota',          videoId:''},
-  {num:6,  title:'Rotina que sustenta',       sub:'Criando hábitos reais e duradouros',    videoId:''},
-  {num:7,  title:'Exercício e alimentação',   sub:'A combinação que acelera resultados',   videoId:''},
-  {num:8,  title:'Emoções e comida',          sub:'Entendendo a fome emocional',           videoId:''},
-  {num:9,  title:'Planejamento semanal',      sub:'Como se organizar para não errar',      videoId:''},
-  {num:10, title:'Você chegou lá!',           sub:'Próximos passos e manutenção',          videoId:''}
+  {num:1,  title:'Hidratação Inteligente',                  sub:'Diminuir retenção, melhorar intestino e energia',          videoId:'zEJZl1qjA10'},
+  {num:2,  title:'Organize seu Ambiente',                   sub:'Prepare sua casa para emagrecer',                           videoId:'qMD-yQjGOvk', bonusVideoId:'zZWZMNAI_Wc', bonusLabel:'Bônus Especial'},
+  {num:3,  title:'Inclua Anti-Inflamatórios no seu Dia',    sub:'Alimentação que combate a inflamação',                      videoId:'gahEsUDQ4iI'},
+  {num:4,  title:'Proteína em Todas as Refeições',          sub:'Como controlar a fome e aumentar a saciedade',              videoId:''},
+  {num:5,  title:'Comer com Atenção',                       sub:'Mastigue bem — atenção plena nas refeições',                videoId:''},
+  {num:6,  title:'Sono de Princesa',                        sub:'Como o sono impacta o emagrecimento',                       videoId:''},
+  {num:7,  title:'Diminua o Consumo de Açúcares',           sub:'Açúcares escondidos e como identificá-los',                 videoId:''},
+  {num:8,  title:'Movimento com Constância',                sub:'Como incluir exercícios na sua rotina',                     videoId:''},
+  {num:9,  title:'Comer sem Culpa — A Regra 90/10',         sub:'O equilíbrio que sustenta o emagrecimento',                 videoId:''},
+  {num:10, title:'Sua Nova Versão',                         sub:'Quebrando o ciclo e construindo hábitos definitivos',       videoId:''}
+];
+
+var MODULES = [
+  {num:1, titulo:'Fase 1 — Reset Anti-Inflamatório',      desc:'Preparar o corpo para responder melhor ao emagrecimento', dias:[1,2,3]},
+  {num:2, titulo:'Fase 2 — Controlar a Fome',              desc:'Aprender a sentir mais saciedade e reduzir os gatilhos',  dias:[4,5,6]},
+  {num:3, titulo:'Fase 3 — Emagrecer sem Efeito Sanfona',  desc:'Construir hábitos que você consiga manter após os 10 dias', dias:[7,8,9,10]}
 ];
 
 // ── PARTICLES ──────────────────────────────────────────
@@ -541,7 +566,7 @@ function renderLB(arr){
     var ini=(p.nome||'?')[0].toUpperCase();
     var pct=Math.round((p.pts||0)/max*100);
     var isSelf=p.email&&currentUser&&p.email===currentUser.email;
-    html+='<div class="lb-row'+(isSelf?' lb-self':'')+'">';
+    html+='<div class="lb-row"+(isSelf?' lb-self':'')+'">';
     html+='<div class="lb-rank '+(rnkClass[i]||'')+'">'+( medals[i]||('#'+(i+1)) )+'</div>';
     html+='<div class="lb-avatar" style="'+(isSelf?'background:linear-gradient(135deg,var(--gold),var(--gold3));':'')+'">'+ini+'</div>';
     html+='<div class="lb-info"><div class="lb-name">'+(p.nome||'Participante')+(isSelf?' (você)':'')+'</div>';
@@ -620,28 +645,44 @@ function handleFotoDia(input){
 function buildDays(){
   var container=document.getElementById('days-list');
   container.innerHTML='';
-  DAYS.forEach(function(d){
-    var item=document.createElement('div');
-    item.className='day-item reveal';
-    item.innerHTML=
-      '<div class="day-head" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">'
-        +'<div class="day-num">'+d.num+'</div>'
-        +'<div class="day-info"><div class="day-title">'+d.title+'</div><div class="day-sub">'+d.sub+'</div></div>'
-        +'<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>'
-      +'</div>'
-      +'<div class="day-body" id="db-'+d.num+'">'
-        +'<div class="day-body-inner">'
-          +(d.videoId
-            ?'<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>'
-            :'<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>'
-          )
-          +'<div class="day-checkin-row">'
-            +'<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo</button>'
-            +'<button class="day-btn secondary">Fazer anotações</button>'
-          +'</div>'
+  MODULES.forEach(function(mod){
+    var mh=document.createElement('div');
+    mh.className='mod-header reveal';
+    mh.innerHTML=
+      '<div class="mod-badge">Módulo '+mod.num+'</div>'
+      +'<div><div class="mod-info-titulo">'+mod.titulo+'</div>'
+      +'<div class="mod-info-desc">'+mod.desc+'</div></div>';
+    container.appendChild(mh);
+
+    var daysInMod=DAYS.filter(function(d){return mod.dias.indexOf(d.num)!==-1;});
+    daysInMod.forEach(function(d){
+      var item=document.createElement('div');
+      item.className='day-item reveal';
+      item.innerHTML=
+        '<div class="day-head" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">'
+          +'<div class="day-num">'+d.num+'</div>'
+          +'<div class="day-info"><div class="day-title">'+d.title+'</div><div class="day-sub">'+d.sub+'</div></div>'
+          +'<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>'
         +'</div>'
-      +'</div>';
-    container.appendChild(item);
+        +'<div class="day-body" id="db-'+d.num+'">'
+          +'<div class="day-body-inner">'
+            +(d.videoId
+              ?'<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>'
+              :'<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>'
+            )
+          +(d.bonusVideoId
+              ?'<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+( d.bonusLabel||'Bônus' )+'</div>'
+                +'<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>'
+              :''
+            )
+            +'<div class="day-checkin-row">'
+              +'<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo</button>'
+              +'<button class="day-btn secondary">Fazer anotações</button>'
+            +'</div>'
+          +'</div>'
+        +'</div>';
+      container.appendChild(item);
+    });
   });
   var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
   var daysOkArr=stored.daysOkArr||[];
@@ -704,3 +745,5 @@ function showToast(msg){
 </script>
 </body>
 </html>
+
+
