@@ -395,10 +395,10 @@ function draw(){ctx.clearRect(0,0,W,H);pts.forEach(function(p){p.x+=p.vx;p.y+=p.
 draw();
 })();
 
+function hideLoading(){var el=document.getElementById('loading');if(!el)return;el.classList.add('fade-out');setTimeout(function(){el.style.display='none'},600);}
+
 /* Loading */
-window.addEventListener('load',function(){
-setTimeout(function(){var el=document.getElementById('loading');el.classList.add('fade-out');setTimeout(function(){el.style.display='none'},600);},1800);
-});
+window.addEventListener('load',function(){setTimeout(hideLoading,600);});
 
 /* Reveal */
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
@@ -438,6 +438,7 @@ document.getElementById('auth-screen').style.display='none';
 document.getElementById('register-screen').style.display='none';
 document.getElementById('site-header').style.display='flex';
 document.getElementById('main-area').style.display='block';
+hideLoading();
 if(currentUser.nome)document.getElementById('hdr-name').textContent=currentUser.nome.split(' ')[0];
 document.getElementById('hero-sub').textContent='Olá, '+(currentUser.nome||currentUser.email).split(' ')[0]+' 👋';
 loadData();observeReveals();
