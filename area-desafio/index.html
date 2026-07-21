@@ -476,7 +476,7 @@ animateCounter(document.getElementById('pts-display'),userPts,600);
 pingWebhook({action:'add_pts',email:currentUser.email,nome:currentUser.nome,pts:stored.pts});
 }
 
-function pingWebhook(data){try{fetch(WEBHOOK({method:'POST',body:JSON.stringify(data)}).catch(function(){});}catch(e){}}
+function pingWebhook(data){try{fetch(WEBHOOK,{method:'POST',mode:'no-cors',body:JSON.stringify(data)}).catch(function(){});}catch(e){}}
 
 function loadLeaderboard(){
 fetch(WEBHOOK+'?action=leaderboard')
