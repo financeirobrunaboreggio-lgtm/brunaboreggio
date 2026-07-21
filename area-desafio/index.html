@@ -566,7 +566,7 @@ function renderLB(arr){
     var ini=(p.nome||'?')[0].toUpperCase();
     var pct=Math.round((p.pts||0)/max*100);
     var isSelf=p.email&&currentUser&&p.email===currentUser.email;
-    html+='<div class="lb-row"+(isSelf?' lb-self':'')+'">';
+    html+='<div class="lb-row'+(isSelf?' lb-self':'')+'">';
     html+='<div class="lb-rank '+(rnkClass[i]||'')+'">'+( medals[i]||('#'+(i+1)) )+'</div>';
     html+='<div class="lb-avatar" style="'+(isSelf?'background:linear-gradient(135deg,var(--gold),var(--gold3));':'')+'">'+ini+'</div>';
     html+='<div class="lb-info"><div class="lb-name">'+(p.nome||'Participante')+(isSelf?' (você)':'')+'</div>';
