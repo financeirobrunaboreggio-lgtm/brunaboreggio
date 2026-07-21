@@ -1,381 +1,697 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desafio Comece Leve — Bruna Boreggio | Nutricionista</title>
-  <meta name="description" content="Participe do Desafio Comece Leve de 10 dias com a Nutricionista Bruna Boreggio. Transforme sua alimentação e ganhe prêmios.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desafio Destrave seu Emagrecimento &mdash; Nutri Bruna Boreggio</title>
+<meta name="description" content="10 dias de acompanhamento com a Nutri Bruna para reduzir o inc&ccedil;o, controlar a fome e sair do efeito sanfona.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#06040A;--bg2:#0D0A14;--gold:#C9954E;--gold2:#E8C07A;--gold3:#F5DFA0;
+--glass:rgba(255,255,255,0.035);--glass2:rgba(255,255,255,0.06);
+--border:rgba(201,149,78,0.18);--text:#F2EEF8;--muted:rgba(242,238,248,0.55);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:.15;pointer-events:none;z-index:0;animation:orbFloat var(--dur,10s) ease-in-out infinite alternate}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,#C9954E,transparent 70%);top:-200px;left:-150px;--dur:11s}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,#7C3AED,transparent 70%);bottom:-150px;right:-100px;--dur:13s}
+@keyframes orbFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,25px) scale(1.1)}}
+.sec{position:relative;z-index:1;padding:80px 20px}
+.sec-inner{max-width:860px;margin:0 auto}
+.sec-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,0.1);border:1px solid rgba(201,149,78,0.22);border-radius:100px;padding:6px 18px;margin-bottom:18px}
+.sec-title{font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px}
+.sec-sub{font-size:16px;color:var(--muted);max-width:620px;line-height:1.7}
+.grad{background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
 
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '863466929657523');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=863466929657523&ev=PageView&noscript=1"/></noscript>
+/* HERO */
+.hero-sec{padding:100px 20px 60px;text-align:center;background:linear-gradient(180deg,rgba(201,149,78,0.04) 0%,transparent 100%)}
+.hero-sec h1{font-size:clamp(30px,6vw,54px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px}
+.hero-sub{font-size:17px;color:var(--muted);max-width:580px;margin:0 auto 32px;line-height:1.75}
+.hero-checks{list-style:none;display:inline-flex;flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:36px;text-align:left}
+.hero-checks li{font-size:15px;font-weight:500;color:var(--text)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#06040A;font-size:17px;font-weight:800;padding:18px 40px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:all .3s ease;letter-spacing:-.2px;box-shadow:0 8px 40px rgba(201,149,78,0.4)}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-3px);box-shadow:0 16px 60px rgba(201,149,78,0.5)}
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-6525628068"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-6525628068');
-  </script>
+/* PROOF */
+.proof-sec{padding:50px 20px}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:680px;margin:0 auto}
+.proof-card{background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:28px 20px;text-align:center;backdrop-filter:blur(20px)}
+.proof-num{font-size:44px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px}
+.proof-lbl{font-size:12px;color:var(--muted);font-weight:500;line-height:1.4}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+/* PROBLEM */
+.prob-sec{background:linear-gradient(180deg,transparent,rgba(201,149,78,0.03),transparent)}
+.prob-inner{max-width:720px;margin:0 auto}
+.prob-inner h2{font-size:clamp(22px,4vw,36px);font-weight:800;letter-spacing:-.8px;margin-bottom:8px}
+.prob-inner h3{font-size:clamp(18px,3vw,28px);font-weight:700;color:var(--gold2);margin-bottom:28px}
+.prob-inner p{font-size:16px;color:var(--muted);margin-bottom:16px;line-height:1.8}
+.prob-inner strong{color:var(--text)}
 
-  <style>
-    :root {
-      --cream:       #FAF7F2;
-      --gold:        #C5965A;
-      --gold-light:  #E8D4B5;
-      --gold-dark:   #A07840;
-      --brown:       #2C1A0E;
-      --brown-mid:   #5A3E28;
-      --brown-light: #8B6A4A;
-      --white:       #FFFFFF;
-      --off-white:   #F4EFE6;
-      --green:       #3D8B5E;
-      --green-light: #E8F5EE;
-    }
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; font-size:16px; }
-    body {
-      font-family:'Poppins', sans-serif;
-      background:var(--brown);
-      color:var(--brown);
-      min-height:100vh;
-      padding:0 0 60px;
-      position:relative;
-      overflow-x:hidden;
-    }
-    body::before {
-      content:'';
-      position:fixed; inset:0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(197,150,90,.15) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 80% 90%, rgba(197,150,90,.10) 0%, transparent 60%);
-      pointer-events:none; z-index:0;
-    }
-    .site-header {
-      position:relative; z-index:1;
-      text-align:center;
-      padding:28px 20px 0;
-    }
-    .header-logo { color:var(--gold-light); text-decoration:none; display:inline-block; }
-    .header-logo-name { font-weight:700; font-size:1.15rem; letter-spacing:.12em; text-transform:uppercase; }
-    .header-logo-sub  { font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(229,212,181,.5); margin-top:2px; }
-    .hero {
-      position:relative; z-index:1;
-      text-align:center;
-      padding:48px 20px 36px;
-      max-width:680px;
-      margin:0 auto;
-    }
-    .hero-badge {
-      display:inline-flex; align-items:center; gap:6px;
-      background:rgba(197,150,90,.2); border:1px solid rgba(197,150,90,.4);
-      border-radius:100px; padding:5px 16px;
-      font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--gold-light); margin-bottom:22px;
-    }
-    .hero h1 {
-      font-size:clamp(2rem, 5vw, 3.2rem); font-weight:700;
-      color:var(--white); line-height:1.15; margin-bottom:16px;
-    }
-    .hero h1 span { font-family:'Dancing Script', cursive; color:var(--gold); font-size:1.15em; }
-    .hero-sub { font-size:1.05rem; color:rgba(229,212,181,.8); line-height:1.7; margin-bottom:32px; }
-    .hero-bullets { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-    .hero-bullet {
-      display:flex; align-items:center; gap:8px;
-      background:rgba(255,255,255,.06); border:1px solid rgba(197,150,90,.25);
-      border-radius:100px; padding:7px 16px;
-      font-size:.82rem; color:var(--gold-light);
-    }
-    .main-card-wrap {
-      position:relative; z-index:1;
-      max-width:520px; margin:40px auto 0; padding:0 20px;
-    }
-    .main-card {
-      background:var(--white); border-radius:24px;
-      padding:44px 44px 40px;
-      box-shadow:0 24px 80px rgba(0,0,0,.35);
-    }
-    @media(max-width:520px){ .main-card { padding:32px 24px 28px; } }
-    .offer-block { text-align:center; margin-bottom:32px; }
-    .offer-label { display:inline-block; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--brown-light); margin-bottom:8px; }
-    .offer-price { font-size:3.6rem; font-weight:700; color:var(--brown); line-height:1; }
-    .offer-price sup { font-size:1.4rem; font-weight:600; vertical-align:top; margin-top:8px; display:inline-block; }
-    .offer-price-sub { font-size:.85rem; color:var(--brown-light); margin-top:6px; }
-    .features-list {
-      list-style:none; display:flex; flex-direction:column; gap:10px;
-      margin-bottom:32px; padding:20px;
-      background:var(--cream); border-radius:14px; border:1px solid var(--gold-light);
-    }
-    .feature-item { display:flex; align-items:flex-start; gap:10px; font-size:.86rem; color:var(--brown-mid); line-height:1.4; }
-    .feature-item .icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
-    .form-title { font-size:1.1rem; font-weight:700; color:var(--brown); margin-bottom:4px; }
-    .form-sub { font-size:.82rem; color:var(--brown-light); margin-bottom:20px; line-height:1.5; }
-    .field-wrap { display:flex; flex-direction:column; gap:5px; margin-bottom:14px; }
-    .field-wrap label { font-size:.76rem; font-weight:600; color:var(--brown-mid); letter-spacing:.04em; text-transform:uppercase; }
-    .field-wrap input {
-      height:50px; border-radius:12px; border:1.5px solid var(--gold-light);
-      padding:0 16px; font-family:'Poppins', sans-serif; font-size:.95rem; color:var(--brown);
-      background:var(--cream); outline:none; transition:border-color .2s, box-shadow .2s;
-    }
-    .field-wrap input::placeholder { color:rgba(90,62,40,.35); }
-    .field-wrap input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(197,150,90,.15); background:var(--white); }
-    .field-wrap input.error { border-color:#e05555; }
-    .btn-primary {
-      width:100%; height:54px; border-radius:14px;
-      background:var(--gold); border:none; cursor:pointer;
-      font-family:'Poppins', sans-serif; font-size:1rem; font-weight:700;
-      color:var(--brown); letter-spacing:.04em; transition:all .2s;
-      box-shadow:0 4px 20px rgba(197,150,90,.4);
-      display:flex; align-items:center; justify-content:center; gap:8px;
-    }
-    .btn-primary:hover { background:var(--gold-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(197,150,90,.5); }
-    .btn-primary:disabled { opacity:.6; pointer-events:none; }
-    .form-error-msg {
-      background:#fff0f0; border:1px solid #ffcccc;
-      border-radius:10px; padding:12px 16px;
-      font-size:.82rem; color:#c0392b; display:none; margin-bottom:14px;
-    }
-    .form-error-msg.show { display:block; }
-    .card-disclaimer { font-size:.72rem; color:var(--brown-light); text-align:center; margin-top:14px; line-height:1.5; }
-    .card-disclaimer a { color:var(--gold-dark); }
-    .payment-block { display:none; }
-    .payment-block.visible { display:block; }
-    .payment-icon { font-size:2.8rem; text-align:center; margin-bottom:14px; }
-    .payment-block h3 { font-size:1.2rem; font-weight:700; color:var(--brown); text-align:center; margin-bottom:8px; }
-    .payment-block p { font-size:.88rem; color:var(--brown-light); text-align:center; line-height:1.6; margin-bottom:24px; }
-    .btn-payment {
-      display:flex; align-items:center; justify-content:center;
-      height:54px; border-radius:14px; background:var(--gold); color:var(--brown);
-      font-family:'Poppins', sans-serif; font-size:1rem; font-weight:700;
-      text-decoration:none; box-shadow:0 4px 20px rgba(197,150,90,.4);
-      transition:all .2s; margin-bottom:12px;
-    }
-    .btn-payment:hover { background:var(--gold-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(197,150,90,.5); }
-    .btn-check {
-      width:100%; height:44px; border-radius:12px;
-      background:transparent; border:1.5px solid var(--gold-light);
-      color:var(--brown-mid); font-family:'Poppins', sans-serif;
-      font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s;
-    }
-    .btn-check:hover { background:var(--off-white); }
-    .btn-check:disabled { opacity:.5; pointer-events:none; }
-    .checking-text { font-size:.78rem; color:var(--brown-light); text-align:center; margin-top:10px; display:none; }
-    .checking-text.show { display:block; }
-    .guarantee { position:relative; z-index:1; max-width:520px; margin:24px auto 0; padding:0 20px; text-align:center; }
-    .guarantee-inner {
-      background:rgba(255,255,255,.05); border:1px solid rgba(197,150,90,.2);
-      border-radius:14px; padding:18px 20px; color:rgba(229,212,181,.65); font-size:.8rem; line-height:1.6;
-    }
-    .guarantee-inner strong { color:var(--gold-light); }
-    .back-link {
-      display:block; text-align:center; margin-top:28px;
-      font-size:.8rem; color:rgba(229,212,181,.4); text-decoration:none;
-      transition:color .2s; position:relative; z-index:1;
-    }
-    .back-link:hover { color:var(--gold-light); }
-  </style>
+/* PAIN */
+.pain-box{background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:32px;backdrop-filter:blur(20px);max-width:680px;margin:0 auto}
+.pain-title{font-size:20px;font-weight:800;margin-bottom:22px}
+.pain-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.pain-list li{font-size:15px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+
+/* SOLUTION */
+.sol-sec{text-align:center}
+.sol-inner{max-width:720px;margin:0 auto}
+.sol-inner p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+
+/* PHASES */
+.phases-sec .sec-inner{max-width:860px}
+.phase-block{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:24px;backdrop-filter:blur(10px)}
+.phase-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.phase-title{font-size:22px;font-weight:800;margin-bottom:8px}
+.phase-sub{font-size:14px;color:var(--muted);margin-bottom:18px}
+.phase-days{display:flex;flex-direction:column;gap:6px}
+.phase-day{font-size:14px;color:var(--text);padding:8px 14px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:2px solid var(--gold)}
+
+/* INCLUDES */
+.includes-list{list-style:none;display:flex;flex-direction:column;gap:14px;max-width:600px;margin:0 auto}
+.includes-list li{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;line-height:1.4}
+
+/* BONUSES */
+.bonus-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.bonus-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(10px)}
+.bonus-card .b-ico{font-size:24px;margin-bottom:8px}
+.bonus-card .b-txt{font-size:14px;font-weight:600;color:var(--text)}
+.bonus-highlight{background:rgba(201,149,78,0.08);border:1px solid rgba(201,149,78,0.3);border-radius:16px;padding:24px;backdrop-filter:blur(10px)}
+.bonus-highlight .bh-title{font-size:16px;font-weight:800;color:var(--gold2);margin-bottom:8px}
+.bonus-highlight .bh-desc{font-size:14px;color:var(--muted);line-height:1.7}
+
+/* RESULTS / CAROUSEL */
+.results-sec{}
+.carousel-wrap{position:relative;overflow:hidden;border-radius:20px}
+.carousel-track{display:flex;gap:16px;transition:transform .65s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.depo-card{flex:0 0 calc(33.333% - 11px);border-radius:16px;overflow:hidden;cursor:pointer;position:relative;background:var(--glass);border:1px solid var(--border)}
+.depo-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .4s ease}
+.depo-card:hover img{transform:scale(1.04)}
+.depo-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(201,149,78,0.9);color:#06040A;padding:4px 10px;border-radius:100px}
+.carousel-nav{display:flex;align-items:center;justify-content:space-between;margin-top:20px}
+.car-btn{width:44px;height:44px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;backdrop-filter:blur(10px)}
+.car-btn:hover{background:rgba(201,149,78,0.15);border-color:var(--gold)}
+.depo-dots{display:flex;gap:6px;justify-content:center}
+.depo-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all .3s ease;cursor:pointer}
+.depo-dot.active{background:var(--gold);width:20px;border-radius:4px}
+
+/* LIGHTBOX */
+#lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:20px}
+#lb-img{max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain}
+#lb-close{position:absolute;top:16px;right:16px;width:40px;height:40px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:22px;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* BIO */
+.bio-sec{}
+.bio-inner{display:flex;gap:40px;align-items:flex-start;max-width:780px;margin:0 auto}
+.bio-photo-wrap{flex-shrink:0;width:200px;height:240px;border-radius:20px;overflow:hidden;border:2px solid var(--border)}
+.bio-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.bio-photo-placeholder{width:100%;height:100%;background:linear-gradient(135deg,rgba(201,149,78,0.2),rgba(124,58,237,0.2));display:flex;align-items:center;justify-content:center;font-size:60px}
+.bio-name{font-size:26px;font-weight:800;margin-bottom:4px}
+.bio-crn{font-size:13px;color:var(--gold2);font-weight:600;margin-bottom:18px}
+.bio-text{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.bio-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.bio-badge{font-size:12px;font-weight:600;color:var(--text);background:var(--glass2);border:1px solid var(--border);border-radius:100px;padding:5px 14px}
+
+/* OFFER */
+.offer-sec{text-align:center}
+.offer-sec .sec-inner{max-width:600px}
+.card{background:var(--glass2);border:1px solid var(--border);border-radius:24px;padding:36px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.offer-block{margin-bottom:24px}
+.offer-from{font-size:13px;color:var(--muted);text-decoration:line-through;margin-bottom:4px}
+.offer-price{display:flex;align-items:flex-end;gap:4px;justify-content:center;line-height:1}
+.offer-rs{font-size:24px;font-weight:700;color:var(--gold2);align-self:flex-start;margin-top:6px}
+.offer-num{font-size:72px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.offer-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.offer-urgency{font-size:13px;color:var(--gold2);font-weight:600;margin-top:10px}
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:20px}
+.feat-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text)}
+.feat-icon{font-size:16px;flex-shrink:0}
+.form-title{font-size:20px;font-weight:800;margin-bottom:6px;text-align:left}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:20px;text-align:left}
+.field{margin-bottom:14px;text-align:left}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.field input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--text);font-family:'Sora',sans-serif;outline:none;transition:border-color .25s,background .25s}
+.field input:focus{border-color:rgba(201,149,78,.5);background:rgba(255,255,255,0.07)}
+.field input::placeholder{color:rgba(242,238,248,.3)}
+.field input.err{border-color:rgba(248,113,113,.5)}
+.err-msg{font-size:13px;color:#F87171;text-align:left;margin-bottom:14px;display:none}
+.err-msg.show{display:block}
+.btn-submit{width:100%;padding:16px;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;border:none;font-family:'Sora',sans-serif;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#06040A;transition:all .3s;margin-top:4px;letter-spacing:-.2px;box-shadow:0 8px 30px rgba(201,149,78,.35)}
+.btn-submit:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 14px 50px rgba(201,149,78,.5)}
+.disclaimer{font-size:11px;color:rgba(242,238,248,.3);margin-top:12px;text-align:center;line-height:1.6}
+.disclaimer a{color:rgba(201,149,78,.7);text-decoration:none}
+.pay-block{display:none;text-align:center;padding:24px 0 0}
+.pay-block.show{display:block}
+.pay-ico{font-size:44px;margin-bottom:12px}
+.pay-title{font-size:20px;font-weight:800;margin-bottom:8px}
+.pay-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:22px}
+.btn-pay{display:inline-flex;align-items:center;justify-content:center;width:100%;padding:18px;border-radius:12px;font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#06040A;text-decoration:none;font-family:'Sora',sans-serif;transition:all .3s;box-shadow:0 8px 30px rgba(201,149,78,.35);margin-bottom:12px;letter-spacing:-.2px}
+.btn-pay:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-check{width:100%;padding:12px;border-radius:12px;font-size:14px;font-weight:600;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-family:'Sora',sans-serif;transition:all .25s;margin-top:6px}
+.btn-check:hover{border-color:var(--gold);color:var(--gold)}
+.checking{font-size:12px;color:var(--muted);margin-top:10px;display:none}
+.checking.show{display:block}
+
+/* UPGRADE */
+.upgrade-sec{}
+.upgrade-inner{max-width:720px;margin:0 auto}
+.upgrade-intro{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:28px}
+.upgrade-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.upgrade-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:24px;backdrop-filter:blur(10px)}
+.upgrade-card.highlight{border-color:rgba(201,149,78,.5);background:rgba(201,149,78,.05)}
+.upgrade-option{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.upgrade-title{font-size:18px;font-weight:800;margin-bottom:8px}
+.upgrade-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.upgrade-credit{font-size:16px;font-weight:800;color:var(--gold2);margin-top:10px}
+
+/* GUARANTEE */
+.guarantee{max-width:600px;margin:0 auto;background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;backdrop-filter:blur(20px)}
+.guar-ico{font-size:48px;margin-bottom:12px}
+.guar-title{font-size:20px;font-weight:800;margin-bottom:12px}
+.guar-text{font-size:15px;color:var(--muted);line-height:1.8}
+
+/* FAQ */
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.faq-item{}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 20px;background:var(--glass);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .3s;user-select:none;font-size:15px;font-weight:600}
+.faq-q:hover{border-color:rgba(201,149,78,.35);background:var(--glass2)}
+.faq-item.open .faq-q{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;background:var(--glass2);border-color:rgba(201,149,78,.4)}
+.faq-ico{font-size:20px;font-weight:400;color:var(--gold);flex-shrink:0;transition:transform .3s}
+.faq-item.open .faq-ico{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);background:var(--glass2);border:1px solid rgba(201,149,78,.4);border-top:none;border-bottom-left-radius:14px;border-bottom-right-radius:14px}
+.faq-a-inner{padding:18px 20px;font-size:14px;color:var(--muted);line-height:1.8}
+
+/* CTA FINAL */
+.cta-final{text-align:center;padding:80px 20px;position:relative;z-index:1}
+.cta-final h2{font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;line-height:1.2}
+.cta-final p{font-size:16px;color:var(--muted);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-final .btn-primary{margin-top:8px}
+
+/* FOOTER */
+footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--border);text-align:center}
+.footer-name{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.footer-links{display:flex;gap:24px;justify-content:center}
+.footer-links a{font-size:13px;color:rgba(242,238,248,.35);text-decoration:none;transition:color .25s}
+.footer-links a:hover{color:var(--gold)}
+
+@media(max-width:700px){
+.proof-grid{grid-template-columns:1fr 1fr 1fr;gap:12px}
+.proof-num{font-size:30px}
+.proof-lbl{font-size:10px}
+.bio-inner{flex-direction:column;align-items:center;text-align:center}
+.bio-badges{justify-content:center}
+.bonus-grid{grid-template-columns:1fr}
+.upgrade-grid{grid-template-columns:1fr}
+.depo-card{flex:0 0 82%}
+}
+</style>
 </head>
 <body>
 
-<header class="site-header">
-  <a class="header-logo" href="/">
-    <div class="header-logo-name">Bruna Boreggio</div>
-    <div class="header-logo-sub">Nutricionista · CRN 68497</div>
-  </a>
-</header>
+<canvas id="particles"></canvas>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-<section class="hero">
-  <div class="hero-badge">🏆 Desafio Comece Leve</div>
-  <h1>10 dias para<br><span>transformar</span><br>sua alimentação</h1>
-  <p class="hero-sub">
-    Um desafio prático, com suporte da nutricionista Bruna Boreggio, fotos de evolução, pontuação diária e premiação para quem mais se dedicar.
-  </p>
-  <div class="hero-bullets">
-    <div class="hero-bullet">📅 10 dias de conteúdo</div>
-    <div class="hero-bullet">📸 Fotos de evolução</div>
-    <div class="hero-bullet">🏆 Ranking com prêmios</div>
-    <div class="hero-bullet">💬 Suporte da Bruna</div>
-  </div>
+<!-- LIGHTBOX -->
+<div id="lb-overlay" onclick="closeLb()">
+<button id="lb-close" onclick="closeLb()">&times;</button>
+<img id="lb-img" src="" alt="Resultado real">
+</div>
+
+<!-- HERO -->
+<section class="sec hero-sec">
+<div class="sec-inner">
+<div class="sec-label reveal">&#10022; Desafio com turmas abertas</div>
+<h1 class="sec-title reveal">Destrave seu emagrecimento<br>em apenas <span class="grad">10 dias</span></h1>
+<p class="hero-sub reveal">O m&eacute;todo pr&aacute;tico da Nutri Bruna para reduzir o inc&ccedil;o, recuperar o controle da alimenta&ccedil;&atilde;o e dar o primeiro passo para sair do efeito sanfona.</p>
+<ul class="hero-checks reveal">
+<li>&#9989; 10 dias de acompanhamento</li>
+<li>&#128167; Protocolo alimentar + meta de &aacute;gua</li>
+<li>&#128247; Fotos de evolu&ccedil;&atilde;o</li>
+<li>&#127942; Ranking com premia&ccedil;&otilde;es</li>
+<li>&#128172; Suporte di&aacute;rio com a Bruna</li>
+</ul>
+<a href="#oferta" class="btn-primary reveal">Quero participar &rarr;</a>
+</div>
 </section>
 
-<div class="main-card-wrap">
-  <div class="main-card">
+<!-- PROOF -->
+<section class="proof-sec">
+<div class="proof-grid reveal">
+<div class="proof-card">
+<div class="proof-num">+847</div>
+<div class="proof-lbl">Participantes</div>
+</div>
+<div class="proof-card">
+<div class="proof-num">10</div>
+<div class="proof-lbl">Dias de acompanhamento</div>
+</div>
+<div class="proof-card">
+<div class="proof-num">98%</div>
+<div class="proof-lbl">Satisfa&ccedil;&atilde;o</div>
+</div>
+</div>
+</section>
 
-    <div class="offer-block" id="offerBlock">
-      <div class="offer-label">Investimento único</div>
-      <div class="offer-price"><sup>R$</sup>97</div>
-      <div class="offer-price-sub">Acesso completo aos 10 dias</div>
-    </div>
+<!-- PROBLEM -->
+<section class="sec prob-sec">
+<div class="prob-inner">
+<div class="sec-label reveal">O problema</div>
+<h2 class="reveal">Voc&ecirc; sente que faz tudo certo&hellip;</h2>
+<h3 class="reveal">&hellip;mas seu emagrecimento continua travado?</h3>
+<p class="reveal">Voc&ecirc; come&ccedil;a uma dieta toda segunda-feira.</p>
+<p class="reveal">Na sexta j&aacute; sente que &ldquo;estragou tudo&rdquo;.</p>
+<p class="reveal">Na semana seguinte promete recome&ccedil;ar.</p>
+<p class="reveal">Enquanto isso, a barriga continua inchada, a roupa aperta, a disposi&ccedil;&atilde;o diminui e voc&ecirc; acredita que o problema &eacute; falta de for&ccedil;a de vontade.</p>
+<p class="reveal"><strong>Mas quase nunca &eacute;.</strong></p>
+<p class="reveal">Na maioria das vezes, o problema &eacute; tentar emagrecer sem um m&eacute;todo que funcione para a vida real.</p>
+<p class="reveal">Voc&ecirc; n&atilde;o precisa de mais uma dieta radical.<br><strong>Voc&ecirc; precisa de uma estrat&eacute;gia que consiga colocar em pr&aacute;tica e manter.</strong></p>
+</div>
+</section>
 
-    <ul class="features-list" id="featuresList">
-      <li class="feature-item"><span class="icon">🎥</span><span>Vídeo-aulas exclusivas para cada dia do desafio</span></li>
-      <li class="feature-item"><span class="icon">📸</span><span>Upload de fotos diárias com pontuação automática</span></li>
-      <li class="feature-item"><span class="icon">💧</span><span>Registro de metas de água e check-ins diários</span></li>
-      <li class="feature-item"><span class="icon">🏆</span><span>Ranking ao vivo — quem mais pontuar ganha prêmio</span></li>
-      <li class="feature-item"><span class="icon">💬</span><span>Comentários e feedback da Bruna nas suas fotos</span></li>
-      <li class="feature-item"><span class="icon">📊</span><span>Foto do antes e depois com pontuação especial</span></li>
-    </ul>
+<!-- PAIN POINTS -->
+<section class="sec" style="padding-top:0">
+<div class="sec-inner">
+<div class="pain-box reveal">
+<div class="pain-title">Voc&ecirc; se identifica com isso?</div>
+<ul class="pain-list">
+<li>&#128262; Vive presa ao efeito sanfona.</li>
+<li>&#128262; Sua barriga permanece inchada mesmo tentando emagrecer.</li>
+<li>&#128262; J&aacute; fez v&aacute;rias dietas e sempre volta ao ponto de partida.</li>
+<li>&#128262; N&atilde;o sabe mais em quem acreditar com tanta informa&ccedil;&atilde;o na internet.</li>
+<li>&#128262; Quer emagrecer sem passar fome e sem viver recome&ccedil;ando.</li>
+</ul>
+</div>
+</div>
+</section>
 
-    <div id="registerBlock">
-      <div class="form-title">Garanta sua vaga</div>
-      <div class="form-sub">Preencha seus dados para reservar e receber o link de pagamento.</div>
+<!-- SOLUTION -->
+<section class="sec sol-sec">
+<div class="sol-inner">
+<div class="sec-label reveal">A solu&ccedil;&atilde;o</div>
+<h2 class="sec-title reveal">Desafio Destrave seu Emagrecimento</h2>
+<p class="reveal">Durante 10 dias voc&ecirc; ser&aacute; acompanhada pela Nutri Bruna atrav&eacute;s de um protocolo pr&aacute;tico baseado em alimenta&ccedil;&atilde;o, hidrata&ccedil;&atilde;o, movimento e h&aacute;bitos sustent&aacute;veis.</p>
+<p class="reveal">O objetivo n&atilde;o &eacute; fazer voc&ecirc; viver uma dieta por alguns dias.</p>
+<p class="reveal">&Eacute; mostrar que pequenas mudan&ccedil;as, quando aplicadas da forma certa, ajudam seu corpo a responder melhor ao emagrecimento.</p>
+<p class="reveal">Voc&ecirc; vai aprender como reduzir o inc&ccedil;o, controlar melhor a fome, organizar sua alimenta&ccedil;&atilde;o e construir h&aacute;bitos que realmente permanecem depois do desafio.</p>
+<p class="reveal">Al&eacute;m disso, o desafio conta com ranking, pontua&ccedil;&atilde;o, premia&ccedil;&otilde;es e acompanhamento para manter sua motiva&ccedil;&atilde;o do primeiro ao &uacute;ltimo dia.</p>
+</div>
+</section>
 
-      <form id="registerForm" novalidate>
-        <div class="form-error-msg" id="formError">Por favor, preencha todos os campos corretamente.</div>
-        <div class="field-wrap">
-          <label for="nome">Nome completo</label>
-          <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" required>
-        </div>
-        <div class="field-wrap">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required>
-        </div>
-        <div class="field-wrap">
-          <label for="telefone">WhatsApp</label>
-          <input type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required>
-        </div>
-        <button type="submit" class="btn-primary" id="registerBtn">
-          <span id="registerBtnText">Quero participar →</span>
-        </button>
-      </form>
+<!-- HOW IT WORKS -->
+<section class="sec phases-sec">
+<div class="sec-inner">
+<div class="sec-label reveal">Como funciona</div>
+<h2 class="sec-title reveal">O desafio em 3 fases</h2>
+<div class="phase-block reveal">
+<div class="phase-label">Fase 1</div>
+<div class="phase-title">Reset do Corpo</div>
+<div class="phase-sub">Nos primeiros dias vamos preparar o seu organismo para responder melhor ao emagrecimento. Voc&ecirc; aprender&aacute; como reduzir o inc&ccedil;o, melhorar sua hidrata&ccedil;&atilde;o e organizar sua alimenta&ccedil;&atilde;o desde o primeiro dia.</div>
+<div class="phase-days">
+<div class="phase-day">Dia 1 &mdash; Hidrata&ccedil;&atilde;o Inteligente</div>
+<div class="phase-day">Dia 2 &mdash; Organizando sua Alimenta&ccedil;&atilde;o</div>
+<div class="phase-day">Dia 3 &mdash; Alimentos Anti-inflamat&oacute;rios</div>
+</div>
+</div>
+<div class="phase-block reveal">
+<div class="phase-label">Fase 2</div>
+<div class="phase-title">Seu Corpo Trabalhando a Seu Favor</div>
+<div class="phase-sub">Agora voc&ecirc; aprender&aacute; como controlar a fome, aumentar a saciedade e fazer escolhas que favorecem o emagrecimento sem sofrimento.</div>
+<div class="phase-days">
+<div class="phase-day">Dia 4 &mdash; Prote&iacute;na Estrat&eacute;gica</div>
+<div class="phase-day">Dia 5 &mdash; Alimenta&ccedil;&atilde;o Consciente</div>
+<div class="phase-day">Dia 6 &mdash; Sono e Emagrecimento</div>
+</div>
+</div>
+<div class="phase-block reveal">
+<div class="phase-label">Fase 3</div>
+<div class="phase-title">Adeus Efeito Sanfona</div>
+<div class="phase-sub">Nos &uacute;ltimos dias vamos construir h&aacute;bitos sustent&aacute;veis para que voc&ecirc; consiga continuar evoluindo mesmo depois do desafio.</div>
+<div class="phase-days">
+<div class="phase-day">Dia 7 &mdash; Reduzindo o A&ccedil;&uacute;car</div>
+<div class="phase-day">Dia 8 &mdash; Movimento Inteligente</div>
+<div class="phase-day">Dia 9 &mdash; Regra 90/10</div>
+<div class="phase-day">Dia 10 &mdash; Seu Plano para Continuar Evoluindo</div>
+</div>
+</div>
+</div>
+</section>
 
-      <p class="card-disclaimer">
-        Ao se cadastrar você concorda com nossa
-        <a href="/politica-privacidade.html" target="_blank">Política de Privacidade</a>.
-        Seus dados estão protegidos.
-      </p>
-    </div>
+<!-- WHAT YOU RECEIVE -->
+<section class="sec" style="text-align:center">
+<div class="sec-inner">
+<div class="sec-label reveal">O que est&aacute; inclu&iacute;do</div>
+<h2 class="sec-title reveal">Durante os 10 dias voc&ecirc; receber&aacute;</h2>
+<ul class="includes-list reveal">
+<li>&#9989; Protocolo alimentar completo.</li>
+<li>&#9989; Meta di&aacute;ria de &aacute;gua.</li>
+<li>&#9989; Acompanhamento da Nutri Bruna.</li>
+<li>&#9989; Grupo exclusivo.</li>
+<li>&#9989; Check-ins di&aacute;rios.</li>
+<li>&#9989; Ranking com premia&ccedil;&otilde;es.</li>
+<li>&#9989; Live de encerramento.</li>
+</ul>
+</div>
+</section>
 
-    <div class="payment-block" id="paymentBlock">
-      <div class="payment-icon">💳</div>
-      <h3>Finalize seu pagamento</h3>
-      <p>
-        Clique abaixo para ir à página de pagamento seguro.<br>
-        Após confirmar, você terá acesso imediato ao desafio.
-      </p>
-      <a href="#" id="paymentLink" class="btn-payment" target="_blank">
-        Pagar R$97 e entrar no desafio →
-      </a>
-      <button class="btn-check" id="checkBtn" onclick="checkPayment()">
-        Já paguei — verificar acesso
-      </button>
-      <p class="checking-text" id="checkingText">⏳ Verificando pagamento…</p>
-    </div>
+<!-- BONUSES -->
+<section class="sec">
+<div class="sec-inner">
+<div class="sec-label reveal">Exclusivo</div>
+<h2 class="sec-title reveal">B&ocirc;nus Exclusivos</h2>
+<div class="bonus-grid reveal">
+<div class="bonus-card"><div class="b-ico">&#127873;</div><div class="b-txt">Planner dos 10 dias.</div></div>
+<div class="bonus-card"><div class="b-ico">&#127873;</div><div class="b-txt">Lista inteligente de supermercado.</div></div>
+<div class="bonus-card"><div class="b-ico">&#127873;</div><div class="b-txt">Guia de receitas pr&aacute;ticas.</div></div>
+<div class="bonus-card"><div class="b-ico">&#127873;</div><div class="b-txt">Checklist di&aacute;rio.</div></div>
+</div>
+<div class="bonus-highlight reveal">
+<div class="bh-title">&#127873; Aula b&ocirc;nus: Organize sua Casa para Emagrecer</div>
+<div class="bh-desc">Pequenas mudan&ccedil;as no ambiente fazem uma enorme diferen&ccedil;a na sua alimenta&ccedil;&atilde;o. Nessa aula, voc&ecirc; aprender&aacute; como deixar sua rotina mais f&aacute;cil e evitar escolhas impulsivas.</div>
+</div>
+</div>
+</section>
 
-  </div>
+<!-- RESULTS -->
+<section class="sec results-sec">
+<div class="sec-inner">
+<div class="sec-label reveal">Comprova&ccedil;&atilde;o</div>
+<h2 class="sec-title reveal">Resultados de quem j&aacute; participou</h2>
+<div class="carousel-wrap reveal" id="carousel-wrap">
+<div class="carousel-track" id="depo-track">
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/15VTLSxIhqEf3MYMwHriy6-lAb08VTit6=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1cZEqgrcGtNvn3sJbe7NzuhvbwveCPHcn=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/142pPmJERjXad7wWjBRz7bwZ9WR5WJN6f=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1xHlVsamm1bn63pdEbfrCzTcKcrvL7d8i=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1dxPpiTK5cx5cTJVswr_5L_O8pGasMj8m=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1KGJDTLCyhuishcry76vw1_ivSStLTSUK=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1agfonX0q3SN8wZ3cMN-meB4NnINh-zxp=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1gMwVPHtqDeQCfkzV5jgNCFQ7QnH9ncO7=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+<div class="depo-card" onclick="openLb(this)"><img src="https://lh3.googleusercontent.com/d/1c5l1KwSYM9W4cKkFv554LK0oKFH20Gif=w1200" alt="Resultado real" loading="lazy"><div class="depo-badge">Resultado real</div></div>
+</div>
+</div>
+<div class="carousel-nav">
+<button class="car-btn" onclick="depoSlide(-1)">&#8592;</button>
+<div class="depo-dots" id="depo-dots"></div>
+<button class="car-btn" onclick="depoSlide(1)">&#8594;</button>
+</div>
+</div>
+</section>
+
+<!-- BIO -->
+<section class="sec bio-sec">
+<div class="bio-inner reveal">
+<div class="bio-photo-wrap">
+<div class="bio-photo-placeholder">&#128105;</div>
+</div>
+<div>
+<div class="sec-label" style="margin-bottom:16px">Quem &eacute; a Bruna?</div>
+<div class="bio-name">Bruna Boreggio</div>
+<div class="bio-crn">Nutricionista &bull; CRN 68497</div>
+<p class="bio-text">Especialista em emagrecimento feminino e apaixonada por ajudar mulheres a conquistarem resultados de forma leve, sustent&aacute;vel e sem viver no efeito sanfona.</p>
+<p class="bio-text">A Bruna acredita que emagrecer n&atilde;o depende apenas de for&ccedil;a de vontade. Depende de um m&eacute;todo, acompanhamento e de h&aacute;bitos que fa&ccedil;am sentido para a rotina de cada mulher.</p>
+<p class="bio-text">Durante o desafio ela estar&aacute; ao seu lado diariamente, mostrando exatamente o que fazer para destravar seu emagrecimento.</p>
+<div class="bio-badges">
+<span class="bio-badge">&#127822; Nutri&ccedil;&atilde;o Cl&iacute;nica</span>
+<span class="bio-badge">&#9889; Emagrecimento Feminino</span>
+<span class="bio-badge">&#128154; Anti-Inflamat&oacute;rio</span>
+<span class="bio-badge">&#128203; CRN 68497</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- OFFER -->
+<section class="sec offer-sec" id="oferta">
+<div class="sec-inner">
+<div class="sec-label reveal">Sua vaga</div>
+<h2 class="sec-title reveal">Garanta sua participa&ccedil;&atilde;o<br>no desafio</h2>
+<p class="sec-sub reveal" style="margin:0 auto 32px">Vagas limitadas por turma. Preencha seus dados abaixo para reservar e receber o link de pagamento.</p>
+<div class="card reveal">
+<div class="offer-block">
+<div class="offer-from">De R$ 197</div>
+<div class="offer-price"><span class="offer-rs">R$</span><span class="offer-num" id="priceNum">97</span></div>
+<div class="offer-sub">Acesso completo aos 10 dias do desafio</div>
+<div class="offer-urgency">&#9889; Vagas limitadas por turma</div>
+</div>
+<hr class="divider">
+<ul class="feat-list" id="featuresList">
+<li class="feat-item"><span class="feat-icon">&#127790;</span><span>V&iacute;deo-aulas exclusivas para cada dia (3 fases)</span></li>
+<li class="feat-item"><span class="feat-icon">&#11088;</span><span>Aula B&ocirc;nus: Organize sua Casa para Emagrecer</span></li>
+<li class="feat-item"><span class="feat-icon">&#128247;</span><span>Upload de fotos di&aacute;rias com pontua&ccedil;&atilde;o autom&aacute;tica</span></li>
+<li class="feat-item"><span class="feat-icon">&#128166;</span><span>Metas de hidrata&ccedil;&atilde;o e check-ins di&aacute;rios</span></li>
+<li class="feat-item"><span class="feat-icon">&#127942;</span><span>Ranking ao vivo &mdash; quem mais pontuar ganha pr&ecirc;mio</span></li>
+<li class="feat-item"><span class="feat-icon">&#128172;</span><span>Suporte e feedback da Bruna</span></li>
+</ul>
+<hr class="divider">
+<div id="registerBlock">
+<div class="form-title">Garanta sua vaga</div>
+<div class="form-sub">Preencha seus dados para reservar e receber o link de pagamento seguro.</div>
+<form id="registerForm" novalidate>
+<div class="err-msg" id="formError">Por favor, preencha todos os campos corretamente.</div>
+<div class="field"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" required></div>
+<div class="field"><label for="email">E-mail</label><input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required></div>
+<div class="field"><label for="telefone">WhatsApp</label><input type="tel" id="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required></div>
+<button type="submit" class="btn-submit" id="registerBtn"><span id="registerBtnText">Quero participar &rarr;</span></button>
+</form>
+<p class="disclaimer">Ao se cadastrar voc&ecirc; concorda com nossa <a href="/politica-privacidade.html" target="_blank">Pol&iacute;tica de Privacidade</a>. Seus dados est&atilde;o protegidos.</p>
+</div>
+<div class="pay-block" id="paymentBlock">
+<div class="pay-ico">&#128274;</div>
+<div class="pay-title">Finalize seu pagamento</div>
+<p class="pay-desc">Clique abaixo para ir &agrave; p&aacute;gina de pagamento seguro.<br>Ap&oacute;s confirmar, voc&ecirc; ter&aacute; acesso imediato ao desafio.</p>
+<a href="#" id="paymentLink" class="btn-pay" target="_blank">Pagar R$97 e entrar no desafio &rarr;</a>
+<button class="btn-check" id="checkBtn" onclick="checkPayment()">J&aacute; paguei &mdash; verificar acesso</button>
+<p class="checking" id="checkingText">&#9203; Verificando pagamento&hellip;</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UPGRADE DEAL -->
+<section class="sec">
+<div class="upgrade-inner">
+<div class="sec-label reveal">Um detalhe importante</div>
+<h2 class="sec-title reveal">O investimento feito no desafio n&atilde;o termina aqui.</h2>
+<p class="upgrade-intro reveal">Ao concluir os 10 dias, voc&ecirc; poder&aacute; utilizar o valor investido como cr&eacute;dito para continuar seu acompanhamento com a Bruna. Voc&ecirc; poder&aacute; escolher entre:</p>
+<div class="upgrade-grid reveal">
+<div class="upgrade-card">
+<div class="upgrade-option">Op&ccedil;&atilde;o 1</div>
+<div class="upgrade-title">Ciclo de Transforma&ccedil;&atilde;o</div>
+<div class="upgrade-desc">Receba <strong>100% do valor investido</strong> como cr&eacute;dito para iniciar seu tratamento.</div>
+<div class="upgrade-credit">100% de cr&eacute;dito</div>
+</div>
+<div class="upgrade-card highlight">
+<div class="upgrade-option">Op&ccedil;&atilde;o 2</div>
+<div class="upgrade-title">Programa de Acompanhamento Completo</div>
+<div class="upgrade-desc">Receba <strong>100% do valor investido + 50% de cr&eacute;dito adicional</strong>, distribu&iacute;dos ao longo do acompanhamento.</div>
+<div class="upgrade-credit">150% de cr&eacute;dito</div>
+</div>
+</div>
+<p class="reveal" style="margin-top:20px;font-size:14px;color:var(--muted)">Assim, o desafio se torna o primeiro passo da sua transforma&ccedil;&atilde;o, e n&atilde;o apenas um evento de 10 dias.</p>
+</div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="sec" style="text-align:center">
+<div class="guarantee reveal">
+<div class="guar-ico">&#128274;</div>
+<div class="guar-title">Garantia de 7 dias</div>
+<p class="guar-text">Voc&ecirc; conta com a garantia legal de 7 dias. Se dentro desse per&iacute;odo entender que o desafio n&atilde;o &eacute; para voc&ecirc;, basta solicitar o reembolso conforme previsto na legisla&ccedil;&atilde;o. Assim, voc&ecirc; faz sua inscri&ccedil;&atilde;o com total seguran&ccedil;a.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="sec">
+<div class="sec-inner">
+<div class="sec-label reveal">D&uacute;vidas frequentes</div>
+<h2 class="sec-title reveal">Perguntas e respostas</h2>
+<div class="faq-list">
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Preciso sair de casa ou comprar suplementos?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">N&atilde;o. O desafio &eacute; 100% online e pode ser feito da sua casa, com alimentos que voc&ecirc; j&aacute; tem. N&atilde;o existe indica&ccedil;&atilde;o de suplemento nem necessidade de academia.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Quando come&ccedil;a o desafio depois que eu pago?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">Voc&ecirc; tem acesso imediato &agrave; &aacute;rea de membros assim que o pagamento &eacute; confirmado. As aulas ficam dispon&iacute;veis e voc&ecirc; pode come&ccedil;ar quando quiser.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Preciso seguir uma dieta muito restritiva?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">N&atilde;o. O m&eacute;todo da Bruna &eacute; baseado em constru&ccedil;&atilde;o de h&aacute;bitos e n&atilde;o em restri&ccedil;&atilde;o. Voc&ecirc; vai aprender a fazer escolhas melhores sem passar fome.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>E se eu j&aacute; tiver tentado outros m&eacute;todos e n&atilde;o funcionou?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">O Desafio Destrave atua na causa raiz &mdash; inflama&ccedil;&atilde;o e h&aacute;bitos que sabotam o emagrecimento. &Eacute; diferente de uma dieta normal porque foca em mudar como o seu corpo responde &agrave; alimenta&ccedil;&atilde;o.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Vou realmente emagrecer em 10 dias?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">Muitas participantes relatam perda de peso j&aacute; na primeira semana, al&eacute;m de redu&ccedil;&atilde;o de incha&ccedil;o e mais energia. Resultados variam de pessoa para pessoa, mas o impacto no bem-estar &eacute; imediato para a maioria.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>O pagamento &eacute; seguro?</span><span class="faq-ico">+</span></div><div class="faq-a"><div class="faq-a-inner">Sim. O pagamento &eacute; processado pela Asaas, plataforma certificada e amplamente utilizada no Brasil. Aceitamos cart&atilde;o de cr&eacute;dito, Pix e boleto.</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+<h2 class="reveal">Pronta para <span class="grad">destravar seu emagrecimento</span>?</h2>
+<p class="reveal">10 dias. M&eacute;todo pr&aacute;tico. Acompanhamento real. Resultados que ficam.</p>
+<a href="#oferta" class="btn-primary reveal">Garantir minha vaga &rarr;</a>
 </div>
 
-<div class="guarantee">
-  <div class="guarantee-inner">
-    <strong>🔒 Pagamento 100% seguro</strong> · Processado pela Asaas.<br>
-    Dúvidas? Fale diretamente com a Bruna pelo WhatsApp.
-  </div>
+<!-- FOOTER -->
+<footer>
+<div class="footer-name">Bruna Boreggio &mdash; Nutricionista CRN 68497</div>
+<div class="footer-links">
+<a href="/politica-privacidade.html">Pol&iacute;tica de Privacidade</a>
+<a href="/">Voltar ao site</a>
 </div>
-
-<a class="back-link" href="/">← Voltar ao site</a>
+</footer>
 
 <script>
-  var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
-  var PAYMENT_LINK = 'LINK_ASAAS_AQUI';
+var WEBHOOK='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+var PAYMENT_LINK='https://www.asaas.com/c/bs3qoknu4ycxyvan';
+var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 
-  document.getElementById('telefone').addEventListener('input', function(e) {
-    var v = e.target.value.replace(/\D/g,'').substring(0,11);
-    if (v.length > 10)     v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-    else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
-    else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
-    e.target.value = v;
-  });
+/* Particles */
+(function(){
+var c=document.getElementById('particles'),ctx=c.getContext('2d');
+var W,H,dots=[];
+function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+resize();window.addEventListener('resize',resize);
+function Dot(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.8+.4;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.gold=Math.random()>.7;this.a=Math.random()*.6+.3;}
+for(var i=0;i<80;i++)dots.push(new Dot());
+function draw(){ctx.clearRect(0,0,W,H);dots.forEach(function(d){d.x+=d.vx;d.y+=d.vy;if(d.x<0)d.x=W;if(d.x>W)d.x=0;if(d.y<0)d.y=H;if(d.y>H)d.y=0;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=d.gold?'rgba(201,149,78,'+d.a+')':'rgba(242,238,248,'+d.a*.7+')';ctx.fill();});requestAnimationFrame(draw);}
+draw();
+})();
 
-  document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var nome     = document.getElementById('nome').value.trim();
-    var email    = document.getElementById('email').value.trim();
-    var telefone = document.getElementById('telefone').value.trim();
-    var errEl    = document.getElementById('formError');
-    var btn      = document.getElementById('registerBtn');
+/* Reveal */
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
-    errEl.classList.remove('show');
-    ['nome','email','telefone'].forEach(function(id){ document.getElementById(id).classList.remove('error'); });
+/* Carousel auto-slide */
+var depoIdx=0;var DEPO_N=9;var autoTimer;
 
-    var valid = true;
-    if (!nome || nome.length < 3) { document.getElementById('nome').classList.add('error'); valid = false; }
-    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRe.test(email)) { document.getElementById('email').classList.add('error'); valid = false; }
-    if (!telefone || telefone.replace(/\D/g,'').length < 10) { document.getElementById('telefone').classList.add('error'); valid = false; }
-    if (!valid) { errEl.classList.add('show'); return; }
+(function(){
+var dots=document.getElementById('depo-dots');
+for(var i=0;i<DEPO_N;i++){var d=document.createElement('div');d.className='depo-dot'+(i===0?' active':'');d.setAttribute('data-i',i);d.onclick=(function(idx){return function(){clearInterval(autoTimer);depoIdx=idx;updateCarousel();startAuto();};})(i);dots.appendChild(d);}
+})();
 
-    btn.disabled = true;
-    document.getElementById('registerBtnText').textContent = 'Salvando…';
+function cardWidth(){
+var card=document.querySelector('.depo-card');
+if(!card)return 220;
+return card.offsetWidth+16;
+}
 
-    localStorage.setItem('desafio_user', JSON.stringify({
-      nome: nome, email: email, telefone: telefone, plano: 'Desafio', preco: 97
-    }));
+function maxIdx(){
+var visible=window.innerWidth>700?3:1;
+return Math.max(0,DEPO_N-visible);
+}
 
-    fetch(WEBHOOK, {
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'challenge_register', nome:nome, email:email, telefone:telefone, plano:'Desafio', preco:97 })
-    }).catch(function(){});
+function updateCarousel(){
+document.getElementById('depo-track').style.transform='translateX(-'+(depoIdx*cardWidth())+'px)';
+document.querySelectorAll('.depo-dot').forEach(function(d,i){d.classList.toggle('active',i===depoIdx);});
+}
 
-    if (typeof fbq === 'function') {
-      fbq('track', 'InitiateCheckout', {value:97, currency:'BRL', content_name:'Desafio Comece Leve'});
-    }
+function depoSlide(dir){
+clearInterval(autoTimer);
+depoIdx=Math.max(0,Math.min(maxIdx(),depoIdx+dir));
+updateCarousel();
+startAuto();
+}
 
-    document.getElementById('registerBlock').style.display = 'none';
-    document.getElementById('offerBlock').style.display    = 'none';
-    document.getElementById('featuresList').style.display  = 'none';
-    document.getElementById('paymentLink').href = PAYMENT_LINK;
-    document.getElementById('paymentBlock').classList.add('visible');
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
+function startAuto(){
+clearInterval(autoTimer);
+autoTimer=setInterval(function(){
+depoIdx=depoIdx>=maxIdx()?0:depoIdx+1;
+updateCarousel();
+},3500);
+}
 
-  function checkPayment() {
-    var userData = JSON.parse(localStorage.getItem('desafio_user') || '{}');
-    if (!userData.email) { alert('Dados não encontrados. Preencha o cadastro novamente.'); return; }
-    var btn = document.getElementById('checkBtn');
-    var checking = document.getElementById('checkingText');
-    btn.disabled = true;
-    checking.classList.add('show');
+/* Pause on hover */
+var wrap=document.getElementById('carousel-wrap');
+if(wrap){
+wrap.addEventListener('mouseenter',function(){clearInterval(autoTimer);});
+wrap.addEventListener('mouseleave',function(){startAuto();});
+}
 
-    fetch(WEBHOOK + '?action=verify_payment&email=' + encodeURIComponent(userData.email))
-      .then(function(r){ return r.json(); })
-      .then(function(data) {
-        if (data.pago) {
-          if (typeof fbq === 'function') fbq('track', 'Purchase', {value:97, currency:'BRL', content_name:'Desafio Comece Leve'});
-          if (typeof gtag === 'function') gtag('event', 'purchase', {value:97, currency:'BRL'});
-          window.location.href = '/area-desafio/';
-        } else {
-          checking.classList.remove('show');
-          btn.disabled = false;
-          alert('Pagamento ainda não confirmado. Aguarde alguns minutos e tente novamente. Se já pagou há mais de 10 minutos, entre em contato com a Bruna.');
-        }
-      })
-      .catch(function() {
-        checking.classList.remove('show');
-        btn.disabled = false;
-        alert('Erro ao verificar. Tente novamente em instantes.');
-      });
-  }
+startAuto();
 
-  var saved = JSON.parse(localStorage.getItem('desafio_user') || '{}');
-  if (saved.email && saved.pago) {
-    window.location.replace('/area-desafio/');
-  }
+/* Lightbox */
+function openLb(card){
+var src=card.querySelector('img').src;
+document.getElementById('lb-img').src=src;
+document.getElementById('lb-overlay').style.display='flex';
+}
+function closeLb(){document.getElementById('lb-overlay').style.display='none';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+
+/* FAQ */
+function toggleFaq(el){
+var item=el.parentElement;
+var isOpen=item.classList.contains('open');
+document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight='0';});
+if(!isOpen){item.classList.add('open');var body=item.querySelector('.faq-a');body.style.maxHeight=body.scrollHeight+'px';}
+}
+
+/* Phone mask */
+document.getElementById('telefone').addEventListener('input',function(e){
+var v=e.target.value.replace(/\D/g,'').substring(0,11);
+if(v.length>10)v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');
+else if(v.length>6)v=v.replace(/^(\d{2})(\d{4})(\d{0,4})$/,'($1) $2-$3');
+else if(v.length>2)v=v.replace(/^(\d{2})(\d{0,5})$/,'($1) $2');
+e.target.value=v;
+});
+
+/* Form */
+document.getElementById('registerForm').addEventListener('submit',function(e){
+e.preventDefault();
+var nome=document.getElementById('nome').value.trim();
+var email=document.getElementById('email').value.trim();
+var telefone=document.getElementById('telefone').value.trim();
+var errEl=document.getElementById('formError');
+var btn=document.getElementById('registerBtn');
+errEl.classList.remove('show');
+['nome','email','telefone'].forEach(function(id){document.getElementById(id).classList.remove('err');});
+var valid=true;
+if(!nome||nome.length<3){document.getElementById('nome').classList.add('err');valid=false;}
+var re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!email||!re.test(email)){document.getElementById('email').classList.add('err');valid=false;}
+if(!telefone||telefone.replace(/\D/g,'').length<10){document.getElementById('telefone').classList.add('err');valid=false;}
+if(!valid){errEl.classList.add('show');return;}
+btn.disabled=true;
+document.getElementById('registerBtnText').textContent='Salvando...';
+localStorage.setItem('desafio_user',JSON.stringify({nome:nome,email:email,telefone:telefone,plano:'Desafio',preco:97}));
+fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'challenge_register',nome:nome,email:email,telefone:telefone,plano:'Desafio',preco:97})}).catch(function(){});
+if(typeof fbq==='function')fbq('track','InitiateCheckout',{value:97,currency:'BRL',content_name:'Desafio Destrave seu Emagrecimento'});
+document.getElementById('registerBlock').style.display='none';
+document.getElementById('featuresList').style.display='none';
+document.querySelector('.divider').style.display='none';
+document.getElementById('paymentLink').href=PAYMENT_LINK;
+document.getElementById('paymentBlock').classList.add('show');
+window.scrollTo({top:document.getElementById('oferta').offsetTop-20,behavior:'smooth'});
+});
+
+/* Check payment */
+function checkPayment(){
+var userData=JSON.parse(localStorage.getItem('desafio_user')||'{}');
+if(!userData.email){alert('Dados nao encontrados. Preencha o cadastro novamente.');return;}
+if(ADMINS.indexOf(userData.email)!==-1){window.location.href='/area-desafio/';return;}
+var btn=document.getElementById('checkBtn');
+var chk=document.getElementById('checkingText');
+btn.disabled=true;chk.classList.add('show');
+fetch(WEBHOOK+'?action=verify_payment&email='+encodeURIComponent(userData.email))
+.then(function(r){return r.json();})
+.then(function(data){
+if(data.pago){
+if(typeof fbq==='function')fbq('track','Purchase',{value:97,currency:'BRL',content_name:'Desafio Destrave seu Emagrecimento'});
+if(typeof gtag==='function')gtag('event','purchase',{value:97,currency:'BRL'});
+window.location.href='/area-desafio/';
+}else{
+chk.classList.remove('show');btn.disabled=false;
+alert('Pagamento ainda nao confirmado. Aguarde alguns minutos e tente novamente. Se ja pagou ha mais de 10 minutos, entre em contato com a Bruna.');
+}
+})
+.catch(function(){chk.classList.remove('show');btn.disabled=false;alert('Erro ao verificar. Tente novamente em instantes.');});
+}
+
+/* Auto-redirect if already paid */
+var saved=JSON.parse(localStorage.getItem('desafio_user')||'{}');
+if(saved.email&&(saved.pago||ADMINS.indexOf(saved.email)!==-1)){window.location.replace('/area-desafio/');}
 </script>
-
 </body>
 </html>
