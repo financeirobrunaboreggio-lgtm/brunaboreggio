@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protocolo Nutricional — Bruna Boreggio</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06040A;--bg2:#0D0A14;
+  --gold:#C9954E;--gold2:#E8C07A;--gold3:#F5DFA0;
+  --glass:rgba(255,255,255,0.035);--glass2:rgba(255,255,255,0.06);--glass3:rgba(255,255,255,0.1);
+  --border:rgba(201,149,78,0.18);--border2:rgba(201,149,78,0.35);
+  --text:#F2EEF8;--muted:rgba(242,238,248,0.55);--muted2:rgba(242,238,248,0.3);
+  --green:#4ADE80;--red:#F87171;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Sora','Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+#loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
+#loading.fade-out{opacity:0;pointer-events:none}
+.loading-logo{font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.loading-bar{width:180px;height:2px;background:rgba(201,149,78,.15);border-radius:2px;overflow:hidden}
+.loading-bar-inner{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;animation:loadBar 1.2s ease-in-out forwards}
+@keyframes loadBar{from{width:0}to{width:100%}}
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;background:rgba(6,4,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.hdr-left{display:flex;align-items:center;gap:14px}
+.hdr-brand{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+.hdr-name{font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+.hdr-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,.1);border:1px solid var(--border);border-radius:100px;padding:3px 10px}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.hdr-user{font-size:12px;color:var(--muted)}
+.btn-sair{font-size:11px;font-weight:600;color:var(--muted2);background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-sair:hover{color:var(--gold);border-color:var(--border2)}
+.admin-bar{background:rgba(201,149,78,.07);border-bottom:1px solid rgba(201,149,78,.18);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.admin-bar-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.admin-tabs{display:flex;gap:6px}
+.admin-tab{font-size:11px;font-weight:600;padding:5px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+.admin-tab.active{background:rgba(201,149,78,.15);border-color:var(--border2);color:var(--gold2)}
+.main{max-width:860px;margin:0 auto;padding:40px 20px 80px}
+.welcome-card{background:var(--glass2);border:1px solid var(--border2);border-radius:20px;padding:28px 28px 24px;margin-bottom:28px;position:relative;overflow:hidden}
+.welcome-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3))}
+.welcome-eyebrow{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.welcome-title{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
+.welcome-title span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.welcome-sub{font-size:13px;color:var(--muted);max-width:520px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+@media(max-width:640px){.steps{grid-template-columns:1fr}}
+.step{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px}
+.step.done{border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.04)}
+.step.active{border-color:var(--border2);background:var(--glass2)}
+.step.locked{opacity:.45}
+.step-num{width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step.done .step-num{background:rgba(74,222,128,.15);color:var(--green)}
+.step.active .step-num{background:rgba(201,149,78,.15);color:var(--gold2)}
+.step.locked .step-num{background:var(--glass);color:var(--muted2)}
+.step-label{font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:2px}
+.step-desc{font-size:11px;color:var(--muted)}
+.section{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.section-icon{width:38px;height:38px;border-radius:10px;background:rgba(201,149,78,.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.section-title{font-size:16px;font-weight:800;letter-spacing:-.2px}
+.section-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.video-box{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:14px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;transition:border-color .2s}
+.video-box:hover{border-color:var(--border2)}
+.play-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center}
+.play-btn svg{width:22px;height:22px;fill:#06040A;margin-left:3px}
+.video-label{font-size:13px;color:var(--muted);font-weight:500}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.input,.textarea,.select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--text);font-family:inherit;outline:none;transition:border-color .2s}
+.input:focus,.textarea:focus,.select:focus{border-color:rgba(201,149,78,.5)}
+.input::placeholder,.textarea::placeholder{color:var(--muted2)}
+.textarea{resize:vertical;min-height:90px}
+.select{cursor:pointer}
+.select option{background:#0D0A14;color:var(--text)}
+.form-divider{grid-column:1/-1;height:1px;background:var(--border);margin:6px 0}
+.form-section-title{grid-column:1/-1;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding-top:6px}
+.btn-submit{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;margin-top:20px;transition:all .25s;letter-spacing:.02em}
+.btn-submit:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,149,78,.3)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:none}
+.form-note{font-size:11px;color:var(--muted2);margin-top:8px}
+.locked-section{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:40px 28px;text-align:center;margin-bottom:20px;opacity:.5}
+.lock-icon{font-size:36px;margin-bottom:12px}
+.locked-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.locked-sub{font-size:13px;color:var(--muted);max-width:360px;margin:0 auto}
+.result-section{background:var(--glass2);border:1px solid var(--border2);border-radius:20px;padding:28px;margin-bottom:20px}
+.result-section::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3));border-radius:2px;margin-bottom:20px}
+.result-block{margin-bottom:20px}
+.result-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.result-text{font-size:13px;color:var(--muted);line-height:1.7;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.btn-download{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:11px;background:rgba(201,149,78,.1);border:1px solid var(--border2);color:var(--gold2);font-size:13px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;font-family:inherit}
+.btn-download:hover{background:rgba(201,149,78,.2);transform:translateY(-1px)}
+.admin-panel{display:none}
+.admin-panel.visible{display:block}
+.admin-patients{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.patient-row{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.patient-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.patient-email{font-size:11px;color:var(--muted)}
+.patient-status{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:3px 10px}
+.patient-status.aguardando{color:var(--gold);background:rgba(201,149,78,.08);border:1px solid rgba(201,149,78,.2)}
+.patient-status.preenchido{color:var(--green);background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2)}
+.patient-status.concluido{color:var(--muted2);background:var(--glass);border:1px solid var(--border)}
+.btn-ver{font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px;background:var(--glass2);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-ver:hover{color:var(--gold);border-color:var(--border2)}
+.upload-area{background:rgba(0,0,0,.2);border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:border-color .2s;margin-top:16px}
+.upload-area:hover{border-color:var(--border2)}
+.upload-icon{font-size:32px;margin-bottom:8px}
+.upload-label{font-size:13px;color:var(--muted);margin-bottom:4px}
+.upload-sub{font-size:11px;color:var(--muted2)}
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center}
+footer p{font-size:11px;color:var(--muted2)}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="loading-logo">Bruna Boreggio</div>
+  <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+</div>
+
+<header id="header" style="display:none">
+  <div class="hdr-left">
+    <a href="/" class="hdr-brand">
+      <span class="hdr-name">Bruna Boreggio</span>
+      <span class="hdr-sub">Nutricionista</span>
+    </a>
+    <span class="hdr-badge">Protocolo Nutricional</span>
+  </div>
+  <div class="hdr-right">
+    <span class="hdr-user" id="hdrUser"></span>
+    <button class="btn-sair" onclick="sair()">Sair</button>
+  </div>
+</header>
+
+<div class="admin-bar" id="adminBar" style="display:none">
+  <span class="admin-bar-label">Painel da Bruna</span>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchView('paciente',this)">Ver como Paciente</button>
+    <button class="admin-tab" onclick="switchView('admin',this)">Gerenciar Pacientes</button>
+  </div>
+</div>
+
+<div class="main" id="mainArea" style="display:none">
+
+  <div id="patientView">
+    <div class="welcome-card">
+      <div class="welcome-eyebrow">Protocolo Nutricional</div>
+      <h1 class="welcome-title">Ola, <span id="nomeAluna">Paciente</span></h1>
+      <p class="welcome-sub">Siga as etapas abaixo para aproveitar ao maximo sua consultoria com a Nutri Bruna.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step done">
+        <div class="step-num">v</div>
+        <div>
+          <div class="step-label">Etapa 1</div>
+          <div class="step-desc">Pagamento confirmado</div>
+        </div>
+      </div>
+      <div class="step active">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-label">Etapa 2</div>
+          <div class="step-desc">Assistir video + preencher questionario</div>
+        </div>
+      </div>
+      <div class="step locked">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-label">Etapa 3</div>
+          <div class="step-desc">Receber diagnostico + plano alimentar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">&#127916;</div>
+        <div>
+          <div class="section-title">Video de Boas-vindas</div>
+          <div class="section-sub">Assista antes de preencher o questionario</div>
+        </div>
+      </div>
+      <div class="video-box" onclick="alert('Video da Bruna aqui')">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-label">Clique para assistir — Mensagem da Nutri Bruna</div>
+      </div>
+    </div>
+
+    <div class="section" id="formSection">
+      <div class="section-header">
+        <div class="section-icon">&#128203;</div>
+        <div>
+          <div class="section-title">Questionario Pre-Consulta</div>
+          <div class="section-sub">Preencha com atencao — a Bruna vai analisar antes da consulta</div>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-section-title">Dados Pessoais</div>
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input class="input" type="text" placeholder="Seu nome" id="fNome">
+        </div>
+        <div class="form-group">
+          <label>Data de nascimento</label>
+          <input class="input" type="date" id="fNasc">
+        </div>
+        <div class="form-group">
+          <label>Peso atual (kg)</label>
+          <input class="input" type="number" placeholder="Ex: 72" id="fPeso">
+        </div>
+        <div class="form-group">
+          <label>Altura (cm)</label>
+          <input class="input" type="number" placeholder="Ex: 165" id="fAltura">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-title">Medidas Corporais</div>
+        <div class="form-group">
+          <label>Circunferencia abdominal (cm)</label>
+          <input class="input" type="number" placeholder="Ex: 85" id="fAbdomen">
+        </div>
+        <div class="form-group">
+          <label>Circunferencia do quadril (cm)</label>
+          <input class="input" type="number" placeholder="Ex: 100" id="fQuadril">
+        </div>
+        <div class="form-group">
+          <label>Circunferencia do pescoco (cm)</label>
+          <input class="input" type="number" placeholder="Ex: 35" id="fPescoco">
+        </div>
+        <div class="form-group">
+          <label>Circunferencia do braco (cm)</label>
+          <input class="input" type="number" placeholder="Ex: 30" id="fBraco">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-title">Habitos Alimentares</div>
+        <div class="form-group full">
+          <label>Como e sua alimentacao hoje? Descreva um dia tipico</label>
+          <textarea class="textarea" placeholder="Cafe da manha, almoco, jantar, lanches..." id="fAlimentacao"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Quantas refeicoes faz por dia?</label>
+          <select class="select" id="fRefeicoes">
+            <option value="">Selecione</option>
+            <option>1 a 2 refeicoes</option>
+            <option>3 refeicoes</option>
+            <option>4 a 5 refeicoes</option>
+            <option>Mais de 5 refeicoes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Consome agua regularmente?</label>
+          <select class="select" id="fAgua">
+            <option value="">Selecione</option>
+            <option>Menos de 1 litro/dia</option>
+            <option>1 a 2 litros/dia</option>
+            <option>Mais de 2 litros/dia</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Restricoes alimentares ou alergias?</label>
+          <textarea class="textarea" placeholder="Ex: intolerancia a lactose, alergia a amendoim..." id="fRestricoes" style="min-height:70px"></textarea>
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-title">Atividade Fisica e Saude</div>
+        <div class="form-group">
+          <label>Pratica atividade fisica?</label>
+          <select class="select" id="fAtividade">
+            <option value="">Selecione</option>
+            <option>Nao pratico</option>
+            <option>1 a 2 vezes por semana</option>
+            <option>3 a 4 vezes por semana</option>
+            <option>5 ou mais vezes por semana</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Dorme bem? Quantas horas por noite?</label>
+          <select class="select" id="fSono">
+            <option value="">Selecione</option>
+            <option>Menos de 5h — durmo mal</option>
+            <option>5 a 6h</option>
+            <option>7 a 8h</option>
+            <option>Mais de 8h</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Condicao de saude diagnosticada?</label>
+          <textarea class="textarea" placeholder="Ex: diabetes, hipotireoidismo, SOP, hipertensao..." id="fSaude" style="min-height:70px"></textarea>
+        </div>
+        <div class="form-group full">
+          <label>Usa algum medicamento regularmente?</label>
+          <input class="input" type="text" placeholder="Nome dos medicamentos ou 'Nao uso'" id="fMedicamentos">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-title">Objetivo</div>
+        <div class="form-group full">
+          <label>Qual e o seu principal objetivo com a consulta?</label>
+          <textarea class="textarea" placeholder="Ex: emagrecer 10kg, melhorar energia, tratar inflamacao..." id="fObjetivo"></textarea>
+        </div>
+        <div class="form-group full">
+          <label>O que voce ja tentou antes e nao funcionou?</label>
+          <textarea class="textarea" placeholder="Dietas, treinos, suplementos..." id="fTentou" style="min-height:70px"></textarea>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="btnEnviar" onclick="enviarQuestionario()">Enviar questionario</button>
+      <p class="form-note">A Bruna sera notificada assim que voce enviar. Em ate 3-4 dias ela estara pronta para a sua consulta.</p>
+    </div>
+
+    <div class="locked-section" id="resultLocked">
+      <div class="lock-icon">&#128274;</div>
+      <div class="locked-title">Diagnostico e Plano Alimentar</div>
+      <div class="locked-sub">Disponivel apos a sua consulta. A Bruna ira liberar o seu diagnostico, orientacoes e plano alimentar aqui.</div>
+    </div>
+
+    <div class="result-section" id="resultUnlocked" style="display:none">
+      <div class="section-header" style="border:none;padding:0;margin-bottom:20px">
+        <div class="section-icon">&#9989;</div>
+        <div>
+          <div class="section-title">Resultado da sua Consulta</div>
+          <div class="section-sub">Postado pela Nutri Bruna</div>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="result-label">Diagnostico Nutricional</div>
+        <div class="result-text">Paciente apresenta padrao alimentar inflamatorio com baixo consumo de proteinas e alta ingestao de carboidratos refinados. Identificados sinais de resistencia a insulina e disbiose intestinal...</div>
+      </div>
+      <div class="result-block">
+        <div class="result-label">Orientacoes Nutricionais</div>
+        <div class="result-text">1. Priorizar proteina em todas as refeicoes (minimo 25g/refeicao) · 2. Reduzir acucar e farinhas refinadas · 3. Incluir fibras pre-bioticas diariamente · 4. Jantar ate as 20h · 5. Hidratacao minima 2L/dia...</div>
+      </div>
+      <div class="result-block">
+        <div class="result-label">Plano Alimentar</div>
+        <button class="btn-download" onclick="alert('Download do plano alimentar em PDF')">Baixar meu plano alimentar (PDF)</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminView" class="admin-panel">
+    <div class="welcome-card" style="margin-bottom:24px">
+      <div class="welcome-eyebrow">Painel Administrativo</div>
+      <h1 class="welcome-title">Seus <span>pacientes</span></h1>
+      <p class="welcome-sub">Veja os questionarios preenchidos, faca upload do plano alimentar e libere os diagnosticos.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">&#128101;</div>
+        <div>
+          <div class="section-title">Lista de Pacientes</div>
+          <div class="section-sub">3 pacientes ativos</div>
+        </div>
+      </div>
+      <div class="admin-patients">
+        <div class="patient-row">
+          <div>
+            <div class="patient-name">Ana Carolina Lima</div>
+            <div class="patient-email">ana.carolina@email.com · Entrou: 20/07/2026</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="patient-status preenchido">Questionario preenchido</span>
+            <button class="btn-ver" onclick="switchView('paciente',document.querySelector('.admin-tab'))">Ver questionario</button>
+          </div>
+        </div>
+        <div class="patient-row">
+          <div>
+            <div class="patient-name">Fernanda Souza</div>
+            <div class="patient-email">fernanda.s@email.com · Entrou: 18/07/2026</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="patient-status aguardando">Aguardando questionario</span>
+            <button class="btn-ver" disabled style="opacity:.4">Ver questionario</button>
+          </div>
+        </div>
+        <div class="patient-row">
+          <div>
+            <div class="patient-name">Juliana Martins</div>
+            <div class="patient-email">juliana.m@email.com · Entrou: 15/07/2026</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="patient-status concluido">Concluido</span>
+            <button class="btn-ver" onclick="switchView('paciente',document.querySelector('.admin-tab'))">Ver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">&#128228;</div>
+        <div>
+          <div class="section-title">Postar Diagnostico e Plano Alimentar</div>
+          <div class="section-sub">Selecione a paciente e faca o upload</div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Paciente</label>
+        <select class="select">
+          <option>Ana Carolina Lima</option>
+          <option>Fernanda Souza</option>
+          <option>Juliana Martins</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Diagnostico Nutricional</label>
+        <textarea class="textarea" placeholder="Escreva o diagnostico personalizado da paciente..."></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Orientacoes Nutricionais</label>
+        <textarea class="textarea" placeholder="Lista de orientacoes personalizadas..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Plano Alimentar (PDF)</label>
+        <div class="upload-area" onclick="alert('Selecionar arquivo PDF')">
+          <div class="upload-icon">&#128206;</div>
+          <div class="upload-label">Clique para fazer upload do plano alimentar</div>
+          <div class="upload-sub">PDF · max. 10MB</div>
+        </div>
+      </div>
+      <button class="btn-submit" style="margin-top:20px" onclick="alert('Diagnostico postado! A paciente sera notificada.')">Postar e notificar paciente</button>
+    </div>
+  </div>
+
+</div>
+
+<footer id="footer" style="display:none">
+  <p>2026 Bruna Boreggio · Nutricionista · Protocolo Nutricional</p>
+</footer>
+
+<div id="accessDenied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9998;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px">
+  <div style="font-size:40px">&#128274;</div>
+  <div style="font-size:20px;font-weight:800">Acesso negado</div>
+  <div style="font-size:13px;color:var(--muted);max-width:340px">Voce nao tem acesso ao Protocolo Nutricional. Adquira o protocolo para acessar sua area.</div>
+  <a href="/area-membros/" style="display:inline-flex;align-items:center;padding:11px 22px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponiveis</a>
+</div>
+
+<script>
+var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var currentUser=null;
+var isAdmin=false;
+
+function hideLoading(){
+  var el=document.getElementById('loading');
+  el.classList.add('fade-out');
+  setTimeout(function(){el.style.display='none'},500);
+}
+
+function enterArea(user){
+  currentUser=user;
+  isAdmin=ADMINS.indexOf(user.email.toLowerCase())>=0;
+  document.getElementById('hdrUser').textContent=user.nome||user.email;
+  document.getElementById('nomeAluna').textContent=(user.nome||user.email).split(' ')[0];
+  document.getElementById('header').style.display='flex';
+  document.getElementById('mainArea').style.display='block';
+  document.getElementById('footer').style.display='block';
+  if(isAdmin){
+    document.getElementById('adminBar').style.display='flex';
+    document.getElementById('resultLocked').style.display='none';
+    document.getElementById('resultUnlocked').style.display='block';
+  }
+  hideLoading();
+}
+
+function showDenied(){
+  var d=document.getElementById('accessDenied');
+  d.style.display='flex';
+  hideLoading();
+}
+
+function sair(){window.location.href='/area-membros/';}
+
+function switchView(view,btn){
+  document.querySelectorAll('.admin-tab').forEach(function(t){t.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  if(view==='admin'){
+    document.getElementById('patientView').style.display='none';
+    document.getElementById('adminView').classList.add('visible');
+  } else {
+    document.getElementById('patientView').style.display='block';
+    document.getElementById('adminView').classList.remove('visible');
+  }
+}
+
+function enviarQuestionario(){
+  var nome=document.getElementById('fNome').value.trim();
+  var peso=document.getElementById('fPeso').value.trim();
+  var objetivo=document.getElementById('fObjetivo').value.trim();
+  if(!nome||!peso||!objetivo){alert('Preencha pelo menos: nome, peso e objetivo.');return;}
+  document.getElementById('btnEnviar').disabled=true;
+  document.getElementById('btnEnviar').textContent='Enviando...';
+  setTimeout(function(){
+    document.getElementById('formSection').innerHTML='<div style="text-align:center;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">&#9989;</div><div style="font-size:16px;font-weight:800;margin-bottom:8px">Questionario enviado!</div><div style="font-size:13px;color:rgba(242,238,248,.55)">A Bruna foi notificada e entrara em contato em breve para agendar sua consulta.</div></div>';
+  },1200);
+}
+
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    var du=localStorage.getItem('desafio_user');
+    if(du){
+      try{
+        var d=JSON.parse(du);
+        if(d&&d.email&&ADMINS.indexOf(d.email.toLowerCase())>=0){enterArea(d);return;}
+      }catch(e){}
+    }
+    var pu=localStorage.getItem('protocolo_user');
+    if(pu){
+      try{
+        var p=JSON.parse(pu);
+        if(p&&p.pago&&p.email){enterArea(p);return;}
+      }catch(e){}
+    }
+    showDenied();
+  },800);
+});
+</script>
+</body>
+</html>
