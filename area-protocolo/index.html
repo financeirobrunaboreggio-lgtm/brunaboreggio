@@ -3,522 +3,931 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Protocolo Nutricional — Bruna Boreggio</title>
+<title>Consultoria Nutricional — Bruna Boreggio</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#06040A;--bg2:#0D0A14;
   --gold:#C9954E;--gold2:#E8C07A;--gold3:#F5DFA0;
-  --glass:rgba(255,255,255,0.035);--glass2:rgba(255,255,255,0.06);--glass3:rgba(255,255,255,0.1);
+  --glass:rgba(255,255,255,0.035);--glass2:rgba(255,255,255,0.06);
   --border:rgba(201,149,78,0.18);--border2:rgba(201,149,78,0.35);
   --text:#F2EEF8;--muted:rgba(242,238,248,0.55);--muted2:rgba(242,238,248,0.3);
-  --green:#4ADE80;--red:#F87171;
+  --green:#4ADE80;--green-bg:rgba(74,222,128,0.07);--green-border:rgba(74,222,128,0.25);
+  --red:#F87171;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Sora','Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
-#loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
-#loading.fade-out{opacity:0;pointer-events:none}
-.loading-logo{font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.loading-bar{width:180px;height:2px;background:rgba(201,149,78,.15);border-radius:2px;overflow:hidden}
-.loading-bar-inner{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;animation:loadBar 1.2s ease-in-out forwards}
-@keyframes loadBar{from{width:0}to{width:100%}}
-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;background:rgba(6,4,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.hdr-left{display:flex;align-items:center;gap:14px}
-.hdr-brand{text-decoration:none;display:flex;flex-direction:column;gap:1px}
-.hdr-name{font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hdr-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+/* Loading */
+#loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s}
+#loading.out{opacity:0;pointer-events:none}
+.load-logo{font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.load-txt{font-size:10px;color:var(--muted2);letter-spacing:.14em;text-transform:uppercase}
+.load-bar{width:140px;height:2px;background:rgba(201,149,78,.12);border-radius:2px;overflow:hidden}
+.load-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));animation:lbar 1.1s ease-out forwards}
+@keyframes lbar{from{width:0}to{width:100%}}
+/* Header */
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;background:rgba(6,4,10,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.hdr-name{font-size:13px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(201,149,78,.1);border:1px solid var(--border);border-radius:100px;padding:3px 10px}
-.hdr-right{display:flex;align-items:center;gap:12px}
+.hdr-right{display:flex;align-items:center;gap:10px}
 .hdr-user{font-size:12px;color:var(--muted)}
-.btn-sair{font-size:11px;font-weight:600;color:var(--muted2);background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;transition:all .2s;font-family:inherit}
-.btn-sair:hover{color:var(--gold);border-color:var(--border2)}
-.admin-bar{background:rgba(201,149,78,.07);border-bottom:1px solid rgba(201,149,78,.18);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.admin-bar-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.admin-tabs{display:flex;gap:6px}
-.admin-tab{font-size:11px;font-weight:600;padding:5px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
-.admin-tab.active{background:rgba(201,149,78,.15);border-color:var(--border2);color:var(--gold2)}
-.main{max-width:860px;margin:0 auto;padding:40px 20px 80px}
-.welcome-card{background:var(--glass2);border:1px solid var(--border2);border-radius:20px;padding:28px 28px 24px;margin-bottom:28px;position:relative;overflow:hidden}
-.welcome-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3))}
-.welcome-eyebrow{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.welcome-title{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
-.welcome-title span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.welcome-sub{font-size:13px;color:var(--muted);max-width:520px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
-@media(max-width:640px){.steps{grid-template-columns:1fr}}
-.step{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px}
-.step.done{border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.04)}
-.step.active{border-color:var(--border2);background:var(--glass2)}
-.step.locked{opacity:.45}
-.step-num{width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step.done .step-num{background:rgba(74,222,128,.15);color:var(--green)}
-.step.active .step-num{background:rgba(201,149,78,.15);color:var(--gold2)}
-.step.locked .step-num{background:var(--glass);color:var(--muted2)}
-.step-label{font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:2px}
-.step-desc{font-size:11px;color:var(--muted)}
-.section{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.section-icon{width:38px;height:38px;border-radius:10px;background:rgba(201,149,78,.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.section-title{font-size:16px;font-weight:800;letter-spacing:-.2px}
-.section-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.video-box{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:14px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;transition:border-color .2s}
-.video-box:hover{border-color:var(--border2)}
-.play-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center}
-.play-btn svg{width:22px;height:22px;fill:#06040A;margin-left:3px}
-.video-label{font-size:13px;color:var(--muted);font-weight:500}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group.full{grid-column:1/-1}
-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.input,.textarea,.select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--text);font-family:inherit;outline:none;transition:border-color .2s}
-.input:focus,.textarea:focus,.select:focus{border-color:rgba(201,149,78,.5)}
-.input::placeholder,.textarea::placeholder{color:var(--muted2)}
-.textarea{resize:vertical;min-height:90px}
-.select{cursor:pointer}
-.select option{background:#0D0A14;color:var(--text)}
-.form-divider{grid-column:1/-1;height:1px;background:var(--border);margin:6px 0}
-.form-section-title{grid-column:1/-1;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding-top:6px}
-.btn-submit{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;margin-top:20px;transition:all .25s;letter-spacing:.02em}
-.btn-submit:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,149,78,.3)}
-.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:none}
-.form-note{font-size:11px;color:var(--muted2);margin-top:8px}
-.locked-section{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:40px 28px;text-align:center;margin-bottom:20px;opacity:.5}
-.lock-icon{font-size:36px;margin-bottom:12px}
-.locked-title{font-size:15px;font-weight:700;margin-bottom:6px}
-.locked-sub{font-size:13px;color:var(--muted);max-width:360px;margin:0 auto}
-.result-section{background:var(--glass2);border:1px solid var(--border2);border-radius:20px;padding:28px;margin-bottom:20px}
-.result-section::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold3));border-radius:2px;margin-bottom:20px}
-.result-block{margin-bottom:20px}
-.result-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.result-text{font-size:13px;color:var(--muted);line-height:1.7;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.btn-download{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:11px;background:rgba(201,149,78,.1);border:1px solid var(--border2);color:var(--gold2);font-size:13px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;font-family:inherit}
-.btn-download:hover{background:rgba(201,149,78,.2);transform:translateY(-1px)}
-.admin-panel{display:none}
-.admin-panel.visible{display:block}
-.admin-patients{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.patient-row{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.patient-name{font-size:14px;font-weight:700;margin-bottom:2px}
-.patient-email{font-size:11px;color:var(--muted)}
-.patient-status{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:3px 10px}
-.patient-status.aguardando{color:var(--gold);background:rgba(201,149,78,.08);border:1px solid rgba(201,149,78,.2)}
-.patient-status.preenchido{color:var(--green);background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2)}
-.patient-status.concluido{color:var(--muted2);background:var(--glass);border:1px solid var(--border)}
-.btn-ver{font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px;background:var(--glass2);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
-.btn-ver:hover{color:var(--gold);border-color:var(--border2)}
-.upload-area{background:rgba(0,0,0,.2);border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:border-color .2s;margin-top:16px}
-.upload-area:hover{border-color:var(--border2)}
-.upload-icon{font-size:32px;margin-bottom:8px}
-.upload-label{font-size:13px;color:var(--muted);margin-bottom:4px}
-.upload-sub{font-size:11px;color:var(--muted2)}
-footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center}
+.btn-sm{font-size:11px;font-weight:600;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-sm:hover{color:var(--gold);border-color:var(--border2)}
+/* Admin bar */
+.abar{background:rgba(201,149,78,.06);border-bottom:1px solid rgba(201,149,78,.14);padding:0 24px;display:flex;align-items:center;overflow-x:auto}
+.atab{font-size:11px;font-weight:700;padding:12px 16px;border:none;background:none;color:var(--muted);cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.atab.active{color:var(--gold2);border-bottom-color:var(--gold)}
+/* Page */
+.page{max-width:820px;margin:0 auto;padding:28px 20px 80px}
+/* Modules */
+.mod{background:var(--glass);border:1px solid var(--border);border-radius:20px;margin-bottom:18px;overflow:hidden}
+.mod-head{display:flex;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--border);background:var(--glass2)}
+.mnum{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;transition:all .3s}
+.mnum.pend{background:rgba(201,149,78,.12);border:1px solid var(--border2);color:var(--gold)}
+.mnum.done{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:var(--green)}
+.mnum.lock{background:var(--glass);border:1px solid var(--border);color:var(--muted2)}
+.mod-title{font-size:15px;font-weight:800;letter-spacing:-.2px}
+.mod-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.mod-body{padding:22px}
+/* Video */
+.vwrap{margin-bottom:18px}
+.vlabel{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.vbox{background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:14px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color .25s}
+.vbox:hover{border-color:var(--border2)}
+.playbtn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center}
+.playbtn svg{fill:#06040A;width:20px;height:20px;margin-left:3px}
+.vdesc{font-size:12px;color:var(--muted);font-weight:500;text-align:center;padding:0 16px}
+.vframe{display:none;border-radius:14px;overflow:hidden;aspect-ratio:16/9}
+.vframe iframe{display:block;width:100%;height:100%;border:none}
+.admin-input-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+.admin-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:12px;color:var(--text);font-family:inherit;outline:none}
+.admin-inp:focus{border-color:rgba(201,149,78,.5)}
+.admin-inp::placeholder{color:var(--muted2)}
+.admin-add{font-size:11px;font-weight:700;padding:9px 14px;border-radius:9px;background:rgba(201,149,78,.12);border:1px solid var(--border2);color:var(--gold);cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
+.admin-add:hover{background:rgba(201,149,78,.2)}
+/* PDF strip */
+.pdf-strip{background:rgba(201,149,78,.04);border:1px dashed rgba(201,149,78,.25);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
+.pdf-info{display:flex;align-items:center;gap:10px}
+.pdf-ico{font-size:22px}
+.pdf-title{font-size:13px;font-weight:700;margin-bottom:1px}
+.pdf-sub{font-size:11px;color:var(--muted)}
+.btn-dl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;background:rgba(201,149,78,.12);border:1px solid var(--border2);color:var(--gold2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;white-space:nowrap}
+.btn-dl:hover{background:rgba(201,149,78,.22)}
+/* Questionnaire */
+.q-intro{background:var(--glass2);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:22px;font-size:13px;color:var(--muted);line-height:1.75}
+.q-intro strong{color:var(--text)}
+.fsec{margin-bottom:26px}
+.fsec-title{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.fld{margin-bottom:16px}
+.lbl{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.req{color:var(--red);margin-left:2px}
+.inp,.txta,.sel{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--text);font-family:inherit;outline:none;transition:border-color .2s}
+.inp:focus,.txta:focus,.sel:focus{border-color:rgba(201,149,78,.5)}
+.inp::placeholder,.txta::placeholder{color:var(--muted2)}
+.txta{resize:vertical;min-height:78px}
+.sel{cursor:pointer}
+.sel option{background:#0D0A14}
+/* Scale 0-10 */
+.scale{display:flex;gap:5px;flex-wrap:wrap}
+.sc-opt{flex:1;min-width:28px}
+.sc-opt input{display:none}
+.sc-opt label{display:flex;align-items:center;justify-content:center;padding:10px 4px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.sc-opt input:checked+label{background:rgba(201,149,78,.15);border-color:var(--border2);color:var(--gold2)}
+/* Radio/Check groups */
+.rgroup,.cgroup{display:flex;flex-direction:column;gap:7px}
+.ropt,.copt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .2s}
+.ropt:hover,.copt:hover{border-color:rgba(201,149,78,.3)}
+.ropt input,.copt input{margin-top:3px;accent-color:var(--gold);flex-shrink:0}
+.ropt span,.copt span{font-size:13px;color:var(--muted);line-height:1.4}
+.ropt.sel-active,.copt.sel-active{border-color:rgba(201,149,78,.38);background:rgba(201,149,78,.06)}
+.ropt.sel-active span,.copt.sel-active span{color:var(--text)}
+/* Submit */
+.btn-enviar{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;margin-top:22px;transition:all .25s}
+.btn-enviar:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,149,78,.3)}
+.btn-enviar:disabled{opacity:.45;cursor:not-allowed;transform:none;filter:none}
+/* Done state */
+.done-box{text-align:center;padding:36px 20px}
+.done-ico{font-size:44px;margin-bottom:12px}
+.done-t{font-size:16px;font-weight:800;margin-bottom:6px}
+.done-s{font-size:13px;color:var(--muted)}
+/* Módulo 3 locked */
+.lock-overlay{text-align:center;padding:40px 20px}
+.lock-ico{font-size:38px;margin-bottom:12px}
+.lock-t{font-size:15px;font-weight:800;margin-bottom:6px}
+.lock-s{font-size:13px;color:var(--muted);max-width:340px;margin:0 auto}
+/* Admin: post content */
+.post-form{background:var(--glass2);border:1px solid var(--border2);border-radius:16px;padding:20px;margin-top:4px}
+.post-t{font-size:12px;font-weight:800;color:var(--gold);margin-bottom:14px;letter-spacing:.04em;text-transform:uppercase}
+.fld-r{margin-bottom:12px}
+.fld-r label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+/* Admin patient panel */
+.panel{background:var(--glass);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:18px}
+.panel-head{padding:18px 22px;border-bottom:1px solid var(--border);background:var(--glass2)}
+.panel-title{font-size:15px;font-weight:800}
+.panel-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.plist{padding:14px}
+.pcard{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;cursor:pointer;transition:border-color .2s}
+.pcard:hover{border-color:var(--border2)}
+.pcard:last-child{margin-bottom:0}
+.p-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.p-em{font-size:11px;color:var(--muted)}
+.pstatus{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:3px 10px}
+.ps-agt{color:var(--gold);background:rgba(201,149,78,.08);border:1px solid rgba(201,149,78,.2)}
+.ps-ok{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
+.ps-done{color:var(--muted2);background:var(--glass);border:1px solid var(--border)}
+.btn-ver{font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;background:rgba(201,149,78,.1);border:1px solid var(--border2);color:var(--gold);cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
+.btn-ver:hover{background:rgba(201,149,78,.2)}
+/* Viewing as banner */
+.viewing-banner{background:rgba(201,149,78,.07);border:1px solid rgba(201,149,78,.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.vb-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.vb-name{font-size:14px;font-weight:800}
+.vb-email{font-size:11px;color:var(--muted)}
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:#0D0A14;border:1px solid var(--gold);color:var(--gold2);font-size:13px;font-weight:600;padding:11px 22px;border-radius:12px;z-index:9999;opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Access denied */
+#denied{display:none;position:fixed;inset:0;background:var(--bg);z-index:9998;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;gap:14px}
+footer{border-top:1px solid var(--border);padding:20px;text-align:center}
 footer p{font-size:11px;color:var(--muted2)}
 </style>
 </head>
 <body>
 
 <div id="loading">
-  <div class="loading-logo">Bruna Boreggio</div>
-  <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+  <div class="load-logo">Bruna Boreggio</div>
+  <div class="load-txt">Carregando sua área</div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
 </div>
 
-<header id="header" style="display:none">
+<header id="hdr" style="display:none">
   <div class="hdr-left">
-    <a href="/" class="hdr-brand">
-      <span class="hdr-name">Bruna Boreggio</span>
-      <span class="hdr-sub">Nutricionista</span>
-    </a>
-    <span class="hdr-badge">Protocolo Nutricional</span>
+    <a href="/" class="hdr-name">Bruna Boreggio</a>
+    <span class="hdr-badge">Consultoria Nutricional</span>
   </div>
   <div class="hdr-right">
     <span class="hdr-user" id="hdrUser"></span>
-    <button class="btn-sair" onclick="sair()">Sair</button>
+    <button class="btn-sm" onclick="sair()">Sair</button>
   </div>
 </header>
 
-<div class="admin-bar" id="adminBar" style="display:none">
-  <span class="admin-bar-label">Painel da Bruna</span>
-  <div class="admin-tabs">
-    <button class="admin-tab active" onclick="switchView('paciente',this)">Ver como Paciente</button>
-    <button class="admin-tab" onclick="switchView('admin',this)">Gerenciar Pacientes</button>
-  </div>
+<div class="abar" id="abar" style="display:none">
+  <button class="atab active" id="tabPainel" onclick="goView('painel')">Painel de Pacientes</button>
+  <button class="atab" id="tabPaciente" onclick="goView('paciente')" style="display:none">Ver: <span id="tabPatName"></span></button>
 </div>
 
-<div class="main" id="mainArea" style="display:none">
+<div class="page" id="page" style="display:none">
 
-  <div id="patientView">
-    <div class="welcome-card">
-      <div class="welcome-eyebrow">Protocolo Nutricional</div>
-      <h1 class="welcome-title">Ola, <span id="nomeAluna">Paciente</span></h1>
-      <p class="welcome-sub">Siga as etapas abaixo para aproveitar ao maximo sua consultoria com a Nutri Bruna.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step done">
-        <div class="step-num">v</div>
-        <div>
-          <div class="step-label">Etapa 1</div>
-          <div class="step-desc">Pagamento confirmado</div>
-        </div>
+  <!-- ── ADMIN: LISTA DE PACIENTES ── -->
+  <div id="vPainel" style="display:none">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Pacientes — Consultoria Nutricional</div>
+        <div class="panel-sub" id="panelSub">Carregando...</div>
       </div>
-      <div class="step active">
-        <div class="step-num">2</div>
-        <div>
-          <div class="step-label">Etapa 2</div>
-          <div class="step-desc">Assistir video + preencher questionario</div>
-        </div>
-      </div>
-      <div class="step locked">
-        <div class="step-num">3</div>
-        <div>
-          <div class="step-label">Etapa 3</div>
-          <div class="step-desc">Receber diagnostico + plano alimentar</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon">&#127916;</div>
-        <div>
-          <div class="section-title">Video de Boas-vindas</div>
-          <div class="section-sub">Assista antes de preencher o questionario</div>
-        </div>
-      </div>
-      <div class="video-box" onclick="alert('Video da Bruna aqui')">
-        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="video-label">Clique para assistir — Mensagem da Nutri Bruna</div>
-      </div>
-    </div>
-
-    <div class="section" id="formSection">
-      <div class="section-header">
-        <div class="section-icon">&#128203;</div>
-        <div>
-          <div class="section-title">Questionario Pre-Consulta</div>
-          <div class="section-sub">Preencha com atencao — a Bruna vai analisar antes da consulta</div>
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div class="form-section-title">Dados Pessoais</div>
-        <div class="form-group">
-          <label>Nome completo</label>
-          <input class="input" type="text" placeholder="Seu nome" id="fNome">
-        </div>
-        <div class="form-group">
-          <label>Data de nascimento</label>
-          <input class="input" type="date" id="fNasc">
-        </div>
-        <div class="form-group">
-          <label>Peso atual (kg)</label>
-          <input class="input" type="number" placeholder="Ex: 72" id="fPeso">
-        </div>
-        <div class="form-group">
-          <label>Altura (cm)</label>
-          <input class="input" type="number" placeholder="Ex: 165" id="fAltura">
-        </div>
-
-        <div class="form-divider"></div>
-        <div class="form-section-title">Medidas Corporais</div>
-        <div class="form-group">
-          <label>Circunferencia abdominal (cm)</label>
-          <input class="input" type="number" placeholder="Ex: 85" id="fAbdomen">
-        </div>
-        <div class="form-group">
-          <label>Circunferencia do quadril (cm)</label>
-          <input class="input" type="number" placeholder="Ex: 100" id="fQuadril">
-        </div>
-        <div class="form-group">
-          <label>Circunferencia do pescoco (cm)</label>
-          <input class="input" type="number" placeholder="Ex: 35" id="fPescoco">
-        </div>
-        <div class="form-group">
-          <label>Circunferencia do braco (cm)</label>
-          <input class="input" type="number" placeholder="Ex: 30" id="fBraco">
-        </div>
-
-        <div class="form-divider"></div>
-        <div class="form-section-title">Habitos Alimentares</div>
-        <div class="form-group full">
-          <label>Como e sua alimentacao hoje? Descreva um dia tipico</label>
-          <textarea class="textarea" placeholder="Cafe da manha, almoco, jantar, lanches..." id="fAlimentacao"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Quantas refeicoes faz por dia?</label>
-          <select class="select" id="fRefeicoes">
-            <option value="">Selecione</option>
-            <option>1 a 2 refeicoes</option>
-            <option>3 refeicoes</option>
-            <option>4 a 5 refeicoes</option>
-            <option>Mais de 5 refeicoes</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Consome agua regularmente?</label>
-          <select class="select" id="fAgua">
-            <option value="">Selecione</option>
-            <option>Menos de 1 litro/dia</option>
-            <option>1 a 2 litros/dia</option>
-            <option>Mais de 2 litros/dia</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label>Restricoes alimentares ou alergias?</label>
-          <textarea class="textarea" placeholder="Ex: intolerancia a lactose, alergia a amendoim..." id="fRestricoes" style="min-height:70px"></textarea>
-        </div>
-
-        <div class="form-divider"></div>
-        <div class="form-section-title">Atividade Fisica e Saude</div>
-        <div class="form-group">
-          <label>Pratica atividade fisica?</label>
-          <select class="select" id="fAtividade">
-            <option value="">Selecione</option>
-            <option>Nao pratico</option>
-            <option>1 a 2 vezes por semana</option>
-            <option>3 a 4 vezes por semana</option>
-            <option>5 ou mais vezes por semana</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Dorme bem? Quantas horas por noite?</label>
-          <select class="select" id="fSono">
-            <option value="">Selecione</option>
-            <option>Menos de 5h — durmo mal</option>
-            <option>5 a 6h</option>
-            <option>7 a 8h</option>
-            <option>Mais de 8h</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label>Condicao de saude diagnosticada?</label>
-          <textarea class="textarea" placeholder="Ex: diabetes, hipotireoidismo, SOP, hipertensao..." id="fSaude" style="min-height:70px"></textarea>
-        </div>
-        <div class="form-group full">
-          <label>Usa algum medicamento regularmente?</label>
-          <input class="input" type="text" placeholder="Nome dos medicamentos ou 'Nao uso'" id="fMedicamentos">
-        </div>
-
-        <div class="form-divider"></div>
-        <div class="form-section-title">Objetivo</div>
-        <div class="form-group full">
-          <label>Qual e o seu principal objetivo com a consulta?</label>
-          <textarea class="textarea" placeholder="Ex: emagrecer 10kg, melhorar energia, tratar inflamacao..." id="fObjetivo"></textarea>
-        </div>
-        <div class="form-group full">
-          <label>O que voce ja tentou antes e nao funcionou?</label>
-          <textarea class="textarea" placeholder="Dietas, treinos, suplementos..." id="fTentou" style="min-height:70px"></textarea>
-        </div>
-      </div>
-
-      <button class="btn-submit" id="btnEnviar" onclick="enviarQuestionario()">Enviar questionario</button>
-      <p class="form-note">A Bruna sera notificada assim que voce enviar. Em ate 3-4 dias ela estara pronta para a sua consulta.</p>
-    </div>
-
-    <div class="locked-section" id="resultLocked">
-      <div class="lock-icon">&#128274;</div>
-      <div class="locked-title">Diagnostico e Plano Alimentar</div>
-      <div class="locked-sub">Disponivel apos a sua consulta. A Bruna ira liberar o seu diagnostico, orientacoes e plano alimentar aqui.</div>
-    </div>
-
-    <div class="result-section" id="resultUnlocked" style="display:none">
-      <div class="section-header" style="border:none;padding:0;margin-bottom:20px">
-        <div class="section-icon">&#9989;</div>
-        <div>
-          <div class="section-title">Resultado da sua Consulta</div>
-          <div class="section-sub">Postado pela Nutri Bruna</div>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="result-label">Diagnostico Nutricional</div>
-        <div class="result-text">Paciente apresenta padrao alimentar inflamatorio com baixo consumo de proteinas e alta ingestao de carboidratos refinados. Identificados sinais de resistencia a insulina e disbiose intestinal...</div>
-      </div>
-      <div class="result-block">
-        <div class="result-label">Orientacoes Nutricionais</div>
-        <div class="result-text">1. Priorizar proteina em todas as refeicoes (minimo 25g/refeicao) · 2. Reduzir acucar e farinhas refinadas · 3. Incluir fibras pre-bioticas diariamente · 4. Jantar ate as 20h · 5. Hidratacao minima 2L/dia...</div>
-      </div>
-      <div class="result-block">
-        <div class="result-label">Plano Alimentar</div>
-        <button class="btn-download" onclick="alert('Download do plano alimentar em PDF')">Baixar meu plano alimentar (PDF)</button>
+      <div class="plist" id="plist">
+        <div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">Carregando pacientes...</div>
       </div>
     </div>
   </div>
 
-  <div id="adminView" class="admin-panel">
-    <div class="welcome-card" style="margin-bottom:24px">
-      <div class="welcome-eyebrow">Painel Administrativo</div>
-      <h1 class="welcome-title">Seus <span>pacientes</span></h1>
-      <p class="welcome-sub">Veja os questionarios preenchidos, faca upload do plano alimentar e libere os diagnosticos.</p>
+  <!-- ── PATIENT VIEW ── -->
+  <div id="vPaciente" style="display:none">
+
+    <div class="viewing-banner" id="viewBanner" style="display:none">
+      <div>
+        <div class="vb-label">Visualizando como</div>
+        <div class="vb-name" id="viewName">—</div>
+        <div class="vb-email" id="viewEmail">—</div>
+      </div>
+      <button class="btn-sm" onclick="goView('painel')">← Lista de pacientes</button>
     </div>
 
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon">&#128101;</div>
+    <!-- MÓDULO 1 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div class="mnum pend">1</div>
         <div>
-          <div class="section-title">Lista de Pacientes</div>
-          <div class="section-sub">3 pacientes ativos</div>
+          <div class="mod-title">Módulo 1 — Boas-vindas</div>
+          <div class="mod-sub">Assista os vídeos e baixe o PDF com instruções antes de preencher o questionário</div>
         </div>
       </div>
-      <div class="admin-patients">
-        <div class="patient-row">
-          <div>
-            <div class="patient-name">Ana Carolina Lima</div>
-            <div class="patient-email">ana.carolina@email.com · Entrou: 20/07/2026</div>
+      <div class="mod-body">
+
+        <div class="vwrap">
+          <div class="vlabel">Vídeo 1 — Mensagem de boas-vindas</div>
+          <div class="vbox" id="vbox1" onclick="playVid(1)">
+            <div class="playbtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="vdesc">Apresentação da consultoria pela Nutri Bruna</div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="patient-status preenchido">Questionario preenchido</span>
-            <button class="btn-ver" onclick="switchView('paciente',document.querySelector('.admin-tab'))">Ver questionario</button>
-          </div>
-        </div>
-        <div class="patient-row">
-          <div>
-            <div class="patient-name">Fernanda Souza</div>
-            <div class="patient-email">fernanda.s@email.com · Entrou: 18/07/2026</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="patient-status aguardando">Aguardando questionario</span>
-            <button class="btn-ver" disabled style="opacity:.4">Ver questionario</button>
+          <div class="vframe" id="vframe1"><iframe id="vplayer1" allowfullscreen></iframe></div>
+          <div class="admin-input-row admin-only" style="display:none">
+            <input class="admin-inp" type="text" id="iVid1" placeholder="URL do vídeo (YouTube)">
+            <button class="admin-add" onclick="saveVid(1)">Salvar</button>
           </div>
         </div>
-        <div class="patient-row">
-          <div>
-            <div class="patient-name">Juliana Martins</div>
-            <div class="patient-email">juliana.m@email.com · Entrou: 15/07/2026</div>
+
+        <div class="vwrap">
+          <div class="vlabel">Vídeo 2 — Como tirar suas medidas</div>
+          <div class="vbox" id="vbox2" onclick="playVid(2)">
+            <div class="playbtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="vdesc">Passo a passo para medir e pesar corretamente antes da consulta</div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="patient-status concluido">Concluido</span>
-            <button class="btn-ver" onclick="switchView('paciente',document.querySelector('.admin-tab'))">Ver</button>
+          <div class="vframe" id="vframe2"><iframe id="vplayer2" allowfullscreen></iframe></div>
+          <div class="admin-input-row admin-only" style="display:none">
+            <input class="admin-inp" type="text" id="iVid2" placeholder="URL do vídeo (YouTube)">
+            <button class="admin-add" onclick="saveVid(2)">Salvar</button>
           </div>
         </div>
+
+        <div class="pdf-strip">
+          <div class="pdf-info">
+            <div class="pdf-ico">📄</div>
+            <div>
+              <div class="pdf-title">PDF — Instruções: como tirar suas medidas</div>
+              <div class="pdf-sub" id="pdf1sub">Será disponibilizado pela Bruna em breve</div>
+            </div>
+          </div>
+          <div id="pdf1btns" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <a class="btn-dl" id="pdf1dl" href="#" target="_blank" style="display:none">⬇ Baixar PDF</a>
+            <div class="admin-input-row admin-only" id="pdf1inp" style="display:none">
+              <input class="admin-inp" type="text" id="iPdf1" placeholder="Link do PDF (Google Drive)">
+              <button class="admin-add" onclick="savePdf(1)">Adicionar</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon">&#128228;</div>
+    <!-- MÓDULO 2 -->
+    <div class="mod">
+      <div class="mod-head">
+        <div class="mnum pend" id="m2num">2</div>
         <div>
-          <div class="section-title">Postar Diagnostico e Plano Alimentar</div>
-          <div class="section-sub">Selecione a paciente e faca o upload</div>
+          <div class="mod-title">Módulo 2 — Questionário Pré-Consulta</div>
+          <div class="mod-sub">Preencha com sinceridade — a Bruna analisa antes da consulta</div>
         </div>
       </div>
-      <div class="form-group" style="margin-bottom:16px">
-        <label>Paciente</label>
-        <select class="select">
-          <option>Ana Carolina Lima</option>
-          <option>Fernanda Souza</option>
-          <option>Juliana Martins</option>
-        </select>
-      </div>
-      <div class="form-group" style="margin-bottom:16px">
-        <label>Diagnostico Nutricional</label>
-        <textarea class="textarea" placeholder="Escreva o diagnostico personalizado da paciente..."></textarea>
-      </div>
-      <div class="form-group" style="margin-bottom:16px">
-        <label>Orientacoes Nutricionais</label>
-        <textarea class="textarea" placeholder="Lista de orientacoes personalizadas..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Plano Alimentar (PDF)</label>
-        <div class="upload-area" onclick="alert('Selecionar arquivo PDF')">
-          <div class="upload-icon">&#128206;</div>
-          <div class="upload-label">Clique para fazer upload do plano alimentar</div>
-          <div class="upload-sub">PDF · max. 10MB</div>
-        </div>
-      </div>
-      <button class="btn-submit" style="margin-top:20px" onclick="alert('Diagnostico postado! A paciente sera notificada.')">Postar e notificar paciente</button>
-    </div>
-  </div>
+      <div class="mod-body">
 
+        <div id="qForm">
+          <div class="q-intro">
+            <strong>Oiee!! 👋</strong><br>
+            Nossa consulta acontecerá em breve e eu quero te conhecer desde já. Assim, vou me preparando melhor para o nosso grande dia, separando materiais e ferramentas para tornar nosso encontro mais produtivo e totalmente focado nas suas dificuldades e necessidades e o que pode ser melhorado.<br><br>
+            Peço que responda esse questionário com toda sinceridade do mundo, sem nenhum medo de julgamento, pois isso não cabe na nossa relação. Estou aqui para te ajudar a encaixar uma alimentação mais saudável na sua rotina e assim conquistarmos seus resultados tão esperados.<br><br>
+            <strong>Combinado? ✨</strong>
+          </div>
+
+          <div class="fsec">
+            <div class="fsec-title">Dados Pessoais</div>
+
+            <div class="fld">
+              <label class="lbl">Seu nome completo<span class="req">*</span></label>
+              <input class="inp" type="text" id="fNome" placeholder="Nome completo">
+            </div>
+            <div class="fld">
+              <label class="lbl">CPF<span class="req">*</span></label>
+              <input class="inp" type="text" id="fCPF" placeholder="000.000.000-00">
+            </div>
+            <div class="fld">
+              <label class="lbl">Data de nascimento<span class="req">*</span></label>
+              <input class="inp" type="date" id="fNasc">
+            </div>
+            <div class="fld">
+              <label class="lbl">Qual é o seu objetivo? O que você deseja conquistar com nosso tratamento?<span class="req">*</span></label>
+              <textarea class="txta" id="fObj" placeholder="Descreva seu objetivo principal..."></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Você pratica alguma atividade física? Se sim, qual atividade, quantas vezes na semana e qual horário?<span class="req">*</span></label>
+              <textarea class="txta" id="fAtiv" placeholder="Ex: caminhada 3x na semana às 7h..."></textarea>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">De 0 a 10, qual a nota que você dá para sua disposição e energia?<span class="req">*</span></label>
+              <div class="scale">
+                <div class="sc-opt"><input type="radio" name="disp" id="d0" value="0"><label for="d0">0</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d1" value="1"><label for="d1">1</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d2" value="2"><label for="d2">2</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d3" value="3"><label for="d3">3</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d4" value="4"><label for="d4">4</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d5" value="5"><label for="d5">5</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d6" value="6"><label for="d6">6</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d7" value="7"><label for="d7">7</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d8" value="8"><label for="d8">8</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d9" value="9"><label for="d9">9</label></div>
+                <div class="sc-opt"><input type="radio" name="disp" id="d10" value="10"><label for="d10">10</label></div>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Como é o seu sono?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="sono" value="Ótimo! Durmo de 6 a 8 horas por noite."><span>Ótimo! Durmo de 6 a 8 horas por noite.</span></label>
+                <label class="ropt"><input type="radio" name="sono" value="Bom, mas acordo com frequência à noite para urinar."><span>Bom, mas acordo com frequência à noite para urinar.</span></label>
+                <label class="ropt"><input type="radio" name="sono" value="Constantemente tenho insônia."><span>Constantemente tenho insônia.</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Como você classifica sua memória?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="mem" value="Muito bom, lembro de tudo!"><span>Muito bom, lembro de tudo!</span></label>
+                <label class="ropt"><input type="radio" name="mem" value="Regular, preciso anotar tudo, às vezes esqueço coisas importantes."><span>Regular, preciso anotar tudo, às vezes esqueço coisas importantes.</span></label>
+                <label class="ropt"><input type="radio" name="mem" value="Péssima, sinto que não absorvo nada."><span>Péssima, sinto que não absorvo nada.</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Tem algum compromisso diário?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="comp" value="Sim, trabalho."><span>Sim, trabalho.</span></label>
+                <label class="ropt"><input type="radio" name="comp" value="Sim, estudo."><span>Sim, estudo.</span></label>
+                <label class="ropt"><input type="radio" name="comp" value="Sim, trabalho e estudo."><span>Sim, trabalho e estudo.</span></label>
+                <label class="ropt"><input type="radio" name="comp" value="Não"><span>Não</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Sobre o seu compromisso diário, qual horário? Tem pausas?<span class="req">*</span></label>
+              <textarea class="txta" id="fHComp" placeholder="Ex: 8h às 17h com pausa de 1h para almoço..." style="min-height:65px"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Onde você almoça?<span class="req">*</span></label>
+              <input class="inp" type="text" id="fAlmoco" placeholder="Ex: em casa, no trabalho, restaurante...">
+            </div>
+            <div class="fld">
+              <label class="lbl">Quem cozinha na sua casa?<span class="req">*</span></label>
+              <input class="inp" type="text" id="fCozinha" placeholder="Ex: eu mesma, minha mãe, ninguém — peço delivery...">
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Você é fumante?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="fuma" value="Não, nunca fumei."><span>Não, nunca fumei.</span></label>
+                <label class="ropt"><input type="radio" name="fuma" value="Atualmente não, mas já fumei."><span>Atualmente não, mas já fumei.</span></label>
+                <label class="ropt"><input type="radio" name="fuma" value="Sim"><span>Sim</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="fsec">
+            <div class="fsec-title">Saúde</div>
+
+            <div class="fld">
+              <label class="lbl">Tem alguma doença diagnosticada? Está em investigação de alguma doença?<span class="req">*</span></label>
+              <textarea class="txta" id="fDoenca" placeholder="Ex: hipotireoidismo, diabetes, SOP... ou 'Não tenho'" style="min-height:65px"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Você tem alguma alergia alimentar ou intolerância?<span class="req">*</span></label>
+              <textarea class="txta" id="fAlergia" placeholder="Ex: intolerância à lactose... ou 'Não tenho'" style="min-height:65px"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Já fez alguma cirurgia? Qual ou quais?<span class="req">*</span></label>
+              <textarea class="txta" id="fCirurgia" placeholder="Ex: bariátrica, cesárea... ou 'Não fiz'" style="min-height:65px"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Me liste todos os MEDICAMENTOS que você usa (incluindo anticoncepcional) e o horário<span class="req">*</span></label>
+              <textarea class="txta" id="fMeds" placeholder="Nome do medicamento — horário... ou 'Não uso nenhum'"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Me liste todos os SUPLEMENTOS que você usa (incluindo vitaminas)</label>
+              <textarea class="txta" id="fSup" placeholder="Nome do suplemento... ou 'Não uso'" style="min-height:65px"></textarea>
+            </div>
+            <div class="fld">
+              <label class="lbl">Quais doenças seus familiares têm ou tiveram? (pais, irmãos, avós)<span class="req">*</span></label>
+              <textarea class="txta" id="fFam" placeholder="Ex: pai — diabetes; avó materna — hipertensão..."></textarea>
+            </div>
+          </div>
+
+          <div class="fsec">
+            <div class="fsec-title">Hábitos Alimentares</div>
+
+            <div class="fld">
+              <label class="lbl">Já fez ou costuma fazer dietas? Quais foram os resultados?<span class="req">*</span></label>
+              <textarea class="txta" id="fDieta" placeholder="Ex: low carb por 3 meses, emagreci 5kg mas voltou... ou 'Nunca fiz'"></textarea>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Qual é o seu horário de MAIOR apetite?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="apet" value="Manhã"><span>Manhã</span></label>
+                <label class="ropt"><input type="radio" name="apet" value="Almoço"><span>Almoço</span></label>
+                <label class="ropt"><input type="radio" name="apet" value="Tarde"><span>Tarde</span></label>
+                <label class="ropt"><input type="radio" name="apet" value="Noite"><span>Noite</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Como você classifica sua mastigação?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="mast" value="Normal, presto atenção no que como e mastigo bem os alimentos."><span>Normal, presto atenção no que como e mastigo bem os alimentos.</span></label>
+                <label class="ropt"><input type="radio" name="mast" value="Muito lenta, sempre termino de comer depois das outras pessoas."><span>Muito lenta, sempre termino de comer depois das outras pessoas.</span></label>
+                <label class="ropt"><input type="radio" name="mast" value="Rápida demais, termino antes de todo mundo e quase não mastigo."><span>Rápida demais, termino antes de todo mundo e quase não mastigo.</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Em média, quanto de água você bebe por dia?<span class="req">*</span></label>
+              <input class="inp" type="text" id="fAgua" placeholder="Ex: 1 litro, 2 litros, pouco mais de 500ml...">
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Quantas vezes na semana você frequenta restaurantes, bares ou pede delivery?<span class="req">*</span></label>
+              <div class="rgroup">
+                <label class="ropt"><input type="radio" name="deliv" value="Entre 0 e 2x na semana."><span>Entre 0 e 2x na semana.</span></label>
+                <label class="ropt"><input type="radio" name="deliv" value="Entre 3 e 5x na semana."><span>Entre 3 e 5x na semana.</span></label>
+                <label class="ropt"><input type="radio" name="deliv" value="Praticamente todos os dias, sendo que final de semana almoço e janto fora sempre."><span>Praticamente todos os dias, sendo que final de semana almoço e janto fora sempre.</span></label>
+                <label class="ropt"><input type="radio" name="deliv" value="Nenhuma vez na semana"><span>Nenhuma vez na semana</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Qual sua preferência de sabor?<span class="req">*</span></label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="sabor" value="Salgado"><span>Salgado</span></label>
+                <label class="copt"><input type="checkbox" name="sabor" value="Doce"><span>Doce</span></label>
+                <label class="copt"><input type="checkbox" name="sabor" value="Azedo"><span>Azedo</span></label>
+                <label class="copt"><input type="checkbox" name="sabor" value="Amargo"><span>Amargo</span></label>
+                <label class="copt"><input type="checkbox" name="sabor" value="Picante"><span>Picante</span></label>
+                <label class="copt"><input type="checkbox" name="sabor" value="Gosto de comer tudo!"><span>Gosto de comer tudo!</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Qual é o seu alimento preferido?<span class="req">*</span></label>
+              <input class="inp" type="text" id="fPref" placeholder="Ex: arroz com feijão, macarrão, frango...">
+            </div>
+            <div class="fld">
+              <label class="lbl">Quais são os alimentos que você não come / não gosta de jeito nenhum?<span class="req">*</span></label>
+              <textarea class="txta" id="fNaoCome" placeholder="Ex: fígado, peixe, brócolis..." style="min-height:65px"></textarea>
+            </div>
+          </div>
+
+          <div class="fsec">
+            <div class="fsec-title">Sinais e Sintomas — últimos 30 dias</div>
+
+            <div class="fld">
+              <label class="lbl">Qualidade das UNHAS<span class="req">*</span></label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="unhas" value="Fracas e quebradiças"><span>Fracas e quebradiças</span></label>
+                <label class="copt"><input type="checkbox" name="unhas" value="Com manchas"><span>Com manchas</span></label>
+                <label class="copt"><input type="checkbox" name="unhas" value="Onduladas"><span>Onduladas</span></label>
+                <label class="copt"><input type="checkbox" name="unhas" value="Fortes, não quebram"><span>Fortes, não quebram</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">CABELO<span class="req">*</span></label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="cab" value="Tem queda grande"><span>Tem queda grande</span></label>
+                <label class="copt"><input type="checkbox" name="cab" value="Tem pouca queda"><span>Tem pouca queda</span></label>
+                <label class="copt"><input type="checkbox" name="cab" value="Quebrado e seco"><span>Quebrado e seco</span></label>
+                <label class="copt"><input type="checkbox" name="cab" value="Boa qualidade dos fios"><span>Boa qualidade dos fios</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">PELE<span class="req">*</span></label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="pele" value="Pele seca / descamando"><span>Pele seca / descamando</span></label>
+                <label class="copt"><input type="checkbox" name="pele" value="Dermatite"><span>Dermatite</span></label>
+                <label class="copt"><input type="checkbox" name="pele" value="Pele oleosa"><span>Pele oleosa</span></label>
+                <label class="copt"><input type="checkbox" name="pele" value="Acne frequente"><span>Acne frequente</span></label>
+                <label class="copt"><input type="checkbox" name="pele" value="Boa qualidade da pele"><span>Boa qualidade da pele</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">BOCA<span class="req">*</span></label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="boca" value="Afta frequente"><span>Afta frequente</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua rachada (lateral)"><span>Língua rachada (lateral)</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua esbranquiçada"><span>Língua esbranquiçada</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua acinzentada"><span>Língua acinzentada</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Halitose (hálito forte)"><span>Halitose (hálito forte)</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Nenhuma das opções"><span>Nenhuma das opções</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">MULHERES — Sintomas de TPM</label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="tpm" value="Cólica forte"><span>Cólica forte</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Inchaço"><span>Inchaço</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Dores nas mamas"><span>Dores nas mamas</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Dores de cabeça frequente"><span>Dores de cabeça frequente</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Vontade de doce"><span>Vontade de doce</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Mudança de humor"><span>Mudança de humor</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">MULHERES — Sintomas de MENOPAUSA</label>
+              <div class="cgroup">
+                <label class="copt"><input type="checkbox" name="meno" value="Memória ruim"><span>Memória ruim</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Calorão"><span>Calorão</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Suor noturno"><span>Suor noturno</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Cansaço"><span>Cansaço</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Dificuldade para dormir"><span>Dificuldade para dormir</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Mudança de humor"><span>Mudança de humor</span></label>
+              </div>
+            </div>
+
+            <div class="fld">
+              <label class="lbl">Como você me conheceu?<span class="req">*</span></label>
+              <textarea class="txta" id="fConheceu" placeholder="Pela internet, evento, indicação de amigo..." style="min-height:65px"></textarea>
+            </div>
+          </div>
+
+          <button class="btn-enviar" id="btnEnv" onclick="enviar()">Enviar questionário →</button>
+          <p style="font-size:11px;color:var(--muted2);margin-top:10px">A Bruna será notificada assim que você enviar e entrará em contato para agendar a consulta.</p>
+        </div>
+
+        <div id="qDone" class="done-box" style="display:none">
+          <div class="done-ico">✅</div>
+          <div class="done-t">Questionário enviado com sucesso!</div>
+          <div class="done-s">A Bruna foi notificada e entrará em contato pelo WhatsApp para agendar sua consulta. Fique de olho!</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MÓDULO 3 -->
+    <div class="mod" id="mod3">
+      <div class="mod-head">
+        <div class="mnum lock" id="m3num">3</div>
+        <div>
+          <div class="mod-title">Módulo 3 — Plano Alimentar</div>
+          <div class="mod-sub" id="m3sub">Disponível após a sua consulta com a Bruna</div>
+        </div>
+      </div>
+
+      <div class="lock-overlay" id="lockOverlay">
+        <div class="lock-ico">🔒</div>
+        <div class="lock-t">Aguardando sua consulta</div>
+        <div class="lock-s">Após a consulta, a Bruna irá liberar aqui seu plano alimentar personalizado com orientações e medidas corporais.</div>
+      </div>
+
+      <div class="mod-body" id="m3content" style="display:none">
+        <div class="pdf-strip">
+          <div class="pdf-info">
+            <div class="pdf-ico">📋</div>
+            <div>
+              <div class="pdf-title">Plano Alimentar Personalizado</div>
+              <div class="pdf-sub">Com orientações e medidas corporais — Nutri Bruna Boreggio</div>
+            </div>
+          </div>
+          <a class="btn-dl" id="pdfPlano" href="#" target="_blank">⬇ Baixar meu plano (PDF)</a>
+        </div>
+        <div id="m3notes" style="display:none;margin-top:18px;font-size:13px;color:var(--muted);line-height:1.75;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:12px;padding:16px"></div>
+      </div>
+
+      <div id="adminPost" style="display:none;padding:0 22px 22px">
+        <div class="post-form">
+          <div class="post-t">Postar plano alimentar para esta paciente</div>
+          <div class="fld-r">
+            <label>Link do PDF — Google Drive <span class="req">*</span></label>
+            <input class="inp" type="text" id="iPdfPlano" placeholder="https://drive.google.com/file/d/...">
+            <div style="font-size:11px;color:var(--muted2);margin-top:6px">Drive → compartilhar → "qualquer pessoa com o link" → colar aqui</div>
+          </div>
+          <div class="fld-r">
+            <label>Observações / Orientações adicionais (opcional)</label>
+            <textarea class="txta" id="iNotes" placeholder="Orientações complementares..." style="min-height:65px"></textarea>
+          </div>
+          <button class="btn-enviar" onclick="postar()">Publicar plano alimentar →</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /vPaciente -->
+</div><!-- /page -->
+
+<div id="denied">
+  <div style="font-size:44px">🔒</div>
+  <div style="font-size:20px;font-weight:800">Acesso restrito</div>
+  <div style="font-size:13px;color:var(--muted);max-width:300px">Você não tem acesso à Consultoria Nutricional. Adquira o serviço para acessar sua área.</div>
+  <a href="/area-membros/" style="display:inline-flex;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponíveis</a>
 </div>
 
-<footer id="footer" style="display:none">
-  <p>2026 Bruna Boreggio · Nutricionista · Protocolo Nutricional</p>
+<div class="toast" id="toast"></div>
+
+<footer id="ftr" style="display:none">
+  <p>© 2026 Bruna Boreggio · Nutricionista · Consultoria Nutricional</p>
 </footer>
 
-<div id="accessDenied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9998;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px">
-  <div style="font-size:40px">&#128274;</div>
-  <div style="font-size:20px;font-weight:800">Acesso negado</div>
-  <div style="font-size:13px;color:var(--muted);max-width:340px">Voce nao tem acesso ao Protocolo Nutricional. Adquira o protocolo para acessar sua area.</div>
-  <a href="/area-membros/" style="display:inline-flex;align-items:center;padding:11px 22px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponiveis</a>
-</div>
-
 <script>
+var APPS_URL='APPS_SCRIPT_URL_PLACEHOLDER';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-var currentUser=null;
-var isAdmin=false;
+/* Default video URLs — Bruna can override via admin controls */
+var DEFAULT_VIDS={1:'https://youtu.be/tKL7rhR5OhY',2:'https://youtu.be/ugQTxZL6TlQ'};
+var me=null,isAdmin=false,viewPat=null;
 
-function hideLoading(){
-  var el=document.getElementById('loading');
-  el.classList.add('fade-out');
-  setTimeout(function(){el.style.display='none'},500);
+function ytEmbed(url){
+  if(!url)return null;
+  var m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/))([A-Za-z0-9_-]{11})/);
+  return m?'https://www.youtube.com/embed/'+m[1]:url;
 }
 
-function enterArea(user){
-  currentUser=user;
-  isAdmin=ADMINS.indexOf(user.email.toLowerCase())>=0;
-  document.getElementById('hdrUser').textContent=user.nome||user.email;
-  document.getElementById('nomeAluna').textContent=(user.nome||user.email).split(' ')[0];
-  document.getElementById('header').style.display='flex';
-  document.getElementById('mainArea').style.display='block';
-  document.getElementById('footer').style.display='block';
-  if(isAdmin){
-    document.getElementById('adminBar').style.display='flex';
-    document.getElementById('resultLocked').style.display='none';
-    document.getElementById('resultUnlocked').style.display='block';
-  }
-  hideLoading();
+/* ── AUTH ── */
+window.addEventListener('load',function(){setTimeout(checkAuth,900)});
+
+function checkAuth(){
+  var du=localStorage.getItem('desafio_user');
+  if(du){try{var d=JSON.parse(du);if(d&&d.email&&ADMINS.indexOf(d.email.toLowerCase())>=0){me=d;isAdmin=true;enter();return;}}catch(e){}}
+  var pu=localStorage.getItem('protocolo_user');
+  if(pu){try{var p=JSON.parse(pu);if(p&&p.pago&&p.email){me=p;isAdmin=false;enter();return;}}catch(e){}}
+  document.getElementById('denied').style.display='flex';
+  hideLoad();
 }
 
-function showDenied(){
-  var d=document.getElementById('accessDenied');
-  d.style.display='flex';
-  hideLoading();
+function enter(){
+  document.getElementById('hdrUser').textContent=me.nome||me.email;
+  document.getElementById('hdr').style.display='flex';
+  document.getElementById('page').style.display='block';
+  document.getElementById('ftr').style.display='block';
+  if(isAdmin){document.getElementById('abar').style.display='flex';goView('painel');}
+  else{showPatient({email:me.email,nome:me.nome||''});}
+  hideLoad();
 }
 
-function sair(){window.location.href='/area-membros/';}
-
-function switchView(view,btn){
-  document.querySelectorAll('.admin-tab').forEach(function(t){t.classList.remove('active')});
-  if(btn)btn.classList.add('active');
-  if(view==='admin'){
-    document.getElementById('patientView').style.display='none';
-    document.getElementById('adminView').classList.add('visible');
+/* ── VIEWS ── */
+function goView(v){
+  if(v==='painel'){
+    document.getElementById('vPainel').style.display='block';
+    document.getElementById('vPaciente').style.display='none';
+    setTab('tabPainel');
+    loadPList();
   } else {
-    document.getElementById('patientView').style.display='block';
-    document.getElementById('adminView').classList.remove('visible');
+    document.getElementById('vPainel').style.display='none';
+    document.getElementById('vPaciente').style.display='block';
+    setTab('tabPaciente');
   }
 }
 
-function enviarQuestionario(){
-  var nome=document.getElementById('fNome').value.trim();
-  var peso=document.getElementById('fPeso').value.trim();
-  var objetivo=document.getElementById('fObjetivo').value.trim();
-  if(!nome||!peso||!objetivo){alert('Preencha pelo menos: nome, peso e objetivo.');return;}
-  document.getElementById('btnEnviar').disabled=true;
-  document.getElementById('btnEnviar').textContent='Enviando...';
-  setTimeout(function(){
-    document.getElementById('formSection').innerHTML='<div style="text-align:center;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">&#9989;</div><div style="font-size:16px;font-weight:800;margin-bottom:8px">Questionario enviado!</div><div style="font-size:13px;color:rgba(242,238,248,.55)">A Bruna foi notificada e entrara em contato em breve para agendar sua consulta.</div></div>';
-  },1200);
+function setTab(id){
+  ['tabPainel','tabPaciente'].forEach(function(t){var e=document.getElementById(t);if(e)e.classList.remove('active')});
+  var el=document.getElementById(id);if(el)el.classList.add('active');
 }
 
-window.addEventListener('load',function(){
-  setTimeout(function(){
-    var du=localStorage.getItem('desafio_user');
-    if(du){
-      try{
-        var d=JSON.parse(du);
-        if(d&&d.email&&ADMINS.indexOf(d.email.toLowerCase())>=0){enterArea(d);return;}
-      }catch(e){}
-    }
-    var pu=localStorage.getItem('protocolo_user');
-    if(pu){
-      try{
-        var p=JSON.parse(pu);
-        if(p&&p.pago&&p.email){enterArea(p);return;}
-      }catch(e){}
-    }
-    showDenied();
-  },800);
+function showPatient(pat){
+  viewPat=pat;
+  /* reset módulo 3 */
+  document.getElementById('lockOverlay').style.display='block';
+  document.getElementById('m3content').style.display='none';
+  document.getElementById('adminPost').style.display='none';
+  document.getElementById('m3num').className='mnum lock';
+  document.getElementById('m3num').textContent='3';
+  document.getElementById('m3sub').textContent='Disponível após a sua consulta com a Bruna';
+  /* reset módulo 2 */
+  document.getElementById('qForm').style.display='block';
+  document.getElementById('qDone').style.display='none';
+  document.getElementById('m2num').className='mnum pend';
+  document.getElementById('m2num').textContent='2';
+  /* admin controls */
+  document.querySelectorAll('.admin-only').forEach(function(el){el.style.display=isAdmin?'flex':'none'});
+  document.getElementById('pdf1inp').style.display=isAdmin?'flex':'none';
+  /* banner */
+  if(isAdmin&&pat){
+    document.getElementById('viewBanner').style.display='flex';
+    document.getElementById('viewName').textContent=pat.nome||pat.email||'—';
+    document.getElementById('viewEmail').textContent=pat.email||'';
+    document.getElementById('tabPatName').textContent=(pat.nome||pat.email||'').split(' ')[0];
+    document.getElementById('tabPaciente').style.display='block';
+  } else {
+    document.getElementById('viewBanner').style.display='none';
+  }
+  loadGlobal();
+  loadPatData(pat.email,isAdmin);
+  goView('paciente');
+}
+
+function loadGlobal(){
+  var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
+  /* merge defaults so videos appear even before admin saves anything */
+  var v1=s.v1||DEFAULT_VIDS[1];
+  var v2=s.v2||DEFAULT_VIDS[2];
+  if(v1)showVid(1,v1);
+  if(v2)showVid(2,v2);
+  /* pre-fill admin inputs with current URLs */
+  if(isAdmin){
+    document.getElementById('iVid1').value=s.v1||DEFAULT_VIDS[1]||'';
+    document.getElementById('iVid2').value=s.v2||DEFAULT_VIDS[2]||'';
+  }
+  if(s.p1){
+    document.getElementById('pdf1sub').textContent='Disponível para download';
+    document.getElementById('pdf1dl').href=s.p1;
+    document.getElementById('pdf1dl').style.display='flex';
+    if(isAdmin)document.getElementById('iPdf1').value=s.p1;
+  }
+}
+
+function loadPatData(email,asAdmin){
+  var cKey='cs_content_'+email;
+  var c=JSON.parse(localStorage.getItem(cKey)||'null');
+  var qKey='cs_q_'+email;
+  if(localStorage.getItem(qKey))showQDone();
+  if(c){unlockM3(c);return;}
+  if(asAdmin){document.getElementById('adminPost').style.display='block';}
+  if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
+    fetch(APPS_URL+'?action=getPatient&email='+encodeURIComponent(email))
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(!d)return;
+        if(d.Status==='Questionário preenchido'||d.Status==='Concluído')showQDone();
+        if(d.Modulo3_PDF_URL){unlockM3({pdfUrl:d.Modulo3_PDF_URL,notes:d.Modulo3_Conteudo||''});}
+        else if(asAdmin){document.getElementById('adminPost').style.display='block';}
+      }).catch(function(){});
+  }
+}
+
+function showQDone(){
+  document.getElementById('qForm').style.display='none';
+  document.getElementById('qDone').style.display='block';
+  document.getElementById('m2num').className='mnum done';
+  document.getElementById('m2num').textContent='✓';
+}
+
+function unlockM3(c){
+  document.getElementById('lockOverlay').style.display='none';
+  document.getElementById('m3content').style.display='block';
+  document.getElementById('adminPost').style.display='none';
+  document.getElementById('m3num').className='mnum done';
+  document.getElementById('m3num').textContent='✓';
+  document.getElementById('m3sub').textContent='Plano alimentar disponível';
+  if(c.pdfUrl){document.getElementById('pdfPlano').href=c.pdfUrl;}
+  if(c.notes){var n=document.getElementById('m3notes');n.innerHTML=c.notes.replace(/\n/g,'<br>');n.style.display='block';}
+}
+
+/* ── ADMIN: PATIENT LIST ── */
+function loadPList(){
+  if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
+    fetch(APPS_URL+'?action=listPatients')
+      .then(function(r){return r.json()})
+      .then(function(list){renderPList(list||[])})
+      .catch(function(){renderPList([])});
+  } else {
+    renderPList([
+      {email:'paciente.demo@email.com',nome:'Ana Carolina Lima',status:'Questionário preenchido',dataEnvio:'20/07/2026'},
+      {email:'paciente2.demo@email.com',nome:'Fernanda Souza',status:'Aguardando questionário',dataEnvio:'18/07/2026'}
+    ]);
+  }
+}
+
+function renderPList(list){
+  document.getElementById('panelSub').textContent=list.length+' paciente'+(list.length!==1?'s':'')+' cadastrada'+(list.length!==1?'s':'');
+  var el=document.getElementById('plist');
+  if(!list.length){
+    el.innerHTML='<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">Nenhuma paciente ainda. As respostas do questionário aparecem aqui automaticamente.</div>';
+    return;
+  }
+  el.innerHTML=list.map(function(p){
+    var sc=p.status==='Concluído'?'ps-done':p.status==='Questionário preenchido'?'ps-ok':'ps-agt';
+    var st=p.status||'Aguardando questionário';
+    var nome=p.nome||p['Nome completo']||'—';
+    var email=p.email||p['Email']||'';
+    var pj=JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<div class="pcard" onclick=\'openPat(\''+pj+'\')\'>'+
+      '<div><div class="p-name">'+nome+'</div><div class="p-em">'+email+(p.dataEnvio?' · '+p.dataEnvio:'')+'</div></div>'+
+      '<div style="display:flex;align-items:center;gap:8px"><span class="pstatus '+sc+'">'+st+'</span>'+
+      '<button class="btn-ver" onclick="event.stopPropagation();openPat(\''+pj+'\')">Ver área →</button></div></div>';
+  }).join('');
+}
+
+function openPat(p){
+  if(typeof p==='string')p=JSON.parse(p);
+  showPatient({email:p.email||p['Email'],nome:p.nome||p['Nome completo']||''});
+}
+
+/* ── VIDEOS ── */
+function playVid(n){
+  var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
+  var url=s['v'+n]||DEFAULT_VIDS[n];
+  if(!url){toast('Vídeo ainda não disponível.');return;}
+  showVid(n,url);
+}
+
+function showVid(n,url){
+  var embed=ytEmbed(url);
+  if(!embed)return;
+  document.getElementById('vbox'+n).style.display='none';
+  document.getElementById('vplayer'+n).src=embed+'?rel=0&modestbranding=1';
+  document.getElementById('vframe'+n).style.display='block';
+}
+
+function saveVid(n){
+  var url=document.getElementById('iVid'+n).value.trim();
+  if(!url)return;
+  var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
+  s['v'+n]=url;localStorage.setItem('cs_global',JSON.stringify(s));
+  showVid(n,url);toast('Vídeo '+n+' atualizado!');
+}
+
+/* ── PDFs MOD 1 ── */
+function savePdf(n){
+  var url=document.getElementById('iPdf'+n).value.trim();
+  if(!url)return;
+  var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
+  s['p'+n]=url;localStorage.setItem('cs_global',JSON.stringify(s));
+  document.getElementById('pdf'+n+'sub').textContent='Disponível para download';
+  document.getElementById('pdf'+n+'dl').href=url;
+  document.getElementById('pdf'+n+'dl').style.display='flex';
+  toast('PDF adicionado!');
+}
+
+/* ── QUESTIONNAIRE ── */
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function gr(name){var e=document.querySelector('input[name="'+name+'"]:checked');return e?e.value:'';}
+function gc(name){return[...document.querySelectorAll('input[name="'+name+'"]:checked')].map(function(e){return e.value}).join(', ');}
+
+function enviar(){
+  if(!gv('fNome')||!gv('fCPF')||!gv('fObj')){toast('Preencha pelo menos: nome, CPF e objetivo.');return;}
+  var btn=document.getElementById('btnEnv');
+  btn.disabled=true;btn.textContent='Enviando...';
+
+  var data={
+    action:'submitQuestionario',
+    email:me.email,
+    'Nome completo':gv('fNome'),
+    'CPF':gv('fCPF'),
+    'Data de nascimento':gv('fNasc'),
+    'Objetivo':gv('fObj'),
+    'Atividade física':gv('fAtiv'),
+    'Disposição e energia (0-10)':gr('disp'),
+    'Sono':gr('sono'),
+    'Memória':gr('mem'),
+    'Compromisso diário':gr('comp'),
+    'Horário do compromisso':gv('fHComp'),
+    'Onde almoça':gv('fAlmoco'),
+    'Quem cozinha':gv('fCozinha'),
+    'Fumante':gr('fuma'),
+    'Doença diagnosticada':gv('fDoenca'),
+    'Alergia alimentar':gv('fAlergia'),
+    'Cirurgia':gv('fCirurgia'),
+    'Medicamentos':gv('fMeds'),
+    'Suplementos':gv('fSup'),
+    'Doenças na família':gv('fFam'),
+    'Dietas':gv('fDieta'),
+    'Horário de maior apetite':gr('apet'),
+    'Mastigação':gr('mast'),
+    'Água por dia':gv('fAgua'),
+    'Restaurantes/delivery':gr('deliv'),
+    'Preferência de sabor':gc('sabor'),
+    'Alimento preferido':gv('fPref'),
+    'Não come':gv('fNaoCome'),
+    'Unhas':gc('unhas'),
+    'Cabelo':gc('cab'),
+    'Pele':gc('pele'),
+    'Boca':gc('boca'),
+    'TPM':gc('tpm'),
+    'Menopausa':gc('meno'),
+    'Como conheceu':gv('fConheceu')
+  };
+
+  localStorage.setItem('cs_q_'+me.email,JSON.stringify(data));
+
+  function done(){showQDone();toast('Questionário enviado com sucesso!');}
+
+  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){setTimeout(done,900);return;}
+
+  fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)})
+    .then(done).catch(done);
+}
+
+/* ── ADMIN: POST PLANO ── */
+function postar(){
+  var pdf=document.getElementById('iPdfPlano').value.trim();
+  var notes=document.getElementById('iNotes').value.trim();
+  if(!pdf){toast('Adicione o link do PDF.');return;}
+  if(!viewPat||!viewPat.email){toast('Nenhuma paciente selecionada.');return;}
+  var c={pdfUrl:pdf,notes:notes};
+  localStorage.setItem('cs_content_'+viewPat.email,JSON.stringify(c));
+
+  function done(){unlockM3(c);toast('Plano publicado! Paciente já pode acessar.');}
+
+  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){done();return;}
+
+  fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'postContent',email:viewPat.email,conteudo:notes,pdfUrl:pdf})})
+    .then(done).catch(done);
+}
+
+/* ── UTILS ── */
+function sair(){window.location.href='/area-membros/';}
+function hideLoad(){var e=document.getElementById('loading');e.classList.add('out');setTimeout(function(){e.style.display='none'},500);}
+function toast(msg){var e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},3200);}
+
+document.addEventListener('change',function(e){
+  if(e.target.type==='radio'){
+    var name=e.target.name;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){
+      var p=r.closest('.ropt');if(p)p.classList.remove('sel-active');
+    });
+    var p=e.target.closest('.ropt');if(p)p.classList.add('sel-active');
+  }
+  if(e.target.type==='checkbox'){
+    var p=e.target.closest('.copt');
+    if(p)p.classList.toggle('sel-active',e.target.checked);
+  }
 });
 </script>
 </body>
