@@ -609,11 +609,14 @@ footer p{font-size:11px;color:var(--muted2)}
   </div><!-- /vPaciente -->
 </div><!-- /page -->
 
-<div id="denied">
-  <div style="font-size:44px">🔒</div>
-  <div style="font-size:20px;font-weight:800">Acesso restrito</div>
-  <div style="font-size:13px;color:var(--muted);max-width:300px">Você não tem acesso à Consultoria Nutricional. Adquira o serviço para acessar sua área.</div>
-  <a href="/area-membros/" style="display:inline-flex;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponíveis</a>
+<div id="denied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9998;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:16px">
+  <div style="font-size:32px;font-weight:900;color:var(--gold)">BRUNA BOREGGIO</div>
+  <div style="font-size:22px;font-weight:800">Consultoria Nutricional</div>
+  <div style="font-size:14px;color:var(--muted);max-width:320px;margin-bottom:4px">Informe seu e-mail para acessar sua área</div>
+  <input id="loginEmail" type="email" placeholder="seu@email.com" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;max-width:320px;padding:13px 16px;border-radius:12px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
+  <input id="loginNome" type="text" placeholder="Seu nome (opcional)" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;max-width:320px;padding:13px 16px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
+  <button onclick="doLogin()" style="width:100%;max-width:320px;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:15px;font-weight:800;border:none;cursor:pointer">Entrar →</button>
+  <div id="loginErr" style="color:#F87171;font-size:12px;display:none">Informe um e-mail válido.</div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -642,9 +645,21 @@ function checkAuth(){
   var du=localStorage.getItem('desafio_user');
   if(du){try{var d=JSON.parse(du);if(d&&d.email&&ADMINS.indexOf(d.email.toLowerCase())>=0){me=d;isAdmin=true;enter();return;}}catch(e){}}
   var pu=localStorage.getItem('protocolo_user');
-  if(pu){try{var p=JSON.parse(pu);if(p&&p.pago&&p.email){me=p;isAdmin=false;enter();return;}}catch(e){}}
+  if(pu){try{var p=JSON.parse(pu);if(p&&p.email){me=p;isAdmin=ADMINS.indexOf(p.email.toLowerCase())>=0;enter();return;}}catch(e){}}
   document.getElementById('denied').style.display='flex';
   hideLoad();
+}
+
+function doLogin(){
+  var email=(document.getElementById('loginEmail').value||'').trim().toLowerCase();
+  var nome=(document.getElementById('loginNome').value||'').trim();
+  if(!email||email.indexOf('@')<0){document.getElementById('loginErr').style.display='block';return;}
+  document.getElementById('loginErr').style.display='none';
+  var u={email:email,nome:nome,pago:true};
+  localStorage.setItem('protocolo_user',JSON.stringify(u));
+  me=u;isAdmin=ADMINS.indexOf(email)>=0;
+  document.getElementById('denied').style.display='none';
+  enter();
 }
 
 function enter(){
