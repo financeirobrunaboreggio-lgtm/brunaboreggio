@@ -279,7 +279,7 @@ var DAYS = [
   { num:5,  title:'Meio caminho!',              sub:'Revisando e ajustando a rota',         videoId:'ugQTxZL6TlQ', pdfUrl:'' },
   { num:6,  title:'Rotina que sustenta',        sub:'Criando hábitos reais e duradouros',   videoId:'',            pdfUrl:'' },
   { num:7,  title:'Exercício e alimentação',    sub:'A combinação que acelera resultados',  videoId:'',            pdfUrl:'' },
-  { num:8,  title:'Emoções e comida',           sub:'Entendendo a fome emocional',          videoId:'',            pdfUrl:'' },
+  { num:8,  title:'Emoħões e comida',           sub:'Entendendo a fome emocional',          videoId:'',            pdfUrl:'' },
   { num:9,  title:'Planejamento semanal',       sub:'Como se organizar para não errar',     videoId:'',            pdfUrl:'' },
   { num:10, title:'Você chegou lá!',            sub:'Próximos passos e manutenção',         videoId:'',            pdfUrl:'', hasAfter:true }
 ];
@@ -409,7 +409,7 @@ function buildDayBody(day) {
     '</div>' +
     '<div id="bruna-comment-dia'+day.num+'"></div>';
 
-  return videoHtml + pdfHtml + beforeHtml + photoHtml + afterHtml + checkinHtml;
+  return videoHtml + pdfHtml + beforeHtml + checkinHtml + photoHtml + afterHtml;
 }
 
 function buildUploadBlock(tipo, btnLabel) {
@@ -552,7 +552,7 @@ function toggleParticipant(id) { var b=document.getElementById(id); if(b) b.clas
 function sendAdminComment(emailP, es) {
   var ta = document.getElementById('comment-'+es), texto = ta?ta.value.trim():''; if(!texto) return;
   var btn = ta.nextElementSibling; btn.disabled=true; btn.textContent='Enviando…';
-  fetch(WEBHOOL, { method:'POST', headers:{'Content-Type':'application/json'},
+  fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'},
     body:JSON.stringify({ action:'admin_comment', adminEmail:currentUser.email, participantEmail:emailP, tipo:'geral', comentario:texto })
   }).then(function(r){ return r.json(); })
   .then(function(data){
