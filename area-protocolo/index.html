@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Consultoria Nutricional â€” Bruna Boreggio</title>
+<title>Consultoria Nutricional — Bruna Boreggio</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -111,7 +111,7 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .done-ico{font-size:44px;margin-bottom:12px}
 .done-t{font-size:16px;font-weight:800;margin-bottom:6px}
 .done-s{font-size:13px;color:var(--muted)}
-/* MÃ³dulo 3 locked */
+/* Módulo 3 locked */
 .lock-overlay{text-align:center;padding:40px 20px}
 .lock-ico{font-size:38px;margin-bottom:12px}
 .lock-t{font-size:15px;font-weight:800;margin-bottom:6px}
@@ -156,7 +156,7 @@ footer p{font-size:11px;color:var(--muted2)}
 
 <div id="loading">
   <div class="load-logo">Bruna Boreggio</div>
-  <div class="load-txt">Carregando sua Ã¡rea</div>
+  <div class="load-txt">Carregando sua área</div>
   <div class="load-bar"><div class="load-bar-fill"></div></div>
 </div>
 
@@ -178,11 +178,11 @@ footer p{font-size:11px;color:var(--muted2)}
 
 <div class="page" id="page" style="display:none">
 
-  <!-- â”€â”€ ADMIN: LISTA DE PACIENTES â”€â”€ -->
+  <!-- ── ADMIN: LISTA DE PACIENTES ── -->
   <div id="vPainel" style="display:none">
     <div class="panel">
       <div class="panel-head">
-        <div class="panel-title">Pacientes â€” Consultoria Nutricional</div>
+        <div class="panel-title">Pacientes — Consultoria Nutricional</div>
         <div class="panel-sub" id="panelSub">Carregando...</div>
       </div>
       <div class="plist" id="plist">
@@ -191,68 +191,68 @@ footer p{font-size:11px;color:var(--muted2)}
     </div>
   </div>
 
-  <!-- â”€â”€ PATIENT VIEW â”€â”€ -->
+  <!-- ── PATIENT VIEW ── -->
   <div id="vPaciente" style="display:none">
 
     <div class="viewing-banner" id="viewBanner" style="display:none">
       <div>
         <div class="vb-label" id="viewBannerLabel">Visualizando como</div>
-        <div class="vb-name" id="viewName">â€”</div>
-        <div class="vb-email" id="viewEmail">â€”</div>
+        <div class="vb-name" id="viewName">—</div>
+        <div class="vb-email" id="viewEmail">—</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn-sm" id="btnTogglePreview" onclick="togglePreview()" style="color:var(--gold);border-color:var(--border2)">ðŸ‘ Ver como paciente</button>
-        <button class="btn-sm" onclick="goView('painel')">â† Lista de pacientes</button>
+        <button class="btn-sm" id="btnTogglePreview" onclick="togglePreview()" style="color:var(--gold);border-color:var(--border2)">👁 Ver como paciente</button>
+        <button class="btn-sm" onclick="goView('painel')">← Lista de pacientes</button>
       </div>
     </div>
 
-    <!-- MÃ“DULO 1 -->
+    <!-- MÓDULO 1 -->
     <div class="mod">
       <div class="mod-head">
         <div class="mnum pend">1</div>
         <div>
-          <div class="mod-title">MÃ³dulo 1 â€” Boas-vindas</div>
-          <div class="mod-sub">Assista os vÃ­deos e baixe o PDF com instruÃ§Ãµes antes de preencher o questionÃ¡rio</div>
+          <div class="mod-title">Módulo 1 — Boas-vindas</div>
+          <div class="mod-sub">Assista os vídeos e baixe o PDF com instruções antes de preencher o questionário</div>
         </div>
       </div>
       <div class="mod-body">
 
         <div class="vwrap">
-          <div class="vlabel">VÃ­deo 1 â€” Mensagem de boas-vindas</div>
+          <div class="vlabel">Vídeo 1 — Mensagem de boas-vindas</div>
           <div class="vbox" id="vbox1" onclick="playVid(1)">
             <div class="playbtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-            <div class="vdesc">ApresentaÃ§Ã£o da consultoria pela Nutri Bruna</div>
+            <div class="vdesc">Apresentação da consultoria pela Nutri Bruna</div>
           </div>
           <div class="vframe" id="vframe1"><iframe id="vplayer1" allowfullscreen></iframe></div>
           <div class="admin-input-row admin-only" style="display:none">
-            <input class="admin-inp" type="text" id="iVid1" placeholder="URL do vÃ­deo (YouTube)">
+            <input class="admin-inp" type="text" id="iVid1" placeholder="URL do vídeo (YouTube)">
             <button class="admin-add" onclick="saveVid(1)">Salvar</button>
           </div>
         </div>
 
         <div class="vwrap">
-          <div class="vlabel">VÃ­deo 2 â€” Como tirar suas medidas</div>
+          <div class="vlabel">Vídeo 2 — Como tirar suas medidas</div>
           <div class="vbox" id="vbox2" onclick="playVid(2)">
             <div class="playbtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             <div class="vdesc">Passo a passo para medir e pesar corretamente antes da consulta</div>
           </div>
           <div class="vframe" id="vframe2"><iframe id="vplayer2" allowfullscreen></iframe></div>
           <div class="admin-input-row admin-only" style="display:none">
-            <input class="admin-inp" type="text" id="iVid2" placeholder="URL do vÃ­deo (YouTube)">
+            <input class="admin-inp" type="text" id="iVid2" placeholder="URL do vídeo (YouTube)">
             <button class="admin-add" onclick="saveVid(2)">Salvar</button>
           </div>
         </div>
 
         <div class="pdf-strip">
           <div class="pdf-info">
-            <div class="pdf-ico">ðŸ“„</div>
+            <div class="pdf-ico">📄</div>
             <div>
-              <div class="pdf-title">PDF â€” InstruÃ§Ãµes: como tirar suas medidas</div>
-              <div class="pdf-sub" id="pdf1sub">SerÃ¡ disponibilizado pela Bruna em breve</div>
+              <div class="pdf-title">PDF — Instruções: como tirar suas medidas</div>
+              <div class="pdf-sub" id="pdf1sub">Será disponibilizado pela Bruna em breve</div>
             </div>
           </div>
           <div id="pdf1btns" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <a class="btn-dl" id="pdf1dl" href="#" target="_blank" style="display:none">â¬‡ Baixar PDF</a>
+            <a class="btn-dl" id="pdf1dl" href="#" target="_blank" style="display:none">⬇ Baixar PDF</a>
             <div class="admin-input-row admin-only" id="pdf1inp" style="display:none">
               <input class="admin-inp" type="text" id="iPdf1" placeholder="Link do PDF (Google Drive)">
               <button class="admin-add" onclick="savePdf(1)">Adicionar</button>
@@ -263,23 +263,23 @@ footer p{font-size:11px;color:var(--muted2)}
       </div>
     </div>
 
-    <!-- MÃ“DULO 2 -->
+    <!-- MÓDULO 2 -->
     <div class="mod">
       <div class="mod-head">
         <div class="mnum pend" id="m2num">2</div>
         <div>
-          <div class="mod-title">MÃ³dulo 2 â€” QuestionÃ¡rio PrÃ©-Consulta</div>
-          <div class="mod-sub">Preencha com sinceridade â€” a Bruna analisa antes da consulta</div>
+          <div class="mod-title">Módulo 2 — Questionário Pré-Consulta</div>
+          <div class="mod-sub">Preencha com sinceridade — a Bruna analisa antes da consulta</div>
         </div>
       </div>
       <div class="mod-body">
 
         <div id="qForm">
           <div class="q-intro">
-            <strong>Oiee!! ðŸ‘‹</strong><br>
-            Nossa consulta acontecerÃ¡ em breve e eu quero te conhecer desde jÃ¡. Assim, vou me preparando melhor para o nosso grande dia, separando materiais e ferramentas para tornar nosso encontro mais produtivo e totalmente focado nas suas dificuldades e necessidades e o que pode ser melhorado.<br><br>
-            PeÃ§o que responda esse questionÃ¡rio com toda sinceridade do mundo, sem nenhum medo de julgamento, pois isso nÃ£o cabe na nossa relaÃ§Ã£o. Estou aqui para te ajudar a encaixar uma alimentaÃ§Ã£o mais saudÃ¡vel na sua rotina e assim conquistarmos seus resultados tÃ£o esperados.<br><br>
-            <strong>Combinado? âœ¨</strong>
+            <strong>Oiee!! 👋</strong><br>
+            Nossa consulta acontecerá em breve e eu quero te conhecer desde já. Assim, vou me preparando melhor para o nosso grande dia, separando materiais e ferramentas para tornar nosso encontro mais produtivo e totalmente focado nas suas dificuldades e necessidades e o que pode ser melhorado.<br><br>
+            Peço que responda esse questionário com toda sinceridade do mundo, sem nenhum medo de julgamento, pois isso não cabe na nossa relação. Estou aqui para te ajudar a encaixar uma alimentação mais saudável na sua rotina e assim conquistarmos seus resultados tão esperados.<br><br>
+            <strong>Combinado? ✨</strong>
           </div>
 
           <div class="fsec">
@@ -298,16 +298,16 @@ footer p{font-size:11px;color:var(--muted2)}
               <input class="inp" type="date" id="fNasc">
             </div>
             <div class="fld">
-              <label class="lbl">Qual Ã© o seu objetivo? O que vocÃª deseja conquistar com nosso tratamento?<span class="req">*</span></label>
+              <label class="lbl">Qual é o seu objetivo? O que você deseja conquistar com nosso tratamento?<span class="req">*</span></label>
               <textarea class="txta" id="fObj" placeholder="Descreva seu objetivo principal..."></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">VocÃª pratica alguma atividade fÃ­sica? Se sim, qual atividade, quantas vezes na semana e qual horÃ¡rio?<span class="req">*</span></label>
-              <textarea class="txta" id="fAtiv" placeholder="Ex: caminhada 3x na semana Ã s 7h..."></textarea>
+              <label class="lbl">Você pratica alguma atividade física? Se sim, qual atividade, quantas vezes na semana e qual horário?<span class="req">*</span></label>
+              <textarea class="txta" id="fAtiv" placeholder="Ex: caminhada 3x na semana às 7h..."></textarea>
             </div>
 
             <div class="fld">
-              <label class="lbl">De 0 a 10, qual a nota que vocÃª dÃ¡ para sua disposiÃ§Ã£o e energia?<span class="req">*</span></label>
+              <label class="lbl">De 0 a 10, qual a nota que você dá para sua disposição e energia?<span class="req">*</span></label>
               <div class="scale">
                 <div class="sc-opt"><input type="radio" name="disp" id="d0" value="0"><label for="d0">0</label></div>
                 <div class="sc-opt"><input type="radio" name="disp" id="d1" value="1"><label for="d1">1</label></div>
@@ -324,129 +324,129 @@ footer p{font-size:11px;color:var(--muted2)}
             </div>
 
             <div class="fld">
-              <label class="lbl">Como Ã© o seu sono?<span class="req">*</span></label>
+              <label class="lbl">Como é o seu sono?<span class="req">*</span></label>
               <div class="rgroup">
-                <label class="ropt"><input type="radio" name="sono" value="Ã“timo! Durmo de 6 a 8 horas por noite."><span>Ã“timo! Durmo de 6 a 8 horas por noite.</span></label>
-                <label class="ropt"><input type="radio" name="sono" value="Bom, mas acordo com frequÃªncia Ã  noite para urinar."><span>Bom, mas acordo com frequÃªncia Ã  noite para urinar.</span></label>
-                <label class="ropt"><input type="radio" name="sono" value="Constantemente tenho insÃ´nia."><span>Constantemente tenho insÃ´nia.</span></label>
+                <label class="ropt"><input type="radio" name="sono" value="Ótimo! Durmo de 6 a 8 horas por noite."><span>Ótimo! Durmo de 6 a 8 horas por noite.</span></label>
+                <label class="ropt"><input type="radio" name="sono" value="Bom, mas acordo com frequência à noite para urinar."><span>Bom, mas acordo com frequência à noite para urinar.</span></label>
+                <label class="ropt"><input type="radio" name="sono" value="Constantemente tenho insônia."><span>Constantemente tenho insônia.</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Como vocÃª classifica sua memÃ³ria?<span class="req">*</span></label>
+              <label class="lbl">Como você classifica sua memória?<span class="req">*</span></label>
               <div class="rgroup">
                 <label class="ropt"><input type="radio" name="mem" value="Muito bom, lembro de tudo!"><span>Muito bom, lembro de tudo!</span></label>
-                <label class="ropt"><input type="radio" name="mem" value="Regular, preciso anotar tudo, Ã s vezes esqueÃ§o coisas importantes."><span>Regular, preciso anotar tudo, Ã s vezes esqueÃ§o coisas importantes.</span></label>
-                <label class="ropt"><input type="radio" name="mem" value="PÃ©ssima, sinto que nÃ£o absorvo nada."><span>PÃ©ssima, sinto que nÃ£o absorvo nada.</span></label>
+                <label class="ropt"><input type="radio" name="mem" value="Regular, preciso anotar tudo, às vezes esqueço coisas importantes."><span>Regular, preciso anotar tudo, às vezes esqueço coisas importantes.</span></label>
+                <label class="ropt"><input type="radio" name="mem" value="Péssima, sinto que não absorvo nada."><span>Péssima, sinto que não absorvo nada.</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Tem algum compromisso diÃ¡rio?<span class="req">*</span></label>
+              <label class="lbl">Tem algum compromisso diário?<span class="req">*</span></label>
               <div class="rgroup">
                 <label class="ropt"><input type="radio" name="comp" value="Sim, trabalho."><span>Sim, trabalho.</span></label>
                 <label class="ropt"><input type="radio" name="comp" value="Sim, estudo."><span>Sim, estudo.</span></label>
                 <label class="ropt"><input type="radio" name="comp" value="Sim, trabalho e estudo."><span>Sim, trabalho e estudo.</span></label>
-                <label class="ropt"><input type="radio" name="comp" value="NÃ£o"><span>NÃ£o</span></label>
+                <label class="ropt"><input type="radio" name="comp" value="Não"><span>Não</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Sobre o seu compromisso diÃ¡rio, qual horÃ¡rio? Tem pausas?<span class="req">*</span></label>
-              <textarea class="txta" id="fHComp" placeholder="Ex: 8h Ã s 17h com pausa de 1h para almoÃ§o..." style="min-height:65px"></textarea>
+              <label class="lbl">Sobre o seu compromisso diário, qual horário? Tem pausas?<span class="req">*</span></label>
+              <textarea class="txta" id="fHComp" placeholder="Ex: 8h às 17h com pausa de 1h para almoço..." style="min-height:65px"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">Onde vocÃª almoÃ§a?<span class="req">*</span></label>
+              <label class="lbl">Onde você almoça?<span class="req">*</span></label>
               <input class="inp" type="text" id="fAlmoco" placeholder="Ex: em casa, no trabalho, restaurante...">
             </div>
             <div class="fld">
               <label class="lbl">Quem cozinha na sua casa?<span class="req">*</span></label>
-              <input class="inp" type="text" id="fCozinha" placeholder="Ex: eu mesma, minha mÃ£e, ninguÃ©m â€” peÃ§o delivery...">
+              <input class="inp" type="text" id="fCozinha" placeholder="Ex: eu mesma, minha mãe, ninguém — peço delivery...">
             </div>
 
             <div class="fld">
-              <label class="lbl">VocÃª Ã© fumante?<span class="req">*</span></label>
+              <label class="lbl">Você é fumante?<span class="req">*</span></label>
               <div class="rgroup">
-                <label class="ropt"><input type="radio" name="fuma" value="NÃ£o, nunca fumei."><span>NÃ£o, nunca fumei.</span></label>
-                <label class="ropt"><input type="radio" name="fuma" value="Atualmente nÃ£o, mas jÃ¡ fumei."><span>Atualmente nÃ£o, mas jÃ¡ fumei.</span></label>
+                <label class="ropt"><input type="radio" name="fuma" value="Não, nunca fumei."><span>Não, nunca fumei.</span></label>
+                <label class="ropt"><input type="radio" name="fuma" value="Atualmente não, mas já fumei."><span>Atualmente não, mas já fumei.</span></label>
                 <label class="ropt"><input type="radio" name="fuma" value="Sim"><span>Sim</span></label>
               </div>
             </div>
           </div>
 
           <div class="fsec">
-            <div class="fsec-title">SaÃºde</div>
+            <div class="fsec-title">Saúde</div>
 
             <div class="fld">
-              <label class="lbl">Tem alguma doenÃ§a diagnosticada? EstÃ¡ em investigaÃ§Ã£o de alguma doenÃ§a?<span class="req">*</span></label>
-              <textarea class="txta" id="fDoenca" placeholder="Ex: hipotireoidismo, diabetes, SOP... ou 'NÃ£o tenho'" style="min-height:65px"></textarea>
+              <label class="lbl">Tem alguma doença diagnosticada? Está em investigação de alguma doença?<span class="req">*</span></label>
+              <textarea class="txta" id="fDoenca" placeholder="Ex: hipotireoidismo, diabetes, SOP... ou 'Não tenho'" style="min-height:65px"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">VocÃª tem alguma alergia alimentar ou intolerÃ¢ncia?<span class="req">*</span></label>
-              <textarea class="txta" id="fAlergia" placeholder="Ex: intolerÃ¢ncia Ã  lactose... ou 'NÃ£o tenho'" style="min-height:65px"></textarea>
+              <label class="lbl">Você tem alguma alergia alimentar ou intolerância?<span class="req">*</span></label>
+              <textarea class="txta" id="fAlergia" placeholder="Ex: intolerância à lactose... ou 'Não tenho'" style="min-height:65px"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">JÃ¡ fez alguma cirurgia? Qual ou quais?<span class="req">*</span></label>
-              <textarea class="txta" id="fCirurgia" placeholder="Ex: bariÃ¡trica, cesÃ¡rea... ou 'NÃ£o fiz'" style="min-height:65px"></textarea>
+              <label class="lbl">Já fez alguma cirurgia? Qual ou quais?<span class="req">*</span></label>
+              <textarea class="txta" id="fCirurgia" placeholder="Ex: bariátrica, cesárea... ou 'Não fiz'" style="min-height:65px"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">Me liste todos os MEDICAMENTOS que vocÃª usa (incluindo anticoncepcional) e o horÃ¡rio<span class="req">*</span></label>
-              <textarea class="txta" id="fMeds" placeholder="Nome do medicamento â€” horÃ¡rio... ou 'NÃ£o uso nenhum'"></textarea>
+              <label class="lbl">Me liste todos os MEDICAMENTOS que você usa (incluindo anticoncepcional) e o horário<span class="req">*</span></label>
+              <textarea class="txta" id="fMeds" placeholder="Nome do medicamento — horário... ou 'Não uso nenhum'"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">Me liste todos os SUPLEMENTOS que vocÃª usa (incluindo vitaminas)</label>
-              <textarea class="txta" id="fSup" placeholder="Nome do suplemento... ou 'NÃ£o uso'" style="min-height:65px"></textarea>
+              <label class="lbl">Me liste todos os SUPLEMENTOS que você usa (incluindo vitaminas)</label>
+              <textarea class="txta" id="fSup" placeholder="Nome do suplemento... ou 'Não uso'" style="min-height:65px"></textarea>
             </div>
             <div class="fld">
-              <label class="lbl">Quais doenÃ§as seus familiares tÃªm ou tiveram? (pais, irmÃ£os, avÃ³s)<span class="req">*</span></label>
-              <textarea class="txta" id="fFam" placeholder="Ex: pai â€” diabetes; avÃ³ materna â€” hipertensÃ£o..."></textarea>
+              <label class="lbl">Quais doenças seus familiares têm ou tiveram? (pais, irmãos, avós)<span class="req">*</span></label>
+              <textarea class="txta" id="fFam" placeholder="Ex: pai — diabetes; avó materna — hipertensão..."></textarea>
             </div>
           </div>
 
           <div class="fsec">
-            <div class="fsec-title">HÃ¡bitos Alimentares</div>
+            <div class="fsec-title">Hábitos Alimentares</div>
 
             <div class="fld">
-              <label class="lbl">JÃ¡ fez ou costuma fazer dietas? Quais foram os resultados?<span class="req">*</span></label>
+              <label class="lbl">Já fez ou costuma fazer dietas? Quais foram os resultados?<span class="req">*</span></label>
               <textarea class="txta" id="fDieta" placeholder="Ex: low carb por 3 meses, emagreci 5kg mas voltou... ou 'Nunca fiz'"></textarea>
             </div>
 
             <div class="fld">
-              <label class="lbl">Qual Ã© o seu horÃ¡rio de MAIOR apetite?<span class="req">*</span></label>
+              <label class="lbl">Qual é o seu horário de MAIOR apetite?<span class="req">*</span></label>
               <div class="rgroup">
-                <label class="ropt"><input type="radio" name="apet" value="ManhÃ£"><span>ManhÃ£</span></label>
-                <label class="ropt"><input type="radio" name="apet" value="AlmoÃ§o"><span>AlmoÃ§o</span></label>
+                <label class="ropt"><input type="radio" name="apet" value="Manhã"><span>Manhã</span></label>
+                <label class="ropt"><input type="radio" name="apet" value="Almoço"><span>Almoço</span></label>
                 <label class="ropt"><input type="radio" name="apet" value="Tarde"><span>Tarde</span></label>
                 <label class="ropt"><input type="radio" name="apet" value="Noite"><span>Noite</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Como vocÃª classifica sua mastigaÃ§Ã£o?<span class="req">*</span></label>
+              <label class="lbl">Como você classifica sua mastigação?<span class="req">*</span></label>
               <div class="rgroup">
-                <label class="ropt"><input type="radio" name="mast" value="Normal, presto atenÃ§Ã£o no que como e mastigo bem os alimentos."><span>Normal, presto atenÃ§Ã£o no que como e mastigo bem os alimentos.</span></label>
+                <label class="ropt"><input type="radio" name="mast" value="Normal, presto atenção no que como e mastigo bem os alimentos."><span>Normal, presto atenção no que como e mastigo bem os alimentos.</span></label>
                 <label class="ropt"><input type="radio" name="mast" value="Muito lenta, sempre termino de comer depois das outras pessoas."><span>Muito lenta, sempre termino de comer depois das outras pessoas.</span></label>
-                <label class="ropt"><input type="radio" name="mast" value="RÃ¡pida demais, termino antes de todo mundo e quase nÃ£o mastigo."><span>RÃ¡pida demais, termino antes de todo mundo e quase nÃ£o mastigo.</span></label>
+                <label class="ropt"><input type="radio" name="mast" value="Rápida demais, termino antes de todo mundo e quase não mastigo."><span>Rápida demais, termino antes de todo mundo e quase não mastigo.</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Em mÃ©dia, quanto de Ã¡gua vocÃª bebe por dia?<span class="req">*</span></label>
+              <label class="lbl">Em média, quanto de água você bebe por dia?<span class="req">*</span></label>
               <input class="inp" type="text" id="fAgua" placeholder="Ex: 1 litro, 2 litros, pouco mais de 500ml...">
             </div>
 
             <div class="fld">
-              <label class="lbl">Quantas vezes na semana vocÃª frequenta restaurantes, bares ou pede delivery?<span class="req">*</span></label>
+              <label class="lbl">Quantas vezes na semana você frequenta restaurantes, bares ou pede delivery?<span class="req">*</span></label>
               <div class="rgroup">
                 <label class="ropt"><input type="radio" name="deliv" value="Entre 0 e 2x na semana."><span>Entre 0 e 2x na semana.</span></label>
                 <label class="ropt"><input type="radio" name="deliv" value="Entre 3 e 5x na semana."><span>Entre 3 e 5x na semana.</span></label>
-                <label class="ropt"><input type="radio" name="deliv" value="Praticamente todos os dias, sendo que final de semana almoÃ§o e janto fora sempre."><span>Praticamente todos os dias, sendo que final de semana almoÃ§o e janto fora sempre.</span></label>
+                <label class="ropt"><input type="radio" name="deliv" value="Praticamente todos os dias, sendo que final de semana almoço e janto fora sempre."><span>Praticamente todos os dias, sendo que final de semana almoço e janto fora sempre.</span></label>
                 <label class="ropt"><input type="radio" name="deliv" value="Nenhuma vez na semana"><span>Nenhuma vez na semana</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Qual sua preferÃªncia de sabor?<span class="req">*</span></label>
+              <label class="lbl">Qual sua preferência de sabor?<span class="req">*</span></label>
               <div class="cgroup">
                 <label class="copt"><input type="checkbox" name="sabor" value="Salgado"><span>Salgado</span></label>
                 <label class="copt"><input type="checkbox" name="sabor" value="Doce"><span>Doce</span></label>
@@ -458,25 +458,25 @@ footer p{font-size:11px;color:var(--muted2)}
             </div>
 
             <div class="fld">
-              <label class="lbl">Qual Ã© o seu alimento preferido?<span class="req">*</span></label>
-              <input class="inp" type="text" id="fPref" placeholder="Ex: arroz com feijÃ£o, macarrÃ£o, frango...">
+              <label class="lbl">Qual é o seu alimento preferido?<span class="req">*</span></label>
+              <input class="inp" type="text" id="fPref" placeholder="Ex: arroz com feijão, macarrão, frango...">
             </div>
             <div class="fld">
-              <label class="lbl">Quais sÃ£o os alimentos que vocÃª nÃ£o come / nÃ£o gosta de jeito nenhum?<span class="req">*</span></label>
-              <textarea class="txta" id="fNaoCome" placeholder="Ex: fÃ­gado, peixe, brÃ³colis..." style="min-height:65px"></textarea>
+              <label class="lbl">Quais são os alimentos que você não come / não gosta de jeito nenhum?<span class="req">*</span></label>
+              <textarea class="txta" id="fNaoCome" placeholder="Ex: fígado, peixe, brócolis..." style="min-height:65px"></textarea>
             </div>
           </div>
 
           <div class="fsec">
-            <div class="fsec-title">Sinais e Sintomas â€” Ãºltimos 30 dias</div>
+            <div class="fsec-title">Sinais e Sintomas — últimos 30 dias</div>
 
             <div class="fld">
               <label class="lbl">Qualidade das UNHAS<span class="req">*</span></label>
               <div class="cgroup">
-                <label class="copt"><input type="checkbox" name="unhas" value="Fracas e quebradiÃ§as"><span>Fracas e quebradiÃ§as</span></label>
+                <label class="copt"><input type="checkbox" name="unhas" value="Fracas e quebradiças"><span>Fracas e quebradiças</span></label>
                 <label class="copt"><input type="checkbox" name="unhas" value="Com manchas"><span>Com manchas</span></label>
                 <label class="copt"><input type="checkbox" name="unhas" value="Onduladas"><span>Onduladas</span></label>
-                <label class="copt"><input type="checkbox" name="unhas" value="Fortes, nÃ£o quebram"><span>Fortes, nÃ£o quebram</span></label>
+                <label class="copt"><input type="checkbox" name="unhas" value="Fortes, não quebram"><span>Fortes, não quebram</span></label>
               </div>
             </div>
 
@@ -505,83 +505,83 @@ footer p{font-size:11px;color:var(--muted2)}
               <label class="lbl">BOCA<span class="req">*</span></label>
               <div class="cgroup">
                 <label class="copt"><input type="checkbox" name="boca" value="Afta frequente"><span>Afta frequente</span></label>
-                <label class="copt"><input type="checkbox" name="boca" value="LÃ­ngua rachada (lateral)"><span>LÃ­ngua rachada (lateral)</span></label>
-                <label class="copt"><input type="checkbox" name="boca" value="LÃ­ngua esbranquiÃ§ada"><span>LÃ­ngua esbranquiÃ§ada</span></label>
-                <label class="copt"><input type="checkbox" name="boca" value="LÃ­ngua acinzentada"><span>LÃ­ngua acinzentada</span></label>
-                <label class="copt"><input type="checkbox" name="boca" value="Halitose (hÃ¡lito forte)"><span>Halitose (hÃ¡lito forte)</span></label>
-                <label class="copt"><input type="checkbox" name="boca" value="Nenhuma das opÃ§Ãµes"><span>Nenhuma das opÃ§Ãµes</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua rachada (lateral)"><span>Língua rachada (lateral)</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua esbranquiçada"><span>Língua esbranquiçada</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Língua acinzentada"><span>Língua acinzentada</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Halitose (hálito forte)"><span>Halitose (hálito forte)</span></label>
+                <label class="copt"><input type="checkbox" name="boca" value="Nenhuma das opções"><span>Nenhuma das opções</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">MULHERES â€” Sintomas de TPM <span style="color:var(--muted2);font-weight:400;font-size:9px">(opcional)</span></label>
+              <label class="lbl">MULHERES — Sintomas de TPM <span style="color:var(--muted2);font-weight:400;font-size:9px">(opcional)</span></label>
               <div class="cgroup">
-                <label class="copt"><input type="checkbox" name="tpm" value="CÃ³lica forte"><span>CÃ³lica forte</span></label>
-                <label class="copt"><input type="checkbox" name="tpm" value="InchaÃ§o"><span>InchaÃ§o</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Cólica forte"><span>Cólica forte</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Inchaço"><span>Inchaço</span></label>
                 <label class="copt"><input type="checkbox" name="tpm" value="Dores nas mamas"><span>Dores nas mamas</span></label>
-                <label class="copt"><input type="checkbox" name="tpm" value="Dores de cabeÃ§a frequente"><span>Dores de cabeÃ§a frequente</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Dores de cabeça frequente"><span>Dores de cabeça frequente</span></label>
                 <label class="copt"><input type="checkbox" name="tpm" value="Vontade de doce"><span>Vontade de doce</span></label>
-                <label class="copt"><input type="checkbox" name="tpm" value="MudanÃ§a de humor"><span>MudanÃ§a de humor</span></label>
+                <label class="copt"><input type="checkbox" name="tpm" value="Mudança de humor"><span>Mudança de humor</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">MULHERES â€” Sintomas de MENOPAUSA <span style="color:var(--muted2);font-weight:400;font-size:9px">(opcional)</span></label>
+              <label class="lbl">MULHERES — Sintomas de MENOPAUSA <span style="color:var(--muted2);font-weight:400;font-size:9px">(opcional)</span></label>
               <div class="cgroup">
-                <label class="copt"><input type="checkbox" name="meno" value="MemÃ³ria ruim"><span>MemÃ³ria ruim</span></label>
-                <label class="copt"><input type="checkbox" name="meno" value="CalorÃ£o"><span>CalorÃ£o</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Memória ruim"><span>Memória ruim</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Calorão"><span>Calorão</span></label>
                 <label class="copt"><input type="checkbox" name="meno" value="Suor noturno"><span>Suor noturno</span></label>
-                <label class="copt"><input type="checkbox" name="meno" value="CansaÃ§o"><span>CansaÃ§o</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Cansaço"><span>Cansaço</span></label>
                 <label class="copt"><input type="checkbox" name="meno" value="Dificuldade para dormir"><span>Dificuldade para dormir</span></label>
-                <label class="copt"><input type="checkbox" name="meno" value="MudanÃ§a de humor"><span>MudanÃ§a de humor</span></label>
+                <label class="copt"><input type="checkbox" name="meno" value="Mudança de humor"><span>Mudança de humor</span></label>
               </div>
             </div>
 
             <div class="fld">
-              <label class="lbl">Como vocÃª me conheceu?<span class="req">*</span></label>
-              <textarea class="txta" id="fConheceu" placeholder="Pela internet, evento, indicaÃ§Ã£o de amigo..." style="min-height:65px"></textarea>
+              <label class="lbl">Como você me conheceu?<span class="req">*</span></label>
+              <textarea class="txta" id="fConheceu" placeholder="Pela internet, evento, indicação de amigo..." style="min-height:65px"></textarea>
             </div>
           </div>
 
-          <button class="btn-enviar" id="btnEnv" onclick="enviar()">Enviar questionÃ¡rio â†’</button>
-          <p style="font-size:11px;color:var(--muted2);margin-top:10px">A Bruna serÃ¡ notificada assim que vocÃª enviar e entrarÃ¡ em contato para agendar a consulta.</p>
+          <button class="btn-enviar" id="btnEnv" onclick="enviar()">Enviar questionário →</button>
+          <p style="font-size:11px;color:var(--muted2);margin-top:10px">A Bruna será notificada assim que você enviar e entrará em contato para agendar a consulta.</p>
         </div>
 
         <div id="qDone" class="done-box" style="display:none">
-          <div class="done-ico">âœ…</div>
-          <div class="done-t">QuestionÃ¡rio enviado com sucesso!</div>
-          <div class="done-s">A Bruna foi notificada e entrarÃ¡ em contato pelo WhatsApp para agendar sua consulta. Fique de olho!</div>
+          <div class="done-ico">✅</div>
+          <div class="done-t">Questionário enviado com sucesso!</div>
+          <div class="done-s">A Bruna foi notificada e entrará em contato pelo WhatsApp para agendar sua consulta. Fique de olho!</div>
         </div>
 
       </div>
     </div>
 
-    <!-- MÃ“DULO 3 -->
+    <!-- MÓDULO 3 -->
     <div class="mod" id="mod3">
       <div class="mod-head">
         <div class="mnum lock" id="m3num">3</div>
         <div>
-          <div class="mod-title">MÃ³dulo 3 â€” Plano Alimentar</div>
-          <div class="mod-sub" id="m3sub">DisponÃ­vel apÃ³s a sua consulta com a Bruna</div>
+          <div class="mod-title">Módulo 3 — Plano Alimentar</div>
+          <div class="mod-sub" id="m3sub">Disponível após a sua consulta com a Bruna</div>
         </div>
       </div>
 
       <div class="lock-overlay" id="lockOverlay">
-        <div class="lock-ico">ðŸ”’</div>
+        <div class="lock-ico">🔒</div>
         <div class="lock-t">Aguardando sua consulta</div>
-        <div class="lock-s">ApÃ³s a consulta, a Bruna irÃ¡ liberar aqui seu plano alimentar personalizado com orientaÃ§Ãµes e medidas corporais.</div>
+        <div class="lock-s">Após a consulta, a Bruna irá liberar aqui seu plano alimentar personalizado com orientações e medidas corporais.</div>
       </div>
 
       <div class="mod-body" id="m3content" style="display:none">
         <div class="pdf-strip">
           <div class="pdf-info">
-            <div class="pdf-ico">ðŸ“‹</div>
+            <div class="pdf-ico">📋</div>
             <div>
               <div class="pdf-title">Plano Alimentar Personalizado</div>
-              <div class="pdf-sub">Com orientaÃ§Ãµes e medidas corporais â€” Nutri Bruna Boreggio</div>
+              <div class="pdf-sub">Com orientações e medidas corporais — Nutri Bruna Boreggio</div>
             </div>
           </div>
-          <a class="btn-dl" id="pdfPlano" href="#" target="_blank">â¬‡ Baixar meu plano (PDF)</a>
+          <a class="btn-dl" id="pdfPlano" href="#" target="_blank">⬇ Baixar meu plano (PDF)</a>
         </div>
         <div id="m3notes" style="display:none;margin-top:18px;font-size:13px;color:var(--muted);line-height:1.75;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:12px;padding:16px"></div>
       </div>
@@ -590,15 +590,15 @@ footer p{font-size:11px;color:var(--muted2)}
         <div class="post-form">
           <div class="post-t">Postar plano alimentar para esta paciente</div>
           <div class="fld-r">
-            <label>Link do PDF â€” Google Drive <span class="req">*</span></label>
+            <label>Link do PDF — Google Drive <span class="req">*</span></label>
             <input class="inp" type="text" id="iPdfPlano" placeholder="https://drive.google.com/file/d/...">
-            <div style="font-size:11px;color:var(--muted2);margin-top:6px">Drive â†’ compartilhar â†’ "qualquer pessoa com o link" â†’ colar aqui</div>
+            <div style="font-size:11px;color:var(--muted2);margin-top:6px">Drive → compartilhar → "qualquer pessoa com o link" → colar aqui</div>
           </div>
           <div class="fld-r">
-            <label>ObservaÃ§Ãµes / OrientaÃ§Ãµes adicionais (opcional)</label>
-            <textarea class="txta" id="iNotes" placeholder="OrientaÃ§Ãµes complementares..." style="min-height:65px"></textarea>
+            <label>Observações / Orientações adicionais (opcional)</label>
+            <textarea class="txta" id="iNotes" placeholder="Orientações complementares..." style="min-height:65px"></textarea>
           </div>
-          <button class="btn-enviar" onclick="postar()">Publicar plano alimentar â†’</button>
+          <button class="btn-enviar" onclick="postar()">Publicar plano alimentar →</button>
         </div>
       </div>
     </div>
@@ -607,22 +607,22 @@ footer p{font-size:11px;color:var(--muted2)}
 </div><!-- /page -->
 
 <div id="denied">
-  <div style="font-size:44px">ðŸ”’</div>
+  <div style="font-size:44px">🔒</div>
   <div style="font-size:20px;font-weight:800">Acesso restrito</div>
-  <div style="font-size:13px;color:var(--muted);max-width:300px">VocÃª nÃ£o tem acesso Ã  Consultoria Nutricional. Adquira o serviÃ§o para acessar sua Ã¡rea.</div>
-  <a href="/area-membros/" style="display:inline-flex;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponÃ­veis</a>
+  <div style="font-size:13px;color:var(--muted);max-width:300px">Você não tem acesso à Consultoria Nutricional. Adquira o serviço para acessar sua área.</div>
+  <a href="/area-membros/" style="display:inline-flex;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px">Ver programas disponíveis</a>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <footer id="ftr" style="display:none">
-  <p>Â© 2026 Bruna Boreggio Â· Nutricionista Â· Consultoria Nutricional</p>
+  <p>© 2026 Bruna Boreggio · Nutricionista · Consultoria Nutricional</p>
 </footer>
 
 <script>
 var APPS_URL='https://script.google.com/macros/s/AKfycbxjLycIWY2P8li2Z1yzNRt3lIWQsPg8OSpfz2S_vV9V8UiIdtS-vr9m3PJvUPoZ9JsWWw/exec';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-/* Default video URLs â€” Bruna adds via admin controls */
+/* Default video URLs — Bruna adds via admin controls */
 var DEFAULT_VIDS={1:'',2:''};
 var me=null,isAdmin=false,viewPat=null,previewMode=false;
 
@@ -632,7 +632,7 @@ function ytEmbed(url){
   return m?'https://www.youtube.com/embed/'+m[1]:url;
 }
 
-/* â”€â”€ AUTH â”€â”€ */
+/* ── AUTH ── */
 window.addEventListener('load',function(){setTimeout(checkAuth,900)});
 
 function checkAuth(){
@@ -654,7 +654,7 @@ function enter(){
   hideLoad();
 }
 
-/* â”€â”€ VIEWS â”€â”€ */
+/* ── VIEWS ── */
 function goView(v){
   if(v==='painel'){
     document.getElementById('vPainel').style.display='block';
@@ -676,18 +676,18 @@ function setTab(id){
 function showPatient(pat){
   previewMode=false;
   var btn=document.getElementById('btnTogglePreview');
-  if(btn){btn.textContent='ðŸ‘ Ver como paciente';btn.style.color='var(--gold)';}
+  if(btn){btn.textContent='👁 Ver como paciente';btn.style.color='var(--gold)';}
   var label=document.getElementById('viewBannerLabel');
   if(label)label.textContent='Visualizando como';
   viewPat=pat;
-  /* reset mÃ³dulo 3 */
+  /* reset módulo 3 */
   document.getElementById('lockOverlay').style.display='block';
   document.getElementById('m3content').style.display='none';
   document.getElementById('adminPost').style.display='none';
   document.getElementById('m3num').className='mnum lock';
   document.getElementById('m3num').textContent='3';
-  document.getElementById('m3sub').textContent='DisponÃ­vel apÃ³s a sua consulta com a Bruna';
-  /* reset mÃ³dulo 2 */
+  document.getElementById('m3sub').textContent='Disponível após a sua consulta com a Bruna';
+  /* reset módulo 2 */
   document.getElementById('qForm').style.display='block';
   document.getElementById('qDone').style.display='none';
   document.getElementById('m2num').className='mnum pend';
@@ -698,7 +698,7 @@ function showPatient(pat){
   /* banner */
   if(isAdmin&&pat){
     document.getElementById('viewBanner').style.display='flex';
-    document.getElementById('viewName').textContent=pat.nome||pat.email||'â€”';
+    document.getElementById('viewName').textContent=pat.nome||pat.email||'—';
     document.getElementById('viewEmail').textContent=pat.email||'';
     document.getElementById('tabPatName').textContent=(pat.nome||pat.email||'').split(' ')[0];
     document.getElementById('tabPaciente').style.display='block';
@@ -723,7 +723,7 @@ function loadGlobal(){
     document.getElementById('iVid2').value=s.v2||DEFAULT_VIDS[2]||'';
   }
   if(s.p1){
-    document.getElementById('pdf1sub').textContent='DisponÃ­vel para download';
+    document.getElementById('pdf1sub').textContent='Disponível para download';
     document.getElementById('pdf1dl').href=s.p1;
     document.getElementById('pdf1dl').style.display='flex';
     if(isAdmin)document.getElementById('iPdf1').value=s.p1;
@@ -742,7 +742,7 @@ function loadPatData(email,asAdmin){
       .then(function(r){return r.json()})
       .then(function(d){
         if(!d)return;
-        if(d.Status==='QuestionÃ¡rio preenchido'||d.Status==='ConcluÃ­do')showQDone();
+        if(d.Status==='Questionário preenchido'||d.Status==='Concluído')showQDone();
         if(d.Modulo3_PDF_URL){unlockM3({pdfUrl:d.Modulo3_PDF_URL,notes:d.Modulo3_Conteudo||''});}
         else if(asAdmin&&!previewMode){document.getElementById('adminPost').style.display='block';}
       }).catch(function(){});
@@ -753,7 +753,7 @@ function showQDone(){
   document.getElementById('qForm').style.display='none';
   document.getElementById('qDone').style.display='block';
   document.getElementById('m2num').className='mnum done';
-  document.getElementById('m2num').textContent='âœ“';
+  document.getElementById('m2num').textContent='✓';
 }
 
 function unlockM3(c){
@@ -761,13 +761,13 @@ function unlockM3(c){
   document.getElementById('m3content').style.display='block';
   document.getElementById('adminPost').style.display='none';
   document.getElementById('m3num').className='mnum done';
-  document.getElementById('m3num').textContent='âœ“';
-  document.getElementById('m3sub').textContent='Plano alimentar disponÃ­vel';
+  document.getElementById('m3num').textContent='✓';
+  document.getElementById('m3sub').textContent='Plano alimentar disponível';
   if(c.pdfUrl){document.getElementById('pdfPlano').href=c.pdfUrl;}
   if(c.notes){var n=document.getElementById('m3notes');n.innerHTML=c.notes.replace(/\n/g,'<br>');n.style.display='block';}
 }
 
-/* â”€â”€ ADMIN: PATIENT LIST â”€â”€ */
+/* ── ADMIN: PATIENT LIST ── */
 var _patList=[];
 
 function loadPList(){
@@ -778,8 +778,8 @@ function loadPList(){
       .catch(function(){renderPList([])});
   } else {
     renderPList([
-      {email:'paciente.demo@email.com',nome:'Ana Carolina Lima',status:'QuestionÃ¡rio preenchido',dataEnvio:'20/07/2026'},
-      {email:'paciente2.demo@email.com',nome:'Fernanda Souza',status:'Aguardando questionÃ¡rio',dataEnvio:'18/07/2026'}
+      {email:'paciente.demo@email.com',nome:'Ana Carolina Lima',status:'Questionário preenchido',dataEnvio:'20/07/2026'},
+      {email:'paciente2.demo@email.com',nome:'Fernanda Souza',status:'Aguardando questionário',dataEnvio:'18/07/2026'}
     ]);
   }
 }
@@ -789,18 +789,18 @@ function renderPList(list){
   document.getElementById('panelSub').textContent=list.length+' paciente'+(list.length!==1?'s':'')+' cadastrada'+(list.length!==1?'s':'');
   var el=document.getElementById('plist');
   if(!list.length){
-    el.innerHTML='<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">Nenhuma paciente ainda. As respostas do questionÃ¡rio aparecem aqui automaticamente.</div>';
+    el.innerHTML='<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">Nenhuma paciente ainda. As respostas do questionário aparecem aqui automaticamente.</div>';
     return;
   }
   el.innerHTML=list.map(function(p,i){
-    var sc=p.status==='ConcluÃ­do'?'ps-done':p.status==='QuestionÃ¡rio preenchido'?'ps-ok':'ps-agt';
-    var st=p.status||'Aguardando questionÃ¡rio';
-    var nome=p.nome||p['Nome completo']||'â€”';
+    var sc=p.status==='Concluído'?'ps-done':p.status==='Questionário preenchido'?'ps-ok':'ps-agt';
+    var st=p.status||'Aguardando questionário';
+    var nome=p.nome||p['Nome completo']||'—';
     var email=p.email||p['Email']||'';
     return '<div class="pcard" onclick="openPat('+i+')">'+
-      '<div><div class="p-name">'+nome+'</div><div class="p-em">'+email+(p.dataEnvio?' Â· '+p.dataEnvio:'')+'</div></div>'+
+      '<div><div class="p-name">'+nome+'</div><div class="p-em">'+email+(p.dataEnvio?' · '+p.dataEnvio:'')+'</div></div>'+
       '<div style="display:flex;align-items:center;gap:8px"><span class="pstatus '+sc+'">'+st+'</span>'+
-      '<button class="btn-ver" onclick="event.stopPropagation();openPat('+i+')">Ver Ã¡rea â†’</button></div></div>';
+      '<button class="btn-ver" onclick="event.stopPropagation();openPat('+i+')">Ver área →</button></div></div>';
   }).join('');
 }
 
@@ -810,11 +810,11 @@ function openPat(i){
   showPatient({email:p.email||p['Email'],nome:p.nome||p['Nome completo']||''});
 }
 
-/* â”€â”€ VIDEOS â”€â”€ */
+/* ── VIDEOS ── */
 function playVid(n){
   var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
   var url=s['v'+n]||DEFAULT_VIDS[n];
-  if(!url){toast('VÃ­deo ainda nÃ£o disponÃ­vel.');return;}
+  if(!url){toast('Vídeo ainda não disponível.');return;}
   showVid(n,url);
 }
 
@@ -831,22 +831,22 @@ function saveVid(n){
   if(!url)return;
   var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
   s['v'+n]=url;localStorage.setItem('cs_global',JSON.stringify(s));
-  showVid(n,url);toast('VÃ­deo '+n+' atualizado!');
+  showVid(n,url);toast('Vídeo '+n+' atualizado!');
 }
 
-/* â”€â”€ PDFs MOD 1 â”€â”€ */
+/* ── PDFs MOD 1 ── */
 function savePdf(n){
   var url=document.getElementById('iPdf'+n).value.trim();
   if(!url)return;
   var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
   s['p'+n]=url;localStorage.setItem('cs_global',JSON.stringify(s));
-  document.getElementById('pdf'+n+'sub').textContent='DisponÃ­vel para download';
+  document.getElementById('pdf'+n+'sub').textContent='Disponível para download';
   document.getElementById('pdf'+n+'dl').href=url;
   document.getElementById('pdf'+n+'dl').style.display='flex';
   toast('PDF adicionado!');
 }
 
-/* â”€â”€ QUESTIONNAIRE â”€â”€ */
+/* ── QUESTIONNAIRE ── */
 function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 function gr(name){var e=document.querySelector('input[name="'+name+'"]:checked');return e?e.value:'';}
 function gc(name){return[...document.querySelectorAll('input[name="'+name+'"]:checked')].map(function(e){return e.value}).join(', ');}
@@ -863,29 +863,29 @@ function enviar(){
     'CPF':gv('fCPF'),
     'Data de nascimento':gv('fNasc'),
     'Objetivo':gv('fObj'),
-    'Atividade fÃ­sica':gv('fAtiv'),
-    'DisposiÃ§Ã£o e energia (0-10)':gr('disp'),
+    'Atividade física':gv('fAtiv'),
+    'Disposição e energia (0-10)':gr('disp'),
     'Sono':gr('sono'),
-    'MemÃ³ria':gr('mem'),
-    'Compromisso diÃ¡rio':gr('comp'),
-    'HorÃ¡rio do compromisso':gv('fHComp'),
-    'Onde almoÃ§a':gv('fAlmoco'),
+    'Memória':gr('mem'),
+    'Compromisso diário':gr('comp'),
+    'Horário do compromisso':gv('fHComp'),
+    'Onde almoça':gv('fAlmoco'),
     'Quem cozinha':gv('fCozinha'),
     'Fumante':gr('fuma'),
-    'DoenÃ§a diagnosticada':gv('fDoenca'),
+    'Doença diagnosticada':gv('fDoenca'),
     'Alergia alimentar':gv('fAlergia'),
     'Cirurgia':gv('fCirurgia'),
     'Medicamentos':gv('fMeds'),
     'Suplementos':gv('fSup'),
-    'DoenÃ§as na famÃ­lia':gv('fFam'),
+    'Doenças na família':gv('fFam'),
     'Dietas':gv('fDieta'),
-    'HorÃ¡rio de maior apetite':gr('apet'),
-    'MastigaÃ§Ã£o':gr('mast'),
-    'Ãgua por dia':gv('fAgua'),
+    'Horário de maior apetite':gr('apet'),
+    'Mastigação':gr('mast'),
+    'Água por dia':gv('fAgua'),
     'Restaurantes/delivery':gr('deliv'),
-    'PreferÃªncia de sabor':gc('sabor'),
+    'Preferência de sabor':gc('sabor'),
     'Alimento preferido':gv('fPref'),
-    'NÃ£o come':gv('fNaoCome'),
+    'Não come':gv('fNaoCome'),
     'Unhas':gc('unhas'),
     'Cabelo':gc('cab'),
     'Pele':gc('pele'),
@@ -897,7 +897,7 @@ function enviar(){
 
   localStorage.setItem('cs_q_'+me.email,JSON.stringify(data));
 
-  function done(){showQDone();toast('QuestionÃ¡rio enviado com sucesso!');}
+  function done(){showQDone();toast('Questionário enviado com sucesso!');}
 
   if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){setTimeout(done,900);return;}
 
@@ -905,7 +905,7 @@ function enviar(){
     .then(done).catch(done);
 }
 
-/* â”€â”€ ADMIN: POST PLANO â”€â”€ */
+/* ── ADMIN: POST PLANO ── */
 function postar(){
   var pdf=document.getElementById('iPdfPlano').value.trim();
   var notes=document.getElementById('iNotes').value.trim();
@@ -914,7 +914,7 @@ function postar(){
   var c={pdfUrl:pdf,notes:notes};
   localStorage.setItem('cs_content_'+viewPat.email,JSON.stringify(c));
 
-  function done(){unlockM3(c);toast('Plano publicado! Paciente jÃ¡ pode acessar.');}
+  function done(){unlockM3(c);toast('Plano publicado! Paciente já pode acessar.');}
 
   if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){done();return;}
 
@@ -922,20 +922,20 @@ function postar(){
     .then(done).catch(done);
 }
 
-/* â”€â”€ PREVIEW MODE â”€â”€ */
+/* ── PREVIEW MODE ── */
 function togglePreview(){
   previewMode=!previewMode;
   var btn=document.getElementById('btnTogglePreview');
   var label=document.getElementById('viewBannerLabel');
   if(previewMode){
-    btn.textContent='â† Voltar modo admin';
+    btn.textContent='← Voltar modo admin';
     btn.style.color='var(--muted)';
-    label.textContent='Preview â€” visÃ£o da paciente';
+    label.textContent='Preview — visão da paciente';
     document.querySelectorAll('.admin-only').forEach(function(el){el.style.display='none'});
     document.getElementById('pdf1inp').style.display='none';
     document.getElementById('adminPost').style.display='none';
   } else {
-    btn.textContent='ðŸ‘ Ver como paciente';
+    btn.textContent='👁 Ver como paciente';
     btn.style.color='var(--gold)';
     label.textContent='Visualizando como';
     document.querySelectorAll('.admin-only').forEach(function(el){el.style.display='flex'});
@@ -947,7 +947,7 @@ function togglePreview(){
   }
 }
 
-/* â”€â”€ UTILS â”€â”€ */
+/* ── UTILS ── */
 function sair(){window.location.href='/area-membros/';}
 function hideLoad(){var e=document.getElementById('loading');e.classList.add('out');setTimeout(function(){e.style.display='none'},500);}
 function toast(msg){var e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},3200);}
