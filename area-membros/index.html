@@ -250,7 +250,8 @@ function closeModal(){document.getElementById('loginOverlay').classList.remove('
 document.getElementById('heroLogin').addEventListener('click',function(e){e.preventDefault();openModal('/area-desafio/')});
 document.querySelectorAll('[data-login]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();openModal(el.getAttribute('data-dest')||'/area-desafio/')})});
 
-var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com','babadosdaaline@gmail.com'];
+var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var PATIENTS=['babadosdaaline@gmail.com'];
 
 function handleLogin(){
   var email=document.getElementById('loginEmail').value.trim().toLowerCase();
@@ -258,12 +259,16 @@ function handleLogin(){
 
   // Admin: acesso direto à área correspondente ao card clicado
   if(ADMINS.indexOf(email)>=0){
-    if(loginDest==='/area-protocolo/'){
-      localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
-    } else {
-      localStorage.setItem('desafio_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
-    }
+    localStorage.setItem('desafio_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
+    localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
     window.location.href=loginDest;
+    return;
+  }
+
+  // Paciente com acesso direto ao protocolo (experiência de paciente)
+  if(PATIENTS.indexOf(email)>=0){
+    localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'',pago:true}));
+    window.location.href='/area-protocolo/';
     return;
   }
 
