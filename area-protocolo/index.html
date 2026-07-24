@@ -196,11 +196,14 @@ footer p{font-size:11px;color:var(--muted2)}
 
     <div class="viewing-banner" id="viewBanner" style="display:none">
       <div>
-        <div class="vb-label">Visualizando como</div>
+        <div class="vb-label" id="viewBannerLabel">Visualizando como</div>
         <div class="vb-name" id="viewName">—</div>
         <div class="vb-email" id="viewEmail">—</div>
       </div>
-      <button class="btn-sm" onclick="goView('painel')">← Lista de pacientes</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-sm" id="btnTogglePreview" onclick="togglePreview()" style="color:var(--gold);border-color:var(--border2)">👁 Ver como paciente</button>
+        <button class="btn-sm" onclick="goView('painel')">← Lista de pacientes</button>
+      </div>
     </div>
 
     <!-- MÓDULO 1 -->
@@ -621,7 +624,7 @@ var APPS_URL='APPS_SCRIPT_URL_PLACEHOLDER';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 /* Default video URLs — Bruna can override via admin controls */
 var DEFAULT_VIDS={1:'',2:''};
-var me=null,isAdmin=false,viewPat=null;
+var me=null,isAdmin=false,viewPat=null,previewMode=false;
 
 function ytEmbed(url){
   if(!url)return null;
@@ -671,6 +674,11 @@ function setTab(id){
 }
 
 function showPatient(pat){
+  previewMode=false;
+  var btn=document.getElementById('btnTogglePreview');
+  if(btn){btn.textContent='👁 Ver como paciente';btn.style.color='var(--gold)';}
+  var lbl=document.getElementById('viewBannerLabel');
+  if(lbl)lbl.textContent='Visualizando como';
   viewPat=pat;
   /* reset módulo 3 */
   document.getElementById('lockOverlay').style.display='block';
@@ -774,31 +782,32 @@ function loadPList(){
   }
 }
 
+var _patList=[];
 function renderPList(list){
+  _patList=list;
   document.getElementById('panelSub').textContent=list.length+' paciente'+(list.length!==1?'s':'')+' cadastrada'+(list.length!==1?'s':'');
   var el=document.getElementById('plist');
   if(!list.length){
     el.innerHTML='<div style="text-align:center;padding:28px;color:var(--muted);font-size:13px">Nenhuma paciente ainda. As respostas do questionário aparecem aqui automaticamente.</div>';
     return;
   }
-  el.innerHTML=list.map(function(p){
+  el.innerHTML=list.map(function(p,i){
     var sc=p.status==='Concluído'?'ps-done':p.status==='Questionário preenchido'?'ps-ok':'ps-agt';
     var st=p.status||'Aguardando questionário';
     var nome=p.nome||p['Nome completo']||'—';
     var email=p.email||p['Email']||'';
-    var pj=JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return '<div class="pcard" onclick=\'openPat(\''+pj+'\')\'>'+
+    return '<div class="pcard" onclick="openPat('+i+')">'+
       '<div><div class="p-name">'+nome+'</div><div class="p-em">'+email+(p.dataEnvio?' · '+p.dataEnvio:'')+'</div></div>'+
       '<div style="display:flex;align-items:center;gap:8px"><span class="pstatus '+sc+'">'+st+'</span>'+
-      '<button class="btn-ver" onclick="event.stopPropagation();openPat(\''+pj+'\')">Ver área →</button></div></div>';
+      '<button class="btn-ver" onclick="event.stopPropagation();openPat('+i+')">Ver área →</button></div></div>';
   }).join('');
 }
 
-function openPat(p){
-  if(typeof p==='string')p=JSON.parse(p);
+function openPat(i){
+  var p=_patList[i];
+  if(!p)return;
   showPatient({email:p.email||p['Email'],nome:p.nome||p['Nome completo']||''});
 }
-
 /* ── VIDEOS ── */
 function playVid(n){
   var s=JSON.parse(localStorage.getItem('cs_global')||'{}');
@@ -909,6 +918,29 @@ function postar(){
 
   fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'postContent',email:viewPat.email,conteudo:notes,pdfUrl:pdf})})
     .then(done).catch(done);
+}
+
+/* ── PREVIEW MODE ── */
+function togglePreview(){
+  previewMode=!previewMode;
+  var btn=document.getElementById('btnTogglePreview');
+  var lbl=document.getElementById('viewBannerLabel');
+  if(previewMode){
+    btn.textContent='← Voltar modo admin';
+    btn.style.color='var(--muted)';
+    lbl.textContent='Preview — visão da paciente';
+    document.querySelectorAll('.admin-only').forEach(function(el){el.style.display='none'});
+    document.getElementById('pdf1inp').style.display='none';
+    document.getElementById('adminPost').style.display='none';
+  } else {
+    btn.textContent='👁 Ver como paciente';
+    btn.style.color='var(--gold)';
+    lbl.textContent='Visualizando como';
+    document.querySelectorAll('.admin-only').forEach(function(el){el.style.display='flex'});
+    document.getElementById('pdf1inp').style.display='flex';
+    var m3c=document.getElementById('m3content');
+    if(!m3c||m3c.style.display==='none')document.getElementById('adminPost').style.display='block';
+  }
 }
 
 /* ── UTILS ── */
