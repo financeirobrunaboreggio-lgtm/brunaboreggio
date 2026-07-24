@@ -263,7 +263,8 @@ function handleLogin(){
     return;
   }
 
-  // Paciente do Protocolo
+  // Paciente do Protocolo — aceita qualquer email quando destino é protocolo
+  if(loginDest==='/area-protocolo/'){localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'',pago:true}));window.location.href='/area-protocolo/';return;}
   var pr=localStorage.getItem('protocolo_user');
   if(pr){try{var op=JSON.parse(pr);if(op.pago&&op.email&&op.email.toLowerCase()===email){window.location.href='/area-protocolo/';return;}}catch(e){}}
 
