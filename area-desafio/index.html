@@ -255,7 +255,8 @@ input[type=file]{display:none}
 .comment-area:focus{border-color:rgba(201,149,78,0.4)}
 .btn-send-cmt{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(201,149,78,0.3);color:var(--gold);background:rgba(201,149,78,0.07);font-family:'Sora',sans-serif;margin-top:8px;transition:all .2s}
 .btn-send-cmt:hover{background:rgba(201,149,78,0.16)}
-.cmt-list{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.cmt-list{margin-top:14px;display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto;padding-right:4px}
+.cmt-list::-webkit-scrollbar{width:4px}.cmt-list::-webkit-scrollbar-track{background:rgba(255,255,255,0.04);border-radius:4px}.cmt-list::-webkit-scrollbar-thumb{background:rgba(201,149,78,0.35);border-radius:4px}
 .cmt-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px}
 .cmt-user{font-size:11px;font-weight:700;color:var(--gold2);margin-bottom:4px}
 .cmt-txt{font-size:13px;color:var(--text);line-height:1.5;white-space:pre-wrap}
@@ -875,12 +876,21 @@ html+='</div>';
 });
 list.innerHTML=html;
 }
+function refreshDayHeight(dayNum){
+var body=document.getElementById('db-'+dayNum);
+if(body&&body.style.maxHeight&&body.style.maxHeight!=='0px'){
+body.style.maxHeight='none';
+var h=body.scrollHeight;
+body.style.maxHeight=h+'px';
+}
+}
 function submitComment(dayNum){
 var inp=document.getElementById('cmt-'+dayNum);if(!inp||!inp.value.trim())return;
 var text=inp.value.trim();
 var cmts=getComments(dayNum);
 cmts.push({id:Date.now(),user:currentUser.nome||currentUser.email,text:text,reply:''});
 saveComments(dayNum,cmts);inp.value='';renderComments(dayNum,cmts);
+setTimeout(function(){refreshDayHeight(dayNum);},50);
 pingWebhook({action:'comment',email:currentUser.email,nome:currentUser.nome,dia:dayNum,text:text,ts:Date.now()});
 showToast('Comentário enviado! 💬');
 }
@@ -890,6 +900,7 @@ var repl=inp.value.trim();
 var cmts=getComments(dayNum);
 for(var i=0;i<cmts.length;i++){if(cmts[i].id===cmtId){cmts[i].reply=repl;break;}}
 saveComments(dayNum,cmts);renderComments(dayNum,cmts);
+setTimeout(function(){refreshDayHeight(dayNum);},50);
 pingWebhook({action:'reply_comment',email:currentUser.email,dia:dayNum,cmtId:cmtId,reply:repl,ts:Date.now()});
 showToast('Resposta enviada! ✉️');
 }
