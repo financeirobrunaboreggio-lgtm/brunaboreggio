@@ -233,6 +233,38 @@ input[type=file]{display:none}
 .btn-add-photo{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;padding:7px 14px;cursor:pointer;transition:all .2s;font-family:'Sora',sans-serif}
 .btn-add-photo:hover{color:var(--text);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.07)}
 .day-sec-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:20px 0 10px}
+
+/* DIA BLOQUEADO */
+.day-head.locked{opacity:.45;cursor:not-allowed}
+.day-head.locked:hover{border-color:var(--border)!important;background:var(--glass)!important}
+
+/* BOTÃO CONCLUÍDO — agora clicável para desfazer */
+.day-btn.done-btn{cursor:pointer}
+.day-btn.done-btn:hover{background:rgba(74,222,128,0.14);border-color:rgba(74,222,128,0.4)}
+
+/* ADMIN — editar PDF */
+.pdf-admin-wrap{display:flex;gap:8px;margin-bottom:4px;align-items:center}
+.pdf-admin-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--text);font-family:'Sora',sans-serif;outline:none}
+.pdf-admin-inp:focus{border-color:rgba(201,149,78,0.4)}
+.btn-save-pdf{font-size:11px;font-weight:700;padding:9px 14px;border-radius:8px;border:1px solid rgba(201,149,78,0.3);color:var(--gold);background:rgba(201,149,78,0.07);cursor:pointer;font-family:'Sora',sans-serif;white-space:nowrap;transition:all .2s}
+.btn-save-pdf:hover{background:rgba(201,149,78,0.15)}
+
+/* COMENTÁRIOS */
+.comment-wrap{margin-top:4px;padding-top:4px}
+.comment-area{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:'Sora',sans-serif;resize:vertical;min-height:72px;outline:none;transition:border-color .2s;display:block}
+.comment-area:focus{border-color:rgba(201,149,78,0.4)}
+.btn-send-cmt{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(201,149,78,0.3);color:var(--gold);background:rgba(201,149,78,0.07);font-family:'Sora',sans-serif;margin-top:8px;transition:all .2s}
+.btn-send-cmt:hover{background:rgba(201,149,78,0.16)}
+.cmt-list{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.cmt-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px}
+.cmt-user{font-size:11px;font-weight:700;color:var(--gold2);margin-bottom:4px}
+.cmt-txt{font-size:13px;color:var(--text);line-height:1.5;white-space:pre-wrap}
+.cmt-reply-block{background:rgba(201,149,78,0.06);border:1px solid rgba(201,149,78,0.15);border-radius:8px;padding:10px 12px;margin-top:8px}
+.cmt-reply-lbl{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.reply-ta{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text);font-family:'Sora',sans-serif;outline:none;resize:none;min-height:52px;display:block;margin-top:6px}
+.reply-ta:focus{border-color:rgba(201,149,78,0.4)}
+.btn-send-reply{font-size:11px;font-weight:700;padding:6px 14px;border-radius:6px;border:1px solid rgba(201,149,78,0.3);color:var(--gold);background:rgba(201,149,78,0.07);cursor:pointer;margin-top:6px;font-family:'Sora',sans-serif;transition:all .2s}
+.btn-send-reply:hover{background:rgba(201,149,78,0.14)}
 </style>
 </head>
 <body>
@@ -382,7 +414,7 @@ input[type=file]{display:none}
 <script>
 var WEBHOOK='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-var currentUser=null;var isAdmin=false;var userPts=0;
+var currentUser=null;var isAdmin=false;var userPts=0;var currentPhase=null;
 
 var DAYS=[
 {num:1,title:'Hidratação Inteligente',sub:'Diminuir retenção, melhorar intestino e energia',videoId:'zEJZl1qjA10',pdfUrl:'',hasBefore:true},
@@ -473,6 +505,7 @@ requestAnimationFrame(step);
 
 function loadData(){
 var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+if(!stored.startDate){stored.startDate=new Date().toDateString();localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));}
 userPts=stored.pts||0;
 animateCounter(document.getElementById('pts-display'),userPts,900);
 var daysOk=stored.daysOk||0;
@@ -636,6 +669,7 @@ r.readAsDataURL(file);
 }
 /* Phase navigation */
 function showPhase(phase){
+currentPhase=phase;
 document.getElementById('phases-overview').style.display='none';
 document.getElementById('phase-detail').style.display='block';
 var html='';
@@ -664,18 +698,25 @@ function buildFaseHTML(mod){
 var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
 var daysOkArr=stored.daysOkArr||[];
 var checksData=stored.dayChecks||{};
+var startDate=stored.startDate||new Date().toDateString();
+var pdfOvr=getPdfOverrides();
 var html='<div class="sec-title">'+mod.titulo+'</div>';
 var daysInMod=DAYS.filter(function(d){return mod.dias.indexOf(d.num)!==-1;});
 daysInMod.forEach(function(d){
 var isDone=daysOkArr.indexOf(d.num)!==-1;
+var unlocked=isDayUnlocked(d.num,startDate);
 var dc=checksData[d.num]||{};
 var cks=[{k:'agua',l:'Bateu a meta de \u00e1gua \ud83d\udca7'},{k:'refeicao',l:'Cumpriu a refei\u00e7\u00e3o do dia \ud83e\udd57'},{k:'video',l:'Assistiu todo o v\u00eddeo \ud83c\udfac'},{k:'exercicio',l:'Fez a atividade f\u00edsica \ud83c\udfc3'}];
 var cksDone=cks.filter(function(ci){return dc[ci.k];}).length;
 var dayPct=Math.round(cksDone/cks.length*100);
 html+='<div class="day-item">';
-html+='<div class="day-head'+(isDone?' done':'')+'" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">';
+html+='<div class="day-head'+(isDone?' done':'')+(unlocked?'':' locked')+'" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">';
 html+='<div class="day-num">'+d.num+'</div>';
-html+='<div class="day-info"><div class="day-title">'+d.title+'</div><div class="day-sub">'+d.sub+'</div></div>';
+html+='<div class="day-info"><div class="day-title">'+d.title+'</div>';
+if(unlocked){html+='<div class="day-sub">'+d.sub+'</div>';}
+else{var dl=getDaysUntilUnlock(d.num,startDate);html+='<div class="day-sub">\ud83d\udd12 Dispon\u00edvel em '+dl+' dia'+(dl!==1?'s':'')+'</div>';}
+html+='</div>';
+if(!unlocked){html+='<div style="font-size:18px;flex-shrink:0;margin-right:4px">\ud83d\udd12</div>';}
 html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
 html+='</div>';
 html+='<div class="day-body" id="db-'+d.num+'">';
@@ -683,8 +724,15 @@ html+='<div class="day-body-inner">';
 if(d.videoId){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>';}
 else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">\u25b6</div><div class="vp-txt">Aula em breve</div></div></div>';}
 if(d.bonusVideoId){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">\u2b50 '+(d.bonusLabel||'B\u00f4nus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>';}
-if(d.pdfUrl){html+='<a class="btn-pdf-day" href="'+d.pdfUrl+'" target="_blank" rel="noopener">\ud83d\udcc4 Baixar material \u2014 Dia '+d.num+'</a>';}
+var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
+if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">\ud83d\udcc4 Baixar material \u2014 Dia '+d.num+'</a>';}
 else{html+='<div class="pdf-coming">\ud83d\udcc4 Material em PDF em breve</div>';}
+if(isAdmin){
+html+='<div class="pdf-admin-wrap">';
+html+='<input class="pdf-admin-inp" id="pdf-inp-'+d.num+'" placeholder="Cole a URL do PDF do Dia '+d.num+'..." value="'+(pdfUrl||'')+'">';
+html+='<button class="btn-save-pdf" onclick="savePdfUrl('+d.num+')">&#128190; Salvar PDF</button>';
+html+='</div>';
+}
 html+='<div class="day-sec-label">\u2705 Check-in do Dia</div>';
 html+='<div class="day-checklist">';
 cks.forEach(function(ci2){
@@ -713,7 +761,7 @@ html+='<div class="day-photo-ok" id="ok-antes">\u2713 Foto de antes enviada!</di
 html+='<input type="file" id="up-antes" accept="image/*" onchange="handleDayPhoto(this,\'antes\',50)">';
 }
 html+='<div class="day-checkin-row">';
-if(isDone){html+='<button class="day-btn done-btn">\u2713 Dia conclu\u00eddo</button>';}
+if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone('+d.num+')" title="Clique para desfazer">\u2713 Dia conclu\u00eddo \u00b7 desfazer?</button>';}
 else{html+='<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo \u00b7 +20 pts</button>';}
 html+='</div>';
 if(d.hasAfter){
@@ -723,30 +771,127 @@ html+='<div class="ico">\u2728</div><div class="lbl">Envie sua foto de depois</d
 html+='<div class="day-photo-ok" id="ok-depois">\u2713 Foto de depois enviada!</div>';
 html+='<input type="file" id="up-depois" accept="image/*" onchange="handleDayPhoto(this,\'depois\',50)">';
 }
+html+='<div class="day-sec-label">\ud83d\udcac Coment\u00e1rios</div>';
+html+='<div class="comment-wrap">';
+html+='<textarea class="comment-area" id="cmt-'+d.num+'" placeholder="Deixe seu coment\u00e1rio ou d\u00favida sobre o Dia '+d.num+'..."></textarea>';
+html+='<button class="btn-send-cmt" onclick="submitComment('+d.num+')">Enviar coment\u00e1rio</button>';
+html+='<div class="cmt-list" id="cmt-list-'+d.num+'"></div>';
+html+='</div>';
 html+='</div></div></div>';
 });
 return html;
 }
 function toggleDay(n){
+var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+var sd=stored.startDate||new Date().toDateString();
+if(!isDayUnlocked(n,sd)){
+var dl=getDaysUntilUnlock(n,sd);
+showToast('🔒 Dia '+n+' disponível em '+dl+' dia'+(dl!==1?'s':''));
+return;
+}
 var head=document.getElementById('dh-'+n);var body=document.getElementById('db-'+n);
 var isOpen=head.classList.contains('open');
 document.querySelectorAll('.day-head.open').forEach(function(h){h.classList.remove('open');document.getElementById(h.id.replace('dh-','db-')).style.maxHeight='0';});
-if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
+if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';loadDayComments(n);}
 }
 
 function markDayDone(n){
 var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
 var arr=stored.daysOkArr||[];
-if(arr.indexOf(n)!==-1){showToast('Dia '+n+' já marcado! ✓');return;}
+var idx=arr.indexOf(n);
+if(idx!==-1){
+/* DESFAZER */
+arr.splice(idx,1);stored.daysOkArr=arr;stored.daysOk=arr.length;
+stored.pts=Math.max(0,(stored.pts||0)-20);userPts=stored.pts;
+localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
+animateCounter(document.getElementById('pts-display'),userPts,600);
+var head2=document.getElementById('dh-'+n);
+if(head2){head2.classList.remove('done');var btn2=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2){btn2.className='day-btn primary';btn2.innerHTML='Marcar dia como completo · +20 pts';btn2.title='';}}
+document.getElementById('prog-label').textContent=arr.length+' / 10 dias';
+document.getElementById('prog-fill').style.width=(arr.length/10*100)+'%';
+showToast('Dia '+n+' desmarcado 🔄');
+pingWebhook({action:'day_undone',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
+return;
+}
+/* MARCAR */
 arr.push(n);stored.daysOkArr=arr;stored.daysOk=arr.length;
 localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
 addPts(20);
 var head=document.getElementById('dh-'+n);
-if(head){head.classList.add('done');var btn=head.parentElement.querySelector('.day-btn.primary');if(btn){btn.className='day-btn done-btn';btn.textContent='✓ Dia concluído';}}
+if(head){head.classList.add('done');var btn=head.parentElement.querySelector('.day-btn.primary');if(btn){btn.className='day-btn done-btn';btn.innerHTML='✓ Dia concluído · desfazer?';btn.title='Clique para desfazer';}}
 document.getElementById('prog-label').textContent=arr.length+' / 10 dias';
 document.getElementById('prog-fill').style.width=(arr.length/10*100)+'%';
 showToast('Dia '+n+' concluído! +20 pontos 🎉');
 pingWebhook({action:'day_done',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
+}
+
+/* ── LIBERAÇÃO GRADUAL ── */
+function isDayUnlocked(dayNum,startDate){
+if(isAdmin)return true;
+if(!startDate)return dayNum===1;
+var s=new Date(startDate);var n=new Date();
+s.setHours(0,0,0,0);n.setHours(0,0,0,0);
+var diff=Math.floor((n-s)/(1000*60*60*24));
+return dayNum<=diff+1;
+}
+function getDaysUntilUnlock(dayNum,startDate){
+if(!startDate)return dayNum-1;
+var s=new Date(startDate);var n=new Date();
+s.setHours(0,0,0,0);n.setHours(0,0,0,0);
+var diff=Math.floor((n-s)/(1000*60*60*24));
+return Math.max(0,dayNum-1-diff);
+}
+
+/* ── ADMIN — PDF POR DIA ── */
+function getPdfOverrides(){try{return JSON.parse(localStorage.getItem('desafio_pdfs')||'{}')}catch(e){return {}}}
+function savePdfUrl(dayNum){
+var inp=document.getElementById('pdf-inp-'+dayNum);if(!inp)return;
+var url=inp.value.trim();
+var pdfs=getPdfOverrides();pdfs[dayNum]=url;
+localStorage.setItem('desafio_pdfs',JSON.stringify(pdfs));
+pingWebhook({action:'save_pdf',email:currentUser.email,dia:dayNum,url:url,ts:Date.now()});
+showToast('PDF do Dia '+dayNum+' salvo! 📄');
+if(currentPhase)showPhase(currentPhase);
+}
+
+/* ── COMENTÁRIOS ── */
+function getComments(dayNum){try{return JSON.parse(localStorage.getItem('desafio_cmts_'+dayNum)||'[]')}catch(e){return []}}
+function saveComments(dayNum,cmts){localStorage.setItem('desafio_cmts_'+dayNum,JSON.stringify(cmts));}
+function loadDayComments(dayNum){renderComments(dayNum,getComments(dayNum));}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function renderComments(dayNum,cmts){
+var list=document.getElementById('cmt-list-'+dayNum);if(!list)return;
+if(!cmts.length){list.innerHTML='<div style="font-size:12px;color:var(--muted);padding:12px 0;text-align:center">Nenhum comentário ainda.</div>';return;}
+var html='';
+cmts.forEach(function(c){
+html+='<div class="cmt-item"><div class="cmt-user">'+escHtml(c.user)+'</div><div class="cmt-txt">'+escHtml(c.text)+'</div>';
+if(c.reply){
+html+='<div class="cmt-reply-block"><div class="cmt-reply-lbl">Resposta da Bruna</div><div class="cmt-txt">'+escHtml(c.reply)+'</div></div>';
+}else if(isAdmin){
+html+='<textarea class="reply-ta" id="rep-'+c.id+'" placeholder="Responder..."></textarea>';
+html+='<button class="btn-send-reply" onclick="submitReply('+dayNum+','+c.id+')">Responder</button>';
+}
+html+='</div>';
+});
+list.innerHTML=html;
+}
+function submitComment(dayNum){
+var inp=document.getElementById('cmt-'+dayNum);if(!inp||!inp.value.trim())return;
+var text=inp.value.trim();
+var cmts=getComments(dayNum);
+cmts.push({id:Date.now(),user:currentUser.nome||currentUser.email,text:text,reply:''});
+saveComments(dayNum,cmts);inp.value='';renderComments(dayNum,cmts);
+pingWebhook({action:'comment',email:currentUser.email,nome:currentUser.nome,dia:dayNum,text:text,ts:Date.now()});
+showToast('Comentário enviado! 💬');
+}
+function submitReply(dayNum,cmtId){
+var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
+var repl=inp.value.trim();
+var cmts=getComments(dayNum);
+for(var i=0;i<cmts.length;i++){if(cmts[i].id===cmtId){cmts[i].reply=repl;break;}}
+saveComments(dayNum,cmts);renderComments(dayNum,cmts);
+pingWebhook({action:'reply_comment',email:currentUser.email,dia:dayNum,cmtId:cmtId,reply:repl,ts:Date.now()});
+showToast('Resposta enviada! ✉️');
 }
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
