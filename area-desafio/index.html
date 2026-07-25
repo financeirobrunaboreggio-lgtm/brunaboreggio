@@ -543,7 +543,7 @@ r.onload=function(e){var img=document.getElementById('img-'+tipo);img.src=e.targ
 r.readAsDataURL(file);
 }
 
-ar ciDone={};
+var ciDone={};
 function restoreCheckins(stored){
 var today=new Date().toDateString();
 if(stored.ciDate===today){ciDone=stored.ciDone||{};}else{ciDone={};}
