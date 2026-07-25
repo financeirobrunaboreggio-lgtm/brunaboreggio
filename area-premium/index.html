@@ -29,8 +29,6 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .grad{background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:none}
-
-/* HERO */
 .hero-sec{padding:100px 20px 60px;text-align:center;background:linear-gradient(180deg,rgba(201,149,78,0.04) 0%,transparent 100%)}
 .hero-sec h1{font-size:clamp(30px,6vw,54px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px}
 .hero-sub{font-size:17px;color:var(--muted);max-width:580px;margin:0 auto 32px;line-height:1.75}
@@ -38,34 +36,24 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .hero-checks li{font-size:15px;font-weight:500;color:var(--text)}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#06040A;font-size:17px;font-weight:800;padding:18px 40px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:all .3s ease;letter-spacing:-.2px;box-shadow:0 8px 40px rgba(201,149,78,0.4)}
 .btn-primary:hover{filter:brightness(1.08);transform:translateY(-3px);box-shadow:0 16px 60px rgba(201,149,78,0.5)}
-
-/* PROOF */
 .proof-sec{padding:50px 20px}
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:680px;margin:0 auto}
 .proof-card{background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:28px 20px;text-align:center;backdrop-filter:blur(20px)}
 .proof-num{font-size:44px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px}
 .proof-lbl{font-size:12px;color:var(--muted);font-weight:500;line-height:1.4}
-
-/* PROBLEM */
 .prob-sec{background:linear-gradient(180deg,transparent,rgba(201,149,78,0.03),transparent)}
 .prob-inner{max-width:720px;margin:0 auto}
 .prob-inner h2{font-size:clamp(22px,4vw,36px);font-weight:800;letter-spacing:-.8px;margin-bottom:8px}
 .prob-inner h3{font-size:clamp(18px,3vw,28px);font-weight:700;color:var(--gold2);margin-bottom:28px}
 .prob-inner p{font-size:16px;color:var(--muted);margin-bottom:16px;line-height:1.8}
 .prob-inner strong{color:var(--text)}
-
-/* PAIN */
 .pain-box{background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:32px;backdrop-filter:blur(20px);max-width:680px;margin:0 auto}
 .pain-title{font-size:20px;font-weight:800;margin-bottom:22px}
 .pain-list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .pain-list li{font-size:15px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-
-/* SOLUTION */
 .sol-sec{text-align:center}
 .sol-inner{max-width:720px;margin:0 auto}
 .sol-inner p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:14px}
-
-/* PHASES */
 .phases-sec .sec-inner{max-width:860px}
 .phase-block{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:24px;backdrop-filter:blur(10px)}
 .phase-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
@@ -73,11 +61,8 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .phase-sub{font-size:14px;color:var(--muted);margin-bottom:18px}
 .phase-days{display:flex;flex-direction:column;gap:6px}
 .phase-day{font-size:14px;color:var(--text);padding:8px 14px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:2px solid var(--gold)}
-
-/* INCLUDES */
 .includes-list{list-style:none;display:flex;flex-direction:column;gap:14px;max-width:600px;margin:0 auto}
 .includes-list li{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;line-height:1.4}
-
 /* BONUSES */
 .bonus-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
 .bonus-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(10px)}
@@ -86,8 +71,6 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .bonus-highlight{background:rgba(201,149,78,0.08);border:1px solid rgba(201,149,78,0.3);border-radius:16px;padding:24px;backdrop-filter:blur(10px)}
 .bonus-highlight .bh-title{font-size:16px;font-weight:800;color:var(--gold2);margin-bottom:8px}
 .bonus-highlight .bh-desc{font-size:14px;color:var(--muted);line-height:1.7}
-
-/* RESULTS / CAROUSEL */
 .results-sec{}
 .carousel-wrap{position:relative;overflow:hidden;border-radius:20px}
 .carousel-track{display:flex;gap:16px;transition:transform .65s cubic-bezier(.25,.46,.45,.94);will-change:transform}
@@ -101,13 +84,9 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .depo-dots{display:flex;gap:6px;justify-content:center}
 .depo-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all .3s ease;cursor:pointer}
 .depo-dot.active{background:var(--gold);width:20px;border-radius:4px}
-
-/* LIGHTBOX */
 #lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:20px}
 #lb-img{max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain}
 #lb-close{position:absolute;top:16px;right:16px;width:40px;height:40px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:22px;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center}
-
-/* BIO */
 .bio-sec{}
 .bio-inner{display:flex;gap:40px;align-items:flex-start;max-width:780px;margin:0 auto}
 .bio-photo-wrap{flex-shrink:0;width:200px;height:240px;border-radius:20px;overflow:hidden;border:2px solid var(--border)}
@@ -118,8 +97,6 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .bio-text{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .bio-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .bio-badge{font-size:12px;font-weight:600;color:var(--text);background:var(--glass2);border:1px solid var(--border);border-radius:100px;padding:5px 14px}
-
-/* OFFER */
 .offer-sec{text-align:center}
 .offer-sec .sec-inner{max-width:600px}
 .card{background:var(--glass2);border:1px solid var(--border);border-radius:24px;padding:36px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
@@ -160,8 +137,6 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .btn-check:hover{border-color:var(--gold);color:var(--gold)}
 .checking{font-size:12px;color:var(--muted);margin-top:10px;display:none}
 .checking.show{display:block}
-
-/* UPGRADE */
 .upgrade-sec{}
 .upgrade-inner{max-width:720px;margin:0 auto}
 .upgrade-intro{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:28px}
@@ -172,14 +147,10 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .upgrade-title{font-size:18px;font-weight:800;margin-bottom:8px}
 .upgrade-desc{font-size:13px;color:var(--muted);line-height:1.6}
 .upgrade-credit{font-size:16px;font-weight:800;color:var(--gold2);margin-top:10px}
-
-/* GUARANTEE */
 .guarantee{max-width:600px;margin:0 auto;background:var(--glass2);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;backdrop-filter:blur(20px)}
 .guar-ico{font-size:48px;margin-bottom:12px}
 .guar-title{font-size:20px;font-weight:800;margin-bottom:12px}
 .guar-text{font-size:15px;color:var(--muted);line-height:1.8}
-
-/* FAQ */
 .faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
 .faq-item{}
 .faq-q{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 20px;background:var(--glass);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .3s;user-select:none;font-size:15px;font-weight:600}
@@ -189,20 +160,15 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .faq-item.open .faq-ico{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);background:var(--glass2);border:1px solid rgba(201,149,78,.4);border-top:none;border-bottom-left-radius:14px;border-bottom-right-radius:14px}
 .faq-a-inner{padding:18px 20px;font-size:14px;color:var(--muted);line-height:1.8}
-
-/* CTA FINAL */
 .cta-final{text-align:center;padding:80px 20px;position:relative;z-index:1}
 .cta-final h2{font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;line-height:1.2}
 .cta-final p{font-size:16px;color:var(--muted);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
 .cta-final .btn-primary{margin-top:8px}
-
-/* FOOTER */
 footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--border);text-align:center}
 .footer-name{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:10px}
 .footer-links{display:flex;gap:24px;justify-content:center}
 .footer-links a{font-size:13px;color:rgba(242,238,248,.35);text-decoration:none;transition:color .25s}
 .footer-links a:hover{color:var(--gold)}
-
 @media(max-width:700px){
 .proof-grid{grid-template-columns:1fr 1fr 1fr;gap:12px}
 .proof-num{font-size:30px}
@@ -216,18 +182,13 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </style>
 </head>
 <body>
-
 <canvas id="particles"></canvas>
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
-
-<!-- LIGHTBOX -->
 <div id="lb-overlay" onclick="closeLb()">
 <button id="lb-close" onclick="closeLb()">&times;</button>
 <img id="lb-img" src="" alt="Resultado real">
 </div>
-
-<!-- HERO -->
 <section class="sec hero-sec">
 <div class="sec-inner">
 <div class="sec-label reveal">&#10022; Desafio com turmas abertas</div>
@@ -243,26 +204,13 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 <a href="#oferta" class="btn-primary reveal">Quero participar &rarr;</a>
 </div>
 </section>
-
-<!-- PROOF -->
 <section class="proof-sec">
 <div class="proof-grid reveal">
-<div class="proof-card">
-<div class="proof-num">+847</div>
-<div class="proof-lbl">Participantes</div>
-</div>
-<div class="proof-card">
-<div class="proof-num">10</div>
-<div class="proof-lbl">Dias de acompanhamento</div>
-</div>
-<div class="proof-card">
-<div class="proof-num">98%</div>
-<div class="proof-lbl">Satisfa&ccedil;&atilde;o</div>
-</div>
+<div class="proof-card"><div class="proof-num">+847</div><div class="proof-lbl">Participantes</div></div>
+<div class="proof-card"><div class="proof-num">10</div><div class="proof-lbl">Dias de acompanhamento</div></div>
+<div class="proof-card"><div class="proof-num">98%</div><div class="proof-lbl">Satisfa&ccedil;&atilde;o</div></div>
 </div>
 </section>
-
-<!-- PROBLEM -->
 <section class="sec prob-sec">
 <div class="prob-inner">
 <div class="sec-label reveal">O problema</div>
@@ -277,8 +225,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 <p class="reveal">Voc&ecirc; n&atilde;o precisa de mais uma dieta radical.<br><strong>Voc&ecirc; precisa de uma estrat&eacute;gia que consiga colocar em pr&aacute;tica e manter.</strong></p>
 </div>
 </section>
-
-<!-- PAIN POINTS -->
 <section class="sec" style="padding-top:0">
 <div class="sec-inner">
 <div class="pain-box reveal">
@@ -293,8 +239,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- SOLUTION -->
 <section class="sec sol-sec">
 <div class="sol-inner">
 <div class="sec-label reveal">A solu&ccedil;&atilde;o</div>
@@ -306,8 +250,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 <p class="reveal">Al&eacute;m disso, o desafio conta com ranking, pontua&ccedil;&atilde;o, premia&ccedil;&otilde;es e acompanhamento para manter sua motiva&ccedil;&atilde;o do primeiro ao &uacute;ltimo dia.</p>
 </div>
 </section>
-
-<!-- HOW IT WORKS -->
 <section class="sec phases-sec">
 <div class="sec-inner">
 <div class="sec-label reveal">Como funciona</div>
@@ -345,8 +287,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- WHAT YOU RECEIVE -->
 <section class="sec" style="text-align:center">
 <div class="sec-inner">
 <div class="sec-label reveal">O que est&aacute; inclu&iacute;do</div>
@@ -362,8 +302,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </ul>
 </div>
 </section>
-
-<!-- BONUSES -->
 <section class="sec">
 <div class="sec-inner">
 <div class="sec-label reveal">Exclusivo</div>
@@ -380,8 +318,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- RESULTS -->
 <section class="sec results-sec">
 <div class="sec-inner">
 <div class="sec-label reveal">Comprova&ccedil;&atilde;o</div>
@@ -406,13 +342,9 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- BIO -->
 <section class="sec bio-sec">
 <div class="bio-inner reveal">
-<div class="bio-photo-wrap">
-<div class="bio-photo-placeholder">&#128105;</div>
-</div>
+<div class="bio-photo-wrap"><div class="bio-photo-placeholder">&#128105;</div></div>
 <div>
 <div class="sec-label" style="margin-bottom:16px">Quem &eacute; a Bruna?</div>
 <div class="bio-name">Bruna Boreggio</div>
@@ -429,8 +361,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- OFFER -->
 <section class="sec offer-sec" id="oferta">
 <div class="sec-inner">
 <div class="sec-label reveal">Sua vaga</div>
@@ -476,32 +406,18 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- UPGRADE DEAL -->
 <section class="sec">
 <div class="upgrade-inner">
 <div class="sec-label reveal">Um detalhe importante</div>
 <h2 class="sec-title reveal">O investimento feito no desafio n&atilde;o termina aqui.</h2>
 <p class="upgrade-intro reveal">Ao concluir os 10 dias, voc&ecirc; poder&aacute; utilizar o valor investido como cr&eacute;dito para continuar seu acompanhamento com a Bruna. Voc&ecirc; poder&aacute; escolher entre:</p>
 <div class="upgrade-grid reveal">
-<div class="upgrade-card">
-<div class="upgrade-option">Op&ccedil;&atilde;o 1</div>
-<div class="upgrade-title">Ciclo de Transforma&ccedil;&atilde;o</div>
-<div class="upgrade-desc">Receba <strong>100% do valor investido</strong> como cr&eacute;dito para iniciar seu tratamento.</div>
-<div class="upgrade-credit">100% de cr&eacute;dito</div>
-</div>
-<div class="upgrade-card highlight">
-<div class="upgrade-option">Op&ccedil;&atilde;o 2</div>
-<div class="upgrade-title">Programa de Acompanhamento Completo</div>
-<div class="upgrade-desc">Receba <strong>100% do valor investido + 50% de cr&eacute;dito adicional</strong>, distribu&iacute;dos ao longo do acompanhamento.</div>
-<div class="upgrade-credit">150% de cr&eacute;dito</div>
-</div>
+<div class="upgrade-card"><div class="upgrade-option">Op&ccedil;&atilde;o 1</div><div class="upgrade-title">Ciclo de Transforma&ccedil;&atilde;o</div><div class="upgrade-desc">Receba <strong>100% do valor investido</strong> como cr&eacute;dito para iniciar seu tratamento.</div><div class="upgrade-credit">100% de cr&eacute;dito</div></div>
+<div class="upgrade-card highlight"><div class="upgrade-option">Op&ccedil;&atilde;o 2</div><div class="upgrade-title">Programa de Acompanhamento Completo</div><div class="upgrade-desc">Receba <strong>100% do valor investido + 50% de cr&eacute;dito adicional</strong>, distribu&iacute;dos ao longo do acompanhamento.</div><div class="upgrade-credit">150% de cr&eacute;dito</div></div>
 </div>
 <p class="reveal" style="margin-top:20px;font-size:14px;color:var(--muted)">Assim, o desafio se torna o primeiro passo da sua transforma&ccedil;&atilde;o, e n&atilde;o apenas um evento de 10 dias.</p>
 </div>
 </section>
-
-<!-- GUARANTEE -->
 <section class="sec" style="text-align:center">
 <div class="guarantee reveal">
 <div class="guar-ico">&#128274;</div>
@@ -509,8 +425,6 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 <p class="guar-text">Voc&ecirc; conta com a garantia legal de 7 dias. Se dentro desse per&iacute;odo entender que o desafio n&atilde;o &eacute; para voc&ecirc;, basta solicitar o reembolso conforme previsto na legisla&ccedil;&atilde;o. Assim, voc&ecirc; faz sua inscri&ccedil;&atilde;o com total seguran&ccedil;a.</p>
 </div>
 </section>
-
-<!-- FAQ -->
 <section class="sec">
 <div class="sec-inner">
 <div class="sec-label reveal">D&uacute;vidas frequentes</div>
@@ -525,15 +439,11 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 </div>
 </div>
 </section>
-
-<!-- CTA FINAL -->
 <div class="cta-final">
 <h2 class="reveal">Pronta para <span class="grad">destravar seu emagrecimento</span>?</h2>
 <p class="reveal">10 dias. M&eacute;todo pr&aacute;tico. Acompanhamento real. Resultados que ficam.</p>
 <a href="#oferta" class="btn-primary reveal">Garantir minha vaga &rarr;</a>
 </div>
-
-<!-- FOOTER -->
 <footer>
 <div class="footer-name">Bruna Boreggio &mdash; Nutricionista CRN 68497</div>
 <div class="footer-links">
@@ -541,13 +451,10 @@ footer{position:relative;z-index:1;padding:32px 20px;border-top:1px solid var(--
 <a href="/">Voltar ao site</a>
 </div>
 </footer>
-
 <script>
 var WEBHOOK='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
 var PAYMENT_LINK='https://www.asaas.com/c/bs3qoknu4ycxyvan';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-
-/* Particles */
 (function(){
 var c=document.getElementById('particles'),ctx=c.getContext('2d');
 var W,H,dots=[];
@@ -558,77 +465,25 @@ for(var i=0;i<80;i++)dots.push(new Dot());
 function draw(){ctx.clearRect(0,0,W,H);dots.forEach(function(d){d.x+=d.vx;d.y+=d.vy;if(d.x<0)d.x=W;if(d.x>W)d.x=0;if(d.y<0)d.y=H;if(d.y>H)d.y=0;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=d.gold?'rgba(201,149,78,'+d.a+')':'rgba(242,238,248,'+d.a*.7+')';ctx.fill();});requestAnimationFrame(draw);}
 draw();
 })();
-
-/* Reveal */
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-
-/* Carousel auto-slide */
 var depoIdx=0;var DEPO_N=9;var autoTimer;
-
 (function(){
 var dots=document.getElementById('depo-dots');
 for(var i=0;i<DEPO_N;i++){var d=document.createElement('div');d.className='depo-dot'+(i===0?' active':'');d.setAttribute('data-i',i);d.onclick=(function(idx){return function(){clearInterval(autoTimer);depoIdx=idx;updateCarousel();startAuto();};})(i);dots.appendChild(d);}
 })();
-
-function cardWidth(){
-var card=document.querySelector('.depo-card');
-if(!card)return 220;
-return card.offsetWidth+16;
-}
-
-function maxIdx(){
-var visible=window.innerWidth>700?3:1;
-return Math.max(0,DEPO_N-visible);
-}
-
-function updateCarousel(){
-document.getElementById('depo-track').style.transform='translateX(-'+(depoIdx*cardWidth())+'px)';
-document.querySelectorAll('.depo-dot').forEach(function(d,i){d.classList.toggle('active',i===depoIdx);});
-}
-
-function depoSlide(dir){
-clearInterval(autoTimer);
-depoIdx=Math.max(0,Math.min(maxIdx(),depoIdx+dir));
-updateCarousel();
-startAuto();
-}
-
-function startAuto(){
-clearInterval(autoTimer);
-autoTimer=setInterval(function(){
-depoIdx=depoIdx>=maxIdx()?0:depoIdx+1;
-updateCarousel();
-},3500);
-}
-
-/* Pause on hover */
+function cardWidth(){var card=document.querySelector('.depo-card');if(!card)return 220;return card.offsetWidth+16;}
+function maxIdx(){var visible=window.innerWidth>700?3:1;return Math.max(0,DEPO_N-visible);}
+function updateCarousel(){document.getElementById('depo-track').style.transform='translateX(-'+(depoIdx*cardWidth())+'px)';document.querySelectorAll('.depo-dot').forEach(function(d,i){d.classList.toggle('active',i===depoIdx);});}
+function depoSlide(dir){clearInterval(autoTimer);depoIdx=Math.max(0,Math.min(maxIdx(),depoIdx+dir));updateCarousel();startAuto();}
+function startAuto(){clearInterval(autoTimer);autoTimer=setInterval(function(){depoIdx=depoIdx>=maxIdx()?0:depoIdx+1;updateCarousel();},3500);}
 var wrap=document.getElementById('carousel-wrap');
-if(wrap){
-wrap.addEventListener('mouseenter',function(){clearInterval(autoTimer);});
-wrap.addEventListener('mouseleave',function(){startAuto();});
-}
-
+if(wrap){wrap.addEventListener('mouseenter',function(){clearInterval(autoTimer);});wrap.addEventListener('mouseleave',function(){startAuto();});}
 startAuto();
-
-/* Lightbox */
-function openLb(card){
-var src=card.querySelector('img').src;
-document.getElementById('lb-img').src=src;
-document.getElementById('lb-overlay').style.display='flex';
-}
+function openLb(card){var src=card.querySelector('img').src;document.getElementById('lb-img').src=src;document.getElementById('lb-overlay').style.display='flex';}
 function closeLb(){document.getElementById('lb-overlay').style.display='none';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
-
-/* FAQ */
-function toggleFaq(el){
-var item=el.parentElement;
-var isOpen=item.classList.contains('open');
-document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight='0';});
-if(!isOpen){item.classList.add('open');var body=item.querySelector('.faq-a');body.style.maxHeight=body.scrollHeight+'px';}
-}
-
-/* Phone mask */
+function toggleFaq(el){var item=el.parentElement;var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight='0';});if(!isOpen){item.classList.add('open');var body=item.querySelector('.faq-a');body.style.maxHeight=body.scrollHeight+'px';}}
 document.getElementById('telefone').addEventListener('input',function(e){
 var v=e.target.value.replace(/\D/g,'').substring(0,11);
 if(v.length>10)v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');
@@ -636,8 +491,6 @@ else if(v.length>6)v=v.replace(/^(\d{2})(\d{4})(\d{0,4})$/,'($1) $2-$3');
 else if(v.length>2)v=v.replace(/^(\d{2})(\d{0,5})$/,'($1) $2');
 e.target.value=v;
 });
-
-/* Form */
 document.getElementById('registerForm').addEventListener('submit',function(e){
 e.preventDefault();
 var nome=document.getElementById('nome').value.trim();
@@ -665,8 +518,6 @@ document.getElementById('paymentLink').href=PAYMENT_LINK;
 document.getElementById('paymentBlock').classList.add('show');
 window.scrollTo({top:document.getElementById('oferta').offsetTop-20,behavior:'smooth'});
 });
-
-/* Check payment */
 function checkPayment(){
 var userData=JSON.parse(localStorage.getItem('desafio_user')||'{}');
 if(!userData.email){alert('Dados nao encontrados. Preencha o cadastro novamente.');return;}
@@ -688,8 +539,6 @@ alert('Pagamento ainda nao confirmado. Aguarde alguns minutos e tente novamente.
 })
 .catch(function(){chk.classList.remove('show');btn.disabled=false;alert('Erro ao verificar. Tente novamente em instantes.');});
 }
-
-/* Auto-redirect if already paid */
 var saved=JSON.parse(localStorage.getItem('desafio_user')||'{}');
 if(saved.email&&(saved.pago||ADMINS.indexOf(saved.email)!==-1)){window.location.replace('/area-desafio/');}
 </script>

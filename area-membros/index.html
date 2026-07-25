@@ -190,11 +190,11 @@ footer a{color:var(--gold);text-decoration:none}
     <div class="card featured">
       <div class="novo-tag"><span class="novo-dot"></span> Novo</div>
       <div class="card-top">
-        <span class="card-tag">03 — Protocolo</span>
+        <span class="card-tag">03 — Consultoria</span>
         <span class="badge paid">R$ 150</span>
       </div>
       <div class="icon-circle">📋</div>
-      <h2 class="card-title">Protocolo Nutricional</h2>
+      <h2 class="card-title">Consultoria Nutricional</h2>
       <p class="card-sub">Consultoria de 40 min + plataforma exclusiva</p>
       <div class="divider"></div>
       <ul class="items">
@@ -208,8 +208,7 @@ footer a{color:var(--gold);text-decoration:none}
       </ul>
       <div class="card-footer">
         <a href="#" class="btn btn-gold" onclick="alert('Em breve! Entre em contato com a Bruna.');return false">Adquirir →</a>
-        <a href="#" class="link-enter" data-login>Já sou paciente — <span>Entrar →</span></a>
-        <div class="card-note">Porta de entrada para o Ciclo de Transformação</div>
+        <a href="/area-protocolo/" class="link-enter">Já sou paciente — <span>Entrar →</span></a>
       </div>
     </div>
 
@@ -245,18 +244,48 @@ footer a{color:var(--gold);text-decoration:none}
 })();
 
 /* modal */
-function openModal(){document.getElementById('loginOverlay').classList.add('open')}
+var loginDest='/area-desafio/';
+function openModal(dest){loginDest=dest||'/area-desafio/';document.getElementById('loginOverlay').classList.add('open')}
 function closeModal(){document.getElementById('loginOverlay').classList.remove('open')}
-document.getElementById('heroLogin').addEventListener('click',function(e){e.preventDefault();openModal()});
-document.querySelectorAll('[data-login]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();openModal()})});
+document.getElementById('heroLogin').addEventListener('click',function(e){e.preventDefault();openModal('/area-desafio/')});
+document.querySelectorAll('[data-login]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();openModal(el.getAttribute('data-dest')||'/area-desafio/')})});
+
+var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var PATIENTS=['babadosdaaline@gmail.com'];
 
 function handleLogin(){
-  var email=document.getElementById('loginEmail').value.trim();
+  var email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  if(!email){alert('Informe seu e-mail.');return;}
+
+  // Admin: acesso direto à área correspondente ao card clicado
+  if(ADMINS.indexOf(email)>=0){
+    localStorage.setItem('desafio_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
+    localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'Admin',pago:true}));
+    window.location.href=loginDest;
+    return;
+  }
+
+  // Paciente com acesso direto ao protocolo (experiência de paciente)
+  if(PATIENTS.indexOf(email)>=0){
+    localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'',pago:true}));
+    window.location.href='/area-protocolo/';
+    return;
+  }
+
+  // Paciente do Protocolo — aceita qualquer email quando destino é protocolo
+  if(loginDest==='/area-protocolo/'){localStorage.setItem('protocolo_user',JSON.stringify({email:email,nome:'',pago:true}));window.location.href='/area-protocolo/';return;}
+  var pr=localStorage.getItem('protocolo_user');
+  if(pr){try{var op=JSON.parse(pr);if(op.pago&&op.email&&op.email.toLowerCase()===email){window.location.href='/area-protocolo/';return;}}catch(e){}}
+
+  // Aluna do Desafio
   var u=localStorage.getItem('desafio_user');
-  if(u){try{var obj=JSON.parse(u);if(obj.pago&&obj.email===email){window.location.href='/area-desafio/';return;}}catch(e){}}
+  if(u){try{var obj=JSON.parse(u);if(obj.pago&&obj.email&&obj.email.toLowerCase()===email){window.location.href='/area-desafio/';return;}}catch(e){}}
+
+  // Aluna da Área Premium
   var p=localStorage.getItem('premium_user');
-  if(p){try{var obj2=JSON.parse(p);if(obj2.pago&&obj2.email===email){window.location.href='/area-premium/';return;}}catch(e){}}
-  alert('E-mail não encontrado. Verifique seus dados ou adquira um dos programas.');
+  if(p){try{var obj2=JSON.parse(p);if(obj2.pago&&obj2.email&&obj2.email.toLowerCase()===email){window.location.href='/area-premium/';return;}}catch(e){}}
+
+  alert('E-mail não encontrado ou sem acesso ativo. Verifique seus dados ou adquira um dos programas.');
 }
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
