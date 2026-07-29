@@ -560,9 +560,7 @@
     .serv-card.featured .btn-serv { background:var(--gold); }
     .serv-card.featured .btn-serv:hover { background:var(--gold-dark); }
 
-    /* grid override for 5 items: 3+2 */
-    .servicos-grid > .serv-card:nth-child(4) { grid-column:1; }
-    .servicos-grid > .serv-card:nth-child(5) { grid-column:2; }
+    /* grid: 6 cards → 2 linhas de 3, sem override necessário */
 
     /* =============================================
        CALCULADORAS
@@ -1020,8 +1018,7 @@
       #stats { padding:28px 32px; }
       .hero-content { padding:120px 32px 80px; gap:48px; }
       .servicos-grid { grid-template-columns:1fr 1fr; }
-      .servicos-grid > .serv-card:nth-child(4),
-      .servicos-grid > .serv-card:nth-child(5) { grid-column:auto; }
+      /* 6 cards em 2 colunas no tablet — sem override */
       .footer-grid { grid-template-columns:1fr 1fr; gap:36px; }
     }
     @media (max-width:768px) {
@@ -1377,30 +1374,52 @@
         <a class="btn-serv" href="https://wa.me/5511977509331?text=Olá,+gostaria+de+agendar+uma+consulta!" target="_blank">Entrar no Clube VIP →</a>
       </div>
 
-      <!-- 3. Desafio Destrave seu Emagrecimento — Em breve -->
-      <div class="serv-card reveal d3" style="opacity:.72; position:relative; overflow:hidden;">
-        <div style="position:absolute;top:18px;right:18px;background:var(--brown);color:var(--gold);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;z-index:2;">🚀 Em breve</div>
-        <span class="serv-badge">Temporário · Com duração definida</span>
+      <!-- 3. Desafio Destrave seu Emagrecimento -->
+      <div class="serv-card reveal d3">
+        <span class="serv-badge">🔥 Ativo · 10 dias de transformação</span>
         <span class="serv-icon">🏆</span>
         <div class="serv-name">Desafio Destrave seu Emagrecimento</div>
         <p class="serv-desc">
-          Um programa de transformação com prazo definido, metas claras e
-          acompanhamento em grupo — para quem precisa de um empurrão focado.
+          10 dias de programa focado com metas claras, conteúdo diário e
+          acompanhamento em grupo — para quem precisa de um empurrão real.
         </p>
-        <ul class="serv-list" style="opacity:.55;">
-          <li>Duração definida com começo e fim</li>
-          <li>Metas semanais e check-ins de progresso</li>
+        <ul class="serv-list">
+          <li>10 dias de conteúdo e protocolos exclusivos</li>
+          <li>Metas e check-ins diários de progresso</li>
           <li>Acompanhamento em grupo com a Bruna</li>
-          <li>Protocolos exclusivos do desafio</li>
+          <li>Acesso à área de membros exclusiva</li>
         </ul>
         <div class="serv-price">
-          <span class="price-from">lançamento</span>
-          <span class="price-val" style="font-size:1.2rem;color:var(--brown-light);">Em breve</span>
+          <span class="price-from">por apenas</span>
+          <span class="price-val">R$97</span>
         </div>
-        <button class="btn-serv" style="opacity:.5;cursor:not-allowed;" disabled>Disponível em breve</button>
+        <a class="btn-serv" href="area-desafio/index.html">Quero participar →</a>
       </div>
 
-      <!-- 4. Ciclo de Transformação — FEATURED -->
+      <!-- 4. Consultoria Nutricional -->
+      <div class="serv-card reveal d1">
+        <span class="serv-badge">🩺 Consulta individual · Online ou presencial</span>
+        <span class="serv-icon">📋</span>
+        <div class="serv-name">Consultoria Nutricional</div>
+        <p class="serv-desc">
+          Consulta individual com avaliação completa, diagnóstico personalizado
+          e plano alimentar com gramagem e calorias — tudo em 40 minutos.
+        </p>
+        <ul class="serv-list">
+          <li>Avaliação de medidas corporais</li>
+          <li>Diagnóstico nutricional individualizado</li>
+          <li>Plano alimentar personalizado com gramagem e calorias</li>
+          <li>Orientação nutricional pontual</li>
+          <li>Acesso à área de membros</li>
+        </ul>
+        <div class="serv-price">
+          <span class="price-from">consulta avulsa por</span>
+          <span class="price-val">R$150</span>
+        </div>
+        <a class="btn-serv" href="https://wa.me/5511977509331?text=Olá,+gostaria+de+agendar+uma+Consultoria+Nutricional!" target="_blank">Agendar consulta →</a>
+      </div>
+
+      <!-- 5. Ciclo de Transformação — FEATURED -->
       <div class="serv-card featured reveal d1">
         <span class="serv-badge">✦ Mais completo</span>
         <span class="serv-icon">🔄</span>
@@ -1424,7 +1443,7 @@
         <a class="btn-serv" href="https://wa.me/5511977509331?text=Olá,+gostaria+de+agendar+uma+consulta!" target="_blank">Quero iniciar meu ciclo →</a>
       </div>
 
-      <!-- 5. Emagrecimento Definitivo -->
+      <!-- 6. Emagrecimento Definitivo -->
       <div class="serv-card reveal d2">
         <span class="serv-badge">✦ Premium</span>
         <span class="serv-icon">👑</span>
