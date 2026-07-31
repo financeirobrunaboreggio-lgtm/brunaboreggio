@@ -772,7 +772,7 @@ html+='<div class="ico">\ud83d\udcf8</div><div class="lbl">Foto Corporal de Ante
 html+='<input type="file" id="up-d0-antes" accept="image/*" onchange="handleDayPhoto(this,\'d0-antes\',50)">';
 var pesoSalvo='';try{pesoSalvo=(JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')).pesoInicial||'';}catch(e){}
 html+='<div style="margin:14px 0"><input type="number" id="peso-inicial" value="'+pesoSalvo+'" placeholder="Seu peso atual (kg)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:\'Sora\',sans-serif;outline:none" oninput="savePesoInicial(this.value)"><div style="font-size:11px;color:var(--muted);margin-top:6px">Peso salvo localmente</div></div>';
-html+='<a class="btn-pdf-day" href="https://wa.me/55" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">\ud83d\udcac Suporte via WhatsApp</a>';
+html+='<a class="btn-pdf-day" href="https://wa.me/5511915027893" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">\ud83d\udcac Suporte via WhatsApp</a>';
 html+='<div class="day-checkin-row">';
 if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone(0)" title="Clique para desfazer">\u2713 Aula assistida \u00b7 desfazer?</button>';}
 else{html+='<button class="day-btn primary" onclick="markDayDone(0)">\u2713 Assistiu a aula \u00b7 +20 pts</button>';}
