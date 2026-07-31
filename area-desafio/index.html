@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -285,10 +285,11 @@ input[type=file]{display:none}
 <div id="auth-screen">
 <div class="auth-box">
 <div class="auth-logo">Destrave seu Emagrecimento</div>
-<div class="auth-sub">Entre com seu e-mail para acessar</div>
-<input class="auth-input" id="auth-email" type="email" placeholder="Seu e-mail">
-<input class="auth-input" id="auth-phone" type="tel" placeholder="Seu telefone">
-<button class="auth-btn" id="auth-btn">Acessar minha área</button>
+<div class="auth-sub">Entre com sua conta Google para acessar o desafio</div>
+<button class="auth-btn" id="google-signin-btn" onclick="signInWithGoogle()" style="display:flex;align-items:center;justify-content:center;gap:10px">
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.705 17.64 9.2z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+Entrar com Google
+</button>
 <div class="auth-err" id="auth-err"></div>
 </div>
 </div>
@@ -296,8 +297,9 @@ input[type=file]{display:none}
 <div id="register-screen" style="display:none">
 <div class="auth-box">
 <div class="auth-logo">Destrave seu Emagrecimento</div>
-<div class="auth-sub">Você ainda não está inscrita no desafio.</div>
+<div class="auth-sub" id="register-msg">Seu e-mail não está autorizado. Faça o pagamento para participar do desafio.</div>
 <button class="auth-btn" onclick="window.location.href='/area-premium/'">Quero participar</button>
+<button class="auth-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px" onclick="signOut()">Usar outra conta Google</button>
 </div>
 </div>
 
@@ -337,7 +339,7 @@ input[type=file]{display:none}
 <div class="admin-stat"><div class="admin-stat-val" id="adm-checkins">—</div><div class="admin-stat-lbl">Check-ins hoje</div></div>
 </div>
 <table class="admin-table" id="adm-table">
-<thead><tr><th>#</th><th>Nome</th><th>E-mail</th><th>Pts</th></tr></thead>
+<thead><tr><th>#</th><th>Nome</th><th>E-mail</th><th>Pts</th><th>Dias</th><th>Peso</th><th>Ver</th></tr></thead>
 <tbody id="adm-tbody"></tbody>
 </table>
 </div>
@@ -399,10 +401,17 @@ input[type=file]{display:none}
 
 </main>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-var WEBHOOK='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+var FIREBASE_CONFIG={apiKey:"AIzaSyBF79NzYAj7umrbaVngFBlevLHCWvSf00g",authDomain:"desafio-bruna-boreggio.firebaseapp.com",projectId:"desafio-bruna-boreggio",storageBucket:"desafio-bruna-boreggio.firebasestorage.app",messagingSenderId:"405951385222",appId:"1:405951385222:web:2d60e95f9301ebc125cb07"};
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-var currentUser=null;var isAdmin=false;var userPts=0;var currentPhase=null;
+var currentUser=null;var isAdmin=false;var viewAsEmail=null;var userData={};var localPdfs={};var currentPhase=null;var dayChecks={};
+
+firebase.initializeApp(FIREBASE_CONFIG);
+var auth=firebase.auth();
+var db=firebase.firestore();
 
 var DAYS=[
 {num:0,title:'Boas-vindas ao Desafio',sub:'Conheça sua jornada de transformação',videoId:'pFcYHaaLoo4'},
@@ -424,7 +433,6 @@ var MODULES=[
 {num:3,titulo:'Fase 3 — Emagrecer sem Efeito Sanfona',desc:'Construir hábitos que você consiga manter após os 10 dias',dias:[7,8,9,10]}
 ];
 
-/* Check-ins cumulativos por dia */
 var DAY_CHECKS={
 0:[],
 1:[{k:'aula',l:'Assistiu a aula 🎓'}],
@@ -437,7 +445,6 @@ var DAY_CHECKS={
 8:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'proteina',l:'Proteína em todas as refeições 🥩'},{k:'atencao',l:'Me alimentei sem distração 🧘'},{k:'sono',l:'Dormi bem hoje 😴'},{k:'semacucar',l:'Café sem açúcar ☕'},{k:'aula',l:'Assistiu a aula 🎓'}]
 };
 
-/* Fotos de missão por dia */
 var DAY_PHOTOS={
 1:[{c:'garrafa',l:'💧 Foto da Garrafa de Água (mínimo 3L + chá diurético)'}],
 2:[{c:'org',l:'🏠 Organização (mercado / geladeira / preparos)'}],
@@ -449,7 +456,6 @@ var DAY_PHOTOS={
 8:[{c:'exercicio',l:'🏃 Exercício Físico do Dia'}]
 };
 
-/* Links extras por dia */
 var DAY_EXTRAS={
 2:'<a class="btn-pdf-day" href="https://abran.org.br/calculadoras/taxa-metabolica" target="_blank" rel="noopener">📊 Bônus: Calculadora de Calorias</a>',
 6:'<a class="btn-pdf-day" href="https://youtube.com/playlist?list=PLaGQIRrwFnQZSVGPUezWAwwRDNbFF2MTb&si=ahKHl0pTd5dV0WOA" target="_blank" rel="noopener">🧘 Bônus: Meditações Guiadas no YouTube</a>'
@@ -467,500 +473,444 @@ draw();
 })();
 
 function hideLoading(){var el=document.getElementById('loading');if(!el)return;el.classList.add('fade-out');setTimeout(function(){el.style.display='none'},600);}
-
-/* Loading */
 window.addEventListener('load',function(){setTimeout(hideLoading,600);});
 
-/* Reveal */
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
 function observeReveals(){document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});}
 
-/* Auth */
-document.getElementById('auth-btn').addEventListener('click',function(){
-var email=(document.getElementById('auth-email').value||'').trim().toLowerCase();
-var phone=(document.getElementById('auth-phone').value||'').trim();
-var err=document.getElementById('auth-err');
-if(!email){err.textContent='Informe seu e-mail.';return;}
-err.textContent='Verificando...';
-if(ADMINS.indexOf(email)!==-1){
-var nome=email===ADMINS[0]?'Bruna':'Aline';
-var u={email:email,nome:nome,telefone:phone,plano:'admin',preco:'0',pago:true};
-localStorage.setItem('desafio_user',JSON.stringify(u));
-currentUser=u;isAdmin=true;enterArea();return;
+/* ── GOOGLE AUTH ── */
+function signInWithGoogle(){
+  var provider=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(function(e){
+    document.getElementById('auth-err').textContent='Erro ao entrar: '+e.message;
+  });
 }
-var saved=null;try{saved=JSON.parse(localStorage.getItem('desafio_user')||'null')}catch(e){}
-if(saved&&saved.email===email&&saved.pago){currentUser=saved;enterArea();return;}
-fetch(WEBHOOK+'?action=verify_payment&email='+encodeURIComponent(email))
-.then(function(r){return r.json();})
-.then(function(d){
-if(d.pago){
-var u={email:email,nome:d.nome||email,telefone:phone,plano:d.plano||'basico',preco:d.preco||'97',pago:true};
-localStorage.setItem('desafio_user',JSON.stringify(u));currentUser=u;enterArea();
-}else{document.getElementById('auth-screen').style.display='none';document.getElementById('register-screen').style.display='flex';}
-})
-.catch(function(){
-if(saved&&saved.email===email){currentUser=saved;enterArea();}
-else{err.textContent='Erro de conexão. Tente novamente.';}
-});
+function signOut(){auth.signOut().then(function(){window.location.reload();});}
+function logout(){auth.signOut().then(function(){window.location.reload();});}
+
+auth.onAuthStateChanged(function(user){
+  if(!user){
+    document.getElementById('auth-screen').style.display='flex';
+    document.getElementById('register-screen').style.display='none';
+    hideLoading();return;
+  }
+  currentUser={email:user.email,nome:user.displayName||user.email,uid:user.uid};
+  isAdmin=ADMINS.indexOf(user.email)!==-1;
+  if(isAdmin){enterArea();return;}
+  db.collection('authorized').doc(user.email).get().then(function(doc){
+    if(doc.exists&&doc.data().liberado!==false){enterArea();}
+    else{
+      document.getElementById('auth-screen').style.display='none';
+      document.getElementById('register-screen').style.display='flex';
+      hideLoading();
+    }
+  }).catch(function(){
+    document.getElementById('auth-screen').style.display='none';
+    document.getElementById('register-screen').style.display='flex';
+    hideLoading();
+  });
 });
 
 function enterArea(){
-document.getElementById('auth-screen').style.display='none';
-document.getElementById('register-screen').style.display='none';
-document.getElementById('site-header').style.display='flex';
-document.getElementById('main-area').style.display='block';
-hideLoading();
-if(currentUser.nome)document.getElementById('hdr-name').textContent=currentUser.nome.split(' ')[0];
-document.getElementById('hero-sub').textContent='Olá, '+(currentUser.nome||currentUser.email).split(' ')[0]+' 👋';
-loadData();observeReveals();
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('register-screen').style.display='none';
+  document.getElementById('site-header').style.display='flex';
+  document.getElementById('main-area').style.display='block';
+  hideLoading();
+  if(currentUser.nome)document.getElementById('hdr-name').textContent=currentUser.nome.split(' ')[0];
+  document.getElementById('hero-sub').textContent='Olá, '+(currentUser.nome||currentUser.email).split(' ')[0]+' 👋';
+  loadPdfOverrides();
+  loadData();
+  observeReveals();
 }
 
-function logout(){localStorage.removeItem('desafio_user');window.location.reload();}
+/* ── DATA ── */
+function loadData(){
+  var email=viewAsEmail||currentUser.email;
+  db.collection('students').doc(email).get().then(function(doc){
+    var defaults={pts:0,startDate:new Date().toDateString(),daysOkArr:[],daysOk:0,dayChecks:{},ciDate:'',ciDone:{},pesoInicial:'',nome:currentUser.nome,email:email};
+    userData=doc.exists?Object.assign({},defaults,doc.data()):defaults;
+    if(!doc.exists)db.collection('students').doc(email).set(userData);
+    dayChecks=userData.dayChecks||{};
+    userData.dayChecks=dayChecks;
+    animateCounter(document.getElementById('pts-display'),userData.pts||0,900);
+    var daysOk=(userData.daysOkArr||[]).filter(function(x){return x!==0;}).length;
+    document.getElementById('prog-label').textContent=daysOk+' / 10 dias';
+    setTimeout(function(){document.getElementById('prog-fill').style.width=(daysOk/10*100)+'%';},300);
+    loadLeaderboard();
+    if(isAdmin&&!viewAsEmail)loadAdmin();
+  }).catch(function(e){console.error('loadData',e);hideLoading();});
+}
+
+function saveToFirestore(updates){
+  Object.assign(userData,updates);
+  var email=viewAsEmail||currentUser.email;
+  db.collection('students').doc(email).set(userData,{merge:true}).catch(function(e){console.error('save',e);});
+}
 
 function animateCounter(el,target,dur){
-var start=0,t0=null;
-function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=Math.round(start+(target-start)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);}
-requestAnimationFrame(step);
-}
-
-function loadData(){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-if(!stored.startDate){stored.startDate=new Date().toDateString();localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));}
-userPts=stored.pts||0;
-animateCounter(document.getElementById('pts-display'),userPts,900);
-var daysOk=stored.daysOk||0;
-document.getElementById('prog-label').textContent=daysOk+' / 10 dias';
-setTimeout(function(){document.getElementById('prog-fill').style.width=(daysOk/10*100)+'%';},300);
-restoreCheckins(stored);loadDayChecks();loadLeaderboard();
-if(isAdmin)loadAdmin();
-}
-
-function saveData(key,val){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-stored[key]=val;localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
+  var start=0,t0=null;
+  function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=Math.round(start+(target-start)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
 }
 
 function addPts(n){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-stored.pts=(stored.pts||0)+n;userPts=stored.pts;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
-animateCounter(document.getElementById('pts-display'),userPts,600);
-pingWebhook({action:'add_pts',email:currentUser.email,nome:currentUser.nome,pts:stored.pts});
+  userData.pts=(userData.pts||0)+n;
+  animateCounter(document.getElementById('pts-display'),userData.pts,600);
+  saveToFirestore({pts:userData.pts});
 }
 
-function pingWebhook(data){try{fetch(WEBHOOK,{method:'POST',mode:'no-cors',body:JSON.stringify(data)}).catch(function(){});}catch(e){}}
-
+/* ── LEADERBOARD ── */
 function loadLeaderboard(){
-fetch(WEBHOOK+'?action=leaderboard')
-.then(function(r){return r.json();})
-.then(function(d){renderLB(d.ranking||[]);})
-.catch(function(){renderLB([{nome:currentUser.nome||currentUser.email,pts:userPts}]);});
+  db.collection('students').orderBy('pts','desc').limit(10).get().then(function(snap){
+    var arr=[];snap.forEach(function(doc){arr.push(doc.data());});renderLB(arr);
+  }).catch(function(){renderLB([{nome:currentUser.nome||currentUser.email,pts:userData.pts||0,email:currentUser.email}]);});
 }
 function renderLB(arr){
-var max=arr[0]?arr[0].pts||1:1;
-var medals=['🥇','🥈','🥉'];var rnkClass=['gold','silver','bronze'];
-var html='';
-arr.slice(0,10).forEach(function(p,i){
-var ini=(p.nome||'?')[0].toUpperCase();
-var pct=Math.round((p.pts||0)/max*100);
-var isSelf=p.email&&currentUser&&p.email===currentUser.email;
-html+='<div class="lb-row">';
-html+='<div class="lb-rank '+(rnkClass[i]||'')+'">'+(medals[i]||('#'+(i+1)))+'</div>';
-html+='<div class="lb-avatar">'+(ini)+'</div>';
-html+='<div class="lb-info"><div class="lb-name">'+(p.nome||'Participante')+(isSelf?' (você)':'')+'</div>';
-html+='<div class="lb-pts-bar"><div class="lb-pts-fill" data-w="'+pct+'"></div></div></div>';
-html+='<div class="lb-pts">'+(p.pts||0)+' pts</div></div>';
-});
-if(!arr.length)html='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Seja a primeira! 🌟</div>';
-document.getElementById('lb-list').innerHTML=html;
-if(arr.length){var rank=arr.findIndex(function(p){return p.email&&currentUser&&p.email===currentUser.email;});document.getElementById('pts-rank').textContent=rank>=0?'#'+(rank+1)+' no ranking':'No ranking';}
-setTimeout(function(){
-document.querySelectorAll('.lb-pts-fill[data-w]').forEach(function(el){el.style.width=el.getAttribute('data-w')+'%';});},200);
+  var max=arr[0]?arr[0].pts||1:1;
+  var medals=['🥇','🥈','🥉'];var rnkClass=['gold','silver','bronze'];
+  var html='';
+  arr.slice(0,10).forEach(function(p,i){
+    var ini=(p.nome||'?')[0].toUpperCase();
+    var pct=Math.round((p.pts||0)/max*100);
+    var isSelf=p.email&&currentUser&&p.email===(viewAsEmail||currentUser.email);
+    html+='<div class="lb-row">';
+    html+='<div class="lb-rank '+(rnkClass[i]||'')+'">'+( medals[i]||('#'+(i+1)))+'</div>';
+    html+='<div class="lb-avatar">'+ini+'</div>';
+    html+='<div class="lb-info"><div class="lb-name">'+(p.nome||'Participante')+(isSelf?' (você)':'')+'</div>';
+    html+='<div class="lb-pts-bar"><div class="lb-pts-fill" data-w="'+pct+'"></div></div></div>';
+    html+='<div class="lb-pts">'+(p.pts||0)+' pts</div></div>';
+  });
+  if(!arr.length)html='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Seja a primeira! 🌟</div>';
+  document.getElementById('lb-list').innerHTML=html;
+  if(arr.length){var rank=arr.findIndex(function(p){return p.email&&currentUser&&p.email===(viewAsEmail||currentUser.email);});document.getElementById('pts-rank').textContent=rank>=0?'#'+(rank+1)+' no ranking':'No ranking';}
+  setTimeout(function(){document.querySelectorAll('.lb-pts-fill[data-w]').forEach(function(el){el.style.width=el.getAttribute('data-w')+'%';});},200);
 }
 
+/* ── ADMIN ── */
 function loadAdmin(){
-document.getElementById('admin-section').style.display='block';
-fetch(WEBHOOK+'?action=admin_data&email='+encodeURIComponent(currentUser.email))
-.then(function(r){return r.json();})
-.then(function(d){
-document.getElementById('adm-total').textContent=d.total||'—';
-document.getElementById('adm-checkins').textContent=d.checkinsHoje||'—';
-var rows=d.participantes||[];
-document.getElementById('adm-tbody').innerHTML=rows.map(function(p,i){return '<tr><td>'+(i+1)+'</td><td>'+p.nome+'</td><td>'+p.email+'</td><td>'+p.pts+'</td></tr>';}).join('');
-})
-.catch(function(){document.getElementById('adm-total').textContent='—';});
+  document.getElementById('admin-section').style.display='block';
+  db.collection('students').orderBy('pts','desc').get().then(function(snap){
+    var rows=[];snap.forEach(function(doc){rows.push(doc.data());});
+    document.getElementById('adm-total').textContent=rows.length||'—';
+    var today=new Date().toDateString();
+    document.getElementById('adm-checkins').textContent=rows.filter(function(r){return r.ciDate===today;}).length||'—';
+    document.getElementById('adm-tbody').innerHTML=rows.map(function(p,i){
+      var dias=(p.daysOkArr||[]).filter(function(x){return x!==0;}).length;
+      var safeEmail=(p.email||'').replace(/'/g,"\\'");
+      return '<tr><td>'+(i+1)+'</td><td>'+(p.nome||'—')+'</td><td>'+(p.email||'—')+'</td><td>'+(p.pts||0)+'</td><td>'+dias+'/10</td><td>'+(p.pesoInicial||'—')+'</td><td><button onclick="viewAsAluna(\''+safeEmail+'\')" style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.07);cursor:pointer">👁 Ver</button></td></tr>';
+    }).join('');
+  }).catch(function(){document.getElementById('adm-total').textContent='—';});
 }
 
-function handlePhoto(tipo,input){
-var file=input.files[0];if(!file)return;
-var r=new FileReader();
-r.onload=function(e){var img=document.getElementById('img-'+tipo);img.src=e.target.result;img.onload=function(){img.classList.add('loaded');};addPts(50);showToast('Foto enviada! +50 pontos ⭐');pingWebhook({action:'photo',email:currentUser.email,nome:currentUser.nome,tipo:tipo,ts:Date.now()});};
-r.readAsDataURL(file);
+/* ── VER COMO ALUNA ── */
+function viewAsAluna(email){
+  viewAsEmail=email;
+  var banner=document.getElementById('view-as-banner');
+  if(!banner){
+    banner=document.createElement('div');banner.id='view-as-banner';
+    banner.style.cssText='position:fixed;top:64px;left:0;right:0;z-index:150;background:rgba(167,139,250,0.15);border-bottom:1px solid rgba(167,139,250,0.3);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:#A78BFA;backdrop-filter:blur(10px)';
+    banner.innerHTML='<span>👁 Visualizando como: <span id="view-as-name"></span></span><button onclick="exitViewAsAluna()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.1);cursor:pointer">← Voltar ao Admin</button>';
+    document.body.appendChild(banner);
+  }
+  banner.style.display='flex';
+  document.getElementById('view-as-name').textContent=email;
+  if(currentPhase)document.getElementById('phase-detail').style.display='none';
+  document.getElementById('phases-overview').style.display='block';
+  currentPhase=null;
+  loadData();
+}
+function exitViewAsAluna(){
+  viewAsEmail=null;
+  var banner=document.getElementById('view-as-banner');
+  if(banner)banner.style.display='none';
+  if(currentPhase)document.getElementById('phase-detail').style.display='none';
+  document.getElementById('phases-overview').style.display='block';
+  currentPhase=null;
+  loadData();
 }
 
-var ciDone={};
-function restoreCheckins(stored){
-var today=new Date().toDateString();
-if(stored.ciDate===today){ciDone=stored.ciDone||{};}else{ciDone={};}
-['agua','refeicao','fotodia','aula'].forEach(function(k){if(ciDone[k])document.getElementById('ci-'+k).classList.add('done');});
-}
-function doCheckin(tipo){
-if(ciDone[tipo]){showToast('Já marcado hoje! ✓');return;}
-ciDone[tipo]=true;document.getElementById('ci-'+tipo).classList.add('done');
-addPts(10);showToast('Check-in feito! +10 pontos 💪');
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-stored.ciDate=new Date().toDateString();stored.ciDone=ciDone;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
-pingWebhook({action:'checkin',email:currentUser.email,nome:currentUser.nome,tipo:tipo,ts:Date.now()});
-}
-function handleFotoDia(input){if(!input.files[0])return;doCheckin('fotodia');}
-
-/* Foto dentro do dia */
+/* ── PHOTOS ── */
 function handleDayPhoto(input,tipo,pts){
-if(!input.files||!input.files[0])return;
-var pts2=pts||10;
-var r=new FileReader();
-r.onload=function(e){
-addPts(pts2);
-var ok=document.getElementById('ok-'+tipo);
-if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},3000);}
-showToast('Foto enviada! +'+pts2+' pts ⭐');
-pingWebhook({action:'day_photo',email:currentUser.email,nome:currentUser.nome,tipo:tipo,ts:Date.now()});
-};
-r.readAsDataURL(input.files[0]);
-}
-
-/* Day Checklist */
-var dayChecks={};
-function toggleDayCheck(dayNum,tipo){
-if(!dayChecks[dayNum])dayChecks[dayNum]={};
-var val=!dayChecks[dayNum][tipo];
-dayChecks[dayNum][tipo]=val;
-var box=document.getElementById('chk-'+dayNum+'-'+tipo);
-if(box){box.classList.toggle('checked',val);box.textContent=val?'\u2713':'';}
-updateDayProgress(dayNum);
-if(val){addPts(5);showToast('Check! +5 pts \u2b50');}
-saveDayChecks();
-pingWebhook({action:'day_check',email:currentUser.email,nome:currentUser.nome,dia:dayNum,tipo:tipo,val:val,ts:Date.now()});
-}
-function updateDayProgress(dayNum){
-var checks=dayChecks[dayNum]||{};
-var items=(DAY_CHECKS&&DAY_CHECKS[dayNum]!==undefined)?DAY_CHECKS[dayNum].map(function(c){return c.k;}):['agua','refeicao','aula'];
-if(!items.length){return;}
-var done=items.filter(function(k){return checks[k];}).length;
-var pct=Math.round(done/items.length*100);
-var fill=document.getElementById('dpf-'+dayNum);
-var txt=document.getElementById('dpt-'+dayNum);
-if(fill)fill.style.width=pct+'%';
-if(txt)txt.textContent=pct+'% do dia conclu\u00eddo';
-}
-function saveDayChecks(){
-var s={};try{s=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-s.dayChecks=dayChecks;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(s));
-}
-function loadDayChecks(){
-var s={};try{s=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-dayChecks=s.dayChecks||{};
+  if(!input.files||!input.files[0])return;
+  var pts2=pts||10;
+  var r=new FileReader();
+  r.onload=function(e){
+    addPts(pts2);
+    var ok=document.getElementById('ok-'+tipo);
+    if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},3000);}
+    showToast('Foto enviada! +'+pts2+' pts ⭐');
+  };
+  r.readAsDataURL(input.files[0]);
 }
 function addDayPhotos(input,dayNum,tipo){
-if(!input.files||!input.files.length)return;
-var s={};try{s=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-var key='photoCount_'+dayNum;
-var cnt=s[key]||0;
-var files=Array.from(input.files);
-var canAdd=Math.min(files.length,10-cnt);
-if(canAdd<=0){showToast('Limite de 10 fotos por dia atingido!');return;}
-var n=0;
-files.slice(0,canAdd).forEach(function(file){
-var r=new FileReader();
-r.onload=function(e){
-var g=document.getElementById('pg-'+dayNum+'-'+tipo);
-if(g){var img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';g.appendChild(img);}
-n++;
-if(n===canAdd){
-s[key]=cnt+canAdd;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(s));
-addPts(5*canAdd);showToast(canAdd+' foto(s)! +'+(5*canAdd)+' pts \u2b50');
-pingWebhook({action:'day_photos',email:currentUser.email,nome:currentUser.nome,dia:dayNum,tipo:tipo,count:canAdd,ts:Date.now()});
-}
-};
-r.readAsDataURL(file);
-});
-}
-/* Phase navigation */
-function showPhase(phase){
-currentPhase=phase;
-document.getElementById('phases-overview').style.display='none';
-document.getElementById('phase-detail').style.display='block';
-var html='';
-if(phase==='boasvindas'){
-html=buildFaseHTML({titulo:'Boas-vindas',dias:[0]});
-}else{
-var mod=phase==='fase1'?MODULES[0]:phase==='fase2'?MODULES[1]:MODULES[2];
-html=buildFaseHTML(mod);
-}
-document.getElementById('phase-content-area').innerHTML=html;
-window.scrollTo({top:0,behavior:'smooth'});
-observeReveals();
+  if(!input.files||!input.files.length)return;
+  var key='photoCount_'+dayNum;
+  var cnt=userData[key]||0;
+  var files=Array.from(input.files);
+  var canAdd=Math.min(files.length,10-cnt);
+  if(canAdd<=0){showToast('Limite de 10 fotos por dia atingido!');return;}
+  var n=0;
+  files.slice(0,canAdd).forEach(function(file){
+    var r=new FileReader();
+    r.onload=function(e){
+      var g=document.getElementById('pg-'+dayNum+'-'+tipo);
+      if(g){var img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';g.appendChild(img);}
+      n++;
+      if(n===canAdd){
+        var upd={};upd[key]=cnt+canAdd;
+        addPts(5*canAdd);showToast(canAdd+' foto(s)! +'+(5*canAdd)+' pts ⭐');
+        saveToFirestore(upd);
+      }
+    };
+    r.readAsDataURL(file);
+  });
 }
 
-function hidePhase(){
-document.getElementById('phase-detail').style.display='none';
-document.getElementById('phases-overview').style.display='block';
-window.scrollTo({top:0,behavior:'smooth'});
+/* ── DAY CHECKS ── */
+function toggleDayCheck(dayNum,tipo){
+  if(!dayChecks[dayNum])dayChecks[dayNum]={};
+  var val=!dayChecks[dayNum][tipo];
+  dayChecks[dayNum][tipo]=val;
+  var box=document.getElementById('chk-'+dayNum+'-'+tipo);
+  if(box){box.classList.toggle('checked',val);box.textContent=val?'✓':'';}
+  updateDayProgress(dayNum);
+  if(val){addPts(5);showToast('Check! +5 pts ⭐');}
+  saveToFirestore({dayChecks:dayChecks});
 }
-
-function buildFaseHTML(mod){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-var daysOkArr=stored.daysOkArr||[];
-var checksData=stored.dayChecks||{};
-var startDate=stored.startDate||new Date().toDateString();
-var pdfOvr=getPdfOverrides();
-var html='<div class="sec-title">'+mod.titulo+'</div>';
-var daysInMod=DAYS.filter(function(d){return mod.dias.indexOf(d.num)!==-1;});
-daysInMod.forEach(function(d){
-var isDone=daysOkArr.indexOf(d.num)!==-1;
-var unlocked=isDayUnlocked(d.num,startDate);
-var dc=checksData[d.num]||{};
-var cks=DAY_CHECKS[d.num]!==undefined?DAY_CHECKS[d.num]:[{k:'agua',l:'Meta de \u00e1gua \ud83d\udca7'},{k:'refeicao',l:'Organizou a refei\u00e7\u00e3o \ud83e\udd57'},{k:'aula',l:'Assistiu a aula \ud83c\udf93'}];
-var cksDone=cks.length?cks.filter(function(ci){return dc[ci.k];}).length:0;
-var dayPct=cks.length?Math.round(cksDone/cks.length*100):0;
-html+='<div class="day-item">';
-html+='<div class="day-head'+(isDone?' done':'')+(unlocked?'':' locked')+'" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">';
-html+='<div class="day-num">'+(d.num===0?'0':d.num)+'</div>';
-html+='<div class="day-info"><div class="day-title">'+d.title+'</div>';
-if(unlocked){html+='<div class="day-sub">'+d.sub+'</div>';}
-else{var dl=getDaysUntilUnlock(d.num,startDate);html+='<div class="day-sub">\ud83d\udd12 Dispon\u00edvel em '+dl+' dia'+(dl!==1?'s':'')+'</div>';}
-html+='</div>';
-if(!unlocked){html+='<div style="font-size:18px;flex-shrink:0;margin-right:4px">\ud83d\udd12</div>';}
-html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
-html+='</div>';
-html+='<div class="day-body" id="db-'+d.num+'">';
-html+='<div class="day-body-inner">';
-/* V\u00eddeo */
-if(d.videoId){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>';}
-else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">\u25b6</div><div class="vp-txt">Aula em breve</div></div></div>';}
-if(d.bonusVideoId){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">\u2b50 '+(d.bonusLabel||'B\u00f4nus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>';}
-/* PDF */
-var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
-if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">\ud83d\udcc4 Baixar material \u2014 Dia '+d.num+'</a>';}
-else if(d.num>0){html+='<div class="pdf-coming">\ud83d\udcc4 Material em PDF em breve</div>';}
-/* Link extra (calculadora, medita\u00e7\u00e3o, etc) */
-if(DAY_EXTRAS&&DAY_EXTRAS[d.num]){html+=DAY_EXTRAS[d.num];}
-/* Admin PDF */
-if(isAdmin){html+='<div class="pdf-admin-wrap"><input class="pdf-admin-inp" id="pdf-inp-'+d.num+'" placeholder="Cole a URL do PDF do Dia '+d.num+'..." value="'+(pdfUrl||'')+'"><button class="btn-save-pdf" onclick="savePdfUrl('+d.num+')">\ud83d\udcbe Salvar PDF</button></div>';}
-/* DIA 0 \u2014 especial */
-if(d.num===0){
-html+='<div class="day-sec-label">\ud83d\udcf8 Miss\u00e3o do Dia 0</div>';
-html+='<p style="font-size:13px;color:var(--muted);margin-bottom:14px">Tire uma foto corporal de antes e registre seu peso inicial para acompanhar sua evolu\u00e7\u00e3o.</p>';
-html+='<div class="day-photo-box" onclick="document.getElementById(\'up-d0-antes\').click()">';
-html+='<div class="ico">\ud83d\udcf8</div><div class="lbl">Foto Corporal de Antes</div><div class="sub">Registre seu ponto de partida \u00b7 +50 pts</div></div>';
-html+='<input type="file" id="up-d0-antes" accept="image/*" onchange="handleDayPhoto(this,\'d0-antes\',50)">';
-var pesoSalvo='';try{pesoSalvo=(JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')).pesoInicial||'';}catch(e){}
-html+='<div style="margin:14px 0"><input type="number" id="peso-inicial" value="'+pesoSalvo+'" placeholder="Seu peso atual (kg)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:\'Sora\',sans-serif;outline:none" oninput="savePesoInicial(this.value)"><div style="font-size:11px;color:var(--muted);margin-top:6px">Peso salvo localmente</div></div>';
-html+='<a class="btn-pdf-day" href="https://wa.me/5511915027893" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">\ud83d\udcac Suporte via WhatsApp</a>';
-html+='<div class="day-checkin-row">';
-if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone(0)" title="Clique para desfazer">\u2713 Aula assistida \u00b7 desfazer?</button>';}
-else{html+='<button class="day-btn primary" onclick="markDayDone(0)">\u2713 Assistiu a aula \u00b7 +20 pts</button>';}
-html+='</div>';
-}else{
-/* CHECKINS cumulativos */
-if(cks.length){
-html+='<div class="day-sec-label">\u2705 Check-in do Dia</div>';
-html+='<div class="day-checklist">';
-cks.forEach(function(ci2){
-var chk=dc[ci2.k]?' checked':'';
-html+='<div class="day-check-item" onclick="toggleDayCheck('+d.num+',\''+ci2.k+'\')">';
-html+='<div class="check-box'+chk+'" id="chk-'+d.num+'-'+ci2.k+'">'+(dc[ci2.k]?'\u2713':'')+'</div>';
-html+='<span class="check-item-label">'+ci2.l+'</span></div>';
-});
-html+='<div class="day-prog-wrap"><div class="day-prog-bar"><div class="day-prog-fill" id="dpf-'+d.num+'" style="width:'+dayPct+'%"></div></div>';
-html+='<span class="day-prog-txt" id="dpt-'+d.num+'">'+dayPct+'% do dia conclu\u00eddo</span></div></div>';
+function updateDayProgress(dayNum){
+  var checks=dayChecks[dayNum]||{};
+  var items=DAY_CHECKS&&DAY_CHECKS[dayNum]!==undefined?DAY_CHECKS[dayNum].map(function(c){return c.k;}):['agua','refeicao','aula'];
+  if(!items.length)return;
+  var done=items.filter(function(k){return checks[k];}).length;
+  var pct=Math.round(done/items.length*100);
+  var fill=document.getElementById('dpf-'+dayNum);var txt=document.getElementById('dpt-'+dayNum);
+  if(fill)fill.style.width=pct+'%';
+  if(txt)txt.textContent=pct+'% do dia concluído';
 }
-/* FOTOS DA MISS\u00c3O */
-var dayPhotos=DAY_PHOTOS&&DAY_PHOTOS[d.num]?DAY_PHOTOS[d.num]:[];
-if(dayPhotos.length){
-html+='<div class="day-sec-label">\ud83d\udcf7 Miss\u00e3o do Dia</div>';
-html+='<div class="photo-cats">';
-dayPhotos.forEach(function(cat){
-html+='<div class="photo-cat"><div class="photo-cat-label">'+cat.l+'</div>';
-html+='<div class="photo-multi-grid" id="pg-'+d.num+'-'+cat.c+'"></div>';
-html+='<button class="btn-add-photo" onclick="document.getElementById(\'pf-'+d.num+'-'+cat.c+'\').click()">+ Adicionar fotos</button>';
-html+='<input type="file" id="pf-'+d.num+'-'+cat.c+'" accept="image/*" multiple onchange="addDayPhotos(this,'+d.num+',\''+cat.c+'\')">';
-html+='</div>';
-});
-html+='</div>';
-}
-/* BOT\u00c3O CONCLUIR */
-html+='<div class="day-checkin-row">';
-if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone('+d.num+')" title="Clique para desfazer">\u2713 Dia conclu\u00eddo \u00b7 desfazer?</button>';}
-else{html+='<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo \u00b7 +20 pts</button>';}
-html+='</div>';
-}
-/* Foto de Depois (Dia 10) */
-if(d.hasAfter){
-html+='<div class="day-sec-label">\u2728 Foto de Depois</div>';
-html+='<div class="day-photo-box" onclick="document.getElementById(\'up-depois\').click()">';
-html+='<div class="ico">\u2728</div><div class="lbl">Envie sua foto de depois</div><div class="sub">Mostre sua transforma\u00e7\u00e3o! \u00b7 +50 pts</div></div>';
-html+='<div class="day-photo-ok" id="ok-depois">\u2713 Foto de depois enviada!</div>';
-html+='<input type="file" id="up-depois" accept="image/*" onchange="handleDayPhoto(this,\'depois\',50)">';
-}
-/* Coment\u00e1rios */
-html+='<div class="day-sec-label">\ud83d\udcac Coment\u00e1rios</div>';
-html+='<div class="comment-wrap">';
-html+='<textarea class="comment-area" id="cmt-'+d.num+'" placeholder="Deixe seu coment\u00e1rio ou d\u00favida sobre o Dia '+d.num+'..."></textarea>';
-html+='<button class="btn-send-cmt" onclick="submitComment('+d.num+')">Enviar coment\u00e1rio</button>';
-html+='<div class="cmt-list" id="cmt-list-'+d.num+'"></div>';
-html+='</div>';
-html+='</div></div></div>';
-});
-return html;
-}
-function toggleDay(n){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-var sd=stored.startDate||new Date().toDateString();
-if(!isDayUnlocked(n,sd)){
-var dl=getDaysUntilUnlock(n,sd);
-showToast('🔒 Dia '+n+' disponível em '+dl+' dia'+(dl!==1?'s':''));
-return;
-}
-var head=document.getElementById('dh-'+n);var body=document.getElementById('db-'+n);
-var isOpen=head.classList.contains('open');
-document.querySelectorAll('.day-head.open').forEach(function(h){h.classList.remove('open');document.getElementById(h.id.replace('dh-','db-')).style.maxHeight='0';});
-if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';loadDayComments(n);}
-}
-
-function markDayDone(n){
-var stored={};try{stored=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-var arr=stored.daysOkArr||[];
-var idx=arr.indexOf(n);
-if(idx!==-1){
-/* DESFAZER */
-arr.splice(idx,1);stored.daysOkArr=arr;stored.daysOk=arr.length;
-stored.pts=Math.max(0,(stored.pts||0)-20);userPts=stored.pts;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
-animateCounter(document.getElementById('pts-display'),userPts,600);
-var head2=document.getElementById('dh-'+n);
-if(n===0){if(head2){head2.classList.remove('done');var btn2b=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2b){btn2b.className='day-btn primary';btn2b.innerHTML='✓ Assistiu a aula · +20 pts';btn2b.title='';}}showToast('Boas-vindas desmarcado 🔄');}
-else{if(head2){head2.classList.remove('done');var btn2=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2){btn2.className='day-btn primary';btn2.innerHTML='Marcar dia como completo · +20 pts';btn2.title='';}}
-var doneCount=arr.filter(function(x){return x!==0;}).length;
-document.getElementById('prog-label').textContent=doneCount+' / 10 dias';
-document.getElementById('prog-fill').style.width=(doneCount/10*100)+'%';
-showToast('Dia '+n+' desmarcado 🔄');}
-pingWebhook({action:'day_undone',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
-return;
-}
-/* MARCAR */
-arr.push(n);stored.daysOkArr=arr;stored.daysOk=arr.length;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
-addPts(20);
-var head=document.getElementById('dh-'+n);
-if(n===0){if(head){head.classList.add('done');var btn0=head.parentElement.querySelector('.day-btn.primary');if(btn0){btn0.className='day-btn done-btn';btn0.innerHTML='✓ Aula assistida · desfazer?';btn0.title='Clique para desfazer';}}showToast('Boas-vindas concluído! +20 pontos 🎉');}
-else{if(head){head.classList.add('done');var btn=head.parentElement.querySelector('.day-btn.primary');if(btn){btn.className='day-btn done-btn';btn.innerHTML='✓ Dia concluído · desfazer?';btn.title='Clique para desfazer';}}
-var doneCount2=arr.filter(function(x){return x!==0;}).length;
-document.getElementById('prog-label').textContent=doneCount2+' / 10 dias';
-document.getElementById('prog-fill').style.width=(doneCount2/10*100)+'%';
-showToast('Dia '+n+' concluído! +20 pontos 🎉');}
-pingWebhook({action:'day_done',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
-}
-
-/* ── LIBERAÇÃO GRADUAL ── */
-function isDayUnlocked(dayNum,startDate){
-if(isAdmin)return true;
-if(dayNum===0)return true;
-if(!startDate)return dayNum===1;
-var s=new Date(startDate);var n=new Date();
-s.setHours(0,0,0,0);n.setHours(0,0,0,0);
-var diff=Math.floor((n-s)/(1000*60*60*24));
-return dayNum<=diff+1;
-}
-function getDaysUntilUnlock(dayNum,startDate){
-if(!startDate)return dayNum-1;
-var s=new Date(startDate);var n=new Date();
-s.setHours(0,0,0,0);n.setHours(0,0,0,0);
-var diff=Math.floor((n-s)/(1000*60*60*24));
-return Math.max(0,dayNum-1-diff);
-}
-
 function savePesoInicial(val){
-var s={};try{s=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
-s.pesoInicial=val;
-localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(s));
+  userData.pesoInicial=val;
+  saveToFirestore({pesoInicial:val});
 }
 
-/* ── ADMIN — PDF POR DIA ── */
-function getPdfOverrides(){try{return JSON.parse(localStorage.getItem('desafio_pdfs')||'{}')}catch(e){return {}}}
+/* ── PDF OVERRIDE ── */
+function loadPdfOverrides(){
+  db.collection('pdfs').get().then(function(snap){
+    snap.forEach(function(doc){localPdfs[doc.id]=doc.data().url;});
+  }).catch(function(){});
+}
+function getPdfOverrides(){return localPdfs;}
 function savePdfUrl(dayNum){
-var inp=document.getElementById('pdf-inp-'+dayNum);if(!inp)return;
-var url=inp.value.trim();
-var pdfs=getPdfOverrides();pdfs[dayNum]=url;
-localStorage.setItem('desafio_pdfs',JSON.stringify(pdfs));
-pingWebhook({action:'save_pdf',email:currentUser.email,dia:dayNum,url:url,ts:Date.now()});
-showToast('PDF do Dia '+dayNum+' salvo! 📄');
-if(currentPhase)showPhase(currentPhase);
+  var inp=document.getElementById('pdf-inp-'+dayNum);if(!inp)return;
+  var url=inp.value.trim();
+  localPdfs[dayNum]=url;
+  db.collection('pdfs').doc(String(dayNum)).set({url:url}).then(function(){
+    showToast('PDF do Dia '+dayNum+' salvo! 📄');
+    if(currentPhase)showPhase(currentPhase);
+  }).catch(function(e){showToast('Erro ao salvar: '+e.message);});
 }
 
-/* ── COMENTÁRIOS ── */
-function getComments(dayNum){try{return JSON.parse(localStorage.getItem('desafio_cmts_'+dayNum)||'[]')}catch(e){return []}}
-function saveComments(dayNum,cmts){localStorage.setItem('desafio_cmts_'+dayNum,JSON.stringify(cmts));}
-function loadDayComments(dayNum){renderComments(dayNum,getComments(dayNum));}
+/* ── COMMENTS ── */
+function loadDayComments(dayNum){
+  db.collection('comments').doc(String(dayNum)).collection('items').orderBy('ts','asc').get().then(function(snap){
+    var items=[];snap.forEach(function(doc){items.push(Object.assign({id:doc.id},doc.data()));});
+    renderComments(dayNum,items);
+  }).catch(function(){renderComments(dayNum,[]);});
+}
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderComments(dayNum,cmts){
-var list=document.getElementById('cmt-list-'+dayNum);if(!list)return;
-if(!cmts.length){list.innerHTML='<div style="font-size:12px;color:var(--muted);padding:12px 0;text-align:center">Nenhum comentário ainda.</div>';return;}
-var html='';
-cmts.forEach(function(c){
-html+='<div class="cmt-item"><div class="cmt-user">'+escHtml(c.user)+'</div><div class="cmt-txt">'+escHtml(c.text)+'</div>';
-if(c.reply){
-html+='<div class="cmt-reply-block"><div class="cmt-reply-lbl">Resposta da Bruna</div><div class="cmt-txt">'+escHtml(c.reply)+'</div></div>';
-}else if(isAdmin){
-html+='<textarea class="reply-ta" id="rep-'+c.id+'" placeholder="Responder..."></textarea>';
-html+='<button class="btn-send-reply" onclick="submitReply('+dayNum+','+c.id+')">Responder</button>';
-}
-html+='</div>';
-});
-list.innerHTML=html;
+  var list=document.getElementById('cmt-list-'+dayNum);if(!list)return;
+  if(!cmts.length){list.innerHTML='<div style="font-size:12px;color:var(--muted);padding:12px 0;text-align:center">Nenhum comentário ainda.</div>';return;}
+  var html='';
+  cmts.forEach(function(c){
+    html+='<div class="cmt-item"><div class="cmt-user">'+escHtml(c.user||'')+'</div><div class="cmt-txt">'+escHtml(c.text||'')+'</div>';
+    if(c.reply){html+='<div class="cmt-reply-block"><div class="cmt-reply-lbl">Resposta da Bruna</div><div class="cmt-txt">'+escHtml(c.reply)+'</div></div>';}
+    else if(isAdmin&&!viewAsEmail){html+='<textarea class="reply-ta" id="rep-'+c.id+'" placeholder="Responder..."></textarea>';html+='<button class="btn-send-reply" onclick="submitReply('+dayNum+',\''+c.id+'\')">Responder</button>';}
+    html+='</div>';
+  });
+  list.innerHTML=html;
 }
 function refreshDayHeight(dayNum){
-var body=document.getElementById('db-'+dayNum);
-if(body&&body.style.maxHeight&&body.style.maxHeight!=='0px'){
-body.style.maxHeight='none';
-var h=body.scrollHeight;
-body.style.maxHeight=h+'px';
-}
+  var body=document.getElementById('db-'+dayNum);
+  if(body&&body.style.maxHeight&&body.style.maxHeight!=='0px'){body.style.maxHeight='none';body.style.maxHeight=body.scrollHeight+'px';}
 }
 function submitComment(dayNum){
-var inp=document.getElementById('cmt-'+dayNum);if(!inp||!inp.value.trim())return;
-var text=inp.value.trim();
-var cmts=getComments(dayNum);
-cmts.push({id:Date.now(),user:currentUser.nome||currentUser.email,text:text,reply:''});
-saveComments(dayNum,cmts);inp.value='';renderComments(dayNum,cmts);
-setTimeout(function(){refreshDayHeight(dayNum);},50);
-pingWebhook({action:'comment',email:currentUser.email,nome:currentUser.nome,dia:dayNum,text:text,ts:Date.now()});
-showToast('Comentário enviado! 💬');
+  var inp=document.getElementById('cmt-'+dayNum);if(!inp||!inp.value.trim())return;
+  var text=inp.value.trim();
+  db.collection('comments').doc(String(dayNum)).collection('items').add({
+    user:currentUser.nome||currentUser.email,email:currentUser.email,text:text,reply:'',
+    ts:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function(){
+    inp.value='';loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
+    showToast('Comentário enviado! 💬');
+  }).catch(function(e){showToast('Erro: '+e.message);});
 }
 function submitReply(dayNum,cmtId){
-var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
-var repl=inp.value.trim();
-var cmts=getComments(dayNum);
-for(var i=0;i<cmts.length;i++){if(cmts[i].id===cmtId){cmts[i].reply=repl;break;}}
-saveComments(dayNum,cmts);renderComments(dayNum,cmts);
-setTimeout(function(){refreshDayHeight(dayNum);},50);
-pingWebhook({action:'reply_comment',email:currentUser.email,dia:dayNum,cmtId:cmtId,reply:repl,ts:Date.now()});
-showToast('Resposta enviada! ✉️');
+  var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
+  db.collection('comments').doc(String(dayNum)).collection('items').doc(cmtId).update({reply:inp.value.trim()}).then(function(){
+    loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
+    showToast('Resposta enviada! ✉️');
+  }).catch(function(e){showToast('Erro: '+e.message);});
+}
+
+/* ── PHASE NAVIGATION ── */
+function showPhase(phase){
+  currentPhase=phase;
+  document.getElementById('phases-overview').style.display='none';
+  document.getElementById('phase-detail').style.display='block';
+  var mod=phase==='boasvindas'?{titulo:'Boas-vindas',dias:[0]}:phase==='fase1'?MODULES[0]:phase==='fase2'?MODULES[1]:MODULES[2];
+  document.getElementById('phase-content-area').innerHTML=buildFaseHTML(mod);
+  window.scrollTo({top:0,behavior:'smooth'});observeReveals();
+}
+function hidePhase(){
+  document.getElementById('phase-detail').style.display='none';
+  document.getElementById('phases-overview').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── BUILD FASE HTML ── */
+function buildFaseHTML(mod){
+  var daysOkArr=userData.daysOkArr||[];
+  var checksData=userData.dayChecks||{};
+  var startDate=userData.startDate||new Date().toDateString();
+  var pdfOvr=getPdfOverrides();
+  var html='<div class="sec-title">'+mod.titulo+'</div>';
+  var daysInMod=DAYS.filter(function(d){return mod.dias.indexOf(d.num)!==-1;});
+  daysInMod.forEach(function(d){
+    var isDone=daysOkArr.indexOf(d.num)!==-1;
+    var unlocked=isDayUnlocked(d.num,startDate);
+    var dc=checksData[d.num]||{};
+    var cks=DAY_CHECKS[d.num]!==undefined?DAY_CHECKS[d.num]:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição 🥗'},{k:'aula',l:'Assistiu a aula 🎓'}];
+    var cksDone=cks.length?cks.filter(function(ci){return dc[ci.k];}).length:0;
+    var dayPct=cks.length?Math.round(cksDone/cks.length*100):0;
+    html+='<div class="day-item">';
+    html+='<div class="day-head'+(isDone?' done':'')+(unlocked?'':' locked')+'" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">';
+    html+='<div class="day-num">'+(d.num===0?'0':d.num)+'</div>';
+    html+='<div class="day-info"><div class="day-title">'+d.title+'</div>';
+    if(unlocked){html+='<div class="day-sub">'+d.sub+'</div>';}
+    else{var dl=getDaysUntilUnlock(d.num,startDate);html+='<div class="day-sub">🔒 Disponível em '+dl+' dia'+(dl!==1?'s':'')+'</div>';}
+    html+='</div>';
+    if(!unlocked){html+='<div style="font-size:18px;flex-shrink:0;margin-right:4px">🔒</div>';}
+    html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>';
+    html+='<div class="day-body" id="db-'+d.num+'"><div class="day-body-inner">';
+    if(d.videoId){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>';}
+    else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
+    if(d.bonusVideoId){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>';}
+    var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
+    if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
+    else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
+    if(DAY_EXTRAS&&DAY_EXTRAS[d.num]){html+=DAY_EXTRAS[d.num];}
+    if(isAdmin&&!viewAsEmail){html+='<div class="pdf-admin-wrap"><input class="pdf-admin-inp" id="pdf-inp-'+d.num+'" placeholder="Cole a URL do PDF do Dia '+d.num+'..." value="'+(pdfUrl||'')+'"><button class="btn-save-pdf" onclick="savePdfUrl('+d.num+')">💾 Salvar PDF</button></div>';}
+    if(d.num===0){
+      html+='<div class="day-sec-label">📸 Missão do Dia 0</div>';
+      html+='<p style="font-size:13px;color:var(--muted);margin-bottom:14px">Tire uma foto corporal de antes e registre seu peso inicial.</p>';
+      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-d0-antes\').click()"><div class="ico">📸</div><div class="lbl">Foto Corporal de Antes</div><div class="sub">Registre seu ponto de partida · +50 pts</div></div>';
+      html+='<input type="file" id="up-d0-antes" accept="image/*" onchange="handleDayPhoto(this,\'d0-antes\',50)">';
+      html+='<div style="margin:14px 0"><input type="number" id="peso-inicial" value="'+(userData.pesoInicial||'')+'" placeholder="Seu peso atual (kg)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:\'Sora\',sans-serif;outline:none" oninput="savePesoInicial(this.value)"><div style="font-size:11px;color:var(--muted);margin-top:6px">Peso salvo no Firestore</div></div>';
+      html+='<a class="btn-pdf-day" href="https://wa.me/5511915027893" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">💬 Suporte via WhatsApp</a>';
+      html+='<div class="day-checkin-row">';
+      if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone(0)" title="Clique para desfazer">✓ Aula assistida · desfazer?</button>';}
+      else{html+='<button class="day-btn primary" onclick="markDayDone(0)">✓ Assistiu a aula · +20 pts</button>';}
+      html+='</div>';
+    }else{
+      if(cks.length){
+        html+='<div class="day-sec-label">✅ Check-in do Dia</div><div class="day-checklist">';
+        cks.forEach(function(ci2){
+          var chk=dc[ci2.k]?' checked':'';
+          html+='<div class="day-check-item" onclick="toggleDayCheck('+d.num+',\''+ci2.k+'\')"><div class="check-box'+chk+'" id="chk-'+d.num+'-'+ci2.k+'">'+(dc[ci2.k]?'✓':'')+'</div><span class="check-item-label">'+ci2.l+'</span></div>';
+        });
+        html+='<div class="day-prog-wrap"><div class="day-prog-bar"><div class="day-prog-fill" id="dpf-'+d.num+'" style="width:'+dayPct+'%"></div></div><span class="day-prog-txt" id="dpt-'+d.num+'">'+dayPct+'% do dia concluído</span></div></div>';
+      }
+      var dayPhotos=DAY_PHOTOS&&DAY_PHOTOS[d.num]?DAY_PHOTOS[d.num]:[];
+      if(dayPhotos.length){
+        html+='<div class="day-sec-label">📷 Missão do Dia</div><div class="photo-cats">';
+        dayPhotos.forEach(function(cat){
+          html+='<div class="photo-cat"><div class="photo-cat-label">'+cat.l+'</div>';
+          html+='<div class="photo-multi-grid" id="pg-'+d.num+'-'+cat.c+'"></div>';
+          html+='<button class="btn-add-photo" onclick="document.getElementById(\'pf-'+d.num+'-'+cat.c+'\').click()">+ Adicionar fotos</button>';
+          html+='<input type="file" id="pf-'+d.num+'-'+cat.c+'" accept="image/*" multiple onchange="addDayPhotos(this,'+d.num+',\''+cat.c+'\')"></div>';
+        });
+        html+='</div>';
+      }
+      html+='<div class="day-checkin-row">';
+      if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone('+d.num+')" title="Clique para desfazer">✓ Dia concluído · desfazer?</button>';}
+      else{html+='<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo · +20 pts</button>';}
+      html+='</div>';
+    }
+    if(d.hasAfter){
+      html+='<div class="day-sec-label">✨ Foto de Depois</div>';
+      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-depois\').click()"><div class="ico">✨</div><div class="lbl">Envie sua foto de depois</div><div class="sub">Mostre sua transformação! · +50 pts</div></div>';
+      html+='<div class="day-photo-ok" id="ok-depois">✓ Foto de depois enviada!</div>';
+      html+='<input type="file" id="up-depois" accept="image/*" onchange="handleDayPhoto(this,\'depois\',50)">';
+    }
+    html+='<div class="day-sec-label">💬 Comentários</div><div class="comment-wrap">';
+    html+='<textarea class="comment-area" id="cmt-'+d.num+'" placeholder="Deixe seu comentário ou dúvida sobre o Dia '+d.num+'..."></textarea>';
+    html+='<button class="btn-send-cmt" onclick="submitComment('+d.num+')">Enviar comentário</button>';
+    html+='<div class="cmt-list" id="cmt-list-'+d.num+'"></div></div></div></div></div>';
+  });
+  return html;
+}
+
+/* ── TOGGLE DAY ── */
+function toggleDay(n){
+  var startDate=userData.startDate||new Date().toDateString();
+  if(!isDayUnlocked(n,startDate)){var dl=getDaysUntilUnlock(n,startDate);showToast('🔒 Dia '+n+' disponível em '+dl+' dia'+(dl!==1?'s':''));return;}
+  var head=document.getElementById('dh-'+n);var body=document.getElementById('db-'+n);
+  var isOpen=head.classList.contains('open');
+  document.querySelectorAll('.day-head.open').forEach(function(h){h.classList.remove('open');var b=document.getElementById(h.id.replace('dh-','db-'));if(b)b.style.maxHeight='0';});
+  if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';loadDayComments(n);}
+}
+
+/* ── MARK DAY DONE ── */
+function markDayDone(n){
+  var arr=(userData.daysOkArr||[]).slice();
+  var idx=arr.indexOf(n);
+  if(idx!==-1){
+    arr.splice(idx,1);
+    userData.pts=Math.max(0,(userData.pts||0)-20);
+    animateCounter(document.getElementById('pts-display'),userData.pts,600);
+    saveToFirestore({daysOkArr:arr,daysOk:arr.length,pts:userData.pts});
+    userData.daysOkArr=arr;userData.daysOk=arr.length;
+    var head2=document.getElementById('dh-'+n);
+    if(n===0){if(head2){head2.classList.remove('done');var b0=head2.parentElement.querySelector('.day-btn.done-btn');if(b0){b0.className='day-btn primary';b0.innerHTML='✓ Assistiu a aula · +20 pts';b0.title='';}}showToast('Boas-vindas desmarcado 🔄');}
+    else{if(head2){head2.classList.remove('done');var b2=head2.parentElement.querySelector('.day-btn.done-btn');if(b2){b2.className='day-btn primary';b2.innerHTML='Marcar dia como completo · +20 pts';b2.title='';}}
+    var dc=arr.filter(function(x){return x!==0;}).length;
+    document.getElementById('prog-label').textContent=dc+' / 10 dias';
+    document.getElementById('prog-fill').style.width=(dc/10*100)+'%';
+    showToast('Dia '+n+' desmarcado 🔄');}
+    return;
+  }
+  arr.push(n);userData.daysOkArr=arr;userData.daysOk=arr.length;
+  addPts(20);saveToFirestore({daysOkArr:arr,daysOk:arr.length});
+  var head=document.getElementById('dh-'+n);
+  if(n===0){if(head){head.classList.add('done');var b1=head.parentElement.querySelector('.day-btn.primary');if(b1){b1.className='day-btn done-btn';b1.innerHTML='✓ Aula assistida · desfazer?';b1.title='Clique para desfazer';}}showToast('Boas-vindas concluído! +20 pontos 🎉');}
+  else{if(head){head.classList.add('done');var bn=head.parentElement.querySelector('.day-btn.primary');if(bn){bn.className='day-btn done-btn';bn.innerHTML='✓ Dia concluído · desfazer?';bn.title='Clique para desfazer';}}
+  var dc2=arr.filter(function(x){return x!==0;}).length;
+  document.getElementById('prog-label').textContent=dc2+' / 10 dias';
+  document.getElementById('prog-fill').style.width=(dc2/10*100)+'%';
+  showToast('Dia '+n+' concluído! +20 pontos 🎉');}
+}
+
+/* ── DAY UNLOCK ── */
+function isDayUnlocked(dayNum,startDate){
+  if(isAdmin&&!viewAsEmail)return true;
+  if(dayNum===0)return true;
+  if(!startDate)return dayNum===1;
+  var s=new Date(startDate);var n=new Date();
+  s.setHours(0,0,0,0);n.setHours(0,0,0,0);
+  var diff=Math.floor((n-s)/(1000*60*60*24));
+  return dayNum<=diff+1;
+}
+function getDaysUntilUnlock(dayNum,startDate){
+  if(!startDate)return dayNum-1;
+  var s=new Date(startDate);var n=new Date();
+  s.setHours(0,0,0,0);n.setHours(0,0,0,0);
+  var diff=Math.floor((n-s)/(1000*60*60*24));
+  return Math.max(0,dayNum-1-diff);
 }
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
 
-/* Init */
-(function(){
-var saved=null;try{saved=JSON.parse(localStorage.getItem('desafio_user')||'null')}catch(e){}
-if(!saved||!saved.email)return;
-currentUser=saved;
-if(ADMINS.indexOf(saved.email)!==-1){isAdmin=true;enterArea();return;}
-if(saved.pago){enterArea();}
-})();
 </script>
 </body>
 </html>
