@@ -418,14 +418,15 @@ var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 var currentUser=null;var isAdmin=false;var userPts=0;var currentPhase=null;
 
 var DAYS=[
-{num:1,title:'Hidratação Inteligente',sub:'Diminuir retenção, melhorar intestino e energia',videoId:'zEJZl1qjA10',pdfUrl:'https://drive.google.com/drive/folders/1YUhACnEDJCjMRPYlVmmi9uMAiKPJYrOH?usp=sharing',hasBefore:true},
-{num:2,title:'Organize seu Ambiente',sub:'Prepare sua casa para emagrecer',videoId:'qMD-yQjGOvk',bonusVideoId:'zZWZMNAI_Wc',bonusLabel:'Bônus Especial',pdfUrl:'https://drive.google.com/drive/folders/1ne_p4Rxw9_jpPdLeybIvxEb2_4d56yMf?usp=sharing'},
-{num:3,title:'Inclua Anti-Inflamatórios no seu Dia',sub:'Alimentação que combate a inflamação',videoId:'gahEsUDQ4iI',pdfUrl:'https://drive.google.com/drive/folders/1Ymu8wtaz4lqqGCzO6GegeZcJy8JhWUS0?usp=sharing'},
-{num:4,title:'Proteína em Todas as Refeições',sub:'Como controlar a fome e aumentar a saciedade',videoId:'tKL7rhR5OhY',pdfUrl:'https://drive.google.com/drive/folders/1zZyGyxAnE5LCMepdiYZDFziqfrzaxn2U?usp=sharing'},
-{num:5,title:'Comer com Atenção',sub:'Mastigue bem — atenção plena nas refeições',videoId:'ugQTxZL6TlQ',pdfUrl:'https://drive.google.com/drive/folders/1qMth3CjWzA6JZN_VBuw1j-FMLtibKTs1?usp=sharing'},
-{num:6,title:'Sono de Princesa',sub:'Como o sono impacta o emagrecimento',videoId:'',pdfUrl:''},
-{num:7,title:'Diminua o Consumo de Açúcares',sub:'Açúcares escondidos e como identificá-los',videoId:'',pdfUrl:''},
-{num:8,title:'Movimento com Constância',sub:'Como incluir exercícios na sua rotina',videoId:'',pdfUrl:''},
+{num:0,title:'Boas-vindas ao Desafio',sub:'Conheça sua jornada de transformação',videoId:'pFcYHaaLoo4'},
+{num:1,title:'Hidratação Inteligente',sub:'Como bater a meta de água todos os dias. Tenha garrafinhas sempre por perto.',videoId:'zEJZl1qjA10',pdfUrl:'https://drive.google.com/drive/folders/1YUhACnEDJCjMRPYlVmmi9uMAiKPJYrOH?usp=sharing'},
+{num:2,title:'Organize seu Ambiente',sub:'Faça lista de compras antes de ir ao mercado — bônus sugestão de cardápio',videoId:'qMD-yQjGOvk',bonusVideoId:'zZWZMNAI_Wc',bonusLabel:'Bônus Especial',pdfUrl:'https://drive.google.com/drive/folders/1ne_p4Rxw9_jpPdLeybIvxEb2_4d56yMf?usp=sharing'},
+{num:3,title:'Inclua Anti-Inflamatórios no seu Dia',sub:'Desinflamar o corpo para emagrecer — coma um prato colorido',videoId:'gahEsUDQ4iI',pdfUrl:'https://drive.google.com/drive/folders/1Ymu8wtaz4lqqGCzO6GegeZcJy8JhWUS0?usp=sharing'},
+{num:4,title:'Proteína em Todas as Refeições',sub:'Entenda a sua fome e saciedade',videoId:'tKL7rhR5OhY',pdfUrl:'https://drive.google.com/drive/folders/1zZyGyxAnE5LCMepdiYZDFziqfrzaxn2U?usp=sharing'},
+{num:5,title:'Comer com Atenção',sub:'Pilares e como isso muda o ritmo do emagrecimento',videoId:'ugQTxZL6TlQ',pdfUrl:'https://drive.google.com/drive/folders/1qMth3CjWzA6JZN_VBuw1j-FMLtibKTs1?usp=sharing'},
+{num:6,title:'Sono e Emagrecimento',sub:'Dormir mal atrapalha o emagrecimento — como melhorar a qualidade do sono',videoId:'Y0_xau0wVnY',pdfUrl:''},
+{num:7,title:'Um Dia sem Açúcar Adicionado',sub:'No café ou no chá — aprenda a ler rótulos para melhores escolhas',videoId:'QfC_QAcvdG0',pdfUrl:''},
+{num:8,title:'Inclua um Exercício no seu Dia',sub:'A constância vale mais que a perfeição',videoId:'U0Va0TK8Hrk',pdfUrl:''},
 {num:9,title:'Comer sem Culpa — A Regra 90/10',sub:'O equilíbrio que sustenta o emagrecimento',videoId:'',pdfUrl:''},
 {num:10,title:'Sua Nova Versão',sub:'Quebrando o ciclo e construindo hábitos definitivos',videoId:'',pdfUrl:'',hasAfter:true}
 ];
@@ -435,6 +436,37 @@ var MODULES=[
 {num:2,titulo:'Fase 2 — Controlar a Fome',desc:'Aprender a sentir mais saciedade e reduzir os gatilhos',dias:[4,5,6]},
 {num:3,titulo:'Fase 3 — Emagrecer sem Efeito Sanfona',desc:'Construir hábitos que você consiga manter após os 10 dias',dias:[7,8,9,10]}
 ];
+
+/* Check-ins cumulativos por dia */
+var DAY_CHECKS={
+0:[],
+1:[{k:'aula',l:'Assistiu a aula 🎓'}],
+2:[{k:'agua',l:'Meta de água 💧'},{k:'aula',l:'Assistiu a aula 🎓'}],
+3:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'aula',l:'Assistiu a aula 🎓'}],
+4:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'aula',l:'Assistiu a aula 🎓'}],
+5:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'proteina',l:'Proteína em todas as refeições 🥩'},{k:'aula',l:'Assistiu a aula 🎓'}],
+6:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'proteina',l:'Proteína em todas as refeições 🥩'},{k:'atencao',l:'Me alimentei sem distração 🧘'},{k:'aula',l:'Assistiu a aula 🎓'}],
+7:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'proteina',l:'Proteína em todas as refeições 🥩'},{k:'atencao',l:'Me alimentei sem distração 🧘'},{k:'sono',l:'Dormi bem hoje 😴'},{k:'aula',l:'Assistiu a aula 🎓'}],
+8:[{k:'agua',l:'Meta de água 💧'},{k:'refeicao',l:'Organizou a refeição do dia 🥗'},{k:'colorido',l:'Alimentação colorida hoje 🌈'},{k:'proteina',l:'Proteína em todas as refeições 🥩'},{k:'atencao',l:'Me alimentei sem distração 🧘'},{k:'sono',l:'Dormi bem hoje 😴'},{k:'semacucar',l:'Café sem açúcar ☕'},{k:'aula',l:'Assistiu a aula 🎓'}]
+};
+
+/* Fotos de missão por dia */
+var DAY_PHOTOS={
+1:[{c:'garrafa',l:'💧 Foto da Garrafa de Água (mínimo 3L + chá diurético)'}],
+2:[{c:'org',l:'🏠 Organização (mercado / geladeira / preparos)'}],
+3:[{c:'prato',l:'🍽 Prato com 5 Cores + Anti-inflamatório'},{c:'almoco',l:'🥗 Almoço'},{c:'jantar',l:'🌙 Jantar'}],
+4:[{c:'cafe',l:'☕ Café com Proteína'},{c:'almoco',l:'🥗 Almoço com Proteína'},{c:'lanche',l:'🍎 Lanche da Tarde com Proteína'},{c:'jantar',l:'🌙 Jantar com Proteína'}],
+5:[{c:'prato',l:'🍽 Prato (sem distração, na mesa)'}],
+6:[{c:'cha',l:'🌿 Chá Calmante Antes de Dormir'}],
+7:[{c:'sem_acucar',l:'☕ Café ou Chá Sem Açúcar'}],
+8:[{c:'exercicio',l:'🏃 Exercício Físico do Dia'}]
+};
+
+/* Links extras por dia */
+var DAY_EXTRAS={
+2:'<a class="btn-pdf-day" href="https://abran.org.br/calculadoras/taxa-metabolica" target="_blank" rel="noopener">📊 Bônus: Calculadora de Calorias</a>',
+6:'<a class="btn-pdf-day" href="https://youtube.com/playlist?list=PLaGQIRrwFnQZSVGPUezWAwwRDNbFF2MTb&si=ahKHl0pTd5dV0WOA" target="_blank" rel="noopener">🧘 Bônus: Meditações Guiadas no YouTube</a>'
+};
 
 /* Particles */
 (function(){
@@ -626,7 +658,8 @@ pingWebhook({action:'day_check',email:currentUser.email,nome:currentUser.nome,di
 }
 function updateDayProgress(dayNum){
 var checks=dayChecks[dayNum]||{};
-var items=['agua','refeicao','video','exercicio'];
+var items=(DAY_CHECKS&&DAY_CHECKS[dayNum]!==undefined)?DAY_CHECKS[dayNum].map(function(c){return c.k;}):['agua','refeicao','aula'];
+if(!items.length){return;}
 var done=items.filter(function(k){return checks[k];}).length;
 var pct=Math.round(done/items.length*100);
 var fill=document.getElementById('dpf-'+dayNum);
@@ -675,11 +708,7 @@ document.getElementById('phases-overview').style.display='none';
 document.getElementById('phase-detail').style.display='block';
 var html='';
 if(phase==='boasvindas'){
-html='<div class="sec-title">Boas-vindas</div>'
-+'<div class="glass-card">'
-+'<div class="video-wrap"><iframe src="https://www.youtube.com/embed/pFcYHaaLoo4" allowfullscreen loading="lazy"></iframe></div>'
-+'<p style="font-size:13px;color:var(--muted);margin-top:14px;text-align:center">Assista antes de começar — a Bruna te explica tudo sobre o desafio.</p>'
-+'</div>';
+html=buildFaseHTML({titulo:'Boas-vindas',dias:[0]});
 }else{
 var mod=phase==='fase1'?MODULES[0]:phase==='fase2'?MODULES[1]:MODULES[2];
 html=buildFaseHTML(mod);
@@ -707,12 +736,12 @@ daysInMod.forEach(function(d){
 var isDone=daysOkArr.indexOf(d.num)!==-1;
 var unlocked=isDayUnlocked(d.num,startDate);
 var dc=checksData[d.num]||{};
-var cks=[{k:'agua',l:'Bateu a meta de \u00e1gua \ud83d\udca7'},{k:'refeicao',l:'Cumpriu a refei\u00e7\u00e3o do dia \ud83e\udd57'},{k:'video',l:'Assistiu todo o v\u00eddeo \ud83c\udfac'},{k:'exercicio',l:'Fez a atividade f\u00edsica \ud83c\udfc3'}];
-var cksDone=cks.filter(function(ci){return dc[ci.k];}).length;
-var dayPct=Math.round(cksDone/cks.length*100);
+var cks=DAY_CHECKS[d.num]!==undefined?DAY_CHECKS[d.num]:[{k:'agua',l:'Meta de \u00e1gua \ud83d\udca7'},{k:'refeicao',l:'Organizou a refei\u00e7\u00e3o \ud83e\udd57'},{k:'aula',l:'Assistiu a aula \ud83c\udf93'}];
+var cksDone=cks.length?cks.filter(function(ci){return dc[ci.k];}).length:0;
+var dayPct=cks.length?Math.round(cksDone/cks.length*100):0;
 html+='<div class="day-item">';
 html+='<div class="day-head'+(isDone?' done':'')+(unlocked?'':' locked')+'" id="dh-'+d.num+'" onclick="toggleDay('+d.num+')">';
-html+='<div class="day-num">'+d.num+'</div>';
+html+='<div class="day-num">'+(d.num===0?'0':d.num)+'</div>';
 html+='<div class="day-info"><div class="day-title">'+d.title+'</div>';
 if(unlocked){html+='<div class="day-sub">'+d.sub+'</div>';}
 else{var dl=getDaysUntilUnlock(d.num,startDate);html+='<div class="day-sub">\ud83d\udd12 Dispon\u00edvel em '+dl+' dia'+(dl!==1?'s':'')+'</div>';}
@@ -722,18 +751,35 @@ html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentC
 html+='</div>';
 html+='<div class="day-body" id="db-'+d.num+'">';
 html+='<div class="day-body-inner">';
+/* V\u00eddeo */
 if(d.videoId){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>';}
 else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">\u25b6</div><div class="vp-txt">Aula em breve</div></div></div>';}
 if(d.bonusVideoId){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">\u2b50 '+(d.bonusLabel||'B\u00f4nus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>';}
+/* PDF */
 var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
 if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">\ud83d\udcc4 Baixar material \u2014 Dia '+d.num+'</a>';}
-else{html+='<div class="pdf-coming">\ud83d\udcc4 Material em PDF em breve</div>';}
-if(isAdmin){
-html+='<div class="pdf-admin-wrap">';
-html+='<input class="pdf-admin-inp" id="pdf-inp-'+d.num+'" placeholder="Cole a URL do PDF do Dia '+d.num+'..." value="'+(pdfUrl||'')+'">';
-html+='<button class="btn-save-pdf" onclick="savePdfUrl('+d.num+')">&#128190; Salvar PDF</button>';
+else if(d.num>0){html+='<div class="pdf-coming">\ud83d\udcc4 Material em PDF em breve</div>';}
+/* Link extra (calculadora, medita\u00e7\u00e3o, etc) */
+if(DAY_EXTRAS&&DAY_EXTRAS[d.num]){html+=DAY_EXTRAS[d.num];}
+/* Admin PDF */
+if(isAdmin){html+='<div class="pdf-admin-wrap"><input class="pdf-admin-inp" id="pdf-inp-'+d.num+'" placeholder="Cole a URL do PDF do Dia '+d.num+'..." value="'+(pdfUrl||'')+'"><button class="btn-save-pdf" onclick="savePdfUrl('+d.num+')">\ud83d\udcbe Salvar PDF</button></div>';}
+/* DIA 0 \u2014 especial */
+if(d.num===0){
+html+='<div class="day-sec-label">\ud83d\udcf8 Miss\u00e3o do Dia 0</div>';
+html+='<p style="font-size:13px;color:var(--muted);margin-bottom:14px">Tire uma foto corporal de antes e registre seu peso inicial para acompanhar sua evolu\u00e7\u00e3o.</p>';
+html+='<div class="day-photo-box" onclick="document.getElementById(\'up-d0-antes\').click()">';
+html+='<div class="ico">\ud83d\udcf8</div><div class="lbl">Foto Corporal de Antes</div><div class="sub">Registre seu ponto de partida \u00b7 +50 pts</div></div>';
+html+='<input type="file" id="up-d0-antes" accept="image/*" onchange="handleDayPhoto(this,\'d0-antes\',50)">';
+var pesoSalvo='';try{pesoSalvo=(JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')).pesoInicial||'';}catch(e){}
+html+='<div style="margin:14px 0"><input type="number" id="peso-inicial" value="'+pesoSalvo+'" placeholder="Seu peso atual (kg)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:\'Sora\',sans-serif;outline:none" oninput="savePesoInicial(this.value)"><div style="font-size:11px;color:var(--muted);margin-top:6px">Peso salvo localmente</div></div>';
+html+='<a class="btn-pdf-day" href="https://wa.me/55" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">\ud83d\udcac Suporte via WhatsApp</a>';
+html+='<div class="day-checkin-row">';
+if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone(0)" title="Clique para desfazer">\u2713 Aula assistida \u00b7 desfazer?</button>';}
+else{html+='<button class="day-btn primary" onclick="markDayDone(0)">\u2713 Assistiu a aula \u00b7 +20 pts</button>';}
 html+='</div>';
-}
+}else{
+/* CHECKINS cumulativos */
+if(cks.length){
 html+='<div class="day-sec-label">\u2705 Check-in do Dia</div>';
 html+='<div class="day-checklist">';
 cks.forEach(function(ci2){
@@ -744,9 +790,13 @@ html+='<span class="check-item-label">'+ci2.l+'</span></div>';
 });
 html+='<div class="day-prog-wrap"><div class="day-prog-bar"><div class="day-prog-fill" id="dpf-'+d.num+'" style="width:'+dayPct+'%"></div></div>';
 html+='<span class="day-prog-txt" id="dpt-'+d.num+'">'+dayPct+'% do dia conclu\u00eddo</span></div></div>';
-html+='<div class="day-sec-label">\ud83d\udcf7 Fotos do Dia '+d.num+'</div>';
+}
+/* FOTOS DA MISS\u00c3O */
+var dayPhotos=DAY_PHOTOS&&DAY_PHOTOS[d.num]?DAY_PHOTOS[d.num]:[];
+if(dayPhotos.length){
+html+='<div class="day-sec-label">\ud83d\udcf7 Miss\u00e3o do Dia</div>';
 html+='<div class="photo-cats">';
-[{c:'agua',l:'\ud83d\udca7 \u00c1gua'},{c:'alim',l:'\ud83e\udd57 Alimenta\u00e7\u00e3o'},{c:'exerc',l:'\ud83c\udfc3 Exerc\u00edcio'}].forEach(function(cat){
+dayPhotos.forEach(function(cat){
 html+='<div class="photo-cat"><div class="photo-cat-label">'+cat.l+'</div>';
 html+='<div class="photo-multi-grid" id="pg-'+d.num+'-'+cat.c+'"></div>';
 html+='<button class="btn-add-photo" onclick="document.getElementById(\'pf-'+d.num+'-'+cat.c+'\').click()">+ Adicionar fotos</button>';
@@ -754,17 +804,14 @@ html+='<input type="file" id="pf-'+d.num+'-'+cat.c+'" accept="image/*" multiple 
 html+='</div>';
 });
 html+='</div>';
-if(d.hasBefore){
-html+='<div class="day-sec-label">\ud83d\udcf8 Foto de Antes</div>';
-html+='<div class="day-photo-box" onclick="document.getElementById(\'up-antes\').click()">';
-html+='<div class="ico">\ud83d\udcf8</div><div class="lbl">Envie sua foto de antes</div><div class="sub">Registre seu ponto de partida \u00b7 +50 pts</div></div>';
-html+='<div class="day-photo-ok" id="ok-antes">\u2713 Foto de antes enviada!</div>';
-html+='<input type="file" id="up-antes" accept="image/*" onchange="handleDayPhoto(this,\'antes\',50)">';
 }
+/* BOT\u00c3O CONCLUIR */
 html+='<div class="day-checkin-row">';
 if(isDone){html+='<button class="day-btn done-btn" onclick="markDayDone('+d.num+')" title="Clique para desfazer">\u2713 Dia conclu\u00eddo \u00b7 desfazer?</button>';}
 else{html+='<button class="day-btn primary" onclick="markDayDone('+d.num+')">Marcar dia como completo \u00b7 +20 pts</button>';}
 html+='</div>';
+}
+/* Foto de Depois (Dia 10) */
 if(d.hasAfter){
 html+='<div class="day-sec-label">\u2728 Foto de Depois</div>';
 html+='<div class="day-photo-box" onclick="document.getElementById(\'up-depois\').click()">';
@@ -772,6 +819,7 @@ html+='<div class="ico">\u2728</div><div class="lbl">Envie sua foto de depois</d
 html+='<div class="day-photo-ok" id="ok-depois">\u2713 Foto de depois enviada!</div>';
 html+='<input type="file" id="up-depois" accept="image/*" onchange="handleDayPhoto(this,\'depois\',50)">';
 }
+/* Coment\u00e1rios */
 html+='<div class="day-sec-label">\ud83d\udcac Coment\u00e1rios</div>';
 html+='<div class="comment-wrap">';
 html+='<textarea class="comment-area" id="cmt-'+d.num+'" placeholder="Deixe seu coment\u00e1rio ou d\u00favida sobre o Dia '+d.num+'..."></textarea>';
@@ -807,10 +855,12 @@ stored.pts=Math.max(0,(stored.pts||0)-20);userPts=stored.pts;
 localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
 animateCounter(document.getElementById('pts-display'),userPts,600);
 var head2=document.getElementById('dh-'+n);
-if(head2){head2.classList.remove('done');var btn2=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2){btn2.className='day-btn primary';btn2.innerHTML='Marcar dia como completo · +20 pts';btn2.title='';}}
-document.getElementById('prog-label').textContent=arr.length+' / 10 dias';
-document.getElementById('prog-fill').style.width=(arr.length/10*100)+'%';
-showToast('Dia '+n+' desmarcado 🔄');
+if(n===0){if(head2){head2.classList.remove('done');var btn2b=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2b){btn2b.className='day-btn primary';btn2b.innerHTML='✓ Assistiu a aula · +20 pts';btn2b.title='';}}showToast('Boas-vindas desmarcado 🔄');}
+else{if(head2){head2.classList.remove('done');var btn2=head2.parentElement.querySelector('.day-btn.done-btn');if(btn2){btn2.className='day-btn primary';btn2.innerHTML='Marcar dia como completo · +20 pts';btn2.title='';}}
+var doneCount=arr.filter(function(x){return x!==0;}).length;
+document.getElementById('prog-label').textContent=doneCount+' / 10 dias';
+document.getElementById('prog-fill').style.width=(doneCount/10*100)+'%';
+showToast('Dia '+n+' desmarcado 🔄');}
 pingWebhook({action:'day_undone',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
 return;
 }
@@ -819,16 +869,19 @@ arr.push(n);stored.daysOkArr=arr;stored.daysOk=arr.length;
 localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(stored));
 addPts(20);
 var head=document.getElementById('dh-'+n);
-if(head){head.classList.add('done');var btn=head.parentElement.querySelector('.day-btn.primary');if(btn){btn.className='day-btn done-btn';btn.innerHTML='✓ Dia concluído · desfazer?';btn.title='Clique para desfazer';}}
-document.getElementById('prog-label').textContent=arr.length+' / 10 dias';
-document.getElementById('prog-fill').style.width=(arr.length/10*100)+'%';
-showToast('Dia '+n+' concluído! +20 pontos 🎉');
+if(n===0){if(head){head.classList.add('done');var btn0=head.parentElement.querySelector('.day-btn.primary');if(btn0){btn0.className='day-btn done-btn';btn0.innerHTML='✓ Aula assistida · desfazer?';btn0.title='Clique para desfazer';}}showToast('Boas-vindas concluído! +20 pontos 🎉');}
+else{if(head){head.classList.add('done');var btn=head.parentElement.querySelector('.day-btn.primary');if(btn){btn.className='day-btn done-btn';btn.innerHTML='✓ Dia concluído · desfazer?';btn.title='Clique para desfazer';}}
+var doneCount2=arr.filter(function(x){return x!==0;}).length;
+document.getElementById('prog-label').textContent=doneCount2+' / 10 dias';
+document.getElementById('prog-fill').style.width=(doneCount2/10*100)+'%';
+showToast('Dia '+n+' concluído! +20 pontos 🎉');}
 pingWebhook({action:'day_done',email:currentUser.email,nome:currentUser.nome,dia:n,ts:Date.now()});
 }
 
 /* ── LIBERAÇÃO GRADUAL ── */
 function isDayUnlocked(dayNum,startDate){
 if(isAdmin)return true;
+if(dayNum===0)return true;
 if(!startDate)return dayNum===1;
 var s=new Date(startDate);var n=new Date();
 s.setHours(0,0,0,0);n.setHours(0,0,0,0);
@@ -841,6 +894,12 @@ var s=new Date(startDate);var n=new Date();
 s.setHours(0,0,0,0);n.setHours(0,0,0,0);
 var diff=Math.floor((n-s)/(1000*60*60*24));
 return Math.max(0,dayNum-1-diff);
+}
+
+function savePesoInicial(val){
+var s={};try{s=JSON.parse(localStorage.getItem('desafio_data_'+currentUser.email)||'{}')}catch(e){}
+s.pesoInicial=val;
+localStorage.setItem('desafio_data_'+currentUser.email,JSON.stringify(s));
 }
 
 /* ── ADMIN — PDF POR DIA ── */
