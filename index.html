@@ -1745,6 +1745,22 @@
     wrapper.addEventListener('mouseleave',function(){timer=setInterval(function(){goTo(cur+1);},3500);});
   }
 
+  // Endpoint gratuito via Google Apps Script — sem billing, sem API key
+  var GAS_URL='https://script.google.com/macros/s/AKfycbwmdOPt3pEmPMWC6vyTmOUM5bTdgin8JRVH5xYeH0Nqg9tJYYw5zQFSXHkXTguJIl7Y1Q/exec';
+
+  window.addEventListener('load',function(){
+    fetch(GAS_URL)
+      .then(function(r){return r.json();})
+      .then(function(data){
+        if(data.reviews&&data.reviews.length){
+          buildCarousel(data.reviews);
+          var tot=document.querySelector('.grev-total');
+          if(tot&&data.total)tot.textContent=data.total+' avaliações no Google';
+        }else{buildCarousel(FALLBACK);}
+      })
+      .catch(function(){buildCarousel(FALLBACK);});
+  });
+
   if(GREV_API_KEY){
     window._initGrevPlaces=function(){
       var svc=new google.maps.places.PlacesService(document.createElement('div'));
@@ -1769,8 +1785,6 @@
     s.src='https://maps.googleapis.com/maps/api/js?key='+GREV_API_KEY+'&libraries=places&callback=_initGrevPlaces';
     s.async=true;s.defer=true;
     document.head.appendChild(s);
-  }else{
-    window.addEventListener('load',function(){buildCarousel(FALLBACK);});
   }
 })();
 </script>
