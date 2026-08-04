@@ -830,7 +830,7 @@ function loadPList(){
   if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
     fetch(APPS_URL+'?action=listPatients')
       .then(function(r){return r.json()})
-      .then(function(list){renderPList(list||[])})
+      .then(function(res){renderPList((res&&res.patients)||[])})
       .catch(function(){renderPList([])});
   } else {
     renderPList([
