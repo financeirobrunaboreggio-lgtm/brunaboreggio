@@ -133,9 +133,10 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .p-name{font-size:14px;font-weight:700;margin-bottom:2px}
 .p-em{font-size:11px;color:var(--muted)}
 .pstatus{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:3px 10px}
+.ps-wait{color:var(--muted2);background:var(--glass);border:1px solid var(--border)}
 .ps-agt{color:var(--gold);background:rgba(201,149,78,.08);border:1px solid rgba(201,149,78,.2)}
 .ps-ok{color:var(--green);background:var(--green-bg);border:1px solid var(--green-border)}
-.ps-done{color:var(--muted2);background:var(--glass);border:1px solid var(--border)}
+.ps-done{color:#7C6DAB;background:rgba(124,109,171,.08);border:1px solid rgba(124,109,171,.25)}
 .btn-ver{font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;background:rgba(201,149,78,.1);border:1px solid var(--border2);color:var(--gold);cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
 .btn-ver:hover{background:rgba(201,149,78,.2)}
 /* Viewing as banner */
@@ -675,6 +676,7 @@ function doLogin(){
         localStorage.setItem('protocolo_user',JSON.stringify(u));
         me=u;isAdmin=ADMINS.indexOf(email)>=0;
         document.getElementById('denied').style.display='none';
+        fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'recordLogin',email:email})}).catch(function(){});
         enter();
       } else {
         var err=document.getElementById('loginErr');
@@ -840,7 +842,7 @@ function renderPList(list){
     return;
   }
   el.innerHTML=list.map(function(p,i){
-    var sc=p.status==='Concluído'?'ps-done':p.status==='Questionário preenchido'?'ps-ok':'ps-agt';
+    var sc=p.status==='Concluído'?'ps-done':p.status==='Questionário preenchido'?'ps-ok':p.status==='Aguardando questionário'?'ps-agt':'ps-wait';
     var st=p.status||'Aguardando questionário';
     var nome=p.nome||p['Nome completo']||'—';
     var email=p.email||p['Email']||'';
