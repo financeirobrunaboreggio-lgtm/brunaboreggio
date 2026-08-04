@@ -666,6 +666,13 @@ function doLogin(){
   var nome=(document.getElementById('loginNome').value||'').trim();
   if(!email||email.indexOf('@')<0){document.getElementById('loginErr').style.display='block';return;}
   document.getElementById('loginErr').style.display='none';
+  if(ADMINS.indexOf(email)>=0){
+    var u={email:email,nome:nome,pago:true};
+    localStorage.setItem('protocolo_user',JSON.stringify(u));
+    me=u;isAdmin=true;
+    document.getElementById('denied').style.display='none';
+    enter();return;
+  }
   var btn=document.getElementById('btnLogin');
   if(btn){btn.disabled=true;btn.textContent='Verificando...';}
   fetch(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(email))
