@@ -971,7 +971,7 @@ function postar(){
 
 /* ── PREVIEW MODE ── */
 function adminPreviewSelf(){
-  var pat={email:me,nome:'(Visualização admin)',status:''};
+  var pat={email:me.email,nome:'(Visualização admin)',status:''};
   showPatient(pat);
   previewMode=true;
   var btn=document.getElementById('btnTogglePreview');
