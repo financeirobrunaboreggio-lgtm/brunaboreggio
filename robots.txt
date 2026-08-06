@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /comunidade.html
+Allow: /comunidade-vip.html
+Allow: /area-gratuita.html
+Allow: /area-desafio.html
+Allow: /politica-privacidade.html
+
+# Áreas privadas — não indexar
+Disallow: /area-membros/
+Disallow: /area-premium/
+Disallow: /area-protocolo/
+Disallow: /area-desafio/
+
+Sitemap: https://nutricionistabrunaboreggio.com.br/sitemap.xml
