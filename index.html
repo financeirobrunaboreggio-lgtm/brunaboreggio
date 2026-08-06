@@ -20,17 +20,195 @@
   <meta property="og:image:height" content="1080">
   <meta property="og:site_name" content="Bruna Boreggio | Nutricionista">
 
-  <!-- Schema.org — Logo para Google -->
+  <!-- Schema.org — Dados Estruturados para Google e IAs -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Bruna Boreggio | Nutricionista",
-    "url": "https://nutricionistabrunaboreggio.com.br/",
-    "logo": "https://nutricionistabrunaboreggio.com.br/logo-og.jpg",
-    "sameAs": [
-      "https://www.instagram.com/nutri_brunaboreggio/",
-      "https://www.facebook.com/nutri.brunaboreggio/"
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
+        "@id": "https://nutricionistabrunaboreggio.com.br/#business",
+        "name": "Bruna Boreggio | Nutricionista",
+        "description": "Nutricionista especializada em emagrecimento e hipertrofia em Guarulhos, SP. Atendimento presencial e online para todo o Brasil. CRN 68497.",
+        "url": "https://nutricionistabrunaboreggio.com.br/",
+        "telephone": "+55-11-97750-9331",
+        "email": "nutri.brunaboreggio@gmail.com",
+        "image": "https://nutricionistabrunaboreggio.com.br/logo-og.jpg",
+        "logo": "https://nutricionistabrunaboreggio.com.br/logo-og.jpg",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Guarulhos",
+          "addressRegion": "SP",
+          "addressCountry": "BR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -23.4543,
+          "longitude": -46.5332
+        },
+        "areaServed": [
+          {"@type": "City", "name": "Guarulhos"},
+          {"@type": "Country", "name": "Brasil"}
+        ],
+        "serviceType": [
+          "Nutrição Clínica",
+          "Emagrecimento",
+          "Hipertrofia",
+          "Nutrição Funcional",
+          "Consulta Nutricional Online",
+          "Consulta Nutricional Presencial"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Serviços de Nutrição",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Clube VIP Você Mais Leve",
+                "description": "Grupo coletivo no WhatsApp com conteúdo de nutrição e emagrecimento. Sem fidelidade, assinatura mensal."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Consultoria Nutricional Individual",
+                "description": "Consulta individual com avaliação completa, diagnóstico personalizado e plano alimentar exclusivo. Presencial em Guarulhos ou online."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Desafio Destrave seu Emagrecimento",
+                "description": "Programa intensivo de emagrecimento com acompanhamento direto da nutricionista Bruna Boreggio."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Emagrecimento Definitivo",
+                "description": "Programa completo e personalizado para emagrecimento sustentável com acompanhamento contínuo."
+              }
+            }
+          ]
+        },
+        "sameAs": [
+          "https://www.instagram.com/nutri_brunaboreggio/",
+          "https://www.facebook.com/nutri.brunaboreggio/"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://nutricionistabrunaboreggio.com.br/#bruna",
+        "name": "Bruna Boreggio",
+        "jobTitle": "Nutricionista",
+        "description": "Nutricionista registrada no CRN 68497, especializada em emagrecimento e hipertrofia. Formada pela Universidade de Guarulhos (UNG) com especialização em Nutrição Funcional pela FSA.",
+        "url": "https://nutricionistabrunaboreggio.com.br/",
+        "image": "https://nutricionistabrunaboreggio.com.br/logo-og.jpg",
+        "telephone": "+55-11-97750-9331",
+        "worksFor": {"@id": "https://nutricionistabrunaboreggio.com.br/#business"},
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Graduação",
+            "recognizedBy": {"@type": "Organization", "name": "UNG – Universidade de Guarulhos"},
+            "name": "Nutrição"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Especialização",
+            "recognizedBy": {"@type": "Organization", "name": "FSA – Faculdade de Saúde Avançada"},
+            "name": "Nutrição Funcional"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Registro Profissional",
+            "recognizedBy": {"@type": "Organization", "name": "CFN – Conselho Federal de Nutricionistas"},
+            "name": "CRN 68497"
+          }
+        ],
+        "knowsAbout": ["Emagrecimento", "Hipertrofia", "Nutrição Funcional", "Nutrição Clínica", "Composição Corporal"],
+        "sameAs": [
+          "https://www.instagram.com/nutri_brunaboreggio/",
+          "https://www.facebook.com/nutri.brunaboreggio/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://nutricionistabrunaboreggio.com.br/#website",
+        "name": "Bruna Boreggio | Nutricionista em Guarulhos",
+        "url": "https://nutricionistabrunaboreggio.com.br/",
+        "description": "Site oficial da nutricionista Bruna Boreggio. Emagrecimento, hipertrofia e nutrição funcional presencial em Guarulhos e online para todo o Brasil.",
+        "publisher": {"@id": "https://nutricionistabrunaboreggio.com.br/#business"},
+        "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://nutricionistabrunaboreggio.com.br/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qual é a diferença entre o Clube VIP e a consulta individual?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O Clube VIP Você Mais Leve é um grupo coletivo no WhatsApp, ideal para quem quer começar a aprender sobre nutrição com suporte da Bruna por um valor acessível. A consulta individual é um atendimento exclusivo, com plano alimentar 100% personalizado para você, sua rotina e seus objetivos específicos. Para quem precisa de protocolo individual, a consulta é o caminho certo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso fazer consulta online mesmo morando fora de Guarulhos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim! As consultas online atendem pacientes de todo o Brasil. O atendimento é feito por videoconferência e tem a mesma qualidade da consulta presencial. O plano alimentar é enviado digitalmente com todas as orientações necessárias."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que resultados posso esperar com o acompanhamento nutricional?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "95% das pacientes relatam menos inchaço já no primeiro mês, com mais disposição e energia. No segundo mês começa a queima de gordura, as roupas vão ficando mais largas e é possível seguir o plano encaixado na rotina."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O plano alimentar considera minhas preferências e restrições?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutamente. Na anamnese inicial, mapeamos todos os seus gostos, aversões, restrições alimentares, intolerâncias e alergias. O plano é construído em cima do que você gosta e consegue manter — porque dieta que você odeia não funciona a longo prazo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O Clube VIP Você Mais Leve tem contrato de fidelidade?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Não. A assinatura do Clube VIP é mensal e você pode cancelar a qualquer momento, sem multa ou burocracia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso conciliar o acompanhamento nutricional com musculação ou outro esporte?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim! A Bruna tem experiência prática com pacientes que praticam musculação e CrossFit e adapta o protocolo nutricional para apoiar desempenho e composição corporal, com foco em nutrição funcional voltada ao emagrecimento."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como agendar uma consulta com a nutricionista Bruna Boreggio?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O agendamento é feito pelo WhatsApp: (11) 97750-9331. Atendimento presencial em Guarulhos, SP, ou online por videoconferência para todo o Brasil."
+            }
+          }
+        ]
+      }
     ]
   }
   </script>
