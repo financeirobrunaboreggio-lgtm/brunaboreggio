@@ -528,9 +528,13 @@ function enterArea(){
 function loadData(){
   var email=viewAsEmail||currentUser.email;
   db.collection('students').doc(email).get().then(function(doc){
-    var defaults={pts:0,startDate:new Date().toDateString(),daysOkArr:[],daysOk:0,dayChecks:{},ciDate:'',ciDone:{},pesoInicial:'',nome:currentUser.nome,email:email};
+    var now=new Date().toISOString();
+    var defaults={pts:0,startDate:new Date().toDateString(),daysOkArr:[],daysOk:0,dayChecks:{},ciDate:'',ciDone:{},pesoInicial:'',nome:currentUser.nome,email:email,primeiroAcesso:now};
     userData=doc.exists?Object.assign({},defaults,doc.data()):defaults;
-    if(!doc.exists)db.collection('students').doc(email).set(userData);
+    if(!userData.primeiroAcesso)userData.primeiroAcesso=now;
+    userData.ultimoAcesso=now;
+    if(!doc.exists){db.collection('students').doc(email).set(userData);}
+    else{db.collection('students').doc(email).set({ultimoAcesso:now,primeiroAcesso:userData.primeiroAcesso},{merge:true});}
     dayChecks=userData.dayChecks||{};
     userData.dayChecks=dayChecks;
     animateCounter(document.getElementById('pts-display'),userData.pts||0,900);
