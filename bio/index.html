@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bruna Boreggio — Nutricionista</title>
+  <meta name="description" content="Nutricionista especializada em emagrecimento, hipertrofia e saúde intestinal. Atendimento presencial em Guarulhos e online para todo o Brasil.">
+  <link rel="canonical" href="https://nutricionistabrunaboreggio.com.br/bio/">
+
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','863466929657523');fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=863466929657523&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Google Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18245045866"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','AW-18245045866');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+/* ─── TOKENS ──────────────────────────────────────── */
+:root{
+  --bg:#FAF7F0;
+  --bg2:#F2EDE4;
+  --go:#C5965A;
+  --go2:#A07840;
+  --grn:#4A6E52;
+  --dk:#2C1A0E;
+  --muted:rgba(44,26,14,.52);
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-s:'Inter',system-ui,sans-serif;
+  --r:20px;
+  --r2:14px;
+  --sh:0 4px 32px rgba(44,26,14,.1);
+  --sh2:0 12px 64px rgba(44,26,14,.16);
+}
+
+/* ─── RESET ───────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:var(--font-s);
+  background:var(--bg);
+  color:var(--dk);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+/* ─── CURTAIN ─────────────────────────────────────── */
+#curtain{
+  position:fixed;inset:0;
+  background:var(--dk);
+  z-index:9999;
+  transition:opacity .75s ease,visibility .75s ease;
+}
+#curtain.gone{opacity:0;visibility:hidden;}
+
+/* ─── CURSOR ──────────────────────────────────────── */
+#cur,#cur2{
+  position:fixed;border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+}
+#cur{
+  width:10px;height:10px;
+  background:var(--go);
+}
+#cur2{
+  width:32px;height:32px;
+  border:1.5px solid var(--go);
+  opacity:.4;
+  transition:left .13s ease,top .13s ease;
+}
+body.hov #cur{transform:translate(-50%,-50%) scale(2.2);}
+body.hov #cur2{transform:translate(-50%,-50%) scale(1.4);opacity:.2;}
+@media(pointer:coarse){#cur,#cur2{display:none;}}
+
+/* ─── BLOBS ───────────────────────────────────────── */
+.blob{
+  position:fixed;border-radius:50%;
+  filter:blur(80px);pointer-events:none;z-index:0;
+  animation:drift 18s ease-in-out infinite;
+}
+.b1{width:420px;height:420px;top:-140px;left:-120px;background:rgba(197,150,90,.13);animation-delay:0s;}
+.b2{width:320px;height:320px;bottom:-100px;right:-80px;background:rgba(74,110,82,.09);animation-delay:-6s;}
+.b3{width:260px;height:260px;top:48%;left:52%;background:rgba(197,150,90,.07);animation-delay:-11s;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(26px,-16px) scale(1.06);}66%{transform:translate(-16px,26px) scale(.96);}}
+
+/* ─── PAGE ────────────────────────────────────────── */
+.page{
+  max-width:480px;margin:0 auto;
+  padding:44px 20px 64px;
+  position:relative;z-index:1;
+}
+
+/* ─── SCROLL REVEAL ───────────────────────────────── */
+.sr{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.sr.vis{opacity:1;transform:translateY(0);}
+
+/* ─── HERO ────────────────────────────────────────── */
+.hero{text-align:center;padding-bottom:8px;}
+
+.av-wrap{
+  position:relative;
+  width:120px;height:120px;
+  margin:0 auto 22px;
+}
+.av-ring{
+  position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(var(--go) 0%,var(--bg2) 28%,var(--go) 54%,var(--bg2) 74%,var(--go) 100%);
+  animation:spin 4s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.av-halo{
+  position:absolute;inset:-14px;border-radius:50%;
+  background:radial-gradient(circle,rgba(197,150,90,.18) 0%,transparent 68%);
+  animation:halo 3s ease-in-out infinite alternate;
+}
+@keyframes halo{from{opacity:.6;transform:scale(1);}to{opacity:1;transform:scale(1.1);}}
+.av{
+  position:absolute;inset:4px;border-radius:50%;
+  object-fit:cover;background:var(--bg2);z-index:2;
+}
+.av-init{
+  position:absolute;inset:4px;border-radius:50%;
+  background:linear-gradient(135deg,var(--go2),var(--go));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:2.1rem;font-weight:700;
+  color:var(--bg);z-index:2;letter-spacing:.04em;
+}
+.av-badge{
+  position:absolute;bottom:2px;right:2px;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 12px rgba(44,26,14,.22);
+  z-index:3;
+}
+
+.eyebrow{
+  font-size:.7rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--go);margin-bottom:10px;
+}
+
+#heroName{
+  font-family:var(--font-d);
+  font-size:2.7rem;font-weight:700;
+  line-height:1.08;color:var(--dk);
+  margin-bottom:14px;
+  text-wrap:balance;
+}
+#heroName .char{
+  display:inline-block;
+  opacity:0;
+  animation:charIn .5s ease forwards;
+}
+@keyframes charIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.bio{
+  font-size:.9rem;line-height:1.68;
+  color:var(--muted);
+  max-width:320px;margin:0 auto 26px;
+}
+
+/* Stats */
+.stats{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+}
+.stat{
+  background:var(--bg2);border-radius:var(--r2);
+  padding:14px 18px;min-width:92px;
+  text-align:center;
+  border:1px solid rgba(197,150,90,.2);
+}
+.stat-n{
+  font-family:var(--font-d);
+  font-size:1.55rem;font-weight:700;
+  color:var(--go);line-height:1;margin-bottom:4px;
+}
+.stat-l{
+  font-size:.67rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);
+}
+
+/* ─── TICKER ──────────────────────────────────────── */
+.ticker{
+  background:var(--dk);border-radius:var(--r);
+  overflow:hidden;padding:14px 0;
+  margin:32px 0;position:relative;
+}
+.ticker::before,.ticker::after{
+  content:'';position:absolute;top:0;bottom:0;width:48px;
+  z-index:2;pointer-events:none;
+}
+.ticker::before{left:0;background:linear-gradient(to right,var(--dk),transparent);}
+.ticker::after{right:0;background:linear-gradient(to left,var(--dk),transparent);}
+.tick-inner{
+  display:flex;white-space:nowrap;
+  animation:tick 24s linear infinite;
+}
+.tick-inner span{
+  font-size:.75rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--go);padding:0 20px;
+}
+.tick-inner .sep{color:rgba(197,150,90,.35);}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ─── QUIZ CARD ───────────────────────────────────── */
+.quiz-wrap{
+  background:var(--bg2);border-radius:var(--r);
+  border:1px solid rgba(197,150,90,.18);
+  padding:32px 28px;
+  position:relative;overflow:hidden;
+  box-shadow:var(--sh);
+}
+.card-glare{
+  position:absolute;inset:0;border-radius:var(--r);
+  pointer-events:none;z-index:0;transition:background .2s;
+}
+.quiz-wrap>*:not(.card-glare){position:relative;z-index:1;}
+
+.q-eyebrow{
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--go);margin-bottom:10px;
+}
+.q-title{
+  font-family:var(--font-d);font-size:1.6rem;font-weight:700;
+  color:var(--dk);line-height:1.22;margin-bottom:8px;
+}
+.q-sub{
+  font-size:.85rem;color:var(--muted);line-height:1.58;margin-bottom:26px;
+}
+
+#qProg{margin-bottom:22px;display:none;}
+#qProg.on{display:block;}
+.p-bar{
+  height:4px;background:rgba(197,150,90,.15);
+  border-radius:2px;overflow:hidden;margin-bottom:7px;
+}
+#pFill{
+  height:100%;background:var(--go);
+  border-radius:2px;transition:width .4s ease;width:0%;
+}
+#pLbl{font-size:.72rem;color:var(--muted);font-weight:500;}
+
+.q-step{display:none;}
+.q-step.on{display:block;}
+.q-lbl{
+  font-family:var(--font-d);font-size:1.15rem;font-weight:600;
+  color:var(--dk);margin-bottom:16px;line-height:1.3;
+}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.opt{
+  display:flex;align-items:center;gap:12px;
+  border:1.5px solid rgba(197,150,90,.2);border-radius:var(--r2);
+  padding:14px 16px;cursor:pointer;background:var(--bg);
+  transition:border-color .2s,background .2s,transform .12s;
+  font-size:.87rem;color:var(--dk);
+  -webkit-user-select:none;user-select:none;
+}
+.opt:hover{border-color:var(--go);background:rgba(197,150,90,.06);}
+.opt.sel{border-color:var(--go);background:rgba(197,150,90,.11);font-weight:600;}
+.opt-icon{font-size:1.2rem;width:28px;text-align:center;flex-shrink:0;}
+
+.btn-next{
+  width:100%;height:50px;
+  background:var(--go);border:none;border-radius:var(--r2);
+  font-family:var(--font-s);font-size:.92rem;font-weight:700;
+  color:var(--bg);cursor:pointer;
+  transition:background .2s,transform .12s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(197,150,90,.35);
+  position:relative;overflow:hidden;
+}
+.btn-next:disabled{opacity:.38;pointer-events:none;}
+.btn-next:not(:disabled):hover{background:var(--go2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(197,150,90,.45);}
+
+.btn-back{
+  background:none;border:1.5px solid rgba(197,150,90,.28);
+  border-radius:var(--r2);padding:9px 18px;
+  font-family:var(--font-s);font-size:.8rem;font-weight:600;
+  color:var(--muted);cursor:pointer;margin-bottom:14px;
+  transition:border-color .2s,color .2s;
+}
+.btn-back:hover{border-color:var(--go);color:var(--dk);}
+
+.q-field{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
+.q-field label{
+  font-size:.72rem;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted);
+}
+.q-field input,.q-field textarea{
+  border:1.5px solid rgba(197,150,90,.25);border-radius:var(--r2);
+  padding:12px 14px;font-family:var(--font-s);font-size:.9rem;
+  color:var(--dk);background:var(--bg);
+  transition:border-color .2s,box-shadow .2s;outline:none;resize:none;
+}
+.q-field input:focus,.q-field textarea:focus{
+  border-color:var(--go);box-shadow:0 0 0 3px rgba(197,150,90,.12);
+}
+.q-field textarea{min-height:68px;}
+
+#qRes{display:none;}
+#qRes.on{display:block;}
+.res-icon{font-size:2.5rem;margin-bottom:10px;}
+.res-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(197,150,90,.12);border:1px solid rgba(197,150,90,.28);
+  border-radius:100px;padding:5px 14px;
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--go);margin-bottom:14px;
+}
+.res-title{
+  font-family:var(--font-d);font-size:1.35rem;font-weight:700;
+  color:var(--dk);margin-bottom:10px;line-height:1.3;
+}
+.res-diag{font-size:.84rem;color:var(--muted);line-height:1.62;margin-bottom:18px;}
+.res-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+.res-step{display:flex;gap:12px;align-items:flex-start;font-size:.84rem;color:var(--dk);line-height:1.42;}
+.res-n{
+  min-width:24px;height:24px;border-radius:50%;
+  background:var(--go);color:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;flex-shrink:0;
+}
+.res-curso{
+  background:var(--bg);border:1.5px solid rgba(197,150,90,.22);
+  border-radius:var(--r2);padding:14px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px;
+}
+.res-curso-name{font-weight:700;font-size:.9rem;color:var(--dk);}
+.res-curso-badge{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--go);margin-top:2px;}
+
+.btn-cta{
+  width:100%;height:52px;
+  background:var(--go);border:none;border-radius:var(--r2);
+  font-family:var(--font-s);font-size:.95rem;font-weight:700;
+  color:var(--bg);cursor:pointer;
+  transition:background .2s,transform .12s,box-shadow .2s;
+  box-shadow:0 4px 24px rgba(197,150,90,.38);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  position:relative;overflow:hidden;
+}
+.btn-cta:hover{background:var(--go2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(197,150,90,.48);}
+
+/* ─── CAROUSEL ────────────────────────────────────── */
+.car-sec{margin:32px 0;}
+.car-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--go);margin-bottom:8px;
+}
+.car-title{
+  font-family:var(--font-d);font-size:1.65rem;font-weight:700;
+  color:var(--dk);margin-bottom:22px;
+}
+
+.car-outer{
+  position:relative;height:200px;overflow:visible;
+}
+#carT{
+  display:flex;position:absolute;left:0;top:0;
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+}
+.cc{
+  width:195px;flex-shrink:0;height:190px;
+  border-radius:var(--r);
+  background:var(--bg2);
+  border:1.5px solid rgba(197,150,90,.18);
+  padding:20px 18px;margin-right:14px;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .35s ease,box-shadow .35s ease,opacity .35s ease,filter .35s ease;
+  opacity:.4;filter:blur(1.5px);
+  transform:scale(.88) perspective(800px) rotateY(0deg);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.cc.act{opacity:1;filter:none;transform:scale(1) perspective(800px) rotateY(0deg);box-shadow:var(--sh2);}
+.cc.adj{opacity:.65;filter:blur(.8px);transform:scale(.92) perspective(800px);}
+.cc.adj-r{transform:scale(.92) perspective(800px) rotateY(-12deg);}
+.cc.adj-l{transform:scale(.92) perspective(800px) rotateY(12deg);}
+.cc-bg{
+  position:absolute;top:-10px;right:-10px;
+  font-size:3.5rem;opacity:.08;line-height:1;pointer-events:none;
+}
+.cc-cnt{position:relative;z-index:1;}
+.cc-badge{
+  display:inline-block;
+  font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;margin-bottom:10px;
+}
+.cc-badge.go{background:rgba(197,150,90,.15);color:var(--go);}
+.cc-badge.gn{background:rgba(74,110,82,.12);color:var(--grn);}
+.cc-badge.pr{background:rgba(100,80,140,.11);color:#7B5EA7;}
+.cc-title{font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--dk);margin-bottom:6px;line-height:1.2;}
+.cc-desc{font-size:.75rem;color:var(--muted);line-height:1.45;}
+.cc-arrow{
+  position:absolute;bottom:16px;right:16px;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--go);display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s;
+}
+.cc.act .cc-arrow{opacity:1;}
+.cc-arrow svg{width:10px;height:10px;fill:none;stroke:var(--bg);stroke-width:1.8;}
+
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;}
+.cbtn{
+  width:38px;height:38px;border-radius:50%;
+  border:1.5px solid rgba(197,150,90,.28);
+  background:transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,background .2s,transform .12s;
+  color:var(--go);
+}
+.cbtn:hover{border-color:var(--go);background:rgba(197,150,90,.08);transform:scale(1.08);}
+.cbtn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.cdots{display:flex;gap:6px;align-items:center;}
+.cdot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(197,150,90,.25);cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.cdot.on{background:var(--go);transform:scale(1.4);}
+
+/* ─── NEWSLETTER ──────────────────────────────────── */
+.nl-card{
+  background:var(--dk);border-radius:var(--r);
+  padding:32px 28px;margin:32px 0;
+  position:relative;overflow:hidden;
+}
+.nl-deco{
+  position:absolute;top:-24px;right:-24px;
+  width:150px;height:150px;border-radius:50%;
+  background:rgba(197,150,90,.1);pointer-events:none;
+}
+.nl-card>*:not(.nl-deco,.nl-glare){position:relative;z-index:1;}
+.nl-glare{position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:0;}
+.nl-eye{
+  font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(197,150,90,.7);margin-bottom:8px;
+}
+.nl-title{
+  font-family:var(--font-d);font-size:1.55rem;font-weight:700;
+  color:var(--bg);line-height:1.22;margin-bottom:6px;
+}
+.nl-sub{font-size:.83rem;color:rgba(250,247,240,.48);line-height:1.55;margin-bottom:22px;}
+.nl-row{display:flex;gap:10px;}
+#nlE{
+  flex:1;height:48px;border-radius:var(--r2);
+  border:1px solid rgba(197,150,90,.28);
+  padding:0 14px;font-family:var(--font-s);font-size:.88rem;
+  background:rgba(255,255,255,.06);color:var(--bg);
+  outline:none;transition:border-color .2s;
+}
+#nlE::placeholder{color:rgba(250,247,240,.28);}
+#nlE:focus{border-color:var(--go);}
+.nl-card .btn-cta{
+  width:auto;padding:0 20px;height:48px;font-size:.86rem;flex-shrink:0;
+}
+#nlOk{display:none;font-size:.9rem;color:var(--go);font-weight:600;margin-top:4px;}
+
+/* ─── SOCIAL LINKS ────────────────────────────────── */
+.slinks{margin:32px 0;}
+.slinks-title{
+  font-family:var(--font-d);font-size:1.45rem;font-weight:700;
+  color:var(--dk);margin-bottom:16px;
+}
+.slinks-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.slink{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg2);border-radius:var(--r2);
+  border:1.5px solid rgba(197,150,90,.15);
+  padding:16px 14px;
+  transition:border-color .2s,transform .12s,box-shadow .2s;
+}
+.slink:hover{border-color:var(--go);transform:translateY(-2px);box-shadow:var(--sh);}
+.slink-icon{font-size:1.3rem;flex-shrink:0;}
+.slink-name{font-size:.83rem;font-weight:700;color:var(--dk);}
+.slink-handle{font-size:.71rem;color:var(--muted);}
+
+/* ─── WHATSAPP CTA ────────────────────────────────── */
+.wa-card{
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  border-radius:var(--r);padding:24px 22px;
+  margin:16px 0 32px;cursor:pointer;
+  transition:transform .15s,box-shadow .2s;
+}
+.wa-card:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(37,211,102,.28);}
+.wa-icon{font-size:2.1rem;flex-shrink:0;}
+.wa-txt{flex:1;}
+.wa-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:2px;}
+.wa-sub{font-size:.78rem;color:rgba(255,255,255,.72);}
+.btn-wa{
+  background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);
+  border-radius:var(--r2);padding:10px 16px;
+  font-family:var(--font-s);font-size:.8rem;font-weight:700;
+  color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  transition:background .2s,transform .12s;
+}
+.btn-wa:hover{background:rgba(255,255,255,.26);transform:scale(1.04);}
+
+/* ─── FOOTER ──────────────────────────────────────── */
+footer{text-align:center;padding-top:12px;}
+.ft-logo{
+  font-family:var(--font-d);font-size:1.1rem;font-weight:700;
+  color:var(--go);margin-bottom:8px;letter-spacing:.04em;
+}
+.ft-div{
+  width:40px;height:1px;background:rgba(197,150,90,.28);
+  margin:10px auto;
+}
+.ft-copy{font-size:.71rem;color:var(--muted);line-height:1.65;}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:400px){
+  .page{padding:36px 16px 56px;}
+  #heroName{font-size:2.2rem;}
+  .quiz-wrap,.nl-card{padding:22px 18px;}
+  .nl-row{flex-direction:column;}
+  .nl-card .btn-cta{width:100%;}
+}
+  </style>
+</head>
+<body>
+
+<div id="curtain"></div>
+<div id="cur"></div>
+<div id="cur2"></div>
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+
+<div class="page">
+
+<!-- ═══ HERO ═══ -->
+<section class="hero sr">
+  <div class="av-wrap">
+    <div class="av-ring"></div>
+    <div class="av-halo"></div>
+    <img class="av" id="avImg" src="../foto-bruna.jpg" alt="Bruna Boreggio">
+    <div class="av-init" id="avInit" style="display:none">BB</div>
+    <div class="av-badge">🥗</div>
+  </div>
+  <div class="eyebrow">Nutricionista ✦ CRN 68497</div>
+  <h1 id="heroName">Bruna Boreggio</h1>
+  <p class="bio">Especialista em emagrecimento, hipertrofia e saúde intestinal. Atendimento presencial em Guarulhos e online para todo o Brasil.</p>
+  <div class="stats">
+    <div class="stat sr">
+      <div class="stat-n" data-count="500" data-suffix="+" data-k="false">500+</div>
+      <div class="stat-l">pacientes</div>
+    </div>
+    <div class="stat sr">
+      <div class="stat-n" data-count="8" data-suffix=" anos" data-k="false">8</div>
+      <div class="stat-l">experiência</div>
+    </div>
+    <div class="stat sr">
+      <div class="stat-n" data-count="98" data-suffix="%" data-k="false">98%</div>
+      <div class="stat-l">satisfação</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker sr">
+  <div class="tick-inner">
+    <span>Emagrecimento</span><span class="sep">✦</span>
+    <span>Hipertrofia</span><span class="sep">✦</span>
+    <span>Saúde Intestinal</span><span class="sep">✦</span>
+    <span>Diabetes</span><span class="sep">✦</span>
+    <span>Hipertensão</span><span class="sep">✦</span>
+    <span>Colesterol</span><span class="sep">✦</span>
+    <span>Guarulhos</span><span class="sep">✦</span>
+    <span>Online</span><span class="sep">✦</span>
+    <span>Emagrecimento</span><span class="sep">✦</span>
+    <span>Hipertrofia</span><span class="sep">✦</span>
+    <span>Saúde Intestinal</span><span class="sep">✦</span>
+    <span>Diabetes</span><span class="sep">✦</span>
+    <span>Hipertensão</span><span class="sep">✦</span>
+    <span>Colesterol</span><span class="sep">✦</span>
+    <span>Guarulhos</span><span class="sep">✦</span>
+    <span>Online</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="quiz-wrap sr" id="quizCard">
+  <div class="card-glare" id="cardGlare"></div>
+
+  <!-- Hook -->
+  <div id="qHook">
+    <div class="q-eyebrow">Diagnóstico Gratuito</div>
+    <h2 class="q-title">Descubra qual protocolo é ideal para você</h2>
+    <p class="q-sub">Responda 3 perguntas rápidas e receba uma orientação personalizada da Bruna para o seu objetivo de saúde.</p>
+    <button class="btn-cta" onclick="startQ()">Iniciar diagnóstico →</button>
+  </div>
+
+  <!-- Progress -->
+  <div id="qProg">
+    <div class="p-bar"><div id="pFill"></div></div>
+    <div id="pLbl">Passo 1 de 3</div>
+  </div>
+
+  <!-- Step 1: Objetivo -->
+  <div class="q-step" id="s1">
+    <div class="q-lbl">Qual é o seu principal objetivo?</div>
+    <div class="opts">
+      <div class="opt" data-s="1" data-v="emagrecer" onclick="pick(this)">
+        <span class="opt-icon">🔥</span>Emagrecer com saúde
+      </div>
+      <div class="opt" data-s="1" data-v="hipertrofia" onclick="pick(this)">
+        <span class="opt-icon">💪</span>Ganhar massa muscular
+      </div>
+      <div class="opt" data-s="1" data-v="intestino" onclick="pick(this)">
+        <span class="opt-icon">🌿</span>Melhorar meu intestino
+      </div>
+      <div class="opt" data-s="1" data-v="cronico" onclick="pick(this)">
+        <span class="opt-icon">❤️</span>Controlar diabetes / pressão / colesterol
+      </div>
+    </div>
+    <button class="btn-next" id="n1" disabled onclick="go(2)">Próximo →</button>
+  </div>
+
+  <!-- Step 2: Dificuldade -->
+  <div class="q-step" id="s2">
+    <button class="btn-back" onclick="go(1)">← Voltar</button>
+    <div class="q-lbl">Qual é a sua maior dificuldade hoje?</div>
+    <div class="opts">
+      <div class="opt" data-s="2" data-v="consistencia" onclick="pick(this)">
+        <span class="opt-icon">🔄</span>Não consigo manter a dieta
+      </div>
+      <div class="opt" data-s="2" data-v="orientacao" onclick="pick(this)">
+        <span class="opt-icon">❓</span>Não sei o que comer
+      </div>
+      <div class="opt" data-s="2" data-v="energia" onclick="pick(this)">
+        <span class="opt-icon">⚡</span>Falta de energia e disposição
+      </div>
+      <div class="opt" data-s="2" data-v="exames" onclick="pick(this)">
+        <span class="opt-icon">📋</span>Meus exames estão alterados
+      </div>
+    </div>
+    <button class="btn-next" id="n2" disabled onclick="go(3)">Próximo →</button>
+  </div>
+
+  <!-- Step 3: Contato -->
+  <div class="q-step" id="s3">
+    <button class="btn-back" onclick="go(2)">← Voltar</button>
+    <div class="q-lbl">Já tentou mudar sua alimentação antes?</div>
+    <div class="opts" style="margin-bottom:18px;">
+      <div class="opt" data-s="3" data-v="tentei-desisti" onclick="pick(this)">
+        <span class="opt-icon">😔</span>Tentei mas desisti
+      </div>
+      <div class="opt" data-s="3" data-v="algum-resultado" onclick="pick(this)">
+        <span class="opt-icon">🙂</span>Sim, com algum resultado
+      </div>
+      <div class="opt" data-s="3" data-v="nunca-serio" onclick="pick(this)">
+        <span class="opt-icon">🤔</span>Nunca de forma séria
+      </div>
+    </div>
+    <div class="q-field">
+      <label for="fN">Seu nome</label>
+      <input type="text" id="fN" placeholder="Como a Bruna vai te chamar?">
+    </div>
+    <div class="q-field">
+      <label for="fE">E-mail</label>
+      <input type="email" id="fE" placeholder="seu@email.com">
+    </div>
+    <div class="q-field">
+      <label for="fT">WhatsApp</label>
+      <input type="tel" id="fT" placeholder="(11) 99999-9999">
+    </div>
+    <div class="q-field">
+      <label for="fTx">O que mais te impede de alcançar seus objetivos? (opcional)</label>
+      <textarea id="fTx" placeholder="Conte um pouco mais…"></textarea>
+    </div>
+    <button class="btn-next" id="n3" disabled onclick="finish()">Ver meu diagnóstico →</button>
+  </div>
+
+  <!-- Resultado -->
+  <div id="qRes">
+    <div class="res-icon" id="rI">🔥</div>
+    <div class="res-badge">Seu diagnóstico personalizado</div>
+    <div class="res-title" id="rT"></div>
+    <div class="res-diag" id="rD"></div>
+    <div class="res-steps" id="rS"></div>
+    <div class="res-curso">
+      <div>
+        <div class="res-curso-name" id="rN"></div>
+        <div class="res-curso-badge" id="rB"></div>
+      </div>
+      <div style="color:var(--go);font-size:1.1rem;">→</div>
+    </div>
+    <a href="https://wa.me/5511977509331?text=Ol%C3%A1+Bruna!+Fiz+o+diagn%C3%B3stico+e+gostaria+de+agendar+uma+consulta."
+       target="_blank" rel="noopener" id="resWaLink">
+      <button class="btn-cta">💬 Agendar consulta com a Bruna</button>
+    </a>
+  </div>
+
+</div>
+
+<!-- ═══ CAROUSEL ═══ -->
+<section class="car-sec sr">
+  <div class="car-label">Serviços &amp; Programas</div>
+  <div class="car-title">Onde posso te ajudar</div>
+  <div class="car-outer" id="carO">
+    <div id="carT"></div>
+  </div>
+  <div class="car-nav">
+    <button class="cbtn" id="cPrev" aria-label="Anterior">
+      <svg viewBox="0 0 12 12"><path d="M8 3L4 6l4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cdots" id="cDts"></div>
+    <button class="cbtn" id="cNext" aria-label="Próximo">
+      <svg viewBox="0 0 12 12"><path d="M4 3l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<div class="nl-card sr" id="nlCard">
+  <div class="nl-glare" id="nlGlare"></div>
+  <div class="nl-deco"></div>
+  <div class="nl-eye">Conteúdo semanal</div>
+  <div class="nl-title">Dicas de nutrição<br>direto no seu e-mail</div>
+  <div class="nl-sub">Receitas práticas, estratégias de saúde e novidades sobre nutrição — toda semana, sem enrolação.</div>
+  <form class="nl-row" onsubmit="doNl(event)">
+    <input type="email" id="nlE" placeholder="seu@email.com" required>
+    <button type="submit" class="btn-cta">Quero receber</button>
+  </form>
+  <div id="nlOk">✓ Ótimo! Você está na lista.</div>
+</div>
+
+<!-- ═══ SOCIAL LINKS ═══ -->
+<section class="slinks sr">
+  <div class="slinks-title">Me encontre por aqui</div>
+  <div class="slinks-grid">
+    <a class="slink" href="https://instagram.com/bruna.boreggio.nutri" target="_blank" rel="noopener">
+      <span class="slink-icon">📸</span>
+      <div>
+        <div class="slink-name">Instagram</div>
+        <div class="slink-handle">@bruna.boreggio</div>
+      </div>
+    </a>
+    <a class="slink" href="https://nutricionistabrunaboreggio.com.br" target="_blank" rel="noopener">
+      <span class="slink-icon">🌐</span>
+      <div>
+        <div class="slink-name">Site</div>
+        <div class="slink-handle">brunaboreggio.com.br</div>
+      </div>
+    </a>
+    <a class="slink" href="https://wa.me/5511977509331?text=Ol%C3%A1+Bruna!+Vim+pelo+Instagram+e+gostaria+de+agendar+uma+consulta."
+       target="_blank" rel="noopener" class="slink">
+      <span class="slink-icon">💬</span>
+      <div>
+        <div class="slink-name">WhatsApp</div>
+        <div class="slink-handle">Agendar consulta</div>
+      </div>
+    </a>
+    <a class="slink" href="mailto:nutri.brunaboreggio@gmail.com">
+      <span class="slink-icon">✉️</span>
+      <div>
+        <div class="slink-name">E-mail</div>
+        <div class="slink-handle">nutri.brunaboreggio</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ WHATSAPP CTA ═══ -->
+<a class="wa-card sr" href="https://wa.me/5511977509331?text=Ol%C3%A1+Bruna!+Vim+pelo+Instagram+e+gostaria+de+agendar+uma+consulta."
+   target="_blank" rel="noopener" id="waCta">
+  <span class="wa-icon">💬</span>
+  <div class="wa-txt">
+    <div class="wa-title">Pronta para começar?</div>
+    <div class="wa-sub">Fale com a Bruna agora no WhatsApp</div>
+  </div>
+  <button class="btn-wa">Agendar →</button>
+</a>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="sr">
+  <div class="ft-logo">Bruna Boreggio</div>
+  <div class="ft-div"></div>
+  <div class="ft-copy">© 2025 Bruna Boreggio — Nutricionista CRN 68497<br>Guarulhos · SP — Atendimento presencial e online</div>
+</footer>
+
+</div><!-- /.page -->
+
+<script>
+// ─── CURSOR ──────────────────────────────────────────────
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=window.innerWidth/2,my=window.innerHeight/2,cx=mx,cy=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){cx+=(mx-cx)*.14;cy+=(my-cy)*.14;cur2.style.left=cx+'px';cur2.style.top=cy+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.opt,.stat,.slink,.cbtn,.cdot,.cc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// ─── AVATAR FALLBACK ──────────────────────────────────────
+document.getElementById('avImg').addEventListener('error',function(){
+  this.style.display='none';
+  document.getElementById('avInit').style.display='flex';
+});
+
+// ─── HERO NAME CHAR ANIM ─────────────────────────────────
+function animName(){
+  const el=document.getElementById('heroName');
+  const txt=el.textContent;
+  el.innerHTML='';
+  [...txt].forEach((c,i)=>{
+    const s=document.createElement('span');
+    s.className='char';
+    s.textContent=c===' '?' ':c;
+    s.style.animationDelay=(0.9+i*.052)+'s';
+    el.appendChild(s);
+  });
+}
+
+// ─── 3D TILT + GLARE ─────────────────────────────────────
+function initTilt(card,glare){
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width;
+    const y=(e.clientY-r.top)/r.height;
+    const rx=(y-.5)*-18;
+    const ry=(x-.5)*18;
+    card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    card.style.boxShadow=`${-ry*.8}px ${rx*.8}px 48px rgba(44,26,14,.16),0 0 0 1px rgba(197,150,90,.18)`;
+    if(glare)glare.style.background=`radial-gradient(circle at ${x*100}% ${y*100}%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.05) 40%,transparent 62%)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';card.style.boxShadow='';
+    if(glare)glare.style.background='';
+  });
+}
+initTilt(document.getElementById('quizCard'),document.getElementById('cardGlare'));
+initTilt(document.getElementById('nlCard'),document.getElementById('nlGlare'));
+
+// ─── MAGNETIC BUTTONS ────────────────────────────────────
+function initMag(btn){
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2;
+    const y=e.clientY-r.top-r.height/2;
+    btn.style.transform=`translate(${x*.14}px,${y*.14}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+}
+document.querySelectorAll('.btn-cta,.btn-next,.btn-wa').forEach(initMag);
+setTimeout(()=>document.querySelectorAll('.btn-cta,.btn-next,.btn-wa').forEach(initMag),2200);
+
+// ─── RIPPLE ON CLICK ──────────────────────────────────────
+const rippleStyle=document.createElement('style');
+rippleStyle.textContent='@keyframes ripple{to{transform:scale(1);opacity:0;}}';
+document.head.appendChild(rippleStyle);
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.btn-cta,.btn-next,.cbtn');
+  if(!btn)return;
+  const r=document.createElement('span');
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height)*2;
+  r.style.cssText=`position:absolute;border-radius:50%;background:rgba(255,255,255,.25);width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;transform:scale(0);animation:ripple .55s ease-out forwards;pointer-events:none;z-index:10;`;
+  btn.style.position='relative';btn.style.overflow='hidden';
+  btn.appendChild(r);
+  setTimeout(()=>r.remove(),620);
+});
+
+// ─── WEBHOOK ─────────────────────────────────────────────
+const WH='https://script.google.com/macros/s/AKfycbwEQ0IPi3asolr6swrG_5sZy_eHc87WxWXwGI4w75Aw3kocrC4xaEu6tNQMiuwdGtfvgw/exec';
+function post(d){
+  try{fetch(WH,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});}catch(e){}
+}
+
+// ─── PERFIS DE RESULTADO ─────────────────────────────────
+const PROF={
+  emagrecer:{
+    title:'Você está pronta para emagrecer de vez — com saúde e sem sofrimento',
+    diag:'Emagrecer de forma sustentável não é sobre passar fome. É sobre entender o seu metabolismo, comer os alimentos certos no momento certo e criar hábitos que duram. Com um plano personalizado, você vai perder peso sem tirar o prazer da comida.',
+    steps:[
+      'Avaliação completa do seu metabolismo, rotina e hábitos alimentares atuais',
+      'Plano alimentar personalizado com alimentos que você já gosta e que cabem na sua rotina',
+      'Acompanhamento mensal com ajustes contínuos para garantir resultados duradouros'
+    ],
+    curso:'Consulta de Emagrecimento',
+    icon:'🔥',badge:'Protocolo Personalizado'
+  },
+  hipertrofia:{
+    title:'Nutrição de performance para quem quer resultados reais na academia',
+    diag:'Ganhar massa muscular depende muito mais da alimentação do que a maioria imagina. Com o protocolo certo de hipertrofia, você vai maximizar cada treino, acelerar a recuperação e ver resultados concretos no espelho.',
+    steps:[
+      'Cálculo preciso das suas necessidades calóricas e de proteína para o seu objetivo',
+      'Estratégias de timing nutricional para otimizar ganho muscular e recuperação',
+      'Suplementação inteligente baseada nos seus exames, treino e objetivos específicos'
+    ],
+    curso:'Consulta de Hipertrofia',
+    icon:'💪',badge:'Performance'
+  },
+  intestino:{
+    title:'Seu intestino saudável é a base de toda a sua saúde',
+    diag:'Intestino preso, gases, inchaço constante ou síndrome do intestino irritável afetam sua energia, humor e qualidade de vida muito mais do que você imagina. O tratamento nutricional certo identifica a causa e resolve de verdade.',
+    steps:[
+      'Identificação dos alimentos que inflamam e perturbam o funcionamento do seu intestino',
+      'Protocolo personalizado para restaurar o equilíbrio da microbiota intestinal',
+      'Estratégias práticas para regularizar o trânsito e eliminar o desconforto definitivamente'
+    ],
+    curso:'Consulta de Saúde Intestinal',
+    icon:'🌿',badge:'Saúde Intestinal'
+  },
+  cronico:{
+    title:'Controle especializado para viver melhor — com ou sem medicamento',
+    diag:'Diabetes, hipertensão e colesterol alto são profundamente influenciados pela alimentação. Com o acompanhamento nutricional certo, muitas pessoas conseguem reduzir doses, melhorar exames e recuperar qualidade de vida.',
+    steps:[
+      'Análise detalhada dos seus exames laboratoriais e condição de saúde atual',
+      'Plano alimentar específico para controle glicêmico, pressão arterial e colesterol',
+      'Educação nutricional para que você entenda e mantenha as escolhas certas no dia a dia'
+    ],
+    curso:'Consulta Especializada',
+    icon:'❤️',badge:'Doenças Crônicas'
+  }
+};
+
+// ─── QUIZ ─────────────────────────────────────────────────
+const A={p1:'',p2:'',p3:''};
+function startQ(){
+  document.getElementById('qHook').style.display='none';
+  document.getElementById('qProg').classList.add('on');
+  go(1);
+}
+function go(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('s'+i);
+    if(el)el.classList.remove('on');
+  });
+  document.getElementById('qRes').classList.remove('on');
+  if(n>=1&&n<=3){
+    document.getElementById('s'+n).classList.add('on');
+    document.getElementById('pFill').style.width=((n-1)/3*100)+'%';
+    document.getElementById('pLbl').textContent='Passo '+n+' de 3';
+    setTimeout(()=>document.querySelectorAll('.btn-next,.btn-back').forEach(initMag),50);
+  }
+}
+function pick(el){
+  const s=el.dataset.s;
+  document.querySelectorAll('[data-s="'+s+'"]').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  const v=el.dataset.v;
+  if(s==='1'){A.p1=v;document.getElementById('n1').disabled=false;}
+  if(s==='2'){A.p2=v;document.getElementById('n2').disabled=false;}
+  if(s==='3'){A.p3=v;document.getElementById('n3').disabled=false;}
+}
+function finish(){
+  const nome=document.getElementById('fN').value.trim();
+  const email=document.getElementById('fE').value.trim();
+  const tel=document.getElementById('fT').value.trim();
+  const texto=document.getElementById('fTx').value.trim();
+  const pr=PROF[A.p1]||PROF.emagrecer;
+  post({nome,email,telefone:tel,tag:'quiz-bio-bruna',objetivo:A.p1,dificuldade:A.p2,experiencia:A.p3,textoLivre:texto,cursoSugerido:pr.curso});
+  document.getElementById('s3').classList.remove('on');
+  document.getElementById('pFill').style.width='100%';
+  document.getElementById('pLbl').textContent='Diagnóstico pronto ✦';
+  document.getElementById('qRes').classList.add('on');
+  document.getElementById('rT').textContent=pr.title;
+  document.getElementById('rD').textContent=pr.diag;
+  const sl=document.getElementById('rS');sl.innerHTML='';
+  pr.steps.forEach((s,i)=>{sl.innerHTML+=`<div class="res-step"><div class="res-n">${i+1}</div><div>${s}</div></div>`;});
+  document.getElementById('rI').textContent=pr.icon;
+  document.getElementById('rN').textContent=pr.curso;
+  document.getElementById('rB').textContent=pr.badge;
+  if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'quiz_diagnostico_bio',content_category:A.p1});
+  if(typeof gtag!=='undefined')gtag('event','quiz_completo',{objetivo:A.p1,dificuldade:A.p2});
+  setTimeout(()=>document.querySelectorAll('.btn-cta').forEach(initMag),100);
+}
+
+// ─── NEWSLETTER ───────────────────────────────────────────
+function doNl(e){
+  e.preventDefault();
+  const email=document.getElementById('nlE').value.trim();
+  if(!email)return;
+  post({email,tag:'newsletter-bio-bruna',nome:'',telefone:'',objetivo:'',dificuldade:'',experiencia:'',textoLivre:'',cursoSugerido:''});
+  document.getElementById('nlE').style.display='none';
+  e.target.querySelector('.btn-cta').style.display='none';
+  document.getElementById('nlOk').style.display='block';
+  if(typeof fbq!=='undefined')fbq('track','Lead',{content_name:'newsletter_bio'});
+}
+
+// ─── CAROUSEL ─────────────────────────────────────────────
+const CARDS=[
+  {t:'Consulta Online',e:'🖥️',b:'Todo o Brasil',bc:'go',d:'Videochamada para emagrecimento, hipertrofia, saúde intestinal e doenças crônicas — de qualquer lugar do Brasil'},
+  {t:'Consulta Presencial',e:'📍',b:'Guarulhos · SP',bc:'gn',d:'Atendimento no consultório em Guarulhos com avaliação completa e plano nutricional personalizado'},
+  {t:'Emagrecimento',e:'🔥',b:'Protocolo',bc:'go',d:'Plano alimentar para perda de peso saudável e duradoura, sem dietas restritivas ou sofrimento'},
+  {t:'Hipertrofia',e:'💪',b:'Performance',bc:'go',d:'Nutrição esportiva para maximizar o ganho de massa muscular e a evolução no treino'},
+  {t:'Saúde Intestinal',e:'🌿',b:'Tratamento',bc:'gn',d:'Protocolo para intestino preso, gases, inchaço e síndrome do intestino irritável'},
+  {t:'Doenças Crônicas',e:'❤️',b:'Especializado',bc:'go',d:'Controle de diabetes, hipertensão e colesterol com acompanhamento nutricional especializado'},
+  {t:'Reeducação Alimentar',e:'🥗',b:'Acompanhamento',bc:'gn',d:'Transformação gradual dos hábitos para uma vida mais saudável, prática e consistente'},
+  {t:'Acompanhamento Mensal',e:'📊',b:'Premium',bc:'pr',d:'Retornos mensais com ajustes contínuos no plano para manter e evoluir seus resultados'},
+];
+let ci=0,cauto=null;
+
+function buildCar(){
+  const tr=document.getElementById('carT'),dt=document.getElementById('cDts');
+  tr.innerHTML='';dt.innerHTML='';
+  CARDS.forEach((c,i)=>{
+    const el=document.createElement('div');
+    el.className='cc'+(i===0?' act':i===1?' adj adj-r':'');
+    el.innerHTML=`<div class="cc-bg">${c.e}</div><div class="cc-cnt"><span class="cc-badge ${c.bc}">${c.b}</span><div class="cc-title">${c.t}</div><div class="cc-desc">${c.d}</div></div><div class="cc-arrow"><svg viewBox="0 0 12 12"><path d="M3 9l4-4-4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
+    el.addEventListener('click',function(){
+      if(this.classList.contains('act')){
+        const msg='Ol%C3%A1+Bruna!+Tenho+interesse+em+'+encodeURIComponent(c.t)+'+e+gostaria+de+saber+mais.';
+        window.open('https://wa.me/5511977509331?text='+msg,'_blank');
+        if(typeof gtag!=='undefined')gtag('event','conversion',{'send_to':'AW-18245045866/ejQgCI3f_NwcEOqc9ftD'});
+        if(typeof fbq!=='undefined')fbq('track','Contact',{content_name:c.t});
+      }else{
+        const idx=Array.from(document.querySelectorAll('.cc')).indexOf(this);
+        setC(idx);
+      }
+    });
+    el.addEventListener('mousemove',function(ev){
+      if(!this.classList.contains('act'))return;
+      const r=this.getBoundingClientRect();
+      const x=(ev.clientX-r.left)/r.width;
+      const y=(ev.clientY-r.top)/r.height;
+      this.style.transform=`scale(1.04) perspective(700px) rotateX(${(y-.5)*-20}deg) rotateY(${(x-.5)*20}deg)`;
+      this.style.boxShadow=`${-(x-.5)*20}px ${-(y-.5)*10}px 60px rgba(44,26,14,.18),0 0 0 1.5px rgba(197,150,90,.25)`;
+    });
+    el.addEventListener('mouseleave',function(){
+      if(!this.classList.contains('act'))return;
+      this.style.transform='scale(1) perspective(800px) rotateY(0deg)';
+      this.style.boxShadow='';
+    });
+    tr.appendChild(el);
+    const d=document.createElement('div');
+    d.className='cdot'+(i===0?' on':'');
+    d.onclick=()=>setC(i);
+    dt.appendChild(d);
+  });
+  updCar();
+  cauto=setInterval(()=>setC(ci+1),4200);
+}
+function setC(n){
+  ci=(n+CARDS.length)%CARDS.length;
+  updCar();
+  clearInterval(cauto);
+  cauto=setInterval(()=>setC(ci+1),4200);
+}
+function updCar(){
+  const cards=document.querySelectorAll('.cc'),dots=document.querySelectorAll('.cdot');
+  cards.forEach((c,i)=>{
+    c.classList.remove('act','adj','adj-l','adj-r');
+    const d=Math.min(Math.abs(i-ci),Math.abs(i-ci+CARDS.length),Math.abs(i-ci-CARDS.length));
+    if(d===0)c.classList.add('act');
+    else if(d===1){
+      c.classList.add('adj');
+      ((i-ci+CARDS.length)%CARDS.length)===1?c.classList.add('adj-r'):c.classList.add('adj-l');
+    }
+  });
+  dots.forEach((d,i)=>d.classList.toggle('on',i===ci));
+  const ow=document.getElementById('carO').offsetWidth;
+  document.getElementById('carT').style.transform='translateX('+((ow/2)-(ci*(195+14))-(195/2)-24)+'px)';
+}
+document.getElementById('cNext').onclick=()=>setC(ci+1);
+document.getElementById('cPrev').onclick=()=>setC(ci-1);
+let ds=0;
+document.getElementById('carO').addEventListener('touchstart',e=>{ds=e.touches[0].clientX;},{passive:true});
+document.getElementById('carO').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-ds;if(Math.abs(dx)>40)setC(ci+(dx<0?1:-1));});
+
+// ─── SCROLL REVEAL ────────────────────────────────────────
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.stat-n[data-count]').forEach(el=>{
+        const target=parseInt(el.dataset.count);
+        const suffix=el.dataset.suffix||'';
+        const isK=el.dataset.k==='true';
+        countUp(el,target,suffix,isK);
+      });
+    }
+  });
+},{threshold:.07});
+document.querySelectorAll('.sr').forEach(el=>io.observe(el));
+
+function countUp(el,target,suffix,isK){
+  const dur=1400;let start=null;
+  function step(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    const ease=1-Math.pow(1-p,4);
+    const val=Math.floor(ease*target);
+    el.textContent=isK&&val>=1000?(val/1000).toFixed(1).replace('.0','')+'k'+suffix:val+suffix;
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=isK&&target>=1000?(target/1000).toFixed(1).replace('.0','')+'k'+suffix:target+suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+// ─── PARALLAX HERO ───────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  const av=document.querySelector('.av-wrap');
+  const name=document.getElementById('heroName');
+  if(av)av.style.transform=`translateY(${sy*.18}px)`;
+  if(name)name.style.transform=`translateY(${sy*.08}px)`;
+},{passive:true});
+
+// ─── CONVERSION TRACKING (WhatsApp) ──────────────────────
+document.querySelectorAll('a[href*="wa.me"]').forEach(el=>{
+  el.addEventListener('click',()=>{
+    if(typeof gtag!=='undefined')gtag('event','conversion',{'send_to':'AW-18245045866/ejQgCI3f_NwcEOqc9ftD'});
+    if(typeof fbq!=='undefined')fbq('track','Contact');
+  });
+});
+
+// ─── INIT ─────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  animName();
+  setTimeout(()=>document.getElementById('curtain').classList.add('gone'),200);
+  buildCar();
+  window.addEventListener('resize',updCar);
+  document.querySelectorAll('.stat-n[data-count]').forEach(el=>{
+    io.observe(el.closest('.sr')||el);
+  });
+});
+</script>
+</body>
+</html>
