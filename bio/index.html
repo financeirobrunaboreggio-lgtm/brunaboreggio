@@ -104,7 +104,10 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 .sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(197,150,90,.3),transparent)}
 
 /* QUIZ INTRO */
-.quiz-intro{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow)}
+.quiz-intro{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;position:relative;overflow:hidden}
+.quiz-intro::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(197,150,90,.07),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.25,.46,.45,.94);pointer-events:none}
+.quiz-intro:hover{transform:translateY(-4px);box-shadow:0 16px 56px rgba(44,26,14,.18),0 0 0 1.5px rgba(197,150,90,.18)}
+.quiz-intro:hover::after{left:160%}
 .quiz-intro-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,110,82,.1);border:1px solid rgba(74,110,82,.3);border-radius:100px;padding:5px 14px;font-size:.69rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);margin-bottom:16px}
 .quiz-intro-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--dk);line-height:1.3;margin-bottom:8px}
 .quiz-intro-sub{font-size:.83rem;color:var(--dk2);margin-bottom:18px;line-height:1.6}
@@ -113,8 +116,10 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 .quiz-intro-timer-dot{width:7px;height:7px;border-radius:50%;background:var(--go);animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .quiz-intro-items{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
-.quiz-intro-item{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--dk2);line-height:1.45}
-.quiz-intro-item-icon{width:28px;height:28px;border-radius:8px;background:rgba(197,150,90,.1);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;margin-top:1px}
+.quiz-intro-item{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--dk2);line-height:1.45;transition:transform .25s}
+.quiz-intro-item:hover{transform:translateX(4px)}
+.quiz-intro-item-icon{width:28px;height:28px;border-radius:8px;background:rgba(197,150,90,.1);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;margin-top:1px;transition:transform .3s,background .25s}
+.quiz-intro-item:hover .quiz-intro-item-icon{transform:scale(1.15) rotate(-6deg);background:rgba(197,150,90,.2)}
 .btn-quiz-start{width:100%;height:54px;border-radius:14px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.03em;background:linear-gradient(135deg,var(--go),var(--go2));color:var(--wh);transition:all .25s;box-shadow:0 4px 20px rgba(197,150,90,.4);position:relative;overflow:hidden}
 .btn-quiz-start::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--dk),#5A3E28);opacity:0;transition:opacity .25s}
 .btn-quiz-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(197,150,90,.5)}
@@ -123,7 +128,10 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 .quiz-step-counter{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--go2);text-align:right;margin-bottom:8px;opacity:0;transition:opacity .3s}
 
 /* QUIZ */
-.quiz-card{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow);transition:transform .3s}
+.quiz-card{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;position:relative;overflow:hidden}
+.quiz-card::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(197,150,90,.06),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.25,.46,.45,.94);pointer-events:none}
+.quiz-card:hover::after{left:160%}
+.quiz-card:hover{box-shadow:0 16px 56px rgba(44,26,14,.16)}
 .quiz-progress{height:3px;background:var(--bg2);border-radius:2px;margin-bottom:22px;overflow:hidden}
 .quiz-bar{height:100%;background:linear-gradient(90deg,var(--go),var(--grn));border-radius:2px;transition:width .6s cubic-bezier(.16,1,.3,1);width:33%}
 .quiz-q{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--dk);margin-bottom:18px;line-height:1.4}
@@ -149,7 +157,8 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 
 /* QUIZ RESULT */
 #result-panel{display:none}
-.result-card{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow)}
+.result-card{background:var(--wh);border-radius:20px;padding:28px 24px;box-shadow:var(--shadow);transition:box-shadow .35s}
+.result-card:hover{box-shadow:0 16px 56px rgba(44,26,14,.18)}
 .result-diagnosis{background:linear-gradient(135deg,rgba(197,150,90,.1),rgba(197,150,90,.04));border-radius:14px;padding:18px;margin-bottom:14px;border-left:3px solid var(--go);animation:slideInLeft .5s ease forwards}
 .result-solution{background:linear-gradient(135deg,rgba(74,110,82,.1),rgba(74,110,82,.04));border-radius:14px;padding:18px;margin-bottom:14px;border-left:3px solid var(--grn);animation:slideInLeft .5s .1s ease forwards;opacity:0}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
@@ -194,7 +203,8 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 .dot.active{width:20px;background:var(--go)}
 
 /* NEWSLETTER */
-.nl-card{background:linear-gradient(135deg,var(--dk) 0%,#3D2510 100%);border-radius:20px;padding:28px 24px;overflow:hidden;position:relative}
+.nl-card{background:linear-gradient(135deg,var(--dk) 0%,#3D2510 100%);border-radius:20px;padding:28px 24px;overflow:hidden;position:relative;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+.nl-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(44,26,14,.35),0 0 0 1.5px rgba(197,150,90,.25)}
 .nl-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(197,150,90,.18),transparent 70%);pointer-events:none;animation:nlBlob 6s ease-in-out infinite alternate}
 .nl-card::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(74,110,82,.12),transparent 70%);pointer-events:none}
 @keyframes nlBlob{to{transform:scale(1.3) translate(-20px,20px)}}
@@ -324,28 +334,28 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
     <!-- INTRO -->
     <div id="quiz-intro">
       <div class="quiz-intro">
-        <div class="quiz-intro-badge">🎁 Brinde exclusivo para quem responder</div>
-        <h3 class="quiz-intro-title">Responda 3 perguntas e ganhe uma avaliação nutricional gratuita</h3>
-        <p class="quiz-intro-sub">Como forma de agradecimento por participar, a Bruna vai te enviar uma <strong>avaliação nutricional personalizada</strong> — de graça, direto no seu WhatsApp.</p>
+        <div class="quiz-intro-badge">🎁 Avaliação nutricional gratuita</div>
+        <h3 class="quiz-intro-title">Participe do quiz e ganhe uma avaliação nutricional gratuita com a Bruna</h3>
+        <p class="quiz-intro-sub">Responda <strong>3 perguntas rápidas</strong> e garanta sua avaliação nutricional gratuita — direto com a Bruna.</p>
         <div class="quiz-intro-timer">
           <div class="quiz-intro-timer-dot"></div>
-          Só 3 perguntas &nbsp;·&nbsp; menos de 2 minutos &nbsp;·&nbsp; brinde na hora
+          Só 3 perguntas &nbsp;·&nbsp; menos de 2 minutos &nbsp;·&nbsp; 100% gratuito
         </div>
         <div class="quiz-intro-items">
           <div class="quiz-intro-item">
             <div class="quiz-intro-item-icon">✅</div>
-            <div>Responda o quiz rápido sobre seus hábitos alimentares</div>
+            <div>Responda 3 perguntas rápidas sobre seus hábitos alimentares</div>
           </div>
           <div class="quiz-intro-item">
             <div class="quiz-intro-item-icon">🎁</div>
-            <div>Ganhe uma <strong>avaliação nutricional gratuita</strong> personalizada pela Bruna</div>
+            <div>Garanta sua <strong>avaliação nutricional gratuita</strong> — sem custo algum</div>
           </div>
           <div class="quiz-intro-item">
             <div class="quiz-intro-item-icon">📲</div>
-            <div>Receba o diagnóstico e a indicação do programa <strong>ideal para você</strong></div>
+            <div>Ao final do quiz, você recebe acesso direto ao WhatsApp da Bruna para <strong>agendar sua avaliação</strong></div>
           </div>
         </div>
-        <button class="btn-quiz-start magnetic" onclick="startQuiz()"><span>Responder e ganhar minha avaliação &rarr;</span></button>
+        <button class="btn-quiz-start magnetic" onclick="startQuiz()"><span>Quero minha avaliação gratuita &rarr;</span></button>
       </div>
     </div>
 
@@ -627,7 +637,7 @@ function renderStep(){
     nextEl.querySelector('span').textContent=step<2?'Próximo →':'Ver meu diagnóstico →';
   } else {
     counterEl.textContent='Última etapa — seus dados';
-    qEl.textContent='Ótimo! Preencha seus dados para receber sua avaliação nutricional gratuita — o brinde por ter respondido:';
+    qEl.textContent='Ótimo! Preencha seus dados para agendar sua avaliação nutricional gratuita com a Bruna:';
     opEl.style.display='none';flEl.style.display='flex';
     barEl.style.width='100%';
     backEl.style.display='flex';
