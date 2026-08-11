@@ -675,7 +675,7 @@ function getProfile(){
 function submitQuiz(nome,email,tel){
   const profile=getProfile();const svc=SERVICES[profile.svc];
   const waMsg=svc.isWA?svc.waMsg:('Olá Bruna! Me chamo '+nome+' e tenho interesse em '+svc.name+'!');
-  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({tag:'quiz-biolink',nome,email,telefone:tel,objetivo:QUESTIONS[0].opts[answers[0]??0],dificuldade:QUESTIONS[1].opts[answers[1]??0],experiencia:QUESTIONS[2].opts[answers[2]??0],cursoSugerido:svc.name})}).catch(()=>{});
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'quiz',nome,email,whatsapp:tel,objetivo:QUESTIONS[0].opts[answers[0]??0],dificuldade:QUESTIONS[1].opts[answers[1]??0],experiencia:QUESTIONS[2].opts[answers[2]??0],servico:svc.name,fonte:'bio'})}).catch(()=>{});
   if(typeof fbq==='function'){fbq('track','Lead');fbq('trackCustom','QuizCompleto',{servico:svc.name});}
   document.getElementById('resDiagText').textContent=profile.diag;
   document.getElementById('resSolText').textContent=profile.sol;
@@ -738,7 +738,7 @@ cw.addEventListener('touchend',e=>{const dx=tX-e.changedTouches[0].clientX;if(Ma
 /* ── NEWSLETTER ── */
 function nlSubmit(e){
   e.preventDefault();const email=document.getElementById('nlEmail').value.trim();if(!email)return;
-  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({tag:'newsletter-biolink',email})}).catch(()=>{});
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'newsletter',email,fonte:'bio'})}).catch(()=>{});
   if(typeof fbq==='function')fbq('track','Subscribe');
   document.getElementById('nlForm').style.display='none';document.getElementById('nlOk').style.display='block';
 }
