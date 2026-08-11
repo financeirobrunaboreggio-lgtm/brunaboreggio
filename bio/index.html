@@ -319,33 +319,33 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 
   <!-- QUIZ -->
   <section class="section" id="quizSection">
-    <div class="sec-label">Avaliação Nutricional Gratuita</div>
+    <div class="sec-label">Quiz Nutricional</div>
 
     <!-- INTRO -->
     <div id="quiz-intro">
       <div class="quiz-intro">
-        <div class="quiz-intro-badge">✦ 100% Gratuito &amp; Personalizado</div>
-        <h3 class="quiz-intro-title">Descubra por que você ainda não emagrece — de verdade</h3>
-        <p class="quiz-intro-sub">A Bruna preparou <strong>3 perguntas rápidas</strong> para identificar a causa real do seu problema e te entregar uma avaliação nutricional personalizada. Sem enrolação.</p>
+        <div class="quiz-intro-badge">🎁 Brinde exclusivo para quem responder</div>
+        <h3 class="quiz-intro-title">Responda 3 perguntas e ganhe uma avaliação nutricional gratuita</h3>
+        <p class="quiz-intro-sub">Como forma de agradecimento por participar, a Bruna vai te enviar uma <strong>avaliação nutricional personalizada</strong> — de graça, direto no seu WhatsApp.</p>
         <div class="quiz-intro-timer">
           <div class="quiz-intro-timer-dot"></div>
-          3 perguntas &nbsp;·&nbsp; menos de 2 minutos &nbsp;·&nbsp; resultado na hora
+          Só 3 perguntas &nbsp;·&nbsp; menos de 2 minutos &nbsp;·&nbsp; brinde na hora
         </div>
         <div class="quiz-intro-items">
           <div class="quiz-intro-item">
-            <div class="quiz-intro-item-icon">📍</div>
-            <div>Diagnóstico preciso da <strong>causa real</strong> do seu peso</div>
-          </div>
-          <div class="quiz-intro-item">
-            <div class="quiz-intro-item-icon">💡</div>
-            <div>Solução específica para <strong>o seu perfil</strong> — não uma dieta genérica</div>
+            <div class="quiz-intro-item-icon">✅</div>
+            <div>Responda o quiz rápido sobre seus hábitos alimentares</div>
           </div>
           <div class="quiz-intro-item">
             <div class="quiz-intro-item-icon">🎁</div>
-            <div>Programa ideal indicado pela Bruna <strong>gratuitamente</strong></div>
+            <div>Ganhe uma <strong>avaliação nutricional gratuita</strong> personalizada pela Bruna</div>
+          </div>
+          <div class="quiz-intro-item">
+            <div class="quiz-intro-item-icon">📲</div>
+            <div>Receba o diagnóstico e a indicação do programa <strong>ideal para você</strong></div>
           </div>
         </div>
-        <button class="btn-quiz-start magnetic" onclick="startQuiz()"><span>Quero minha avaliação gratuita &rarr;</span></button>
+        <button class="btn-quiz-start magnetic" onclick="startQuiz()"><span>Responder e ganhar minha avaliação &rarr;</span></button>
       </div>
     </div>
 
@@ -627,7 +627,7 @@ function renderStep(){
     nextEl.querySelector('span').textContent=step<2?'Próximo →':'Ver meu diagnóstico →';
   } else {
     counterEl.textContent='Última etapa — seus dados';
-    qEl.textContent='Quase lá! Preencha seus dados para receber a avaliação personalizada:';
+    qEl.textContent='Ótimo! Preencha seus dados para receber sua avaliação nutricional gratuita — o brinde por ter respondido:';
     opEl.style.display='none';flEl.style.display='flex';
     barEl.style.width='100%';
     backEl.style.display='flex';
