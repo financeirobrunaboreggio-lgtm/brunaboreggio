@@ -292,6 +292,40 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 .btn-wa{animation:waPulse 3s ease-in-out infinite}
 .btn-wa:hover{animation:none}
 
+/* ── GRAIN OVERLAY ── */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.28;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");}
+
+/* ── BORDER FLOW — linha animada deslizando no topo dos cards ── */
+@keyframes border-flow{to{background-position:-300% 0;}}
+
+.quiz-intro::before,.quiz-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;z-index:2;
+  background:linear-gradient(90deg,var(--grn),var(--go),#F0D090,var(--go),var(--grn));
+  background-size:300%;animation:border-flow 4s linear infinite;
+}
+.result-card{position:relative;overflow:hidden;}
+.result-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;z-index:2;
+  background:linear-gradient(90deg,var(--grn),var(--go),#F0D090,var(--go),var(--grn));
+  background-size:300%;animation:border-flow 4s linear infinite;
+}
+.result-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,var(--grn),var(--go),#F0D090,var(--go),var(--grn));
+  background-size:300%;animation:border-flow 4s linear infinite;
+}
+
+/* ── TICKER SHIMMER — faixa dourada deslizando ── */
+.ticker-wrap{position:relative;}
+.ticker-wrap::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,transparent 30%,rgba(255,215,80,.38) 44%,rgba(255,248,200,.55) 50%,rgba(255,215,80,.38) 56%,transparent 70%,transparent 100%);
+  background-size:200% 100%;mix-blend-mode:screen;
+  animation:ticker-shimmer 6s linear infinite;
+}
+@keyframes ticker-shimmer{from{background-position:200% 0;}to{background-position:-200% 0;}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -468,7 +502,7 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
   <!-- WA CTA -->
   <div class="wa-cta section" id="waSection">
     <div class="wa-label">Tire suas dúvidas agora</div>
-    <a class="btn-wa magnetic" href="https://wa.me/5511999999999?text=Ol%C3%A1%20Bruna%2C%20vim%20pelo%20seu%20Instagram%20e%20quero%20saber%20mais%20sobre%20seus%20programas!" target="_blank" rel="noopener" onclick="trackWA()">
+    <a class="btn-wa magnetic" href="https://wa.me/5511977509331?text=Ol%C3%A1%20Bruna%2C%20vim%20pelo%20seu%20Instagram%20e%20quero%20saber%20mais%20sobre%20seus%20programas!" target="_blank" rel="noopener" onclick="trackWA()">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       <span>Falar com a Bruna</span>
     </a>
@@ -479,7 +513,7 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
     <div class="footer-sub">Nutricionista · CRN 68497 · Guarulhos · SP</div>
     <div class="footer-socials">
       <a class="footer-social" href="https://www.instagram.com/nutri_brunaboreggio/" target="_blank" rel="noopener" title="Instagram">&#128247;</a>
-      <a class="footer-social" href="https://wa.me/5511999999999" target="_blank" rel="noopener" title="WhatsApp">&#128241;</a>
+      <a class="footer-social" href="https://wa.me/5511977509331" target="_blank" rel="noopener" title="WhatsApp">&#128241;</a>
     </div>
   </footer>
 
@@ -487,7 +521,7 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 
 <script>
 const WEBHOOK='https://script.google.com/macros/s/AKfycbxNQKLMX8bFtF5XYuP2w81K4NeVjBd25KhhHElpOtEKhFgugttckPIZh0UXXkArA-Kx/exec';
-const WA_BASE='https://wa.me/5511999999999?text=';
+const WA_BASE='https://wa.me/5511977509331?text=';
 
 /* ── CURSOR ── */
 const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
