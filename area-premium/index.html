@@ -89,8 +89,8 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-s
 .carousel-wrap{position:relative;overflow:hidden;border-radius:20px}
 .carousel-track{display:flex;gap:16px;transition:transform .65s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .depo-card{flex:0 0 calc(33.333% - 11px);border-radius:16px;overflow:hidden;cursor:pointer;position:relative;background:var(--glass);border:1px solid var(--border)}
-.depo-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .4s ease}
-.depo-card:hover img{transform:scale(1.04)}
+.depo-card img{width:100%;aspect-ratio:9/16;object-fit:contain;background:#111;display:block}
+.depo-card:hover img{opacity:.92}
 .depo-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(201,149,78,0.9);color:#06040A;padding:4px 10px;border-radius:100px}
 .carousel-nav{display:flex;align-items:center;justify-content:space-between;margin-top:20px}
 .car-btn{width:44px;height:44px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;backdrop-filter:blur(10px)}
