@@ -262,7 +262,7 @@ footer p{font-size:11px;color:var(--muted2)}
           <div class="pdf-info">
             <div class="pdf-ico">📄</div>
             <div>
-              <div class="pdf-title">PDF — Instruções: como tirar suas medidas</div>
+              <div class="pdf-title">PDF — Manual da Consulta On-line</div>
               <div class="pdf-sub" id="pdf1sub">Será disponibilizado pela Bruna em breve</div>
             </div>
           </div>
@@ -271,6 +271,18 @@ footer p{font-size:11px;color:var(--muted2)}
             <div class="admin-input-row admin-only" id="pdf1inp" style="display:none">
               <input class="admin-inp" type="text" id="iPdf1" placeholder="Link do PDF (Google Drive)">
               <button class="admin-add" onclick="savePdf(1)">Adicionar</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:22px">
+          <div class="vlabel">Guia de Métricas — como medir seu corpo</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+            <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#000">
+              <img src="https://drive.google.com/thumbnail?id=1EZqhZBw6ZQkgFhSpxLkveH4bpx7XXlmL&sz=w800" alt="Guia de métricas feminino" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;background:#000">
+            </div>
+            <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#000">
+              <img src="https://drive.google.com/thumbnail?id=1O3hKkpBQ-NcFH2ZZ-WjNrHaopwugIdp_&sz=w800" alt="Guia de métricas masculino" style="width:100%;display:block;aspect-ratio:3/4;object-fit:contain;background:#000">
             </div>
           </div>
         </div>
@@ -641,6 +653,7 @@ footer p{font-size:11px;color:var(--muted2)}
 var APPS_URL='https://script.google.com/macros/s/AKfycbz423muPgR4VpGvl3qxL1bIsBeov2416JxgFJxnVoQgZIViDTwKrpkjiVC1qS082Km_/exec';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 var DEFAULT_VIDS={1:'https://youtu.be/WX6j2yWlMJE',2:'https://youtu.be/0BBwewGL9Fs'};
+var DEFAULT_PDF1='https://drive.google.com/file/d/1_VZqsGbVWcHleq-Z3Ku4iURdZH2Kgfvs/view';
 var me=null,isAdmin=false,viewPat=null,previewMode=false;
 
 function ytEmbed(url){
@@ -788,11 +801,12 @@ function loadGlobal(){
     document.getElementById('iVid1').value=s.v1||DEFAULT_VIDS[1]||'';
     document.getElementById('iVid2').value=s.v2||DEFAULT_VIDS[2]||'';
   }
-  if(s.p1){
+  var p1=s.p1||DEFAULT_PDF1;
+  if(p1){
     document.getElementById('pdf1sub').textContent='Disponível para download';
-    document.getElementById('pdf1dl').href=s.p1;
+    document.getElementById('pdf1dl').href=p1;
     document.getElementById('pdf1dl').style.display='flex';
-    if(isAdmin)document.getElementById('iPdf1').value=s.p1;
+    if(isAdmin)document.getElementById('iPdf1').value=s.p1||DEFAULT_PDF1||'';
   }
 }
 
