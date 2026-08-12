@@ -210,7 +210,8 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 @keyframes nlBlob{to{transform:scale(1.3) translate(-20px,20px)}}
 .nl-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--go);margin-bottom:6px;position:relative}
 .nl-sub{font-size:.8rem;color:rgba(250,247,240,.6);margin-bottom:18px;line-height:1.6;position:relative}
-.nl-form{display:flex;gap:10px;position:relative}
+.nl-form{display:flex;flex-direction:column;gap:10px;position:relative}
+.nl-row{display:flex;gap:10px}
 .nl-input{flex:1;height:46px;border-radius:12px;border:1.5px solid rgba(197,150,90,.25);padding:0 14px;font-family:'Inter',sans-serif;font-size:.875rem;color:rgba(250,247,240,.9);background:rgba(255,255,255,.07);outline:none;transition:border-color .2s,background .2s}
 .nl-input:focus{border-color:var(--go);background:rgba(255,255,255,.12)}
 .nl-input::placeholder{color:rgba(250,247,240,.3)}
@@ -264,6 +265,32 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes glowPop{0%,100%{text-shadow:none}50%{text-shadow:0 0 24px rgba(197,150,90,.7)}}
+
+/* EXTRA ANIMATIONS */
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 4px 20px rgba(197,150,90,.4)}50%{box-shadow:0 4px 40px rgba(197,150,90,.7),0 0 0 8px rgba(197,150,90,.08)}}
+@keyframes gradBorder{0%,100%{border-color:rgba(197,150,90,.5)}50%{border-color:rgba(74,110,82,.6)}}
+@keyframes borderSpin{to{--angle:360deg}}
+@keyframes waPulse{0%,100%{box-shadow:0 6px 30px rgba(37,211,102,.4)}50%{box-shadow:0 6px 44px rgba(37,211,102,.65),0 0 0 10px rgba(37,211,102,.07)}}
+
+/* Apply shimmer to key text */
+.quiz-intro-title,.nl-title{background:linear-gradient(90deg,var(--dk) 0%,var(--go) 40%,var(--dk) 60%,var(--dk) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s linear infinite}
+.nl-title{background:linear-gradient(90deg,var(--go) 0%,#F0D090 40%,var(--go) 60%,var(--go) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
+
+/* Float on badge */
+.quiz-intro-badge{animation:floatBadge 3s ease-in-out infinite}
+
+/* Pulse glow on quiz CTA button */
+.btn-quiz-start{animation:pulse-glow 3s ease-in-out infinite}
+.btn-quiz-start:hover{animation:none}
+
+/* Animated gradient border on result card */
+.result-card{animation:gradBorder 4s ease-in-out infinite}
+
+/* WhatsApp button already has breathe — enhance it */
+.btn-wa{animation:waPulse 3s ease-in-out infinite}
+.btn-wa:hover{animation:none}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -406,8 +433,11 @@ body.cursor-hover #cur2{width:20px;height:20px;border-color:var(--go)}
       <div class="nl-title">Receba dicas exclusivas 🌿</div>
       <div class="nl-sub">Conteúdo de nutrição direto no seu e-mail. Sem spam, só valor real.</div>
       <form class="nl-form" id="nlForm" onsubmit="nlSubmit(event)">
-        <input class="nl-input" id="nlEmail" type="email" placeholder="seu@email.com" required autocomplete="email">
-        <button class="btn-nl" type="submit">Quero!</button>
+        <input class="nl-input" id="nlNome" type="text" placeholder="Seu nome" required autocomplete="name">
+        <div class="nl-row">
+          <input class="nl-input" id="nlEmail" type="email" placeholder="seu@email.com" required autocomplete="email">
+          <button class="btn-nl" type="submit">Quero!</button>
+        </div>
       </form>
       <div class="nl-ok" id="nlOk">&#10003; Cadastrado! Em breve os conteúdos chegam.</div>
     </div>
@@ -737,8 +767,11 @@ cw.addEventListener('touchend',e=>{const dx=tX-e.changedTouches[0].clientX;if(Ma
 
 /* ── NEWSLETTER ── */
 function nlSubmit(e){
-  e.preventDefault();const email=document.getElementById('nlEmail').value.trim();if(!email)return;
-  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'newsletter',email,fonte:'bio'})}).catch(()=>{});
+  e.preventDefault();
+  const nome=document.getElementById('nlNome').value.trim();
+  const email=document.getElementById('nlEmail').value.trim();
+  if(!nome||!email)return;
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'newsletter',nome,email,fonte:'bio'})}).catch(()=>{});
   if(typeof fbq==='function')fbq('track','Subscribe');
   document.getElementById('nlForm').style.display='none';document.getElementById('nlOk').style.display='block';
 }
