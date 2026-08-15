@@ -605,8 +605,10 @@ function createEmailAccount(){
 
 /* ── AUTH — PROVEDORES OAUTH ── */
 function signInWithGoogle(){
+  document.getElementById('auth-err').textContent='';
   var provider=new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider).catch(function(e){
+    if(e.code==='auth/popup-closed-by-user'||e.code==='auth/cancelled-popup-request')return;
     document.getElementById('auth-err').textContent='Erro Google: '+e.message;
   });
 }
@@ -648,8 +650,18 @@ function _oauthPopup(prefix,authUrl,tokenUrl,clientId){
     };
     window.addEventListener('message',_oauthMsgHandler);
     var w=520,h=640,l=Math.round((screen.width-w)/2),t=Math.round((screen.height-h)/2);
-    window.open(url,'oauthLogin','width='+w+',height='+h+',left='+l+',top='+t);
+    var _pw=window.open(url,'oauthLogin','width='+w+',height='+h+',left='+l+',top='+t);
     document.getElementById('auth-err').textContent='Aguarde — autorize no popup...';
+    var _pollClose=setInterval(function(){
+      if(_pw&&_pw.closed){
+        clearInterval(_pollClose);
+        if(_oauthMsgHandler){
+          window.removeEventListener('message',_oauthMsgHandler);_oauthMsgHandler=null;
+        }
+        var errEl=document.getElementById('auth-err');
+        if(errEl.textContent==='Aguarde — autorize no popup...')errEl.textContent='';
+      }
+    },500);
   });
 }
 
