@@ -455,8 +455,30 @@ Yahoo
 <script>
 var FIREBASE_CONFIG={apiKey:"AIzaSyBF79NzYAj7umrbaVngFBlevLHCWvSf00g",authDomain:"desafio-bruna-boreggio.firebaseapp.com",projectId:"desafio-bruna-boreggio",storageBucket:"desafio-bruna-boreggio.firebasestorage.app",messagingSenderId:"405951385222",appId:"1:405951385222:web:2d60e95f9301ebc125cb07"};
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
-var currentUser=null;var isAdmin=false;var viewAsEmail=null;var userData={};var localPdfs={};var currentPhase=null;var dayChecks={};
+var currentUser=null;var isAdmin=false;var viewAsEmail=null;var userData={};var localPdfs={};var currentPhase=null;var dayChecks={};var _pendingSocialEmail=null;
 var VIDEO_IDS={};var BONUS_IDS={};var VIDEOS_READY=false;
+
+/* ── OAUTH 2.0 PKCE — Microsoft & Yahoo (sem Firebase Blaze) ──
+   Como configurar:
+   MICROSOFT: portal.azure.com → App registrations → New registration
+     Platform: Single-page application, Redirect URI = https://nutricionistabrunaboreggio.com.br/area-desafio/
+     Copiar: Application (client) ID
+   YAHOO: developer.yahoo.com → My Apps → Create App
+     Callback Domain: nutricionistabrunaboreggio.com.br, Redirect URI = https://nutricionistabrunaboreggio.com.br/area-desafio/
+     Copiar: Client ID ────────────────────────────────────────── */
+var MICROSOFT_CLIENT_ID='COLE_SEU_CLIENT_ID_AZURE';
+var YAHOO_CLIENT_ID='COLE_SEU_CLIENT_ID_YAHOO';
+
+/* Detecta callback OAuth no popup — state com prefixo msft_ ou yahoo_ */
+(function(){
+  var q=new URLSearchParams(window.location.search);
+  var st=q.get('state')||'';
+  if(q.has('code')&&window.opener&&/^(msft_|yahoo_)/.test(st)){
+    window.opener.postMessage({type:'_oauthcb',code:q.get('code'),state:st},window.location.origin);
+    setTimeout(function(){window.close();},300);
+    document.documentElement.dataset.oauthPopup='1';
+  }
+})();
 
 firebase.initializeApp(FIREBASE_CONFIG);
 var auth=firebase.auth();
@@ -588,31 +610,113 @@ function signInWithGoogle(){
     document.getElementById('auth-err').textContent='Erro Google: '+e.message;
   });
 }
-function signInWithMicrosoft(){
-  var provider=new firebase.auth.OAuthProvider('microsoft.com');
-  auth.signInWithPopup(provider).catch(function(e){
-    var msg=e.message;
-    if(e.code==='auth/operation-not-allowed')msg='Login Microsoft não habilitado. Contate o suporte.';
-    document.getElementById('auth-err').textContent='Erro Microsoft: '+msg;
+
+/* ── Microsoft & Yahoo via PKCE puro — sem biblioteca, sem Firebase Blaze ── */
+var _oauthVerifiers={};var _oauthMsgHandler=null;
+
+function _pkceVerifier(){
+  var a=new Uint8Array(32);crypto.getRandomValues(a);
+  return btoa(String.fromCharCode.apply(null,a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function _pkceChallenge(v){
+  return crypto.subtle.digest('SHA-256',new TextEncoder().encode(v))
+    .then(function(b){return btoa(String.fromCharCode.apply(null,new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');});
+}
+function _b64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return atob(s);}
+
+function _oauthPopup(prefix,authUrl,tokenUrl,clientId){
+  var label=prefix==='msft'?'Microsoft':'Yahoo';
+  if(!clientId||clientId.startsWith('COLE_')){
+    document.getElementById('auth-err').textContent='Login '+label+' ainda não configurado — use e-mail + senha.';return;
+  }
+  var verifier=_pkceVerifier(),state=prefix+'_'+Math.random().toString(36).substr(2,16);
+  _oauthVerifiers[state]={verifier:verifier,tokenUrl:tokenUrl,clientId:clientId};
+  _pkceChallenge(verifier).then(function(ch){
+    var redir=window.location.origin+window.location.pathname;
+    var scopes=prefix==='msft'?'openid email profile User.Read':'openid email profile';
+    var url=authUrl+'?client_id='+encodeURIComponent(clientId)+'&redirect_uri='+encodeURIComponent(redir)+
+      '&response_type=code&scope='+encodeURIComponent(scopes)+'&state='+state+
+      '&code_challenge='+ch+'&code_challenge_method=S256';
+    if(_oauthMsgHandler)window.removeEventListener('message',_oauthMsgHandler);
+    _oauthMsgHandler=function(ev){
+      if(ev.origin!==window.location.origin||!ev.data||ev.data.type!=='_oauthcb')return;
+      window.removeEventListener('message',_oauthMsgHandler);_oauthMsgHandler=null;
+      var info=_oauthVerifiers[ev.data.state];
+      if(!info){document.getElementById('auth-err').textContent='OAuth: estado inválido.';return;}
+      delete _oauthVerifiers[ev.data.state];
+      _oauthExchange(ev.data.code,info,redir);
+    };
+    window.addEventListener('message',_oauthMsgHandler);
+    var w=520,h=640,l=Math.round((screen.width-w)/2),t=Math.round((screen.height-h)/2);
+    window.open(url,'oauthLogin','width='+w+',height='+h+',left='+l+',top='+t);
+    document.getElementById('auth-err').textContent='Aguarde — autorize no popup...';
   });
 }
+
+function _oauthExchange(code,info,redir){
+  fetch(info.tokenUrl,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'client_id='+encodeURIComponent(info.clientId)+'&redirect_uri='+encodeURIComponent(redir)+
+         '&code='+encodeURIComponent(code)+'&code_verifier='+encodeURIComponent(info.verifier)+'&grant_type=authorization_code'
+  }).then(function(r){return r.json();}).then(function(d){
+    if(!d.id_token)throw new Error(d.error_description||'Token inválido');
+    var payload=JSON.parse(_b64url(d.id_token.split('.')[1]));
+    var email=(payload.email||payload.preferred_username||'').toLowerCase().trim();
+    if(!email)throw new Error('E-mail não encontrado no token');
+    checkSocialEmail(email);
+  }).catch(function(e){
+    document.getElementById('auth-err').textContent='Erro OAuth: '+e.message+'. Se persistir, use e-mail + senha.';
+  });
+}
+
+function signInWithMicrosoft(){
+  _oauthPopup('msft',
+    'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+    'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    MICROSOFT_CLIENT_ID);
+}
 function signInWithYahoo(){
-  var provider=new firebase.auth.OAuthProvider('yahoo.com');
-  auth.signInWithPopup(provider).catch(function(e){
-    var msg=e.message;
-    if(e.code==='auth/operation-not-allowed')msg='Login Yahoo não habilitado. Contate o suporte.';
-    document.getElementById('auth-err').textContent='Erro Yahoo: '+msg;
+  _oauthPopup('yahoo',
+    'https://api.login.yahoo.com/oauth2/request_auth',
+    'https://api.login.yahoo.com/oauth2/get_token',
+    YAHOO_CLIENT_ID);
+}
+
+/* Verifica e-mail social no Firestore, cria sessão anônima se autorizado */
+function checkSocialEmail(email){
+  document.getElementById('auth-err').textContent='Verificando acesso...';
+  db.collection('authorized').doc(email).get().then(function(doc){
+    if(doc.exists&&doc.data().liberado!==false){
+      _pendingSocialEmail=email;
+      auth.signInAnonymously().catch(function(e){
+        _pendingSocialEmail=null;
+        document.getElementById('auth-err').textContent='Erro interno: '+e.message;
+      });
+    }else{
+      document.getElementById('auth-err').textContent='E-mail '+email+' não autorizado. Verifique se usou o e-mail do pagamento.';
+    }
+  }).catch(function(e){
+    document.getElementById('auth-err').textContent='Erro ao verificar acesso: '+e.message;
   });
 }
 function signOut(){auth.signOut().then(function(){window.location.reload();});}
 function logout(){auth.signOut().then(function(){window.location.reload();});}
 
 auth.onAuthStateChanged(function(user){
+  if(document.documentElement.dataset.oauthPopup==='1')return;
   if(!user){
     document.getElementById('auth-screen').style.display='flex';
     document.getElementById('register-screen').style.display='none';
     hideLoading();return;
   }
+  /* Sessão anônima criada por checkSocialEmail (Microsoft/Yahoo) */
+  if(!user.email&&_pendingSocialEmail){
+    currentUser={email:_pendingSocialEmail,nome:_pendingSocialEmail,uid:user.uid};
+    isAdmin=ADMINS.indexOf(_pendingSocialEmail)!==-1;
+    _pendingSocialEmail=null;
+    enterArea();return;
+  }
+  /* Sessão anônima sem e-mail pendente (ex: reload) → forçar novo login */
+  if(!user.email){auth.signOut();return;}
   currentUser={email:user.email,nome:user.displayName||user.email,uid:user.uid};
   isAdmin=ADMINS.indexOf(user.email)!==-1;
   if(isAdmin){enterArea();return;}
