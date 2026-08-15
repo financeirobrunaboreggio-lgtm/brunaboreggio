@@ -260,6 +260,14 @@ input[type=file]{display:none}
 .btn-save-pdf{font-size:11px;font-weight:700;padding:9px 14px;border-radius:8px;border:1px solid rgba(201,149,78,0.3);color:var(--gold);background:rgba(201,149,78,0.07);cursor:pointer;font-family:'Sora',sans-serif;white-space:nowrap;transition:all .2s}
 .btn-save-pdf:hover{background:rgba(201,149,78,0.15)}
 
+/* AUTH TABS / EMAIL */
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.auth-tab{flex:1;padding:10px;font-size:13px;font-weight:600;cursor:pointer;background:transparent;border:none;color:var(--muted);font-family:'Sora',sans-serif;transition:all .2s}
+.auth-tab.active{background:rgba(201,149,78,0.12);color:var(--gold)}
+.auth-link{font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline}
+.auth-link:hover{color:var(--gold)}
+.auth-divider{text-align:center;font-size:12px;color:var(--muted);margin:14px 0 4px}
+
 /* COMENTÁRIOS */
 .comment-wrap{margin-top:4px;padding-top:4px}
 .comment-area{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:'Sora',sans-serif;resize:vertical;min-height:72px;outline:none;transition:border-color .2s;display:block}
@@ -296,11 +304,35 @@ input[type=file]{display:none}
 <div id="auth-screen">
 <div class="auth-box">
 <div class="auth-logo">Destrave seu Emagrecimento</div>
-<div class="auth-sub">Entre com sua conta Google para acessar o desafio</div>
-<button class="auth-btn" id="google-signin-btn" onclick="signInWithGoogle()" style="display:flex;align-items:center;justify-content:center;gap:10px">
+<!-- FORM LOGIN -->
+<div id="auth-login-form">
+<div class="auth-sub">Entre para acessar o desafio</div>
+<div class="auth-tabs">
+<button class="auth-tab active" id="tab-email" onclick="switchAuthTab('email')">📧 E-mail</button>
+<button class="auth-tab" id="tab-google" onclick="switchAuthTab('google')">Google</button>
+</div>
+<div id="auth-email-pane">
+<input class="auth-input" id="auth-email" type="email" placeholder="Seu e-mail (Gmail, Hotmail, Yahoo...)" autocomplete="email">
+<input class="auth-input" id="auth-pass" type="password" placeholder="Senha" autocomplete="current-password">
+<button class="auth-btn" onclick="signInWithEmail()">Entrar</button>
+<div class="auth-divider">Primeira vez? <span class="auth-link" onclick="showCreatePassword()">Criar senha</span></div>
+</div>
+<div id="auth-google-pane" style="display:none">
+<button class="auth-btn" onclick="signInWithGoogle()" style="display:flex;align-items:center;justify-content:center;gap:10px">
 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.705 17.64 9.2z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
 Entrar com Google
 </button>
+</div>
+</div>
+<!-- FORM CRIAR SENHA -->
+<div id="auth-create-form" style="display:none">
+<div class="auth-sub" style="margin-bottom:16px">Crie sua senha de acesso</div>
+<input class="auth-input" id="create-email" type="email" placeholder="E-mail usado no pagamento" autocomplete="email">
+<input class="auth-input" id="create-pass" type="password" placeholder="Criar senha (mín. 6 caracteres)" autocomplete="new-password">
+<input class="auth-input" id="create-pass2" type="password" placeholder="Confirmar senha" autocomplete="new-password">
+<button class="auth-btn" onclick="createEmailAccount()">Criar conta</button>
+<div class="auth-divider"><span class="auth-link" onclick="showLoginForm()">← Voltar ao login</span></div>
+</div>
 <div class="auth-err" id="auth-err"></div>
 </div>
 </div>
@@ -310,7 +342,7 @@ Entrar com Google
 <div class="auth-logo">Destrave seu Emagrecimento</div>
 <div class="auth-sub" id="register-msg">Seu e-mail não está autorizado. Faça o pagamento para participar do desafio.</div>
 <button class="auth-btn" onclick="window.location.href='/area-premium/'">Quero participar</button>
-<button class="auth-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px" onclick="signOut()">Usar outra conta Google</button>
+<button class="auth-btn" style="margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px" onclick="signOut()">Entrar com outro e-mail</button>
 </div>
 </div>
 
@@ -419,23 +451,24 @@ Entrar com Google
 var FIREBASE_CONFIG={apiKey:"AIzaSyBF79NzYAj7umrbaVngFBlevLHCWvSf00g",authDomain:"desafio-bruna-boreggio.firebaseapp.com",projectId:"desafio-bruna-boreggio",storageBucket:"desafio-bruna-boreggio.firebasestorage.app",messagingSenderId:"405951385222",appId:"1:405951385222:web:2d60e95f9301ebc125cb07"};
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 var currentUser=null;var isAdmin=false;var viewAsEmail=null;var userData={};var localPdfs={};var currentPhase=null;var dayChecks={};
+var VIDEO_IDS={};var BONUS_IDS={};var VIDEOS_READY=false;
 
 firebase.initializeApp(FIREBASE_CONFIG);
 var auth=firebase.auth();
 var db=firebase.firestore();
 
 var DAYS=[
-{num:0,title:'Boas-vindas ao Desafio',sub:'Conheça sua jornada de transformação',videoId:'pFcYHaaLoo4'},
-{num:1,title:'Hidratação Inteligente',sub:'Como bater a meta de água todos os dias. Tenha garrafinhas sempre por perto.',videoId:'zEJZl1qjA10',pdfUrl:'https://drive.google.com/drive/folders/1YUhACnEDJCjMRPYlVmmi9uMAiKPJYrOH?usp=sharing'},
-{num:2,title:'Organize seu Ambiente',sub:'Faça lista de compras antes de ir ao mercado — bônus sugestão de cardápio',videoId:'qMD-yQjGOvk',bonusVideoId:'zZWZMNAI_Wc',bonusLabel:'Bônus Especial',pdfUrl:'https://drive.google.com/drive/folders/1ne_p4Rxw9_jpPdLeybIvxEb2_4d56yMf?usp=sharing'},
-{num:3,title:'Inclua Anti-Inflamatórios no seu Dia',sub:'Desinflamar o corpo para emagrecer — coma um prato colorido',videoId:'gahEsUDQ4iI',pdfUrl:'https://drive.google.com/drive/folders/1Ymu8wtaz4lqqGCzO6GegeZcJy8JhWUS0?usp=sharing'},
-{num:4,title:'Proteína em Todas as Refeições',sub:'Entenda a sua fome e saciedade',videoId:'tKL7rhR5OhY',pdfUrl:'https://drive.google.com/drive/folders/1zZyGyxAnE5LCMepdiYZDFziqfrzaxn2U?usp=sharing'},
-{num:5,title:'Comer com Atenção',sub:'Pilares e como isso muda o ritmo do emagrecimento',videoId:'ugQTxZL6TlQ',pdfUrl:'https://drive.google.com/drive/folders/1qMth3CjWzA6JZN_VBuw1j-FMLtibKTs1?usp=sharing'},
-{num:6,title:'Sono e Emagrecimento',sub:'Dormir mal atrapalha o emagrecimento — como melhorar a qualidade do sono',videoId:'Y0_xau0wVnY',pdfUrl:'https://drive.google.com/drive/folders/1cpBLZaoIea8W65NskXlhPK5ti8qIsRYz?usp=sharing'},
-{num:7,title:'Um Dia sem Açúcar Adicionado',sub:'No café ou no chá — aprenda a ler rótulos para melhores escolhas',videoId:'QfC_QAcvdG0',pdfUrl:'https://drive.google.com/drive/folders/1trS1DsZI-gXMSIDzfn_EYTRKKI0Xt4eU?usp=sharing'},
-{num:8,title:'Inclua um Exercício no seu Dia',sub:'A constância vale mais que a perfeição',videoId:'U0Va0TK8Hrk',pdfUrl:'https://drive.google.com/drive/folders/1ryzua8saAPlFt9YX0h4ziiZUqMCoWQnO?usp=sharing'},
-{num:9,title:'Vamos planejar uma refeição livre na semana ou fazer uma receita fit',sub:'O equilíbrio que sustenta o emagrecimento',videoId:'YtCwQj6Fehg',pdfUrl:'https://drive.google.com/drive/folders/1fe1bfLaW099M0fqFcqIx3XiJe2aUSkp8?usp=sharing'},
-{num:10,title:'Carta para sua nova versão',sub:'Quebrando o ciclo e construindo hábitos definitivos',videoId:'9Uo935r5PxQ',pdfUrl:'https://drive.google.com/drive/folders/1RmKGTUxbFQ5RHIY2aegk-1wTKwHH0tYl?usp=sharing',hasAfter:true}
+{num:0,title:'Boas-vindas ao Desafio',sub:'Conheça sua jornada de transformação'},
+{num:1,title:'Hidratação Inteligente',sub:'Como bater a meta de água todos os dias. Tenha garrafinhas sempre por perto.',pdfUrl:'https://drive.google.com/drive/folders/1YUhACnEDJCjMRPYlVmmi9uMAiKPJYrOH?usp=sharing'},
+{num:2,title:'Organize seu Ambiente',sub:'Faça lista de compras antes de ir ao mercado — bônus sugestão de cardápio',bonusLabel:'Bônus Especial',pdfUrl:'https://drive.google.com/drive/folders/1ne_p4Rxw9_jpPdLeybIvxEb2_4d56yMf?usp=sharing'},
+{num:3,title:'Inclua Anti-Inflamatórios no seu Dia',sub:'Desinflamar o corpo para emagrecer — coma um prato colorido',pdfUrl:'https://drive.google.com/drive/folders/1Ymu8wtaz4lqqGCzO6GegeZcJy8JhWUS0?usp=sharing'},
+{num:4,title:'Proteína em Todas as Refeições',sub:'Entenda a sua fome e saciedade',pdfUrl:'https://drive.google.com/drive/folders/1zZyGyxAnE5LCMepdiYZDFziqfrzaxn2U?usp=sharing'},
+{num:5,title:'Comer com Atenção',sub:'Pilares e como isso muda o ritmo do emagrecimento',pdfUrl:'https://drive.google.com/drive/folders/1qMth3CjWzA6JZN_VBuw1j-FMLtibKTs1?usp=sharing'},
+{num:6,title:'Sono e Emagrecimento',sub:'Dormir mal atrapalha o emagrecimento — como melhorar a qualidade do sono',pdfUrl:'https://drive.google.com/drive/folders/1cpBLZaoIea8W65NskXlhPK5ti8qIsRYz?usp=sharing'},
+{num:7,title:'Um Dia sem Açúcar Adicionado',sub:'No café ou no chá — aprenda a ler rótulos para melhores escolhas',pdfUrl:'https://drive.google.com/drive/folders/1trS1DsZI-gXMSIDzfn_EYTRKKI0Xt4eU?usp=sharing'},
+{num:8,title:'Inclua um Exercício no seu Dia',sub:'A constância vale mais que a perfeição',pdfUrl:'https://drive.google.com/drive/folders/1ryzua8saAPlFt9YX0h4ziiZUqMCoWQnO?usp=sharing'},
+{num:9,title:'Vamos planejar uma refeição livre na semana ou fazer uma receita fit',sub:'O equilíbrio que sustenta o emagrecimento',pdfUrl:'https://drive.google.com/drive/folders/1fe1bfLaW099M0fqFcqIx3XiJe2aUSkp8?usp=sharing'},
+{num:10,title:'Carta para sua nova versão',sub:'Quebrando o ciclo e construindo hábitos definitivos',pdfUrl:'https://drive.google.com/drive/folders/1RmKGTUxbFQ5RHIY2aegk-1wTKwHH0tYl?usp=sharing',hasAfter:true}
 ];
 
 var MODULES=[
@@ -493,7 +526,64 @@ window.addEventListener('load',function(){setTimeout(hideLoading,600);});
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
 function observeReveals(){document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});}
 
-/* ── GOOGLE AUTH ── */
+/* ── AUTH — EMAIL/PASSWORD ── */
+function switchAuthTab(mode){
+  document.getElementById('tab-email').classList.toggle('active',mode==='email');
+  document.getElementById('tab-google').classList.toggle('active',mode==='google');
+  document.getElementById('auth-email-pane').style.display=mode==='email'?'block':'none';
+  document.getElementById('auth-google-pane').style.display=mode==='google'?'block':'none';
+  document.getElementById('auth-err').textContent='';
+}
+function showCreatePassword(){
+  document.getElementById('auth-login-form').style.display='none';
+  document.getElementById('auth-create-form').style.display='block';
+  document.getElementById('auth-err').textContent='';
+}
+function showLoginForm(){
+  document.getElementById('auth-create-form').style.display='none';
+  document.getElementById('auth-login-form').style.display='block';
+  document.getElementById('auth-err').textContent='';
+}
+function signInWithEmail(){
+  var email=(document.getElementById('auth-email').value||'').trim().toLowerCase();
+  var pass=document.getElementById('auth-pass').value;
+  if(!email||!pass){document.getElementById('auth-err').textContent='Preencha e-mail e senha.';return;}
+  document.getElementById('auth-err').textContent='';
+  auth.signInWithEmailAndPassword(email,pass).catch(function(e){
+    var msg='Erro ao entrar.';
+    if(e.code==='auth/user-not-found')msg='E-mail não encontrado. Clique em "Criar senha" para se registrar.';
+    else if(e.code==='auth/wrong-password'||e.code==='auth/invalid-credential')msg='Senha incorreta.';
+    else if(e.code==='auth/invalid-email')msg='E-mail inválido.';
+    else if(e.code==='auth/too-many-requests')msg='Muitas tentativas. Aguarde alguns minutos.';
+    else msg='Erro: '+e.message;
+    document.getElementById('auth-err').textContent=msg;
+  });
+}
+function createEmailAccount(){
+  var email=(document.getElementById('create-email').value||'').trim().toLowerCase();
+  var pass=document.getElementById('create-pass').value;
+  var pass2=document.getElementById('create-pass2').value;
+  var errEl=document.getElementById('auth-err');
+  if(!email||!pass||!pass2){errEl.textContent='Preencha todos os campos.';return;}
+  if(pass!==pass2){errEl.textContent='As senhas não coincidem.';return;}
+  if(pass.length<6){errEl.textContent='Senha deve ter no mínimo 6 caracteres.';return;}
+  errEl.textContent='';
+  auth.createUserWithEmailAndPassword(email,pass).catch(function(e){
+    if(e.code==='auth/email-already-in-use'){
+      auth.signInWithEmailAndPassword(email,pass).catch(function(){
+        errEl.textContent='Conta já existe. Verifique sua senha.';
+      });return;
+    }
+    var msg='Erro ao criar conta.';
+    if(e.code==='auth/invalid-email')msg='E-mail inválido.';
+    else if(e.code==='auth/weak-password')msg='Senha muito fraca.';
+    else if(e.code==='auth/operation-not-allowed')msg='Login por e-mail não está habilitado. Contate o suporte.';
+    else msg='Erro: '+e.message;
+    errEl.textContent=msg;
+  });
+}
+
+/* ── AUTH — GOOGLE ── */
 function signInWithGoogle(){
   var provider=new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider).catch(function(e){
@@ -534,9 +624,26 @@ function enterArea(){
   hideLoading();
   if(currentUser.nome)document.getElementById('hdr-name').textContent=currentUser.nome.split(' ')[0];
   document.getElementById('hero-sub').textContent='Olá, '+(currentUser.nome||currentUser.email).split(' ')[0]+' 👋';
+  if(isAdmin&&!viewAsEmail)ensureAdminAuthorized();
+  loadVideoIds();
   loadPdfOverrides();
   loadData();
   observeReveals();
+}
+function ensureAdminAuthorized(){
+  db.collection('authorized').doc(currentUser.email).set({email:currentUser.email,liberado:true,ts:new Date().toISOString(),plano:'admin'},{merge:true}).catch(function(){});
+}
+function loadVideoIds(){
+  db.collection('config').doc('videos').get().then(function(doc){
+    if(doc.exists){VIDEO_IDS=doc.data().ids||{};BONUS_IDS=doc.data().bonus||{};}
+    else if(isAdmin){seedVideos();}
+    VIDEOS_READY=true;
+  }).catch(function(){VIDEOS_READY=true;});
+}
+function seedVideos(){
+  var ids={0:'pFcYHaaLoo4',1:'zEJZl1qjA10',2:'qMD-yQjGOvk',3:'gahEsUDQ4iI',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
+  var bonus={2:'zZWZMNAI_Wc'};
+  db.collection('config').doc('videos').set({ids:ids,bonus:bonus}).then(function(){VIDEO_IDS=ids;BONUS_IDS=bonus;VIDEOS_READY=true;showToast('Vídeos configurados! ✅');});
 }
 
 /* ── DATA ── */
@@ -680,6 +787,7 @@ function addDayPhotos(input,dayNum,tipo){
         var upd={};upd[key]=cnt+canAdd;
         addPts(5*canAdd);showToast(canAdd+' foto(s)! +'+(5*canAdd)+' pts ⭐');
         saveToFirestore(upd);
+        setTimeout(function(){refreshDayHeight(dayNum);},200);
       }
     };
     r.readAsDataURL(file);
@@ -774,6 +882,7 @@ function submitReply(dayNum,cmtId){
 
 /* ── PHASE NAVIGATION ── */
 function showPhase(phase){
+  if(!VIDEOS_READY){setTimeout(function(){showPhase(phase);},300);return;}
   currentPhase=phase;
   document.getElementById('phases-overview').style.display='none';
   document.getElementById('phase-detail').style.display='block';
@@ -812,9 +921,11 @@ function buildFaseHTML(mod){
     if(!unlocked){html+='<div style="font-size:18px;flex-shrink:0;margin-right:4px">🔒</div>';}
     html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>';
     html+='<div class="day-body" id="db-'+d.num+'"><div class="day-body-inner">';
-    if(d.videoId){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.videoId+'" allowfullscreen loading="lazy"></iframe></div>';}
+    var vid=VIDEO_IDS[d.num]!==undefined?VIDEO_IDS[d.num]:d.videoId;
+    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+vid+'" allowfullscreen loading="lazy"></iframe></div>';}
     else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
-    if(d.bonusVideoId){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+d.bonusVideoId+'" allowfullscreen loading="lazy"></iframe></div></div>';}
+    var bonusVid=BONUS_IDS[d.num]!==undefined?BONUS_IDS[d.num]:d.bonusVideoId;
+    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+bonusVid+'" allowfullscreen loading="lazy"></iframe></div></div>';}
     var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
     if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
     else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
@@ -911,21 +1022,33 @@ function markDayDone(n){
 }
 
 /* ── DAY UNLOCK ── */
+function getBrazilNow(){
+  var now=new Date();
+  /* Brazil = UTC-3: add (local offset + (-3*60)) minutes to get Brazil time */
+  return new Date(now.getTime()+(now.getTimezoneOffset()+(-3*60))*60000);
+}
 function isDayUnlocked(dayNum,startDate){
   if(isAdmin&&!viewAsEmail)return true;
-  if(dayNum===0)return true;
-  if(!startDate)return dayNum===1;
-  var s=new Date(startDate);var n=new Date();
-  s.setHours(0,0,0,0);n.setHours(0,0,0,0);
-  var diff=Math.floor((n-s)/(1000*60*60*24));
-  return dayNum<=diff+1;
+  if(dayNum===0||dayNum===1)return true; /* dias 0 e 1 liberados imediatamente */
+  if(!startDate)return false;
+  var s=new Date(startDate);s.setHours(0,0,0,0);
+  var brNow=getBrazilNow();
+  var brMidnight=new Date(brNow);brMidnight.setHours(0,0,0,0);
+  var diff=Math.floor((brMidnight-s)/(1000*60*60*24));
+  var daysNeeded=dayNum-1;
+  if(diff>daysNeeded)return true;
+  if(diff===daysNeeded)return brNow.getHours()>=7; /* libera às 7h horário Brasil */
+  return false;
 }
 function getDaysUntilUnlock(dayNum,startDate){
+  if(dayNum===0||dayNum===1)return 0;
   if(!startDate)return dayNum-1;
-  var s=new Date(startDate);var n=new Date();
-  s.setHours(0,0,0,0);n.setHours(0,0,0,0);
-  var diff=Math.floor((n-s)/(1000*60*60*24));
-  return Math.max(0,dayNum-1-diff);
+  var s=new Date(startDate);s.setHours(0,0,0,0);
+  var brNow=getBrazilNow();
+  var brMidnight=new Date(brNow);brMidnight.setHours(0,0,0,0);
+  var diff=Math.floor((brMidnight-s)/(1000*60*60*24));
+  if(diff>=(dayNum-1))return 0;
+  return (dayNum-1)-diff;
 }
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
