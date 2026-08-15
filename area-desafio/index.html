@@ -249,6 +249,9 @@ input[type=file]{display:none}
 .day-head.locked{opacity:.45;cursor:not-allowed}
 .day-head.locked:hover{border-color:var(--border)!important;background:var(--glass)!important}
 
+/* YT SHIELD — bloqueia botão compartilhar do YouTube */
+.yt-shield{position:absolute;bottom:0;right:0;width:90px;height:40px;z-index:2;cursor:default}
+
 /* BOTÃO CONCLUÍDO — agora clicável para desfazer */
 .day-btn.done-btn{cursor:pointer}
 .day-btn.done-btn:hover{background:rgba(74,222,128,0.14);border-color:rgba(74,222,128,0.4)}
@@ -766,11 +769,14 @@ function ensureAdminAuthorized(){
   db.collection('authorized').doc(currentUser.email).set({email:currentUser.email,liberado:true,ts:new Date().toISOString(),plano:'admin'},{merge:true}).catch(function(){});
 }
 function loadVideoIds(){
+  /* IDs de fallback — usados quando Firestore ainda não foi configurado */
+  var _FI={0:'pFcYHaaLoo4',1:'zEJZl1qjA10',2:'qMD-yQjGOvk',3:'gahEsUDQ4iI',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
+  var _FB={2:'zZWZMNAI_Wc'};
   db.collection('config').doc('videos').get().then(function(doc){
-    if(doc.exists){VIDEO_IDS=doc.data().ids||{};BONUS_IDS=doc.data().bonus||{};}
-    else if(isAdmin){seedVideos();}
+    if(doc.exists){VIDEO_IDS=doc.data().ids||_FI;BONUS_IDS=doc.data().bonus||_FB;}
+    else{VIDEO_IDS=_FI;BONUS_IDS=_FB;if(isAdmin){seedVideos();}}
     VIDEOS_READY=true;
-  }).catch(function(){VIDEOS_READY=true;});
+  }).catch(function(){VIDEO_IDS=_FI;BONUS_IDS=_FB;VIDEOS_READY=true;});
 }
 function seedVideos(){
   var ids={0:'pFcYHaaLoo4',1:'zEJZl1qjA10',2:'qMD-yQjGOvk',3:'gahEsUDQ4iI',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
@@ -888,26 +894,39 @@ function exitViewAsAluna(){
   loadData();
 }
 
+/* ── COMPRESS IMAGE (sem Firebase Storage — armazena no Firestore) ── */
+function compressImage(file,maxDim,quality){
+  return new Promise(function(resolve,reject){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=new Image();
+      img.onload=function(){
+        var w=img.width,h=img.height;
+        if(w>maxDim||h>maxDim){if(w>h){h=Math.round(h*maxDim/w);w=maxDim;}else{w=Math.round(w*maxDim/h);h=maxDim;}}
+        var canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',quality||0.65));
+      };
+      img.onerror=reject;img.src=e.target.result;
+    };
+    reader.onerror=reject;reader.readAsDataURL(file);
+  });
+}
+
 /* ── PHOTOS ── */
 function handleDayPhoto(input,tipo,ptsVal){
   if(!input.files||!input.files[0])return;
   var pts2=ptsVal||10;
   var email=currentUser.email;
-  var file=input.files[0];
-  var ext=file.name.split('.').pop()||'jpg';
-  var path='photos/'+email+'/'+tipo+'.'+ext;
-  var ref=storage.ref(path);
   showToast('Enviando foto...');
-  ref.put(file).then(function(){return ref.getDownloadURL();}).then(function(url){
-    var upd={};upd['photoUrl_'+tipo]=url;
+  compressImage(input.files[0],600,0.75).then(function(dataUrl){
+    var upd={};upd['photoUrl_'+tipo]=dataUrl;
     saveToFirestore(upd);
     addPts(pts2);
     var ok=document.getElementById('ok-'+tipo);
     if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},3000);}
-    /* mostra a foto no box */
     var box=input.closest?input.closest('.day-photo-box'):null;
-    if(!box){box=document.querySelector('[onclick*="'+input.id+'"]');}
-    if(box){var img=box.querySelector('img');if(!img){img=document.createElement('img');box.appendChild(img);}img.src=url;img.className='loaded';}
+    if(box){var img=box.querySelector('img');if(!img){img=document.createElement('img');box.appendChild(img);}img.src=dataUrl;img.className='loaded';}
     showToast('Foto salva! +'+pts2+' pts ⭐');
   }).catch(function(e){showToast('Erro ao enviar foto: '+e.message);});
 }
@@ -919,27 +938,46 @@ function addDayPhotos(input,dayNum,tipo){
   var canAdd=Math.min(files.length,10-cnt);
   if(canAdd<=0){showToast('Limite de 10 fotos por dia atingido!');return;}
   var email=currentUser.email;
-  var done=0;var urls=[];
+  var done=0;
   showToast('Enviando '+canAdd+' foto(s)...');
   files.slice(0,canAdd).forEach(function(file,i){
-    var ext=file.name.split('.').pop()||'jpg';
-    var path='photos/'+email+'/day'+dayNum+'/'+tipo+'/'+(cnt+i)+'.'+ext;
-    var ref=storage.ref(path);
-    ref.put(file).then(function(){return ref.getDownloadURL();}).then(function(url){
-      urls.push(url);
+    compressImage(file,500,0.65).then(function(dataUrl){
+      var docId=email.replace(/[^a-zA-Z0-9]/g,'_')+'_d'+dayNum+'_'+tipo+'_'+(cnt+i);
+      return db.collection('photoData').doc(docId).set({
+        email:email,dayNum:dayNum,tipo:tipo,idx:cnt+i,data:dataUrl,
+        ts:firebase.firestore.FieldValue.serverTimestamp()
+      }).then(function(){return dataUrl;});
+    }).then(function(dataUrl){
       var g=document.getElementById('pg-'+dayNum+'-'+tipo);
-      if(g){var img=document.createElement('img');img.src=url;img.className='photo-thumb';g.appendChild(img);}
+      if(g){var img=document.createElement('img');img.src=dataUrl;img.className='photo-thumb';g.appendChild(img);}
       done++;
       if(done===canAdd){
         var upd={};upd[key]=cnt+canAdd;
-        /* acumula URLs no array salvo */
-        var urlKey='photoUrls_'+dayNum+'_'+tipo;
-        var existing=userData[urlKey]||[];upd[urlKey]=existing.concat(urls);
         addPts(5*canAdd);showToast(canAdd+' foto(s) salva(s)! +'+(5*canAdd)+' pts ⭐');
         saveToFirestore(upd);
         setTimeout(function(){refreshDayHeight(dayNum);},200);
       }
     }).catch(function(e){showToast('Erro: '+e.message);});
+  });
+}
+function loadDayPhotos(dayNum){
+  var email=currentUser.email;
+  var cats=DAY_PHOTOS[dayNum]||[];
+  cats.forEach(function(cat){
+    var prefix=email.replace(/[^a-zA-Z0-9]/g,'_')+'_d'+dayNum+'_'+cat.c+'_';
+    var cnt=userData['photoCount_'+dayNum+'_'+cat.c]||0;
+    var g=document.getElementById('pg-'+dayNum+'-'+cat.c);
+    if(!g||!cnt)return;
+    for(var i=0;i<cnt;i++){(function(idx){
+      db.collection('photoData').doc(prefix+idx).get().then(function(doc){
+        if(!doc.exists)return;
+        var g2=document.getElementById('pg-'+dayNum+'-'+cat.c);
+        if(!g2)return;
+        if(!g2.querySelector('[data-idx="'+idx+'"]')){
+          var img=document.createElement('img');img.src=doc.data().data;img.className='photo-thumb';img.setAttribute('data-idx',idx);g2.appendChild(img);
+        }
+      }).catch(function(){});
+    })(i);}
   });
 }
 
@@ -1071,10 +1109,10 @@ function buildFaseHTML(mod){
     html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>';
     html+='<div class="day-body" id="db-'+d.num+'"><div class="day-body-inner">';
     var vid=VIDEO_IDS[d.num]!==undefined?VIDEO_IDS[d.num]:d.videoId;
-    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+vid+'" allowfullscreen loading="lazy"></iframe></div>';}
+    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div></div>';}
     else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
     var bonusVid=BONUS_IDS[d.num]!==undefined?BONUS_IDS[d.num]:d.bonusVideoId;
-    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+bonusVid+'" allowfullscreen loading="lazy"></iframe></div></div>';}
+    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div></div></div>';}
     var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
     if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
     else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
@@ -1141,7 +1179,7 @@ function toggleDay(n){
   var head=document.getElementById('dh-'+n);var body=document.getElementById('db-'+n);
   var isOpen=head.classList.contains('open');
   document.querySelectorAll('.day-head.open').forEach(function(h){h.classList.remove('open');var b=document.getElementById(h.id.replace('dh-','db-'));if(b)b.style.maxHeight='0';});
-  if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';loadDayComments(n);}
+  if(!isOpen){head.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';loadDayComments(n);loadDayPhotos(n);}
 }
 
 /* ── MARK DAY DONE ── */
