@@ -251,6 +251,7 @@ input[type=file]{display:none}
 
 /* YT SHIELD — bloqueia botão compartilhar do YouTube */
 .yt-shield{position:absolute;bottom:0;right:0;width:90px;height:40px;z-index:2;cursor:default}
+.yt-shield-top{position:absolute;top:0;right:0;width:150px;height:44px;z-index:2;cursor:default}
 
 /* BOTÃO CONCLUÍDO — agora clicável para desfazer */
 .day-btn.done-btn{cursor:pointer}
@@ -1109,10 +1110,10 @@ function buildFaseHTML(mod){
     html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>';
     html+='<div class="day-body" id="db-'+d.num+'"><div class="day-body-inner">';
     var vid=VIDEO_IDS[d.num]!==undefined?VIDEO_IDS[d.num]:d.videoId;
-    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div></div>';}
+    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div><div class="yt-shield-top"></div></div>';}
     else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
     var bonusVid=BONUS_IDS[d.num]!==undefined?BONUS_IDS[d.num]:d.bonusVideoId;
-    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div></div></div>';}
+    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div><div class="yt-shield-top"></div></div></div>';}
     var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
     if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
     else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
