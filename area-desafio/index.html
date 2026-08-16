@@ -1170,7 +1170,16 @@ function buildFaseHTML(mod){
     if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield" onclick="mostrarToastYT(this)"></div><div class="yt-shield-top"></div><div class="yt-toast">🔒 Vídeo exclusivo desta plataforma</div></div>';}
     else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
     var bonusVid=BONUS_IDS[d.num]!==undefined?BONUS_IDS[d.num]:d.bonusVideoId;
-    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield" onclick="mostrarToastYT(this)"></div><div class="yt-shield-top"></div><div class="yt-toast">🔒 Vídeo exclusivo desta plataforma</div></div></div>';}
+    if(bonusVid){
+      html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div>';
+      if(isBonusUnlocked(startDate)){
+        html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield" onclick="mostrarToastYT(this)"></div><div class="yt-shield-top"></div><div class="yt-toast">🔒 Vídeo exclusivo desta plataforma</div></div>';
+      }else{
+        var db7=getDaysUntilBonus(startDate);
+        html+='<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;color:var(--muted);font-size:13px">🔒 Bônus disponível em '+db7+' dia'+(db7!==1?'s':'')+'</div>';
+      }
+      html+='</div>';
+    }
     var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
     if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
     else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
@@ -1273,31 +1282,44 @@ function markDayDone(n){
 /* ── DAY UNLOCK ── */
 function getBrazilNow(){
   var now=new Date();
-  /* Brazil = UTC-3: add (local offset + (-3*60)) minutes to get Brazil time */
   return new Date(now.getTime()+(now.getTimezoneOffset()+(-3*60))*60000);
 }
-function isDayUnlocked(dayNum,startDate){
-  if(isAdmin&&!viewAsEmail)return true;
-  if(dayNum===0||dayNum===1)return true; /* dias 0 e 1 liberados imediatamente */
-  if(!startDate)return false;
+function _daysDiff(startDate){
   var s=new Date(startDate);s.setHours(0,0,0,0);
   var brNow=getBrazilNow();
   var brMidnight=new Date(brNow);brMidnight.setHours(0,0,0,0);
-  var diff=Math.floor((brMidnight-s)/(1000*60*60*24));
-  var daysNeeded=dayNum-1;
-  if(diff>daysNeeded)return true;
-  if(diff===daysNeeded)return brNow.getHours()>=7; /* libera às 7h horário Brasil */
+  return Math.floor((brMidnight-s)/(1000*60*60*24));
+}
+function isDayUnlocked(dayNum,startDate){
+  if(isAdmin&&!viewAsEmail)return true;
+  if(dayNum===0||dayNum===1)return true; /* boas-vindas + dia 1 imediatos */
+  if(!startDate)return false;
+  var diff=_daysDiff(startDate);
+  var needed=dayNum-1; /* dia 2 precisa de 1 dia, dia 3 de 2, etc */
+  if(diff>needed)return true;
+  if(diff===needed)return getBrazilNow().getHours()>=7; /* libera às 7h Brasil */
+  return false;
+}
+function isBonusUnlocked(startDate){
+  if(isAdmin&&!viewAsEmail)return true;
+  if(!startDate)return false;
+  var diff=_daysDiff(startDate);
+  if(diff>7)return true;
+  if(diff===7)return getBrazilNow().getHours()>=7;
   return false;
 }
 function getDaysUntilUnlock(dayNum,startDate){
   if(dayNum===0||dayNum===1)return 0;
   if(!startDate)return dayNum-1;
-  var s=new Date(startDate);s.setHours(0,0,0,0);
-  var brNow=getBrazilNow();
-  var brMidnight=new Date(brNow);brMidnight.setHours(0,0,0,0);
-  var diff=Math.floor((brMidnight-s)/(1000*60*60*24));
+  var diff=_daysDiff(startDate);
   if(diff>=(dayNum-1))return 0;
   return (dayNum-1)-diff;
+}
+function getDaysUntilBonus(startDate){
+  if(!startDate)return 7;
+  var diff=_daysDiff(startDate);
+  if(diff>=7)return 0;
+  return 7-diff;
 }
 
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
