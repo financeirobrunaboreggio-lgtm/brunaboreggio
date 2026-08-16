@@ -249,9 +249,12 @@ input[type=file]{display:none}
 .day-head.locked{opacity:.45;cursor:not-allowed}
 .day-head.locked:hover{border-color:var(--border)!important;background:var(--glass)!important}
 
-/* YT SHIELD — bloqueia "Ver no YouTube" com gradiente suave */
-.yt-shield{position:absolute;bottom:0;right:0;width:220px;height:44px;z-index:9;cursor:default;pointer-events:all;background:linear-gradient(to right,transparent 0%,rgba(0,0,0,0.92) 12%)}
+/* YT SHIELD — intercepta cliques em "Ver no YouTube" e no título */
+.yt-shield{position:absolute;bottom:0;right:0;width:320px;height:70px;z-index:9;cursor:pointer;pointer-events:all;background:transparent}
 .yt-shield-top{position:absolute;top:0;left:0;right:0;height:72px;z-index:9;cursor:default;background:rgba(0,0,0,0.01);pointer-events:all}
+/* Toast "vídeo exclusivo" */
+.yt-toast{position:absolute;bottom:78px;right:12px;background:rgba(18,14,28,0.95);border:1px solid rgba(201,149,78,0.35);color:#e8d5a3;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;z-index:99;pointer-events:none;white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s}
+.yt-toast.show{opacity:1;transform:translateY(0)}
 
 /* BOTÃO CONCLUÍDO — agora clicável para desfazer */
 .day-btn.done-btn{cursor:pointer}
@@ -556,6 +559,14 @@ draw();
 
 function hideLoading(){var el=document.getElementById('loading');if(!el)return;el.classList.add('fade-out');setTimeout(function(){el.style.display='none'},600);}
 window.addEventListener('load',function(){setTimeout(hideLoading,600);});
+
+function mostrarToastYT(shield){
+  var toast=shield.parentElement.querySelector('.yt-toast');
+  if(!toast)return;
+  clearTimeout(shield._ytTimer);
+  toast.classList.add('show');
+  shield._ytTimer=setTimeout(function(){toast.classList.remove('show');},2200);
+}
 
 var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
 function observeReveals(){document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});}
@@ -1137,10 +1148,10 @@ function buildFaseHTML(mod){
     html+='<svg class="day-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>';
     html+='<div class="day-body" id="db-'+d.num+'"><div class="day-body-inner">';
     var vid=VIDEO_IDS[d.num]!==undefined?VIDEO_IDS[d.num]:d.videoId;
-    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div><div class="yt-shield-top"></div></div>';}
+    if(vid){html+='<div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield" onclick="mostrarToastYT(this)"></div><div class="yt-shield-top"></div><div class="yt-toast">🔒 Vídeo exclusivo desta plataforma</div></div>';}
     else{html+='<div class="video-wrap"><div class="video-placeholder"><div class="vp-ico">▶</div><div class="vp-txt">Aula em breve</div></div></div>';}
     var bonusVid=BONUS_IDS[d.num]!==undefined?BONUS_IDS[d.num]:d.bonusVideoId;
-    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield"></div><div class="yt-shield-top"></div></div></div>';}
+    if(bonusVid){html+='<div style="margin-top:16px"><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">⭐ '+(d.bonusLabel||'Bônus')+'</div><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/'+bonusVid+'?rel=0&modestbranding=1&iv_load_policy=3" allowfullscreen loading="lazy"></iframe><div class="yt-shield" onclick="mostrarToastYT(this)"></div><div class="yt-shield-top"></div><div class="yt-toast">🔒 Vídeo exclusivo desta plataforma</div></div></div>';}
     var pdfUrl=pdfOvr[d.num]||d.pdfUrl||'';
     if(pdfUrl){html+='<a class="btn-pdf-day" href="'+pdfUrl+'" target="_blank" rel="noopener">📄 Baixar material — Dia '+d.num+'</a>';}
     else if(d.num>0){html+='<div class="pdf-coming">📄 Material em PDF em breve</div>';}
