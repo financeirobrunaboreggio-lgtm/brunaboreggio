@@ -711,16 +711,29 @@ function signInWithYahoo(){
     YAHOO_CLIENT_ID);
 }
 
+/* Verifica liberação + expiração de 1 ano no doc do Firestore */
+function _checarAcesso_(docData){
+  if(!docData||docData.liberado===false)return{ok:false,motivo:'nao_autorizado'};
+  if(docData.dataExpiracao){
+    var exp=new Date(docData.dataExpiracao);
+    if(!isNaN(exp.getTime())&&exp<new Date())return{ok:false,motivo:'expirado'};
+  }
+  return{ok:true};
+}
+
 /* Verifica e-mail social no Firestore, cria sessão anônima se autorizado */
 function checkSocialEmail(email){
   document.getElementById('auth-err').textContent='Verificando acesso...';
   db.collection('authorized').doc(email).get().then(function(doc){
-    if(doc.exists&&doc.data().liberado!==false){
+    var chk=_checarAcesso_(doc.exists?doc.data():null);
+    if(chk.ok){
       _pendingSocialEmail=email;
       auth.signInAnonymously().catch(function(e){
         _pendingSocialEmail=null;
         document.getElementById('auth-err').textContent='Erro interno: '+e.message;
       });
+    }else if(chk.motivo==='expirado'){
+      document.getElementById('auth-err').textContent='Seu acesso de 1 ano expirou. Entre em contato com a Bruna para renovar.';
     }else{
       document.getElementById('auth-err').textContent='E-mail '+email+' não autorizado. Verifique se usou o e-mail do pagamento.';
     }
@@ -751,8 +764,14 @@ auth.onAuthStateChanged(function(user){
   isAdmin=ADMINS.indexOf(user.email)!==-1;
   if(isAdmin){enterArea();return;}
   db.collection('authorized').doc(user.email).get().then(function(doc){
-    if(doc.exists&&doc.data().liberado!==false){enterArea();}
-    else{verificarAcessoFallback_(user.email,user.displayName||user.email);}
+    var chk=_checarAcesso_(doc.exists?doc.data():null);
+    if(chk.ok){enterArea();}
+    else if(chk.motivo==='expirado'){
+      auth.signOut();
+      document.getElementById('auth-screen').style.display='flex';
+      document.getElementById('auth-err').textContent='Seu acesso de 1 ano expirou. Entre em contato com a Bruna para renovar.';
+      hideLoading();
+    }else{verificarAcessoFallback_(user.email,user.displayName||user.email);}
   }).catch(function(){
     verificarAcessoFallback_(user.email,user.displayName||user.email);
   });
