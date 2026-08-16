@@ -249,9 +249,8 @@ input[type=file]{display:none}
 .day-head.locked{opacity:.45;cursor:not-allowed}
 .day-head.locked:hover{border-color:var(--border)!important;background:var(--glass)!important}
 
-/* YT SHIELD — bloqueia "Ver no YouTube" sem barra preta visível */
-.yt-shield{position:absolute;bottom:0;right:0;width:220px;height:44px;z-index:9;cursor:default;pointer-events:all;background:rgba(0,0,0,0.001);transition:background .15s}
-.video-wrap:hover .yt-shield{background:linear-gradient(to right,transparent 0%,rgba(0,0,0,0.92) 12%)}
+/* YT SHIELD — bloqueia "Ver no YouTube" com gradiente suave */
+.yt-shield{position:absolute;bottom:0;right:0;width:220px;height:44px;z-index:9;cursor:default;pointer-events:all;background:linear-gradient(to right,transparent 0%,rgba(0,0,0,0.92) 12%)}
 .yt-shield-top{position:absolute;top:0;left:0;right:0;height:72px;z-index:9;cursor:default;background:rgba(0,0,0,0.01);pointer-events:all}
 
 /* BOTÃO CONCLUÍDO — agora clicável para desfazer */
