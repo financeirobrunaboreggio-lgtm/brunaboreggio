@@ -460,6 +460,7 @@ Yahoo
 <script>
 var FIREBASE_CONFIG={apiKey:"AIzaSyBF79NzYAj7umrbaVngFBlevLHCWvSf00g",authDomain:"desafio-bruna-boreggio.firebaseapp.com",projectId:"desafio-bruna-boreggio",storageBucket:"desafio-bruna-boreggio.firebasestorage.app",messagingSenderId:"405951385222",appId:"1:405951385222:web:2d60e95f9301ebc125cb07"};
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var GAS_URL='https://script.google.com/macros/s/AKfycbzFhnEs689oTUpb-7x2eMQUw48OopUXohfF3uKx2T0Sf1jrIT8VWt-1d0-kS1GM0Az9yg/exec';
 var currentUser=null;var isAdmin=false;var viewAsEmail=null;var userData={};var localPdfs={};var currentPhase=null;var dayChecks={};var _pendingSocialEmail=null;
 var VIDEO_IDS={};var BONUS_IDS={};var VIDEOS_READY=false;
 
@@ -740,17 +741,43 @@ auth.onAuthStateChanged(function(user){
   if(isAdmin){enterArea();return;}
   db.collection('authorized').doc(user.email).get().then(function(doc){
     if(doc.exists&&doc.data().liberado!==false){enterArea();}
-    else{
+    else{verificarAcessoFallback_(user.email,user.displayName||user.email);}
+  }).catch(function(){
+    verificarAcessoFallback_(user.email,user.displayName||user.email);
+  });
+});
+
+/*
+ * Chamada quando o usuário logou mas não está no Firestore.
+ * 1. Envia email para planilha (como LEAD)
+ * 2. Se Asaas confirmar pagamento, recebe liberado=true → entra na área
+ * 3. Se não pagou, mostra tela de cadastro normalmente
+ */
+function verificarAcessoFallback_(email,nome){
+  document.getElementById('auth-err').textContent='Verificando pagamento...';
+  fetch(GAS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({action:'verificar_acesso',email:email,nome:nome})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    document.getElementById('auth-err').textContent='';
+    if(d.liberado){
+      enterArea();
+    }else{
       document.getElementById('auth-screen').style.display='none';
       document.getElementById('register-screen').style.display='flex';
       hideLoading();
     }
-  }).catch(function(){
+  })
+  .catch(function(){
+    document.getElementById('auth-err').textContent='';
     document.getElementById('auth-screen').style.display='none';
     document.getElementById('register-screen').style.display='flex';
     hideLoading();
   });
-});
+}
 
 function enterArea(){
   document.getElementById('auth-screen').style.display='none';
