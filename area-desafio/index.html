@@ -1050,8 +1050,8 @@ function addDayPhotos(input,dayNum,tipo){
   showToast('Enviando '+canAdd+' foto(s)...');
   files.slice(0,canAdd).forEach(function(file,i){
     compressImage(file,500,0.65).then(function(dataUrl){
-      var docId=email.replace(/[^a-zA-Z0-9]/g,'_')+'_d'+dayNum+'_'+tipo+'_'+(cnt+i);
-      return db.collection('photoData').doc(docId).set({
+      var docId='d'+dayNum+'_'+tipo+'_'+(cnt+i);
+      return db.collection('students').doc(email).collection('photos').doc(docId).set({
         email:email,dayNum:dayNum,tipo:tipo,idx:cnt+i,data:dataUrl,
         ts:firebase.firestore.FieldValue.serverTimestamp()
       }).then(function(){return dataUrl;});
@@ -1073,12 +1073,12 @@ function loadDayPhotos(dayNum){
   var email=currentUser.email;
   var cats=DAY_PHOTOS[dayNum]||[];
   cats.forEach(function(cat){
-    var prefix=email.replace(/[^a-zA-Z0-9]/g,'_')+'_d'+dayNum+'_'+cat.c+'_';
     var cnt=userData['photoCount_'+dayNum+'_'+cat.c]||0;
     var g=document.getElementById('pg-'+dayNum+'-'+cat.c);
     if(!g||!cnt)return;
     for(var i=0;i<cnt;i++){(function(idx){
-      db.collection('photoData').doc(prefix+idx).get().then(function(doc){
+      var docId='d'+dayNum+'_'+cat.c+'_'+idx;
+      db.collection('students').doc(email).collection('photos').doc(docId).get().then(function(doc){
         if(!doc.exists)return;
         var g2=document.getElementById('pg-'+dayNum+'-'+cat.c);
         if(!g2)return;
@@ -1135,8 +1135,12 @@ function savePdfUrl(dayNum){
 }
 
 /* ── COMMENTS ── */
+function _cmtCol(dayNum){
+  var email=viewAsEmail||(currentUser?currentUser.email:'');
+  return db.collection('students').doc(email).collection('days').doc(String(dayNum)).collection('comments');
+}
 function loadDayComments(dayNum){
-  db.collection('comments').doc(String(dayNum)).collection('items').orderBy('ts','asc').get().then(function(snap){
+  _cmtCol(dayNum).orderBy('ts','asc').get().then(function(snap){
     var items=[];snap.forEach(function(doc){items.push(Object.assign({id:doc.id},doc.data()));});
     renderComments(dayNum,items);
   }).catch(function(){renderComments(dayNum,[]);});
@@ -1149,7 +1153,7 @@ function renderComments(dayNum,cmts){
   cmts.forEach(function(c){
     html+='<div class="cmt-item"><div class="cmt-user">'+escHtml(c.user||'')+'</div><div class="cmt-txt">'+escHtml(c.text||'')+'</div>';
     if(c.reply){html+='<div class="cmt-reply-block"><div class="cmt-reply-lbl">Resposta da Bruna</div><div class="cmt-txt">'+escHtml(c.reply)+'</div></div>';}
-    else if(isAdmin&&!viewAsEmail){html+='<textarea class="reply-ta" id="rep-'+c.id+'" placeholder="Responder..."></textarea>';html+='<button class="btn-send-reply" onclick="submitReply('+dayNum+',\''+c.id+'\')">Responder</button>';}
+    else if(isAdmin){html+='<textarea class="reply-ta" id="rep-'+c.id+'" placeholder="Responder..."></textarea>';html+='<button class="btn-send-reply" onclick="submitReply('+dayNum+',\''+c.id+'\')">Responder</button>';}
     html+='</div>';
   });
   list.innerHTML=html;
@@ -1161,7 +1165,7 @@ function refreshDayHeight(dayNum){
 function submitComment(dayNum){
   var inp=document.getElementById('cmt-'+dayNum);if(!inp||!inp.value.trim())return;
   var text=inp.value.trim();
-  db.collection('comments').doc(String(dayNum)).collection('items').add({
+  _cmtCol(dayNum).add({
     user:currentUser.nome||currentUser.email,email:currentUser.email,text:text,reply:'',
     ts:firebase.firestore.FieldValue.serverTimestamp()
   }).then(function(){
@@ -1173,10 +1177,10 @@ function submitComment(dayNum){
 function submitReply(dayNum,cmtId){
   var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
   var replyText=inp.value.trim();
-  db.collection('comments').doc(String(dayNum)).collection('items').doc(cmtId).update({reply:replyText}).then(function(){
+  _cmtCol(dayNum).doc(cmtId).update({reply:replyText}).then(function(){
     loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
     showToast('Resposta enviada! ✉️');
-    gasPost({action:'user_comment',email:currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:replyText,reply:'sim'});
+    gasPost({action:'user_comment',email:viewAsEmail||currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:replyText,reply:'sim'});
   }).catch(function(e){showToast('Erro: '+e.message);});
 }
 
