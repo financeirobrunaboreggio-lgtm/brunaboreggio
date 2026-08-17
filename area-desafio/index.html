@@ -358,6 +358,18 @@ Yahoo
 </div>
 </div>
 
+<div id="phone-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:200;align-items:center;justify-content:center;padding:20px">
+<div class="auth-box">
+<div class="auth-logo">Destrave seu Emagrecimento</div>
+<div class="auth-sub">Só mais um passo! 🎉</div>
+<p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.5">Para que a Bruna possa te dar suporte durante o desafio, precisamos do seu WhatsApp.</p>
+<input class="auth-input" id="phone-name" type="text" placeholder="Seu nome completo" autocomplete="name">
+<input class="auth-input" id="phone-tel" type="tel" placeholder="WhatsApp com DDD (ex: 11999999999)" autocomplete="tel">
+<button class="auth-btn" onclick="submitPhone()">Continuar para o Desafio →</button>
+<div class="auth-err" id="phone-err"></div>
+</div>
+</div>
+
 <header id="site-header" style="display:none">
 <div class="hdr-brand">Desafio Destrave seu Emagrecimento</div>
 <div class="hdr-right">
@@ -765,7 +777,7 @@ auth.onAuthStateChanged(function(user){
   if(isAdmin){enterArea();return;}
   db.collection('authorized').doc(user.email).get().then(function(doc){
     var chk=_checarAcesso_(doc.exists?doc.data():null);
-    if(chk.ok){enterArea();}
+    if(chk.ok){checkAndEnter(user.email,user.displayName||user.email);}
     else if(chk.motivo==='expirado'){
       auth.signOut();
       document.getElementById('auth-screen').style.display='flex';
@@ -794,7 +806,7 @@ function verificarAcessoFallback_(email,nome){
   .then(function(d){
     document.getElementById('auth-err').textContent='';
     if(d.liberado){
-      enterArea();
+      checkAndEnter(currentUser.email,currentUser.nome);
     }else{
       document.getElementById('auth-screen').style.display='none';
       document.getElementById('register-screen').style.display='flex';
@@ -807,6 +819,42 @@ function verificarAcessoFallback_(email,nome){
     document.getElementById('register-screen').style.display='flex';
     hideLoading();
   });
+}
+
+/* Verifica se telefone já foi coletado; se não, mostra tela de coleta */
+function checkAndEnter(email, nome){
+  db.collection('students').doc(email).get().then(function(doc){
+    if(doc.exists && doc.data().telefone){
+      enterArea();
+    }else{
+      document.getElementById('auth-screen').style.display='none';
+      document.getElementById('phone-screen').style.display='flex';
+      var nomeField=document.getElementById('phone-name');
+      if(nomeField&&(nome&&nome!==email))nomeField.value=nome;
+      hideLoading();
+    }
+  }).catch(function(){enterArea();});
+}
+
+function submitPhone(){
+  var nome=document.getElementById('phone-name').value.trim();
+  var tel=document.getElementById('phone-tel').value.replace(/\D/g,'');
+  var errEl=document.getElementById('phone-err');
+  if(!nome){errEl.textContent='Por favor, informe seu nome.';return;}
+  if(tel.length<10){errEl.textContent='Informe um WhatsApp válido com DDD (mín. 10 dígitos).';return;}
+  errEl.textContent='';
+  var email=currentUser.email;
+  currentUser.nome=nome;
+  /* Envia para planilha Cadastros (fire-and-forget) */
+  fetch(GAS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({action:'register',nome:nome,email:email,telefone:tel})
+  }).catch(function(){});
+  /* Salva no Firestore students para não perguntar de novo */
+  db.collection('students').doc(email).set({telefone:tel,nome:nome},{merge:true}).catch(function(){});
+  document.getElementById('phone-screen').style.display='none';
+  enterArea();
 }
 
 function enterArea(){
