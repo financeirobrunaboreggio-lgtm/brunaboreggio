@@ -917,6 +917,7 @@ function saveToFirestore(updates){
   var email=viewAsEmail||currentUser.email;
   db.collection('students').doc(email).set(userData,{merge:true}).catch(function(e){console.error('save',e);});
 }
+function gasPost(d){fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(d)}).catch(function(){});}
 
 function animateCounter(el,target,dur){
   var start=0,t0=null;
@@ -1029,6 +1030,7 @@ function handleDayPhoto(input,tipo,ptsVal){
     var upd={};upd['photoUrl_'+tipo]=dataUrl;
     saveToFirestore(upd);
     addPts(pts2);
+    gasPost({action:'upload_photo',email:email,nome:currentUser.nome||email,tipo:tipo,dia:0,pontos:pts2});
     var ok=document.getElementById('ok-'+tipo);
     if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},3000);}
     var box=input.closest?input.closest('.day-photo-box'):null;
@@ -1061,6 +1063,7 @@ function addDayPhotos(input,dayNum,tipo){
         var upd={};upd[key]=cnt+canAdd;
         addPts(5*canAdd);showToast(canAdd+' foto(s) salva(s)! +'+(5*canAdd)+' pts ⭐');
         saveToFirestore(upd);
+        gasPost({action:'upload_photo',email:email,nome:currentUser.nome||email,tipo:tipo,dia:dayNum,pontos:5*canAdd,count:canAdd});
         setTimeout(function(){refreshDayHeight(dayNum);},200);
       }
     }).catch(function(e){showToast('Erro: '+e.message);});
@@ -1097,6 +1100,7 @@ function toggleDayCheck(dayNum,tipo){
   updateDayProgress(dayNum);
   if(val){addPts(5);showToast('Check! +5 pts ⭐');}
   saveToFirestore({dayChecks:dayChecks});
+  if(val)gasPost({action:'save_checkin',email:currentUser.email,dia:dayNum,tipo:tipo,valor:'sim',pontos:5});
 }
 function updateDayProgress(dayNum){
   var checks=dayChecks[dayNum]||{};
@@ -1163,13 +1167,16 @@ function submitComment(dayNum){
   }).then(function(){
     inp.value='';loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
     showToast('Comentário enviado! 💬');
+    gasPost({action:'user_comment',email:currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:text});
   }).catch(function(e){showToast('Erro: '+e.message);});
 }
 function submitReply(dayNum,cmtId){
   var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
-  db.collection('comments').doc(String(dayNum)).collection('items').doc(cmtId).update({reply:inp.value.trim()}).then(function(){
+  var replyText=inp.value.trim();
+  db.collection('comments').doc(String(dayNum)).collection('items').doc(cmtId).update({reply:replyText}).then(function(){
     loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
     showToast('Resposta enviada! ✉️');
+    gasPost({action:'user_comment',email:currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:replyText,reply:'sim'});
   }).catch(function(e){showToast('Erro: '+e.message);});
 }
 
@@ -1318,6 +1325,7 @@ function markDayDone(n){
   }
   arr.push(n);userData.daysOkArr=arr;userData.daysOk=arr.length;
   addPts(20);saveToFirestore({daysOkArr:arr,daysOk:arr.length});
+  gasPost({action:'save_checkin',email:currentUser.email,dia:n,tipo:'dia_concluido',valor:'sim',pontos:20});
   var head=document.getElementById('dh-'+n);
   if(n===0){if(head){head.classList.add('done');var b1=head.parentElement.querySelector('.day-btn.primary');if(b1){b1.className='day-btn done-btn';b1.innerHTML='✓ Aula assistida · desfazer?';b1.title='Clique para desfazer';}}showToast('Boas-vindas concluído! +20 pontos 🎉');}
   else{if(head){head.classList.add('done');var bn=head.parentElement.querySelector('.day-btn.primary');if(bn){bn.className='day-btn done-btn';bn.innerHTML='✓ Dia concluído · desfazer?';bn.title='Clique para desfazer';}}
