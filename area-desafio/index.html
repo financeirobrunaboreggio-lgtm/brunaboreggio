@@ -1030,7 +1030,7 @@ function handleDayPhoto(input,tipo,ptsVal){
     var upd={};upd['photoUrl_'+tipo]=dataUrl;
     saveToFirestore(upd);
     addPts(pts2);
-    gasPost({action:'upload_photo',email:email,nome:currentUser.nome||email,tipo:tipo,dia:0,pontos:pts2});
+    gasPost({action:'upload_photo',email:email,nome:currentUser.nome||email,tipo:tipo,dia:0,pontos:pts2,base64:dataUrl});
     var ok=document.getElementById('ok-'+tipo);
     if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},3000);}
     var box=input.closest?input.closest('.day-photo-box'):null;
