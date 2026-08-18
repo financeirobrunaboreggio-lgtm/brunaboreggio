@@ -277,6 +277,12 @@ input[type=file]{display:none}
 .auth-provider-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 8px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text);font-family:'Sora',sans-serif;transition:all .2s}
 .auth-provider-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(201,149,78,0.35)}
 
+/* LIGHTBOX */
+#photo-lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.93);align-items:center;justify-content:center;cursor:zoom-out}
+#photo-lb.open{display:flex}
+#photo-lb img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 0 80px rgba(0,0,0,.8);cursor:default}
+#photo-lb-close{position:absolute;top:18px;right:22px;font-size:30px;color:rgba(255,255,255,.7);cursor:pointer;line-height:1;user-select:none}
+
 /* COMENTÁRIOS */
 .comment-wrap{margin-top:4px;padding-top:4px}
 .comment-area{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:'Sora',sans-serif;resize:vertical;min-height:72px;outline:none;transition:border-color .2s;display:block}
@@ -991,6 +997,17 @@ function viewAsAluna(email){
   currentPhase=null;
   loadData();
 }
+function openLightbox(url){
+  if(!url)return;
+  document.getElementById('photo-lb-img').src=url;
+  document.getElementById('photo-lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('photo-lb').classList.remove('open');
+  document.getElementById('photo-lb-img').src='';
+  document.body.style.overflow='';
+}
 function exitViewAsAluna(){
   viewAsEmail=null;
   var banner=document.getElementById('view-as-banner');
@@ -1070,7 +1087,7 @@ function addDayPhotos(input,dayNum,tipo){
   });
 }
 function loadDayPhotos(dayNum){
-  var email=currentUser.email;
+  var email=viewAsEmail||currentUser.email;
   var cats=DAY_PHOTOS[dayNum]||[];
   cats.forEach(function(cat){
     var cnt=userData['photoCount_'+dayNum+'_'+cat.c]||0;
@@ -1083,7 +1100,7 @@ function loadDayPhotos(dayNum){
         var g2=document.getElementById('pg-'+dayNum+'-'+cat.c);
         if(!g2)return;
         if(!g2.querySelector('[data-idx="'+idx+'"]')){
-          var img=document.createElement('img');img.src=doc.data().data;img.className='photo-thumb';img.setAttribute('data-idx',idx);g2.appendChild(img);
+          var img=document.createElement('img');img.src=doc.data().data;img.className='photo-thumb';img.setAttribute('data-idx',idx);img.onclick=function(){openLightbox(this.src);};g2.appendChild(img);
         }
       }).catch(function(){});
     })(i);}
@@ -1248,7 +1265,7 @@ function buildFaseHTML(mod){
       html+='<div class="day-sec-label">📸 Missão do Dia 0</div>';
       html+='<p style="font-size:13px;color:var(--muted);margin-bottom:14px">Tire uma foto corporal de antes e registre seu peso inicial.</p>';
       var _antesUrl=userData['photoUrl_d0-antes']||'';
-      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-d0-antes\').click()"><div class="ico">📸</div><div class="lbl">Foto Corporal de Antes</div><div class="sub">Registre seu ponto de partida · +50 pts</div>'+(_antesUrl?'<img src="'+_antesUrl+'" class="loaded">':'')+'</div>';
+      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-d0-antes\').click()"><div class="ico">📸</div><div class="lbl">Foto Corporal de Antes</div><div class="sub">Registre seu ponto de partida · +50 pts</div>'+(_antesUrl?'<img src="'+_antesUrl+'" class="loaded" onclick="openLightbox(this.src);event.stopPropagation()">':'')+'</div>';
       html+='<input type="file" id="up-d0-antes" accept="image/*" onchange="handleDayPhoto(this,\'d0-antes\',50)">';
       html+='<div style="margin:14px 0"><input type="number" id="peso-inicial" value="'+(userData.pesoInicial||'')+'" placeholder="Seu peso atual (kg)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);font-family:\'Sora\',sans-serif;outline:none" oninput="savePesoInicial(this.value)"><div style="font-size:11px;color:var(--muted);margin-top:6px">Peso salvo no Firestore</div></div>';
       html+='<a class="btn-pdf-day" href="https://wa.me/5511915027893" target="_blank" rel="noopener" style="border-color:rgba(37,211,102,.3);color:#25D166;background:rgba(37,211,102,.07)">💬 Suporte via WhatsApp</a>';
@@ -1271,7 +1288,7 @@ function buildFaseHTML(mod){
         dayPhotos.forEach(function(cat){
           html+='<div class="photo-cat"><div class="photo-cat-label">'+cat.l+'</div>';
           var _savedUrls=userData['photoUrls_'+d.num+'_'+cat.c]||[];
-          var _thumbsHtml=_savedUrls.map(function(u){return '<img src="'+u+'" class="photo-thumb">';}).join('');
+          var _thumbsHtml=_savedUrls.map(function(u){return '<img src="'+u+'" class="photo-thumb" onclick="openLightbox(this.src)">';}).join('');
           html+='<div class="photo-multi-grid" id="pg-'+d.num+'-'+cat.c+'">'+_thumbsHtml+'</div>';
           html+='<button class="btn-add-photo" onclick="document.getElementById(\'pf-'+d.num+'-'+cat.c+'\').click()">+ Adicionar fotos</button>';
           html+='<input type="file" id="pf-'+d.num+'-'+cat.c+'" accept="image/*" multiple onchange="addDayPhotos(this,'+d.num+',\''+cat.c+'\')"></div>';
@@ -1286,7 +1303,7 @@ function buildFaseHTML(mod){
     if(d.hasAfter){
       html+='<div class="day-sec-label">✨ Foto de Depois</div>';
       var _depoisUrl=userData['photoUrl_depois']||'';
-      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-depois\').click()"><div class="ico">✨</div><div class="lbl">Envie sua foto de depois</div><div class="sub">Mostre sua transformação! · +50 pts</div>'+(_depoisUrl?'<img src="'+_depoisUrl+'" class="loaded">':'')+'</div>';
+      html+='<div class="day-photo-box" onclick="document.getElementById(\'up-depois\').click()"><div class="ico">✨</div><div class="lbl">Envie sua foto de depois</div><div class="sub">Mostre sua transformação! · +50 pts</div>'+(_depoisUrl?'<img src="'+_depoisUrl+'" class="loaded" onclick="openLightbox(this.src);event.stopPropagation()">':'')+'</div>';
       html+='<div class="day-photo-ok" id="ok-depois">✓ Foto de depois enviada!</div>';
       html+='<input type="file" id="up-depois" accept="image/*" onchange="handleDayPhoto(this,\'depois\',50)">';
     }
@@ -1385,5 +1402,9 @@ function getDaysUntilBonus(startDate){
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
 
 </script>
+<div id="photo-lb" onclick="closeLightbox()">
+  <span id="photo-lb-close" onclick="closeLightbox()">✕</span>
+  <img id="photo-lb-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
 </body>
 </html>
