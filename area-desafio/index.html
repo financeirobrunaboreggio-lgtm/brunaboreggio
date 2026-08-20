@@ -1189,16 +1189,26 @@ function submitComment(dayNum){
     inp.value='';loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
     showToast('Comentário enviado! 💬');
     gasPost({action:'user_comment',email:currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:text});
+    gasPost({action:'notify_comment',email:currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:text});
   }).catch(function(e){showToast('Erro: '+e.message);});
 }
 function submitReply(dayNum,cmtId){
   var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
   var replyText=inp.value.trim();
-  _cmtCol(dayNum).doc(cmtId).update({reply:replyText}).then(function(){
-    loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
-    showToast('Resposta enviada! ✉️');
-    gasPost({action:'user_comment',email:viewAsEmail||currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:replyText,reply:'sim'});
-  }).catch(function(e){showToast('Erro: '+e.message);});
+  if(isAdmin){
+    fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({
+      action:'admin_reply',studentEmail:viewAsEmail||currentUser.email,day:dayNum,commentId:cmtId,reply:replyText
+    })}).then(function(r){return r.json();}).then(function(res){
+      if(res.status==='ok'){loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);showToast('Resposta enviada! ✉️');}
+      else{showToast('Erro ao salvar resposta');}
+    }).catch(function(e){showToast('Erro: '+e.message);});
+  } else {
+    _cmtCol(dayNum).doc(cmtId).update({reply:replyText}).then(function(){
+      loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);
+      showToast('Resposta enviada! ✉️');
+      gasPost({action:'user_comment',email:viewAsEmail||currentUser.email,nome:currentUser.nome||currentUser.email,dia:dayNum,texto:replyText,reply:'sim'});
+    }).catch(function(e){showToast('Erro: '+e.message);});
+  }
 }
 
 /* ── PHASE NAVIGATION ── */
