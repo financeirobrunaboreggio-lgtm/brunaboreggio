@@ -1,0 +1,10 @@
+# Chaves e credenciais — NUNCA enviar para o GitHub
+area-desafio/desafio-bruna-boreggio-*.json
+*service_account*.json
+*firebase-adminsdk*.json
+
+# Notas internas (só para uso local)
+NOTAS_TECNICAS.md
+
+# Claude Code
+.claude/
