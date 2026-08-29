@@ -680,7 +680,7 @@ const SERVICES=[
   {icon:'🏆',name:'Desafio Destrave seu Emagrecimento',badge:'',bClass:'',price:'R$ 97',desc:'Desafio intensivo para destravar o metabolismo, criar hábitos e ter resultados rápidos e duradouros.',link:'../area-premium/',isWA:false,waMsg:''},
   {icon:'📋',name:'Consultoria Nutricional',badge:'',bClass:'',price:'R$ 150',desc:'Sessão individual para avaliação completa da alimentação e criação de plano nutricional personalizado.',link:'',isWA:true,waMsg:'Olá Bruna! Quero agendar uma Consultoria Nutricional!'},
   {icon:'🔄',name:'Ciclo de Transformação',badge:'Mais Completo',bClass:'badge-feat',price:'3× de R$ 250',desc:'Programa completo com anamnese, plano alimentar exclusivo, acompanhamento mensal e suporte total da Bruna.',link:'',isWA:true,waMsg:'Olá Bruna! Tenho interesse no Ciclo de Transformação!'},
-  {icon:'👑',name:'Emagrecimento Definitivo',badge:'Premium',bClass:'badge-prem',price:'5× de R$ 220',desc:'Acompanhamento intensivo e exclusivo para transformação definitiva do corpo e da saúde de uma vez por todas.',link:'',isWA:true,waMsg:'Olá Bruna! Quero saber mais sobre o Emagrecimento Definitivo!'}
+  {icon:'👑',name:'Plano de Acompanhamento',badge:'Premium',bClass:'badge-prem',price:'5× de R$ 220',desc:'Acompanhamento intensivo e exclusivo para transformação definitiva do corpo e da saúde de uma vez por todas.',link:'',isWA:true,waMsg:'Olá Bruna! Quero saber mais sobre o Plano de Acompanhamento!'}
 ];
 
 let step=0,answers=[];
@@ -759,14 +759,30 @@ function getProfile(){
 function submitQuiz(nome,email,tel){
   const profile=getProfile();const svc=SERVICES[profile.svc];
   const waMsg=svc.isWA?svc.waMsg:('Olá Bruna! Me chamo '+nome+' e tenho interesse em '+svc.name+'!');
-  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'quiz',nome,email,whatsapp:tel,objetivo:QUESTIONS[0].opts[answers[0]??0],dificuldade:QUESTIONS[1].opts[answers[1]??0],experiencia:QUESTIONS[2].opts[answers[2]??0],servico:svc.name,fonte:'bio'})}).catch(()=>{});
-  if(typeof fbq==='function'){fbq('track','Lead');fbq('trackCustom','QuizCompleto',{servico:svc.name});}
-  document.getElementById('resDiagText').textContent=profile.diag;
-  document.getElementById('resSolText').textContent=profile.sol;
-  document.getElementById('resService').innerHTML='<div class="svc-icon">'+svc.icon+'</div>'+(svc.bClass?'<span class="car-badge '+svc.bClass+'">'+svc.badge+'</span><br>':'')+'<div class="svc-name">'+svc.name+'</div><div class="svc-price">'+svc.price+'</div><div class="svc-desc">'+svc.desc+'</div>';
-  document.getElementById('resWA').href=WA_BASE+encodeURIComponent(waMsg);
-  document.getElementById('quiz-panel').style.display='none';
-  document.getElementById('result-panel').style.display='block';
+  const payload={action:'quiz',nome,email,whatsapp:tel,objetivo:QUESTIONS[0].opts[answers[0]??0],dificuldade:QUESTIONS[1].opts[answers[1]??0],experiencia:QUESTIONS[2].opts[answers[2]??0],servico:svc.name,fonte:'bio'};
+  const next=document.getElementById('quizNext');next.disabled=true;
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>confirmLead('quiz',email))
+    .then(()=>{
+      if(typeof fbq==='function'){fbq('track','Lead');fbq('trackCustom','QuizCompleto',{servico:svc.name});}
+      document.getElementById('resDiagText').textContent=profile.diag;
+      document.getElementById('resSolText').textContent=profile.sol;
+      document.getElementById('resService').innerHTML='<div class="svc-icon">'+svc.icon+'</div>'+(svc.bClass?'<span class="car-badge '+svc.bClass+'">'+svc.badge+'</span><br>':'')+'<div class="svc-name">'+svc.name+'</div><div class="svc-price">'+svc.price+'</div><div class="svc-desc">'+svc.desc+'</div>';
+      document.getElementById('resWA').href=WA_BASE+encodeURIComponent(waMsg);
+      document.getElementById('quiz-panel').style.display='none';
+      document.getElementById('result-panel').style.display='block';
+    })
+    .catch(()=>alert('Não foi possível salvar suas respostas. Confira sua conexão e tente novamente.'))
+    .finally(()=>{next.disabled=false;});
+}
+
+function confirmLead(type,email,attempt=1){
+  return fetch(WEBHOOK+'?action=status&type='+encodeURIComponent(type)+'&email='+encodeURIComponent(email))
+    .then(r=>r.json()).then(data=>{
+      if(data.ok===true&&data.found===true)return true;
+      if(attempt<8)return new Promise(resolve=>setTimeout(resolve,700)).then(()=>confirmLead(type,email,attempt+1));
+      throw new Error('lead_not_confirmed');
+    });
 }
 function quizRestart(){
   step=0;answers=[];
@@ -825,9 +841,15 @@ function nlSubmit(e){
   const nome=document.getElementById('nlNome').value.trim();
   const email=document.getElementById('nlEmail').value.trim();
   if(!nome||!email)return;
-  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'newsletter',nome,email,fonte:'bio'})}).catch(()=>{});
-  if(typeof fbq==='function')fbq('track','Subscribe');
-  document.getElementById('nlForm').style.display='none';document.getElementById('nlOk').style.display='block';
+  const btn=document.querySelector('#nlForm button');btn.disabled=true;
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'newsletter',nome,email,fonte:'bio'})})
+    .then(()=>confirmLead('newsletter',email))
+    .then(()=>{
+      if(typeof fbq==='function')fbq('track','Subscribe');
+      document.getElementById('nlForm').style.display='none';document.getElementById('nlOk').style.display='block';
+    })
+    .catch(()=>alert('Não foi possível confirmar sua inscrição. Confira os dados e tente novamente.'))
+    .finally(()=>{btn.disabled=false;});
 }
 
 /* ── TRACKING ── */
