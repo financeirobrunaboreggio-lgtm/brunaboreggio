@@ -677,7 +677,13 @@ function checkAuth(){
         if(res.access===true){me=p;isAdmin=false;enter();}
         else{localStorage.removeItem('protocolo_user');document.getElementById('denied').style.display='flex';hideLoad();}
       })
-      .catch(function(){me=p;isAdmin=false;enter();});
+      .catch(function(){
+        localStorage.removeItem('protocolo_user');
+        document.getElementById('denied').style.display='flex';
+        var err=document.getElementById('loginErr');
+        if(err){err.textContent='Não foi possível validar seu acesso. Tente novamente.';err.style.display='block';}
+        hideLoad();
+      });
     return;
   }}catch(e){}}
   document.getElementById('denied').style.display='flex';

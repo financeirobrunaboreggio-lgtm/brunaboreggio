@@ -549,7 +549,7 @@ btn.disabled=true;chk.classList.add('show');
 fetch(WEBHOOK+'?action=verify_payment&email='+encodeURIComponent(userData.email))
 .then(function(r){return r.json();})
 .then(function(data){
-if(data.pago){
+if(data.pago===true||data.paid===true||data.liberado===true){
 if(typeof fbq==='function')fbq('track','Purchase',{value:97,currency:'BRL',content_name:'Desafio Destrave seu Emagrecimento'});
 if(typeof gtag==='function')gtag('event','purchase',{value:97,currency:'BRL'});
 window.location.href='/area-desafio/';
