@@ -560,8 +560,6 @@ alert('Pagamento ainda nao confirmado. Aguarde alguns minutos e tente novamente.
 })
 .catch(function(){chk.classList.remove('show');btn.disabled=false;alert('Erro ao verificar. Tente novamente em instantes.');});
 }
-var saved=JSON.parse(localStorage.getItem('desafio_user')||'{}');
-if(saved.email&&(saved.pago||ADMINS.indexOf(saved.email)!==-1)){window.location.replace('/area-desafio/');}
 </script>
 </body>
 </html>
