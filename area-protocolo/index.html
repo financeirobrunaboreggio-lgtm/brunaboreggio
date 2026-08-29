@@ -650,7 +650,7 @@ footer p{font-size:11px;color:var(--muted2)}
 </footer>
 
 <script>
-var APPS_URL='https://script.google.com/macros/s/AKfycbz423muPgR4VpGvl3qxL1bIsBeov2416JxgFJxnVoQgZIViDTwKrpkjiVC1qS082Km_/exec';
+var APPS_URL='https://script.google.com/macros/s/AKfycbxjLycIWY2P8li2Z1yzNRt3lIWQsPg8OSpfz2S_vV9V8UiIdtS-vr9m3PJvUPoZ9JsWWw/exec';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
 var DEFAULT_VIDS={1:'https://youtu.be/WX6j2yWlMJE',2:'https://youtu.be/0BBwewGL9Fs'};
 var DEFAULT_PDF1='https://drive.google.com/file/d/1_VZqsGbVWcHleq-Z3Ku4iURdZH2Kgfvs/view';
@@ -983,12 +983,26 @@ function enviar(){
 
   localStorage.setItem('cs_q_'+me.email,JSON.stringify(data));
 
-  function done(){showQDone();toast('Questionário enviado com sucesso!');}
+  function done(){showQDone();toast('Questionário e e-mails enviados com sucesso!');}
+  function fail(msg){btn.disabled=false;btn.textContent='Enviar questionário';toast(msg||'Não foi possível confirmar o envio. Tente novamente.');}
+  function confirmar(tentativa){
+    fetch(APPS_URL+'?action=getPatient&email='+encodeURIComponent(me.email))
+      .then(function(r){return r.json();})
+      .then(function(res){
+        var status=String(res.Status||res.status||'');
+        if(status==='Questionário preenchido'||status==='Concluído'){done();return;}
+        if(status==='Erro no envio de e-mail'){fail('As respostas foram salvas, mas houve falha no e-mail. Avise a Bruna.');return;}
+        if(tentativa<10){setTimeout(function(){confirmar(tentativa+1);},1500);return;}
+        fail();
+      })
+      .catch(function(){if(tentativa<10){setTimeout(function(){confirmar(tentativa+1);},1500);}else{fail();}});
+  }
 
-  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){setTimeout(done,900);return;}
+  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){fail('Integração indisponível. Avise a Bruna.');return;}
 
   fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)})
-    .then(done).catch(done);
+    .then(function(){setTimeout(function(){confirmar(1);},800);})
+    .catch(function(){fail();});
 }
 
 /* ── ADMIN: POST PLANO ── */
