@@ -662,6 +662,19 @@ function ytEmbed(url){
   return m?'https://www.youtube.com/embed/'+m[1]:url;
 }
 
+/* Repete somente leituras quando o redirecionamento do Apps Script falha. */
+function apiGetJson(url,attempts){
+  attempts=attempts||3;
+  return fetch(url,{cache:'no-store'}).then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  }).catch(function(err){
+    if(attempts<=1)throw err;
+    return new Promise(function(resolve){setTimeout(resolve,450);})
+      .then(function(){return apiGetJson(url,attempts-1);});
+  });
+}
+
 /* ── AUTH ── */
 window.addEventListener('load',function(){setTimeout(checkAuth,900)});
 
@@ -671,8 +684,7 @@ function checkAuth(){
   var pu=localStorage.getItem('protocolo_user');
   if(pu){try{var p=JSON.parse(pu);if(p&&p.email){
     if(ADMINS.indexOf(p.email.toLowerCase())>=0){me=p;isAdmin=true;enter();return;}
-    fetch(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(p.email))
-      .then(function(r){return r.json();})
+    apiGetJson(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(p.email))
       .then(function(res){
         if(res.access===true){me=p;isAdmin=false;enter();}
         else{localStorage.removeItem('protocolo_user');document.getElementById('denied').style.display='flex';hideLoad();}
@@ -704,8 +716,7 @@ function doLogin(){
   }
   var btn=document.getElementById('btnLogin');
   if(btn){btn.disabled=true;btn.textContent='Verificando...';}
-  fetch(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(email))
-    .then(function(r){return r.json();})
+  apiGetJson(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(email))
     .then(function(res){
       if(res.access===true){
         var u={email:email,nome:nome,pago:true};
@@ -824,8 +835,7 @@ function loadPatData(email,asAdmin){
   if(c){unlockM3(c);return;}
   if(asAdmin&&!previewMode){document.getElementById('adminPost').style.display='block';}
   if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
-    fetch(APPS_URL+'?action=getPatient&email='+encodeURIComponent(email))
-      .then(function(r){return r.json()})
+    apiGetJson(APPS_URL+'?action=getPatient&email='+encodeURIComponent(email))
       .then(function(d){
         if(!d)return;
         if(d.Status==='Questionário preenchido'||d.Status==='Concluído')showQDone();
@@ -858,8 +868,7 @@ var _patList=[];
 
 function loadPList(){
   if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
-    fetch(APPS_URL+'?action=listPatients')
-      .then(function(r){return r.json()})
+    apiGetJson(APPS_URL+'?action=listPatients')
       .then(function(res){renderPList((res&&res.patients)||[])})
       .catch(function(){renderPList([])});
   } else {
@@ -986,8 +995,7 @@ function enviar(){
   function done(){showQDone();toast('Questionário e e-mails enviados com sucesso!');}
   function fail(msg){btn.disabled=false;btn.textContent='Enviar questionário';toast(msg||'Não foi possível confirmar o envio. Tente novamente.');}
   function confirmar(tentativa){
-    fetch(APPS_URL+'?action=getPatient&email='+encodeURIComponent(me.email))
-      .then(function(r){return r.json();})
+    apiGetJson(APPS_URL+'?action=getPatient&email='+encodeURIComponent(me.email))
       .then(function(res){
         var status=String(res.Status||res.status||'');
         if(status==='Questionário preenchido'||status==='Concluído'){done();return;}
