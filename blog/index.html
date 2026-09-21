@@ -80,6 +80,7 @@
     @media(max-width:960px){.hero{min-height:650px}.nav-links a:not(.active):not(.member){display:none}.category{grid-column:span 6!important}.article-grid{grid-template-columns:repeat(2,1fr)}.article-wrap{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:1fr 1fr;gap:16px}.section-head{gap:35px}}
     @media(max-width:640px){.shell{width:min(100% - 28px,1180px)}.nav{height:82px}.brand strong{font-size:1.65rem}.brand small{font-size:.53rem}.nav-links{gap:10px}.nav-links .member{padding:9px 11px;font-size:.61rem}.hero{min-height:610px}.hero-inner{padding:132px 0 92px}.hero h1{font-size:clamp(3rem,14vw,4.6rem);letter-spacing:-3px}.hero-copy{font-size:.9rem;line-height:1.75}.inner-view .hero{min-height:350px}.inner-view .hero-inner{padding:118px 0 48px}.inner-view .hero h1{font-size:2.55rem;line-height:.95}.inner-view .hero .eyebrow{font-size:.55rem;letter-spacing:2px}.hero-count,.hero-line,.scroll-cue{display:none}.marquee-track{padding:12px 0}.section-head{display:block}.section-head p{margin-top:22px}.category-grid,.article-grid{display:grid;grid-template-columns:1fr}.category{grid-column:1!important;min-height:285px}.sidebar{grid-template-columns:1fr}.foot{display:block}.foot p{margin-top:10px}main{padding-top:46px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none;filter:none}}
+    .article-cover.has-image{background-position:center;background-size:cover}.article-cover.has-image:before{inset:0;width:auto;height:auto;border:0;border-radius:0;background:linear-gradient(180deg,transparent 30%,rgba(24,12,7,.66))}.article-cover.has-image:after{display:none}.article-hero-media{width:100%;max-height:520px;object-fit:cover;border-radius:20px;margin:0 0 30px}.article-content img{display:block;max-width:100%;height:auto;margin:30px auto;border-radius:18px;box-shadow:0 12px 34px rgba(44,26,14,.12)}.article-content iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:18px}.article-content .video-embed{margin:30px 0}.article-content blockquote{margin:30px 0;padding:18px 24px;border-left:4px solid var(--gold);background:var(--paper);border-radius:0 14px 14px 0;font-family:Playfair Display,serif;font-size:1.15rem}.article-content a{color:var(--gold-dark);text-decoration:underline;text-underline-offset:3px}.article-content ol{padding-left:22px}
   </style>
 </head>
 <body>
@@ -150,6 +151,7 @@
           <span class="article-label" id="articleCategory"></span>
           <h2 id="articleTitle"></h2>
           <p class="article-intro" id="articleSummary"></p>
+          <img class="article-hero-media" id="articleHeroMedia" alt="" hidden>
           <div class="article-content" id="articleContent"></div>
           <div class="article-tags" id="articleTags"></div>
         </article>
@@ -214,6 +216,10 @@
       closeList();return html;
     }
 
+    function safeMediaUrl(value){try{const url=new URL(String(value||''),location.href);return url.protocol==='https:'?url.href:''}catch(error){return''}}
+    function sanitizeRichHtml(html){const doc=new DOMParser().parseFromString(String(html||''),'text/html'),allowed=new Set(['P','BR','H2','H3','H4','STRONG','B','EM','I','U','UL','OL','LI','BLOCKQUOTE','A','IMG','IFRAME','DIV','FIGURE','FIGCAPTION']);[...doc.body.querySelectorAll('*')].forEach(node=>{if(!allowed.has(node.tagName)){node.replaceWith(...node.childNodes);return}[...node.attributes].forEach(attribute=>{const name=attribute.name.toLowerCase();if(name.startsWith('on')||!['href','src','alt','title','loading','allow','allowfullscreen','class','target','rel'].includes(name))node.removeAttribute(attribute.name)});if(node.tagName==='A'){const href=String(node.getAttribute('href')||'');if(!/^https?:\/\//i.test(href))node.removeAttribute('href');else{node.target='_blank';node.rel='noopener'}}if(node.tagName==='IMG'){const src=safeMediaUrl(node.getAttribute('src'));if(src){node.src=src;node.loading='lazy'}else node.remove()}if(node.tagName==='IFRAME'){const src=safeMediaUrl(node.getAttribute('src'));if(!src||!/^https:\/\/(www\.youtube\.com\/embed\/|player\.vimeo\.com\/video\/)/i.test(src))node.remove();else{node.src=src;node.loading='lazy'}}});return doc.body.innerHTML}
+    function renderArticleBody(body){return /<[a-z][\s\S]*>/i.test(String(body||''))?sanitizeRichHtml(body):markdownToHtml(body)}
+
     function renderCategories(){
       document.getElementById('categoryGrid').innerHTML=categories.map((c,index)=>`
         <button class="category reveal" style="transition-delay:${index*.07}s" type="button" data-category="${c.id}" onclick="showCategory('${c.id}')">
@@ -244,7 +250,7 @@
       const list=articles.filter(a=>a.category===id);
       document.getElementById('articleGrid').innerHTML=list.map(a=>`
         <article class="article-card" onclick="openArticle('${a.id}')" tabindex="0" onkeydown="if(event.key==='Enter')openArticle('${a.id}')">
-          <div class="article-cover" style="--cover1:${a.colors[0]};--cover2:${a.colors[1]}"><span>${c.name}</span></div>
+          <div class="article-cover ${safeMediaUrl(a.coverImage)?'has-image':''}" style="--cover1:${a.colors[0]};--cover2:${a.colors[1]};${safeMediaUrl(a.coverImage)?`background-image:url('${safeMediaUrl(a.coverImage).replace(/'/g,'%27')}')`:''}"><span>${c.name}</span></div>
           <div class="article-body"><h3>${a.title}</h3><p>${a.excerpt||a.summary||''}</p><div class="article-meta"><span>${a.time} de leitura</span><b>Ler conteúdo →</b></div></div>
         </article>`).join('');
       document.getElementById('emptyState').hidden=list.length>0;
@@ -260,7 +266,8 @@
       document.getElementById('articleCategory').textContent=c.name;
       document.getElementById('articleTitle').textContent=a.title;
       document.getElementById('articleSummary').textContent=a.description||a.excerpt||a.summary||'';
-      document.getElementById('articleContent').innerHTML=markdownToHtml(a.body);
+      const heroMedia=document.getElementById('articleHeroMedia'),cover=safeMediaUrl(a.coverImage);heroMedia.hidden=!cover;if(cover){heroMedia.src=cover;heroMedia.alt=a.title}
+      document.getElementById('articleContent').innerHTML=renderArticleBody(a.body);
       document.getElementById('articleTags').innerHTML=(a.tags||[]).map(tag=>`<span>${inlineMarkdown(tag)}</span>`).join('');
       setPageMeta(a.title+' | Bruna Boreggio',a.description||a.summary);
       document.getElementById('articleBack').onclick=()=>showCategory(a.category);

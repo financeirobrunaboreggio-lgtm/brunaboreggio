@@ -89,6 +89,7 @@ function normalizeArticle_(input, email) {
     tags: Array.isArray(input.tags) ? input.tags.map(String).slice(0, 20) : [],
     time: String(input.time || '4 min'),
     colors: Array.isArray(input.colors) ? input.colors.slice(0, 2) : ['#B87B6A', '#E9CFC5'],
+    coverImage: /^https:\/\//i.test(String(input.coverImage || '')) ? String(input.coverImage).trim().slice(0, 2000) : '',
     status: input.status === 'draft' ? 'draft' : 'published',
     createdAt: current && current.createdAt ? current.createdAt : now,
     updatedAt: now,
