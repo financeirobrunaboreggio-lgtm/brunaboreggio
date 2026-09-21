@@ -174,14 +174,10 @@
       {id:'habitos-e-rotina',icon:'↗',name:'Hábitos e rotina',description:'Estratégias possíveis para transformar conhecimento em escolhas que permanecem.'}
     ];
 
-    function getCustomArticles(){
-      try{return JSON.parse(localStorage.getItem('brunaBlogCustomArticles')||'[]');}catch(error){return [];}
-    }
+    const BLOG_API='https://script.google.com/macros/s/AKfycbwDzU59p9Du67v6jsDZV6AXy00OcpNJ-i0ghjypqZnQfw36zkkExODKaje-LI6GOjnM/exec';
     const seedArticles=window.BRUNABLOG_SEED_ARTICLES||[];
     const seedArticleIds=new Set(seedArticles.map(article=>article.id));
-    const customArticles=getCustomArticles().filter(article=>article.status!=='draft');
-    const customIds=new Set(customArticles.map(article=>article.id));
-    const articles=[...seedArticles.filter(article=>!customIds.has(article.id)),...customArticles];
+    let articles=[...seedArticles];
 
     const views=['home','category','article'];
     let activeCategory='receitas';
@@ -273,8 +269,19 @@
     }
 
     function openArticle(id){
-      if(seedArticleIds.has(id)){location.href='./'+id+'/';return;}
+      if(seedArticleIds.has(id)&&!articles.find(article=>article.id===id)?.updatedAt){location.href='./'+id+'/';return;}
       showArticle(id);
+    }
+
+    async function loadPublishedArticles(){
+      try{
+        const response=await fetch(BLOG_API+'?action=list&_='+Date.now(),{cache:'no-store'});
+        const data=await response.json();if(!data.ok)throw new Error(data.error||'Falha no blog');
+        const remote=(data.articles||[]).filter(article=>article.status==='published');
+        const managedIds=new Set(data.managedIds||remote.map(article=>article.id));
+        articles=[...seedArticles.filter(article=>!managedIds.has(article.id)),...remote];
+        syncRoute();
+      }catch(error){console.warn('O blog está exibindo os conteúdos editoriais já publicados.',error)}
     }
 
     function syncRoute(){
@@ -297,7 +304,7 @@
       document.documentElement.style.setProperty('--my',event.clientY+'px');
     },{passive:true});
     window.addEventListener('popstate',syncRoute);
-    renderCategories();bindReveals();syncRoute();
+    renderCategories();bindReveals();syncRoute();loadPublishedArticles();
   </script>
 </body>
 </html>
