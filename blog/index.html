@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <title>Blog | Bruna Boreggio Nutricionista</title>
+  <meta name="description" content="Conteúdos da nutricionista Bruna Boreggio sobre emagrecimento, alimentação, metabolismo, hipertrofia e hábitos.">
+  <link rel="canonical" href="https://nutricionistabrunaboreggio.com.br/blog/">
+  <link rel="icon" type="image/jpeg" href="../favicon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#faf7f2;--paper:#f4ede2;--white:#fff;--gold:#c5965a;--gold-dark:#9d723c;
+      --gold-light:#ead6b6;--brown:#2c1a0e;--brown-mid:#5a3e28;--brown-light:#82654c;
+      --sage:#71806a;--rose:#b87b6a;--ink:#1b100a;--shadow:0 28px 80px rgba(44,26,14,.14);
+      --radius:28px;--ease:cubic-bezier(.16,1,.3,1);--mx:50%;--my:28%;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:var(--brown)}
+    body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--brown);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body:after{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;opacity:.17;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+    a{color:inherit;text-decoration:none}button{font:inherit}.shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    .page-wipe{position:fixed;inset:0;background:var(--brown);z-index:999;transform:translateY(-102%);pointer-events:none}
+    .page-wipe.play{animation:wipe .85s var(--ease)}
+    .nav-shell{position:absolute;z-index:20;top:0;left:0;width:100%;border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(to bottom,rgba(25,13,7,.48),transparent)}
+    .nav{height:96px;display:flex;align-items:center;justify-content:space-between;gap:28px;color:white}
+    .brand{line-height:1}.brand strong{display:block;font:700 2.05rem/1 'Dancing Script',cursive;color:var(--gold-light);text-shadow:0 3px 18px rgba(0,0,0,.28)}
+    .brand small{display:block;margin-top:7px;font-size:.62rem;letter-spacing:2.2px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+    .nav-links{display:flex;align-items:center;gap:28px;font-size:.74rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+    .nav-links a{position:relative;color:rgba(255,255,255,.74);transition:.35s}.nav-links a:after{content:'';position:absolute;left:0;right:100%;bottom:-9px;height:1px;background:var(--gold);transition:.4s var(--ease)}
+    .nav-links a:hover,.nav-links a.active{color:white}.nav-links a:hover:after,.nav-links a.active:after{right:0}
+    .nav-links .member{padding:12px 19px;border:1px solid rgba(234,214,182,.42);border-radius:999px;color:white;overflow:hidden}.nav-links .member:after{display:none}.member:hover{background:rgba(255,255,255,.1)}
+    .hero{position:relative;min-height:720px;display:grid;place-items:center;overflow:hidden;color:white;background:radial-gradient(circle at var(--mx) var(--my),rgba(197,150,90,.28),transparent 25%),linear-gradient(118deg,#160c07 0%,#301b0e 48%,#6f4b2c 100%)}
+    .inner-view .hero{min-height:430px}.inner-view .hero-inner{padding:135px 0 72px}.inner-view .hero h1{font-size:clamp(2.8rem,5.2vw,4.7rem);margin:20px 0 0}.inner-view .hero-copy,.inner-view .hero-sign,.inner-view .scroll-cue,.inner-view .hero-count{display:none}
+    .hero-orbit,.hero-orbit:before,.hero-orbit:after{position:absolute;border:1px solid rgba(234,214,182,.18);border-radius:50%;content:''}
+    .hero-orbit{width:720px;height:720px;right:-250px;top:-170px;animation:orbit 24s linear infinite}.hero-orbit:before{inset:82px}.hero-orbit:after{inset:186px}
+    .hero-glow{position:absolute;width:520px;height:520px;border-radius:50%;left:-220px;bottom:-260px;background:rgba(113,128,106,.35);filter:blur(16px);animation:breathe 7s ease-in-out infinite}
+    .hero-line{position:absolute;width:1px;height:46%;left:7%;top:31%;background:linear-gradient(transparent,var(--gold),transparent);opacity:.58}
+    .hero-count{position:absolute;left:7%;bottom:64px;writing-mode:vertical-rl;color:rgba(255,255,255,.48);font-size:.63rem;letter-spacing:3px;text-transform:uppercase}
+    .hero-inner{position:relative;z-index:2;text-align:center;max-width:920px;padding:150px 0 105px}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold-light);font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+    .eyebrow:before,.eyebrow:after{content:'';width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}.eyebrow:after{transform:rotate(180deg)}
+    h1{margin:27px 0 24px;font-size:clamp(3.3rem,7.2vw,6.7rem);line-height:.91;letter-spacing:-5px;text-wrap:balance;animation:heroTitle 1.05s var(--ease) .08s both}
+    h1 em{display:inline-block;font:700 1.03em 'Dancing Script',cursive;color:var(--gold-light);transform:rotate(-2deg);text-shadow:0 0 34px rgba(197,150,90,.26)}
+    .hero-copy{max-width:690px;margin:auto;color:rgba(255,255,255,.69);font-size:1.04rem;line-height:1.9;animation:heroCopy 1s var(--ease) .28s both}
+    .hero-sign{display:inline-flex;align-items:center;gap:12px;margin-top:34px;color:var(--gold-light);font:700 1.35rem 'Dancing Script',cursive;animation:heroCopy 1s var(--ease) .42s both}.hero-sign:before{content:'';width:42px;height:1px;background:var(--gold)}
+    .scroll-cue{position:absolute;z-index:3;right:6%;bottom:54px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.45);font-size:.58rem;letter-spacing:2.5px;text-transform:uppercase;transform:rotate(90deg);transform-origin:right}.scroll-cue i{width:34px;height:1px;background:var(--gold);animation:linePulse 2s ease-in-out infinite}
+    .marquee{position:relative;z-index:4;overflow:hidden;background:var(--gold);color:var(--brown);border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(44,26,14,.18)}
+    .marquee-track{display:flex;width:max-content;padding:15px 0;animation:marquee 26s linear infinite}.marquee span{font-size:.66rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;white-space:nowrap}.marquee span:after{content:'✦';padding:0 30px;color:rgba(44,26,14,.48)}
+    .breadcrumbs{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:30px auto 0;color:var(--brown-light);font-size:.72rem}.breadcrumbs button{border:0;background:none;color:inherit;cursor:pointer;padding:0}.breadcrumbs button:hover{color:var(--gold-dark)}.breadcrumbs span:last-child{color:var(--brown);font-weight:600}
+    main{position:relative;padding:54px 0 110px}main:before{content:'BLOG';position:absolute;right:-.04em;top:20px;color:rgba(44,26,14,.027);font-weight:700;font-size:clamp(7rem,22vw,19rem);line-height:1;pointer-events:none}
+    .view{display:none}.view.active{display:block;animation:viewIn .75s var(--ease) both}
+    .section-head{position:relative;display:grid;grid-template-columns:1.05fr .8fr;align-items:end;gap:80px;margin-bottom:42px}
+    .section-head .eyebrow{color:var(--gold-dark);margin-bottom:17px}.section-head h2{font-size:clamp(2.1rem,4.5vw,4.1rem);line-height:1.02;letter-spacing:-2.5px;text-wrap:balance}.section-head h2 em{font:700 1.08em 'Dancing Script',cursive;color:var(--gold-dark)}
+    .section-head p{max-width:510px;color:var(--brown-light);line-height:1.8;font-size:.9rem;border-left:1px solid rgba(160,120,64,.35);padding-left:24px}
+    .category-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;counter-reset:cat}
+    .category{--accent:#c5965a;position:relative;grid-column:span 4;min-height:330px;padding:30px;border:1px solid rgba(160,120,64,.14);border-radius:var(--radius);background:rgba(255,255,255,.78);backdrop-filter:blur(12px);text-align:left;cursor:pointer;overflow:hidden;box-shadow:0 8px 34px rgba(44,26,14,.055);transition:transform .65s var(--ease),box-shadow .65s var(--ease),border-color .65s;counter-increment:cat;isolation:isolate}
+    .category:nth-child(1),.category:nth-child(6){grid-column:span 5}.category:nth-child(2),.category:nth-child(5){grid-column:span 3}.category:nth-child(3),.category:nth-child(4){grid-column:span 4}
+    .category:before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,transparent 35%,color-mix(in srgb,var(--accent) 16%,transparent));z-index:-2;opacity:.65;transition:.6s}
+    .category:after{content:'';position:absolute;width:230px;height:230px;border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);border-radius:50%;right:-96px;bottom:-104px;box-shadow:0 0 0 35px color-mix(in srgb,var(--accent) 7%,transparent),0 0 0 70px color-mix(in srgb,var(--accent) 4%,transparent);transition:.8s var(--ease);z-index:-1}
+    .category:hover{transform:translateY(-12px) scale(1.012);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}.category:hover:after{transform:scale(1.22) translate(-9px,-9px)}.category:hover:before{opacity:1}
+    .cat-topline{display:flex;justify-content:flex-end;align-items:center}.cat-num{display:block;height:14px;margin-bottom:10px;line-height:1}.cat-num:before{content:'0' counter(cat);font-size:.64rem;font-weight:700;letter-spacing:2px;color:var(--brown-light)}
+    .cat-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);background:color-mix(in srgb,var(--accent) 11%,white);color:var(--brown);font-size:1.15rem;transition:.55s var(--ease)}.category:hover .cat-icon{transform:rotate(15deg) scale(1.1);background:var(--accent);color:white}
+    .cat-copy{position:absolute;left:30px;right:30px;top:128px;bottom:27px;display:flex;flex-direction:column}.category h3{min-height:2.35em;font-size:clamp(1.25rem,2.1vw,1.65rem);line-height:1.15;margin:0 0 9px;letter-spacing:-.6px}.category p{min-height:4.8em;color:var(--brown-light);font-size:.8rem;line-height:1.6}.category b{display:flex;align-items:center;gap:9px;margin-top:auto;color:var(--gold-dark);font-size:.68rem;text-transform:uppercase;letter-spacing:1px}.category b i{display:block;width:25px;height:1px;background:currentColor;transition:.4s}.category:hover b i{width:42px}
+    .category[data-category="emagrecimento"]{--accent:#b87b6a}.category[data-category="receitas"]{--accent:#c5965a}.category[data-category="compulsao-e-fome"]{--accent:#887268}.category[data-category="metabolismo-e-hormonios"]{--accent:#6f8069}.category[data-category="hipertrofia"]{--accent:#526f78}.category[data-category="habitos-e-rotina"]{--accent:#ad865b}
+    .reveal{opacity:0;transform:translateY(44px);filter:blur(4px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s}.reveal.revealed{opacity:1;transform:none;filter:none}
+    .category-top{margin-bottom:36px}.back{display:inline-flex;align-items:center;gap:10px;border:0;background:none;color:var(--gold-dark);cursor:pointer;font-weight:600;font-size:.78rem;margin-bottom:22px;transition:.3s}.back:hover{gap:16px}
+    .article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.article-card{background:var(--white);border-radius:24px;overflow:hidden;border:1px solid rgba(44,26,14,.08);box-shadow:0 8px 32px rgba(44,26,14,.07);transition:.55s var(--ease);cursor:pointer}.article-card:hover{transform:translateY(-9px);box-shadow:var(--shadow)}
+    .article-cover{height:220px;display:flex;align-items:end;padding:22px;background:linear-gradient(135deg,var(--cover1),var(--cover2));position:relative;overflow:hidden}.article-cover:before,.article-cover:after{content:'';position:absolute;border:1px solid rgba(255,255,255,.32);border-radius:50%}.article-cover:before{width:200px;height:200px;right:-55px;top:-75px}.article-cover:after{width:100px;height:100px;right:-5px;top:-25px}.article-cover span{position:relative;background:rgba(255,255,255,.88);color:var(--brown);padding:8px 13px;border-radius:999px;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;backdrop-filter:blur(8px)}
+    .article-body{padding:26px}.article-body h3{font-size:1.18rem;line-height:1.35;margin-bottom:10px}.article-body p{font-size:.8rem;line-height:1.7;color:var(--brown-light)}.article-meta{display:flex;justify-content:space-between;align-items:center;margin-top:22px;font-size:.69rem;color:var(--brown-light)}.article-meta b{color:var(--gold-dark)}
+    .empty{padding:72px 30px;text-align:center;border:1px solid rgba(160,120,64,.18);border-radius:28px;background:rgba(255,255,255,.6);box-shadow:0 10px 40px rgba(44,26,14,.04)}.empty strong{display:block;font-size:1.3rem;margin-bottom:8px}.empty p{color:var(--brown-light);font-size:.86rem}
+    .article-wrap{display:grid;grid-template-columns:minmax(0,760px) 280px;gap:54px;align-items:start}.article-main{background:white;border-radius:28px;padding:clamp(28px,5vw,60px);box-shadow:0 18px 60px rgba(44,26,14,.09)}.article-label{color:var(--gold-dark);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}.article-main h2{font-size:clamp(2.1rem,4vw,3.7rem);line-height:1.08;letter-spacing:-2px;margin:16px 0}.article-intro{font-size:1rem;line-height:1.85;color:var(--brown-light);border-bottom:1px solid var(--paper);padding-bottom:30px;margin-bottom:34px}.content-placeholder{display:grid;gap:14px}.line{height:12px;border-radius:20px;background:linear-gradient(90deg,#eee5d9,#faf7f2,#eee5d9);background-size:200%;animation:skeleton 2.6s linear infinite}.line:nth-child(3n){width:74%}.line:nth-child(4n){width:88%}.placeholder-note{margin-top:32px;padding:21px;border-radius:17px;background:var(--paper);color:var(--brown-light);font-size:.82rem;line-height:1.7}
+    .article-content{font-size:.96rem;line-height:1.9;color:#493527}.article-content p{margin:0 0 22px}.article-content h2,.article-content h3{letter-spacing:-.7px;line-height:1.25;color:var(--brown);margin:42px 0 17px}.article-content h2{font-size:1.65rem}.article-content h3{font-size:1.35rem}.article-content ul{margin:0 0 26px 20px;display:grid;gap:9px}.article-content li::marker{color:var(--gold)}.article-content strong{color:var(--brown);font-weight:700}.article-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:38px;padding-top:26px;border-top:1px solid var(--paper)}.article-tags span{padding:7px 11px;border-radius:999px;background:var(--paper);color:var(--brown-light);font-size:.66rem;font-weight:600}
+    .sidebar{position:sticky;top:24px}.author{position:relative;overflow:hidden;padding:27px;border-radius:24px;background:linear-gradient(145deg,#231209,#3b2112);color:white}.author:after{content:'';position:absolute;width:150px;height:150px;border:1px solid rgba(234,214,182,.15);border-radius:50%;right:-68px;top:-67px}.author-mark{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--brown);font:700 1.35rem 'Dancing Script',cursive;margin-bottom:17px}.author h3{font-size:1rem}.author p{margin-top:10px;color:rgba(255,255,255,.62);font-size:.76rem;line-height:1.7}.cta{margin-top:18px;padding:23px;border:1px solid rgba(160,120,64,.2);border-radius:22px;background:white}.cta strong{font-size:.92rem}.cta p{font-size:.74rem;color:var(--brown-light);line-height:1.6;margin:8px 0 17px}.cta a{display:block;text-align:center;background:linear-gradient(100deg,var(--gold),#ddb576,var(--gold));background-size:200%;padding:12px;border-radius:999px;font-size:.74rem;font-weight:700;transition:.4s}.cta a:hover{background-position:100%}
+    footer{position:relative;overflow:hidden;background:var(--brown);color:white;padding:54px 0}.foot{display:flex;justify-content:space-between;align-items:center;gap:30px}.foot strong{font:700 1.8rem 'Dancing Script',cursive;color:var(--gold-light)}.foot p{font-size:.7rem;color:rgba(255,255,255,.46)}
+    @keyframes heroTitle{from{opacity:0;transform:translateY(45px) scale(.97);filter:blur(9px)}to{opacity:1;transform:none;filter:none}}@keyframes heroCopy{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes breathe{50%{transform:scale(1.12);opacity:.72}}@keyframes linePulse{50%{transform:scaleX(.35);opacity:.4}}@keyframes marquee{to{transform:translateX(-50%)}}@keyframes viewIn{from{opacity:0;transform:translateY(22px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}@keyframes wipe{0%{transform:translateY(-102%)}45%,55%{transform:translateY(0)}100%{transform:translateY(102%)}}@keyframes skeleton{to{background-position:-200% 0}}
+    @media(max-width:960px){.hero{min-height:650px}.nav-links a:not(.active):not(.member){display:none}.category{grid-column:span 6!important}.article-grid{grid-template-columns:repeat(2,1fr)}.article-wrap{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:1fr 1fr;gap:16px}.section-head{gap:35px}}
+    @media(max-width:640px){.shell{width:min(100% - 28px,1180px)}.nav{height:82px}.brand strong{font-size:1.65rem}.brand small{font-size:.53rem}.nav-links{gap:10px}.nav-links .member{padding:9px 11px;font-size:.61rem}.hero{min-height:610px}.hero-inner{padding:132px 0 92px}.hero h1{font-size:clamp(3rem,14vw,4.6rem);letter-spacing:-3px}.hero-copy{font-size:.9rem;line-height:1.75}.inner-view .hero{min-height:350px}.inner-view .hero-inner{padding:118px 0 48px}.inner-view .hero h1{font-size:2.55rem;line-height:.95}.inner-view .hero .eyebrow{font-size:.55rem;letter-spacing:2px}.hero-count,.hero-line,.scroll-cue{display:none}.marquee-track{padding:12px 0}.section-head{display:block}.section-head p{margin-top:22px}.category-grid,.article-grid{display:grid;grid-template-columns:1fr}.category{grid-column:1!important;min-height:285px}.sidebar{grid-template-columns:1fr}.foot{display:block}.foot p{margin-top:10px}main{padding-top:46px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none;filter:none}}
+  </style>
+</head>
+<body>
+  <div class="page-wipe" id="pageWipe" aria-hidden="true"></div>
+  <div class="nav-shell">
+    <header class="shell nav">
+      <a class="brand" href="../index.html">
+        <strong>Bruna Boreggio</strong>
+        <small>Nutricionista · CRN 68497</small>
+      </a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="../index.html">Início</a>
+        <a class="active" href="./">Blog</a>
+        <a class="member" href="../area-membros/">Área de Membros</a>
+      </nav>
+    </header>
+  </div>
+
+  <section class="hero">
+    <div class="hero-orbit" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-line" aria-hidden="true"></div>
+    <div class="hero-count">Caderno de nutrição · 2026</div>
+    <div class="shell hero-inner">
+      <span class="eyebrow">Meu espaço de conteúdo</span>
+      <h1>Nutrição com <em>clareza</em><br>para a vida real</h1>
+      <p class="hero-copy">Eu criei este espaço para compartilhar com você conteúdos que traduzem a nutrição sem complicação — com acolhimento, ciência e escolhas que realmente cabem na sua rotina.</p>
+      <span class="hero-sign">Com carinho, Bruna</span>
+    </div>
+    <div class="scroll-cue"><span>Explore os temas</span><i></i></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Emagrecimento</span><span>Receitas</span><span>Compulsão e fome</span><span>Metabolismo e hormônios</span><span>Hipertrofia</span><span>Hábitos e rotina</span>
+      <span>Emagrecimento</span><span>Receitas</span><span>Compulsão e fome</span><span>Metabolismo e hormônios</span><span>Hipertrofia</span><span>Hábitos e rotina</span>
+    </div>
+  </div>
+
+  <div class="shell breadcrumbs" id="breadcrumbs" aria-label="Caminho de navegação"></div>
+
+  <main class="shell">
+    <section class="view active" id="view-home">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Escolha por onde começar</span><h2>Sobre o que você quer <em>conversar</em> hoje?</h2></div>
+        <p>Organizei os meus conteúdos por temas para você encontrar com facilidade exatamente o que precisa neste momento.</p>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="view" id="view-category">
+      <button class="back" type="button" onclick="showHome()">← Ver todos os temas</button>
+      <div class="section-head category-top">
+        <div><span class="eyebrow" id="categoryEyebrow">Categoria</span><h2 id="categoryTitle"></h2></div>
+        <p id="categoryDescription"></p>
+      </div>
+      <div class="article-grid" id="articleGrid"></div>
+      <div class="empty" id="emptyState" hidden>
+        <strong>Conteúdos em preparação</strong>
+        <p>Já estou preparando novos conteúdos para compartilhar com você por aqui.</p>
+      </div>
+    </section>
+
+    <section class="view" id="view-article">
+      <button class="back" type="button" id="articleBack">← Voltar aos conteúdos</button>
+      <div class="article-wrap">
+        <article class="article-main">
+          <span class="article-label" id="articleCategory"></span>
+          <h2 id="articleTitle"></h2>
+          <p class="article-intro" id="articleSummary"></p>
+          <div class="article-content" id="articleContent"></div>
+          <div class="article-tags" id="articleTags"></div>
+        </article>
+        <aside class="sidebar">
+          <div class="author"><div class="author-mark">BB</div><h3>Prazer, eu sou a Bruna</h3><p>Sou nutricionista e uso este espaço para traduzir a ciência da nutrição em escolhas mais leves, possíveis e conscientes.</p></div>
+          <div class="cta"><strong>Quer que eu acompanhe você?</strong><p>Vamos conversar e encontrar juntas o melhor caminho para o seu objetivo.</p><a href="https://wa.me/5511977509331?text=Olá,+vim+pelo+blog+e+gostaria+de+saber+mais!" target="_blank" rel="noopener">Conversar comigo</a></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell foot"><strong>Bruna Boreggio</strong><p>Nutrição com clareza para a vida real.</p></div></footer>
+
+  <script src="./content-data.js"></script>
+  <script>
+    const categories = [
+      {id:'emagrecimento',icon:'✦',name:'Emagrecimento',description:'Quero ajudar você a entender o processo para emagrecer com consciência e constância.'},
+      {id:'receitas',icon:'⌁',name:'Receitas',description:'Minhas ideias práticas para levar mais sabor, equilíbrio e facilidade à sua rotina.'},
+      {id:'compulsao-e-fome',icon:'◌',name:'Compulsão e fome',description:'Vamos conversar sobre fome, emoções e a construção de uma relação mais gentil com a comida.'},
+      {id:'metabolismo-e-hormonios',icon:'◎',name:'Metabolismo e hormônios',description:'Eu explico o que acontece no seu corpo com clareza, contexto e sem promessas milagrosas.'},
+      {id:'hipertrofia',icon:'◆',name:'Hipertrofia',description:'Nutrição aplicada ao ganho de massa, à recuperação e à evolução nos seus treinos.'},
+      {id:'habitos-e-rotina',icon:'↗',name:'Hábitos e rotina',description:'Estratégias possíveis para transformar conhecimento em escolhas que permanecem.'}
+    ];
+
+    function getCustomArticles(){
+      try{return JSON.parse(localStorage.getItem('brunaBlogCustomArticles')||'[]');}catch(error){return [];}
+    }
+    const seedArticles=window.BRUNABLOG_SEED_ARTICLES||[];
+    const seedArticleIds=new Set(seedArticles.map(article=>article.id));
+    const customArticles=getCustomArticles().filter(article=>article.status!=='draft');
+    const customIds=new Set(customArticles.map(article=>article.id));
+    const articles=[...seedArticles.filter(article=>!customIds.has(article.id)),...customArticles];
+
+    const views=['home','category','article'];
+    let activeCategory='receitas';
+
+    function activate(name){
+      views.forEach(v=>document.getElementById('view-'+v).classList.toggle('active',v===name));
+      document.body.classList.toggle('inner-view',name!=='home');
+      const wipe=document.getElementById('pageWipe');
+      wipe.classList.remove('play');void wipe.offsetWidth;wipe.classList.add('play');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function setPageMeta(title,description){
+      document.title=title;
+      document.querySelector('meta[name="description"]').setAttribute('content',description);
+    }
+
+    function inlineMarkdown(text){
+      const safe=String(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return safe.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    }
+
+    function markdownToHtml(markdown){
+      const lines=String(markdown||'').split(/\r?\n/);let html='';let inList=false;
+      const closeList=()=>{if(inList){html+='</ul>';inList=false;}};
+      lines.forEach(raw=>{
+        const line=raw.trim();
+        if(!line){closeList();return;}
+        if(/^###\s+/.test(line)){closeList();html+='<h3>'+inlineMarkdown(line.replace(/^###\s+/,''))+'</h3>';return;}
+        if(/^##\s+/.test(line)){closeList();html+='<h2>'+inlineMarkdown(line.replace(/^##\s+/,''))+'</h2>';return;}
+        if(/^\*\s+/.test(line)){if(!inList){html+='<ul>';inList=true;}html+='<li>'+inlineMarkdown(line.replace(/^\*\s+/,''))+'</li>';return;}
+        closeList();html+='<p>'+inlineMarkdown(line)+'</p>';
+      });
+      closeList();return html;
+    }
+
+    function renderCategories(){
+      document.getElementById('categoryGrid').innerHTML=categories.map((c,index)=>`
+        <button class="category reveal" style="transition-delay:${index*.07}s" type="button" data-category="${c.id}" onclick="showCategory('${c.id}')">
+          <span class="cat-topline"><span class="cat-icon" aria-hidden="true">${c.icon}</span></span>
+          <span class="cat-copy"><span class="cat-num" aria-hidden="true"></span><h3>${c.name}</h3><p>${c.description}</p><b><i></i>Explorar tema</b></span>
+        </button>`).join('');
+    }
+
+    function setRoute(id,replace=false){
+      const hash='#'+id;
+      if(location.hash===hash)return;
+      history[replace?'replaceState':'pushState'](null,'',hash);
+    }
+
+    function showHome(updateHistory=true){
+      activate('home');
+      setPageMeta('Blog | Bruna Boreggio Nutricionista','Conteúdos sobre emagrecimento, alimentação, metabolismo, hipertrofia e hábitos.');
+      document.getElementById('breadcrumbs').innerHTML='<span>Blog</span>';
+      if(updateHistory)setRoute('inicio');
+    }
+
+    function showCategory(id,updateHistory=true){
+      const c=categories.find(item=>item.id===id);if(!c)return;
+      activeCategory=id;
+      document.getElementById('categoryTitle').textContent=c.name;
+      document.getElementById('categoryEyebrow').textContent='Tema do blog';
+      document.getElementById('categoryDescription').textContent=c.description;
+      const list=articles.filter(a=>a.category===id);
+      document.getElementById('articleGrid').innerHTML=list.map(a=>`
+        <article class="article-card" onclick="openArticle('${a.id}')" tabindex="0" onkeydown="if(event.key==='Enter')openArticle('${a.id}')">
+          <div class="article-cover" style="--cover1:${a.colors[0]};--cover2:${a.colors[1]}"><span>${c.name}</span></div>
+          <div class="article-body"><h3>${a.title}</h3><p>${a.excerpt||a.summary||''}</p><div class="article-meta"><span>${a.time} de leitura</span><b>Ler conteúdo →</b></div></div>
+        </article>`).join('');
+      document.getElementById('emptyState').hidden=list.length>0;
+      document.getElementById('breadcrumbs').innerHTML=`<button onclick="showHome()">Blog</button><span>›</span><span>${c.name}</span>`;
+      setPageMeta(c.name+' | Blog da Bruna Boreggio',c.description);
+      activate('category');if(updateHistory)setRoute(id);
+    }
+
+    function showArticle(id,updateHistory=true){
+      const a=articles.find(item=>item.id===id);if(!a)return;
+      const c=categories.find(item=>item.id===a.category);
+      activeCategory=a.category;
+      document.getElementById('articleCategory').textContent=c.name;
+      document.getElementById('articleTitle').textContent=a.title;
+      document.getElementById('articleSummary').textContent=a.description||a.excerpt||a.summary||'';
+      document.getElementById('articleContent').innerHTML=markdownToHtml(a.body);
+      document.getElementById('articleTags').innerHTML=(a.tags||[]).map(tag=>`<span>${inlineMarkdown(tag)}</span>`).join('');
+      setPageMeta(a.title+' | Bruna Boreggio',a.description||a.summary);
+      document.getElementById('articleBack').onclick=()=>showCategory(a.category);
+      document.getElementById('breadcrumbs').innerHTML=`<button onclick="showHome()">Blog</button><span>›</span><button onclick="showCategory('${c.id}')">${c.name}</button><span>›</span><span>${a.title}</span>`;
+      activate('article');if(updateHistory)setRoute(a.id);
+    }
+
+    function openArticle(id){
+      if(seedArticleIds.has(id)){location.href='./'+id+'/';return;}
+      showArticle(id);
+    }
+
+    function syncRoute(){
+      const id=location.hash.slice(1);
+      if(!id||id==='inicio'){showHome(false);return;}
+      if(categories.some(item=>item.id===id)){showCategory(id,false);return;}
+      if(articles.some(item=>item.id===id)){showArticle(id,false);return;}
+      showHome(false);setRoute('inicio',true);
+    }
+
+    function bindReveals(){
+      const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target);}
+      }),{threshold:.12});
+      document.querySelectorAll('.reveal').forEach(element=>observer.observe(element));
+    }
+
+    window.addEventListener('pointermove',event=>{
+      document.documentElement.style.setProperty('--mx',event.clientX+'px');
+      document.documentElement.style.setProperty('--my',event.clientY+'px');
+    },{passive:true});
+    window.addEventListener('popstate',syncRoute);
+    renderCategories();bindReveals();syncRoute();
+  </script>
+</body>
+</html>
