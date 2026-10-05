@@ -882,16 +882,16 @@ function ensureAdminAuthorized(){
 }
 function loadVideoIds(){
   /* IDs de fallback — usados quando Firestore ainda não foi configurado */
-  var _FI={0:'pFcYHaaLoo4',1:'zEJZl1qjA10',2:'qMD-yQjGOvk',3:'gahEsUDQ4iI',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
+  var _FI={0:'pFcYHaaLoo4',1:'GP5u-er3DsI',2:'PNPQ29Uvtng',3:'4J0qRnGlLUA',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
   var _FB={2:'zZWZMNAI_Wc'};
   db.collection('config').doc('videos').get().then(function(doc){
-    if(doc.exists){VIDEO_IDS=doc.data().ids||_FI;BONUS_IDS=doc.data().bonus||_FB;}
+    if(doc.exists){VIDEO_IDS=Object.assign({},doc.data().ids||_FI,{1:_FI[1],2:_FI[2],3:_FI[3]});BONUS_IDS=doc.data().bonus||_FB;}
     else{VIDEO_IDS=_FI;BONUS_IDS=_FB;if(isAdmin){seedVideos();}}
     VIDEOS_READY=true;
   }).catch(function(){VIDEO_IDS=_FI;BONUS_IDS=_FB;VIDEOS_READY=true;});
 }
 function seedVideos(){
-  var ids={0:'pFcYHaaLoo4',1:'zEJZl1qjA10',2:'qMD-yQjGOvk',3:'gahEsUDQ4iI',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
+  var ids={0:'pFcYHaaLoo4',1:'GP5u-er3DsI',2:'PNPQ29Uvtng',3:'4J0qRnGlLUA',4:'tKL7rhR5OhY',5:'ugQTxZL6TlQ',6:'Y0_xau0wVnY',7:'QfC_QAcvdG0',8:'U0Va0TK8Hrk',9:'YtCwQj6Fehg',10:'9Uo935r5PxQ'};
   var bonus={2:'zZWZMNAI_Wc'};
   db.collection('config').doc('videos').set({ids:ids,bonus:bonus}).then(function(){VIDEO_IDS=ids;BONUS_IDS=bonus;VIDEOS_READY=true;showToast('Vídeos configurados! ✅');});
 }
