@@ -933,7 +933,14 @@ function saveToFirestore(updates){
   var email=viewAsEmail||currentUser.email;
   return db.collection('students').doc(email).set(userData,{merge:true}).catch(function(e){console.error('save',e);throw e;});
 }
-function gasPost(d){fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(d)}).catch(function(){});}
+function gasPost(d){
+  var u=auth.currentUser;
+  if(!u)return Promise.reject(new Error('Sessão expirada'));
+  return u.getIdToken(false).then(function(idToken){
+    d.idToken=idToken;
+    return fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(d)});
+  }).catch(function(e){console.error('gasPost',e);throw e;});
+}
 
 function animateCounter(el,target,dur){
   var start=0,t0=null;
@@ -1273,9 +1280,7 @@ function submitReply(dayNum,cmtId){
   var inp=document.getElementById('rep-'+cmtId);if(!inp||!inp.value.trim())return;
   var replyText=inp.value.trim();
   if(isAdmin){
-    fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({
-      action:'admin_reply',studentEmail:viewAsEmail||currentUser.email,day:dayNum,commentId:cmtId,reply:replyText
-    })}).then(function(r){return r.json();}).then(function(res){
+    gasPost({action:'admin_reply',studentEmail:viewAsEmail||currentUser.email,day:dayNum,commentId:cmtId,reply:replyText}).then(function(r){return r.json();}).then(function(res){
       if(res.status==='ok'){loadDayComments(dayNum);setTimeout(function(){refreshDayHeight(dayNum);},100);showToast('Resposta enviada! ✉️');}
       else{showToast('Erro ao salvar resposta');}
     }).catch(function(e){showToast('Erro: '+e.message);});

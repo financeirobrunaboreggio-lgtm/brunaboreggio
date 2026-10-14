@@ -636,11 +636,9 @@ footer p{font-size:11px;color:var(--muted2)}
 <div id="denied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9998;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:16px">
   <div style="font-size:32px;font-weight:900;color:var(--gold)">BRUNA BOREGGIO</div>
   <div style="font-size:22px;font-weight:800">Consultoria Nutricional</div>
-  <div style="font-size:14px;color:var(--muted);max-width:320px;margin-bottom:4px">Informe seu e-mail para acessar sua área</div>
-  <input id="loginEmail" type="email" placeholder="seu@email.com" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;max-width:320px;padding:13px 16px;border-radius:12px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
-  <input id="loginNome" type="text" placeholder="Seu nome (opcional)" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;max-width:320px;padding:13px 16px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:14px;outline:none;box-sizing:border-box">
-  <button id="btnLogin" onclick="doLogin()" style="width:100%;max-width:320px;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:15px;font-weight:800;border:none;cursor:pointer">Entrar →</button>
-  <div id="loginErr" style="color:#F87171;font-size:12px;display:none">Informe um e-mail válido.</div>
+  <div style="font-size:14px;color:var(--muted);max-width:340px;margin-bottom:4px">Entre com a conta Google do e-mail autorizado para acessar sua área com segurança.</div>
+  <button id="btnLogin" onclick="doLogin()" style="width:100%;max-width:320px;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06040A;font-size:15px;font-weight:800;border:none;cursor:pointer">Entrar com Google →</button>
+  <div id="loginErr" style="color:#F87171;font-size:12px;display:none">Não foi possível validar seu acesso.</div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -649,9 +647,14 @@ footer p{font-size:11px;color:var(--muted2)}
   <p>© 2026 Bruna Boreggio · Nutricionista · Consultoria Nutricional</p>
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
 var APPS_URL='https://script.google.com/macros/s/AKfycbyBu3dQqbQ82i5Fp3ZotNKiDXDl5oV9yMF4r-8vvj7ZlktJbsf4TkIfUnmOf4os7psC/exec';
 var ADMINS=['financeiro.brunaboreggio@gmail.com','divarebel.on@gmail.com'];
+var FIREBASE_CONFIG={apiKey:'AIzaSyBF79NzYAj7umrbaVngFBlevLHCWvSf00g',authDomain:'desafio-bruna-boreggio.firebaseapp.com',projectId:'desafio-bruna-boreggio',appId:'1:405951385222:web:2d60e95f9301ebc125cb07'};
+firebase.initializeApp(FIREBASE_CONFIG);
+var auth=firebase.auth();
 var DEFAULT_VIDS={1:'https://youtu.be/WX6j2yWlMJE',2:'https://youtu.be/0BBwewGL9Fs'};
 var DEFAULT_PDF1='https://drive.google.com/file/d/1_VZqsGbVWcHleq-Z3Ku4iURdZH2Kgfvs/view';
 var me=null,isAdmin=false,viewPat=null,previewMode=false;
@@ -665,13 +668,24 @@ function ytEmbed(url){
 /* Repete somente leituras quando o redirecionamento do Apps Script falha. */
 function apiGetJson(url,attempts){
   attempts=attempts||3;
-  return fetch(url,{cache:'no-store'}).then(function(r){
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    return r.json();
-  }).catch(function(err){
+  var u=auth.currentUser;
+  if(!u)return Promise.reject(new Error('Sessão expirada'));
+  return u.getIdToken(false).then(function(idToken){
+    var sep=url.indexOf('?')>=0?'&':'?';
+    return fetch(url+sep+'idToken='+encodeURIComponent(idToken),{cache:'no-store'});
+  }).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).catch(function(err){
     if(attempts<=1)throw err;
     return new Promise(function(resolve){setTimeout(resolve,450);})
       .then(function(){return apiGetJson(url,attempts-1);});
+  });
+}
+
+function apiPostJson(data){
+  var u=auth.currentUser;
+  if(!u)return Promise.reject(new Error('Sessão expirada'));
+  return u.getIdToken(false).then(function(idToken){
+    data.idToken=idToken;
+    return fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)});
   });
 }
 
@@ -679,65 +693,46 @@ function apiGetJson(url,attempts){
 window.addEventListener('load',function(){setTimeout(checkAuth,900)});
 
 function checkAuth(){
-  var du=localStorage.getItem('desafio_user');
-  if(du){try{var d=JSON.parse(du);if(d&&d.email&&ADMINS.indexOf(d.email.toLowerCase())>=0){me=d;isAdmin=true;enter();return;}}catch(e){}}
-  var pu=localStorage.getItem('protocolo_user');
-  if(pu){try{var p=JSON.parse(pu);if(p&&p.email){
-    if(ADMINS.indexOf(p.email.toLowerCase())>=0){me=p;isAdmin=true;enter();return;}
-    apiGetJson(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(p.email))
-      .then(function(res){
-        if(res.access===true){me=p;isAdmin=false;enter();}
-        else{localStorage.removeItem('protocolo_user');document.getElementById('denied').style.display='flex';hideLoad();}
-      })
-      .catch(function(){
+  auth.onAuthStateChanged(function(user){
+    if(!user){document.getElementById('denied').style.display='flex';hideLoad();return;}
+    var email=String(user.email||'').toLowerCase();
+    var nome=user.displayName||email;
+    me={email:email,nome:nome,pago:true};
+    isAdmin=ADMINS.indexOf(email)>=0;
+    if(isAdmin){localStorage.setItem('protocolo_user',JSON.stringify(me));document.getElementById('denied').style.display='none';enter();return;}
+    apiGetJson(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(email)).then(function(res){
+      if(res.access===true){
+        localStorage.setItem('protocolo_user',JSON.stringify(me));
+        document.getElementById('denied').style.display='none';
+        apiPostJson({action:'recordLogin',email:email}).catch(function(){});
+        enter();
+      }else{
         localStorage.removeItem('protocolo_user');
+        auth.signOut();
         document.getElementById('denied').style.display='flex';
         var err=document.getElementById('loginErr');
-        if(err){err.textContent='Não foi possível validar seu acesso. Tente novamente.';err.style.display='block';}
+        err.textContent='Este e-mail não está autorizado. Entre com a conta usada na consultoria.';err.style.display='block';
         hideLoad();
-      });
-    return;
-  }}catch(e){}}
-  document.getElementById('denied').style.display='flex';
-  hideLoad();
+      }
+    }).catch(function(){
+      document.getElementById('denied').style.display='flex';
+      var err=document.getElementById('loginErr');
+      err.textContent='Não foi possível validar seu acesso. Tente novamente.';err.style.display='block';
+      hideLoad();
+    });
+  });
 }
 
 function doLogin(){
-  var email=(document.getElementById('loginEmail').value||'').trim().toLowerCase();
-  var nome=(document.getElementById('loginNome').value||'').trim();
-  if(!email||email.indexOf('@')<0){document.getElementById('loginErr').style.display='block';return;}
   document.getElementById('loginErr').style.display='none';
-  if(ADMINS.indexOf(email)>=0){
-    var u={email:email,nome:nome,pago:true};
-    localStorage.setItem('protocolo_user',JSON.stringify(u));
-    me=u;isAdmin=true;
-    document.getElementById('denied').style.display='none';
-    enter();return;
-  }
   var btn=document.getElementById('btnLogin');
-  if(btn){btn.disabled=true;btn.textContent='Verificando...';}
-  apiGetJson(APPS_URL+'?action=checkAccess&email='+encodeURIComponent(email))
-    .then(function(res){
-      if(res.access===true){
-        var u={email:email,nome:nome,pago:true};
-        localStorage.setItem('protocolo_user',JSON.stringify(u));
-        me=u;isAdmin=ADMINS.indexOf(email)>=0;
-        document.getElementById('denied').style.display='none';
-        fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'recordLogin',email:email})}).catch(function(){});
-        enter();
-      } else {
-        var err=document.getElementById('loginErr');
-        err.textContent='Email não autorizado. Entre em contato com a Bruna.';
-        err.style.display='block';
-        if(btn){btn.disabled=false;btn.textContent='Entrar →';}
-      }
-    })
-    .catch(function(){
-      var err=document.getElementById('loginErr');
-      err.textContent='Erro de conexão. Tente novamente.';
-      err.style.display='block';
-      if(btn){btn.disabled=false;btn.textContent='Entrar →';}
-    });
+  if(btn){btn.disabled=true;btn.textContent='Abrindo Google...';}
+  var provider=new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({prompt:'select_account'});
+  auth.signInWithPopup(provider).catch(function(){
+    var err=document.getElementById('loginErr');
+    err.textContent='Não foi possível entrar com o Google. Tente novamente.';err.style.display='block';
+  }).finally(function(){if(btn){btn.disabled=false;btn.textContent='Entrar com Google →';}});
 }
 
 function enter(){
@@ -1008,7 +1003,7 @@ function enviar(){
 
   if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){fail('Integração indisponível. Avise a Bruna.');return;}
 
-  fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)})
+  apiPostJson(data)
     .then(function(){setTimeout(function(){confirmar(1);},800);})
     .catch(function(){fail();});
 }
@@ -1026,7 +1021,7 @@ function postar(){
 
   if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){done();return;}
 
-  fetch(APPS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'postContent',email:viewPat.email,conteudo:notes,pdfUrl:pdf})})
+  apiPostJson({action:'postContent',email:viewPat.email,conteudo:notes,pdfUrl:pdf})
     .then(done).catch(done);
 }
 
@@ -1067,7 +1062,10 @@ function togglePreview(){
 }
 
 /* ── UTILS ── */
-function sair(){window.location.href='/area-membros/';}
+function sair(){
+  localStorage.removeItem('protocolo_user');
+  auth.signOut().finally(function(){window.location.href='/area-membros/';});
+}
 function hideLoad(){var e=document.getElementById('loading');e.classList.add('out');setTimeout(function(){e.style.display='none'},500);}
 function toast(msg){var e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},3200);}
 
