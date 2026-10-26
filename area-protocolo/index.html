@@ -823,11 +823,6 @@ function loadGlobal(){
 }
 
 function loadPatData(email,asAdmin){
-  var cKey='cs_content_'+email;
-  var c=JSON.parse(localStorage.getItem(cKey)||'null');
-  var qKey='cs_q_'+email;
-  if(localStorage.getItem(qKey))showQDone();
-  if(c){unlockM3(c);return;}
   if(asAdmin&&!previewMode){document.getElementById('adminPost').style.display='block';}
   if(APPS_URL&&APPS_URL!=='APPS_SCRIPT_URL_PLACEHOLDER'){
     apiGetJson(APPS_URL+'?action=getPatient&email='+encodeURIComponent(email))
@@ -985,8 +980,6 @@ function enviar(){
     'Como conheceu':gv('fConheceu')
   };
 
-  localStorage.setItem('cs_q_'+me.email,JSON.stringify(data));
-
   function done(){showQDone();toast('Questionário e e-mails enviados com sucesso!');}
   function fail(msg){btn.disabled=false;btn.textContent='Enviar questionário';toast(msg||'Não foi possível confirmar o envio. Tente novamente.');}
   function confirmar(tentativa){
@@ -1014,15 +1007,22 @@ function postar(){
   var notes=document.getElementById('iNotes').value.trim();
   if(!pdf){toast('Adicione o link do PDF.');return;}
   if(!viewPat||!viewPat.email){toast('Nenhuma paciente selecionada.');return;}
+  var email=viewPat.email;
   var c={pdfUrl:pdf,notes:notes};
-  localStorage.setItem('cs_content_'+viewPat.email,JSON.stringify(c));
-
   function done(){unlockM3(c);toast('Plano publicado! Paciente já pode acessar.');}
-
-  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){done();return;}
-
-  apiPostJson({action:'postContent',email:viewPat.email,conteudo:notes,pdfUrl:pdf})
-    .then(done).catch(done);
+  function fail(){toast('Não foi possível confirmar a publicação. Tente novamente.');}
+  function confirmar(tentativa){
+    apiGetJson(APPS_URL+'?action=getPatient&email='+encodeURIComponent(email))
+      .then(function(res){
+        if(res.Modulo3_PDF_URL===pdf&&String(res.Modulo3_Conteudo||'')===notes){done();return;}
+        if(tentativa<10){setTimeout(function(){confirmar(tentativa+1);},1500);return;}
+        fail();
+      })
+      .catch(function(){if(tentativa<10){setTimeout(function(){confirmar(tentativa+1);},1500);}else{fail();}});
+  }
+  if(!APPS_URL||APPS_URL==='APPS_SCRIPT_URL_PLACEHOLDER'){fail();return;}
+  apiPostJson({action:'postContent',email:email,conteudo:notes,pdfUrl:pdf})
+    .then(function(){setTimeout(function(){confirmar(1);},800);}).catch(fail);
 }
 
 /* ── PREVIEW MODE ── */
